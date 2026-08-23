@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>单词速记 · 初三上 H5 词汇闯关</title></head>
+<body style="margin:0;background:#eef0f6;">
+<div id="vocab-game-preview">
+<style>
+#vocab-game-preview{
+  --vp-blue:#4f6bff; --vp-blue-soft:#eef1ff; --vp-blue-line:#d9e0ff;
+  --vp-purple:#7c5cff; --vp-purple-soft:#f0ecff;
+  --vp-green:#2fbf71; --vp-green-soft:#e7f9ef;
+  --vp-orange:#ff9f43; --vp-orange-soft:#fff3e4;
+  --vp-red:#ff5d6c; --vp-red-soft:#ffe9eb;
+  --vp-ink:#26324b; --vp-ink-2:#5f6a84; --vp-muted:#8a93a8;
+  --vp-bg:#f3f5fa; --vp-card:#ffffff; --vp-line:#e7eaf2;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  color:var(--vp-ink);
+}
+#vocab-game-preview *{box-sizing:border-box; margin:0; padding:0;}
+#vocab-game-preview button{font-family:inherit;}
+.vpre-stack{display:flex; flex-direction:column; align-items:center; gap:28px; padding:6px 0 14px;}
+.vpre-label{font-size:13px; font-weight:600; color:light-dark(#4a5468,#d4d8e2); margin-bottom:10px; text-align:center;}
+.vpre-phone{width:346px; background:#0f1420; border-radius:44px; padding:10px; box-shadow:0 18px 42px rgba(15,20,32,.22);}
+.vpre-screen{position:relative; width:326px; height:700px; background:var(--vp-bg); border-radius:34px; overflow:hidden; display:flex; flex-direction:column;}
+.vpre-island{position:absolute; top:9px; left:50%; transform:translateX(-50%); width:88px; height:22px; background:#0f1420; border-radius:12px; z-index:8;}
+.vpre-status{position:relative; z-index:7; display:flex; justify-content:space-between; align-items:center; height:30px; padding:8px 24px 0; font-size:11px; font-weight:600;}
+.vpre-status-icons{display:flex; align-items:center; gap:6px;}
+.vpre-signal{display:inline-flex; align-items:flex-end; gap:1.5px;}
+.vpre-signal i{width:3px; border-radius:1px; background:currentColor;}
+.vpre-signal i:nth-child(1){height:4px;}
+.vpre-signal i:nth-child(2){height:6px;}
+.vpre-signal i:nth-child(3){height:8px;}
+.vpre-signal i:nth-child(4){height:10px;}
+.vpre-wifi{width:11px; height:8px; border:1.5px solid currentColor; border-bottom:none; border-radius:8px 8px 0 0; position:relative;}
+.vpre-wifi::after{content:""; position:absolute; left:50%; bottom:-1px; transform:translateX(-50%); width:2.5px; height:2.5px; border-radius:50%; background:currentColor;}
+.vpre-battery{width:18px; height:9px; border:1px solid currentColor; border-radius:3px; position:relative;}
+.vpre-battery::after{content:""; position:absolute; right:-3px; top:2px; width:2px; height:4px; background:currentColor; border-radius:1px;}
+.vpre-battery i{position:absolute; left:1.5px; top:1.5px; bottom:1.5px; width:60%; background:currentColor; border-radius:1px;}
+.vpre-capsule{position:absolute; top:36px; right:14px; display:flex; gap:6px; z-index:9;}
+.vpre-capsule span{width:40px; height:26px; background:rgba(15,20,32,.05); border:1px solid rgba(15,20,32,.1); border-radius:14px; display:flex; align-items:center; justify-content:center;}
+.vpre-capsule .vpre-cd{display:flex; gap:3px;}
+.vpre-capsule .vpre-cd i{width:3px; height:3px; border-radius:50%; background:var(--vp-muted);}
+.vpre-capsule .vpre-cr{width:12px; height:12px; border-radius:50%; border:1.5px solid var(--vp-muted);}
+.vpre-nav{position:relative; height:44px; display:flex; align-items:center; justify-content:center;}
+.vpre-nav-title{font-size:15px; font-weight:600;}
+.vpre-urlbar{position:relative; z-index:7; display:flex; align-items:center; justify-content:center; padding:4px 14px 8px;}
+.vpre-url{display:flex; align-items:center; gap:5px; background:#eef0f6; border-radius:10px; padding:6px 14px; font-size:10.5px; color:var(--vp-ink-2); max-width:80%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+
+.vpre-sfxbtn{background:var(--vp-blue-soft); border:0; border-radius:10px; width:32px; height:32px; font-size:15px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;}
+.vpre-header{display:flex; align-items:center; justify-content:space-between; padding:8px 16px 4px;}
+.vpre-brand{display:flex; align-items:center; gap:8px; font-size:16px; font-weight:700;}
+.vpre-logo{width:30px; height:30px; border-radius:10px; background:linear-gradient(135deg,var(--vp-blue),var(--vp-purple)); display:flex; align-items:center; justify-content:center; font-size:15px;}
+.vpre-header-right{font-size:17px;}
+.vpre-body{flex:1; overflow-y:auto; padding:10px 14px 16px; scrollbar-width:none;}
+.vpre-body::-webkit-scrollbar{display:none;}
+.vpre-view{display:none;}
+.vpre-view.is-active{display:block;}
+.vpre-tabs{display:flex; background:var(--vp-card); border-top:1px solid var(--vp-line); padding:8px 4px 12px;}
+.vpre-tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; border:0; background:none; font-size:10px; color:var(--vp-muted); cursor:pointer; border-radius:10px; padding:4px 0;}
+.vpre-tab i{font-style:normal; font-size:18px; line-height:1;}
+.vpre-tab.is-active{color:var(--vp-blue); font-weight:600;}
+.vpre-card{background:var(--vp-card); border-radius:16px; padding:13px; box-shadow:0 2px 10px rgba(38,50,75,.05);}
+.vpre-task-head{display:flex; justify-content:space-between; align-items:center; font-size:12px; font-weight:600; margin-bottom:4px;}
+.vpre-task-unit{color:var(--vp-blue); font-weight:700;}
+.vpre-task-num{color:var(--vp-blue); font-weight:700; font-size:13px;}
+.vpre-task-sub{font-size:10.5px; color:var(--vp-muted); margin-bottom:9px;}
+.vpre-progress{height:8px; background:#eef0f6; border-radius:99px; overflow:hidden;}
+.vpre-progress div{height:100%; background:var(--vp-blue); border-radius:99px;}
+.vpre-progress-sm{height:5px; margin-top:6px;}
+.vpre-progress-light{background:rgba(255,255,255,.25);}
+.vpre-progress-light div{background:#fff;}
+.vpre-btn{border:0; border-radius:10px; padding:8px 14px; font-size:12px; font-weight:600; cursor:pointer; background:var(--vp-blue-soft); color:var(--vp-blue);}
+.vpre-btn-primary{background:var(--vp-blue); color:#fff;}
+.vpre-btn-block{display:block; width:100%;}
+.vpre-btn-mini{padding:6px 11px; font-size:11px; border-radius:9px;}
+.vpre-btn-ghost{background:#f2f4f9; color:var(--vp-ink-2);}
+.vpre-task .vpre-btn{margin-top:11px;}
+.vpre-sec-title{font-size:12px; font-weight:600; margin:14px 2px 8px; display:flex; justify-content:space-between; align-items:center;}
+.vpre-sec-title span{color:var(--vp-muted); font-weight:400; font-size:10.5px;}
+.vpre-chips{display:flex; gap:8px;}
+.vpre-chip{border:1px solid var(--vp-line); background:var(--vp-card); color:var(--vp-ink-2); border-radius:99px; padding:6px 14px; font-size:12px; cursor:pointer;}
+.vpre-chip.is-active{background:var(--vp-blue); border-color:var(--vp-blue); color:#fff; font-weight:600;}
+.vpre-seg{display:flex; background:#eef0f6; border-radius:12px; padding:3px; gap:2px;}
+.vpre-seg .vpre-chip{flex:1; border:0; background:transparent; color:var(--vp-ink-2); border-radius:9px; padding:7px 0; font-size:12px;}
+.vpre-seg .vpre-chip.is-active{background:var(--vp-card); color:var(--vp-blue); box-shadow:0 1px 4px rgba(38,50,75,.1);}
+.vpre-unit-list{display:flex; flex-direction:column; gap:9px;}
+.vpre-unit{display:flex; align-items:center; gap:11px; background:var(--vp-card); border-radius:14px; padding:11px 12px; box-shadow:0 2px 8px rgba(38,50,75,.04);}
+.vpre-unit-badge{width:38px; height:38px; border-radius:12px; background:var(--vp-blue-soft); color:var(--vp-blue); font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; flex:none;}
+.vpre-unit-info{flex:1; min-width:0;}
+.vpre-unit-title{font-size:12px; font-weight:600; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.vpre-unit-meta{font-size:10.5px; color:var(--vp-muted); margin-top:2px;}
+.vpre-ring{width:44px; height:44px; border-radius:50%; background:conic-gradient(var(--vp-blue) var(--p), var(--vp-line) 0); display:flex; align-items:center; justify-content:center; flex:none;}
+.vpre-ring i{width:34px; height:34px; border-radius:50%; background:var(--vp-card); font-style:normal; font-size:10px; font-weight:700; color:var(--vp-blue); display:flex; align-items:center; justify-content:center;}
+.vpre-games{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+.vpre-game{border:0; border-radius:16px; padding:14px 6px; display:flex; flex-direction:column; align-items:center; gap:5px; font-size:12px; font-weight:600; color:var(--vp-ink); cursor:pointer;}
+.vpre-game i{font-style:normal; font-size:22px; line-height:1;}
+.vpre-game:nth-child(1){background:var(--vp-blue-soft);}
+.vpre-game:nth-child(2){background:var(--vp-green-soft);}
+.vpre-game:nth-child(3){background:var(--vp-orange-soft);}
+.vpre-game:nth-child(4){background:var(--vp-purple-soft);}
+.vpre-hero{background:linear-gradient(120deg,var(--vp-blue),var(--vp-purple)); border-radius:20px; padding:16px; color:#fff; box-shadow:0 8px 20px rgba(79,107,255,.25);}
+.vpre-hero-top{display:flex; justify-content:space-between; align-items:center; font-size:13px; font-weight:600; margin-bottom:10px;}
+.vpre-streak{background:rgba(255,255,255,.2); border-radius:99px; padding:3px 9px; font-size:11px;}
+.vpre-hero-title{font-size:12px; opacity:.9; margin-bottom:7px;}
+.vpre-hero-title b{font-size:15px;}
+.vpre-hero-btn{display:block; width:100%; margin-top:12px; border:0; border-radius:12px; padding:10px 0; font-size:13px; font-weight:700; color:var(--vp-blue); background:#fff; cursor:pointer;}
+.vpre-review{display:flex; align-items:center; gap:10px; background:var(--vp-orange-soft); border-radius:14px; padding:11px 13px; font-size:12px; color:var(--vp-ink);}
+.vpre-review b{color:var(--vp-orange);}
+.vpre-review .vpre-btn{background:#fff; color:var(--vp-orange); padding:5px 10px; font-size:11px; margin-left:auto;}
+.vpre-summary{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px;}
+.vpre-summary b{display:block; font-size:18px; color:var(--vp-blue);}
+.vpre-summary span{font-size:10.5px; color:var(--vp-muted);}
+.vpre-summary .vpre-btn{flex:none;}
+.vpre-wrow{display:flex; align-items:center; gap:10px; background:var(--vp-card); border-radius:13px; padding:10px 12px; margin-bottom:8px; box-shadow:0 1px 6px rgba(38,50,75,.04);}
+.vpre-wmain{flex:1; min-width:0;}
+.vpre-wmain b{font-size:13px; display:block;}
+.vpre-wmain span{font-size:10.5px; color:var(--vp-muted);}
+.vpre-wbadge{font-size:10px; color:var(--vp-red); background:var(--vp-red-soft); border-radius:99px; padding:3px 8px; flex:none;}
+.vpre-wbadge.is-flat{color:var(--vp-ink-2); background:#f2f4f9;}
+.vpre-stage{display:flex; align-items:center; gap:11px; background:var(--vp-card); border-radius:14px; padding:12px; margin-bottom:9px; box-shadow:0 2px 8px rgba(38,50,75,.04);}
+.vpre-stage-num{width:38px; height:38px; border-radius:12px; background:var(--vp-blue-soft); color:var(--vp-blue); font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center; flex:none;}
+.vpre-stage-info{flex:1; min-width:0;}
+.vpre-stage-info b{font-size:12.5px; display:block;}
+.vpre-stage-info span{font-size:10.5px; color:var(--vp-muted);}
+.vpre-stars{font-size:11px; letter-spacing:1px; color:var(--vp-orange); flex:none;}
+.vpre-stage-done{width:20px; height:20px; border-radius:50%; background:var(--vp-green); color:#fff; font-size:11px; display:flex; align-items:center; justify-content:center; flex:none;}
+.vpre-stage.is-locked{opacity:.6;}
+.vpre-stage.is-locked .vpre-stage-num{background:#f2f4f9; color:var(--vp-muted);}
+.vpre-stage .vpre-progress{margin-top:6px;}
+.vpre-profile{display:flex; align-items:center; gap:12px; margin-bottom:14px;}
+.vpre-avatar{width:46px; height:46px; border-radius:50%; background:linear-gradient(135deg,var(--vp-blue),var(--vp-purple)); color:#fff; font-size:17px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none;}
+.vpre-profile b{font-size:14px; display:block;}
+.vpre-profile span{font-size:11px; color:var(--vp-muted);}
+.vpre-stats{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:14px;}
+.vpre-stats div{background:var(--vp-card); border-radius:13px; padding:10px 4px; text-align:center; box-shadow:0 2px 8px rgba(38,50,75,.04);}
+.vpre-stats b{display:block; font-size:16px; color:var(--vp-blue);}
+.vpre-stats span{font-size:10px; color:var(--vp-muted);}
+.vpre-badges{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;}
+.vpre-badge{background:var(--vp-card); border:1px solid var(--vp-line); border-radius:99px; padding:6px 11px; font-size:11px; color:var(--vp-ink-2);}
+.vpre-note{font-size:10.5px; color:var(--vp-muted); text-align:center; margin-top:8px;}
+.vpre-placeholder{background:var(--vp-card); border:1.5px dashed var(--vp-line); border-radius:14px; padding:22px 12px; text-align:center; font-size:12px; color:var(--vp-muted);}
+.vpre-quiz-head{display:flex; justify-content:space-between; align-items:center; font-size:12px; font-weight:600; margin:2px 0 9px;}
+.vpre-quiz-close{border:0; background:var(--vp-blue-soft); color:var(--vp-blue); width:26px; height:26px; border-radius:50%; font-size:12px; cursor:pointer; line-height:1;}
+.vpre-qcard{background:var(--vp-card); border-radius:18px; padding:24px 14px; text-align:center; box-shadow:0 2px 10px rgba(38,50,75,.05);}
+.vpre-qword{font-size:25px; font-weight:700; letter-spacing:.5px;}
+.vpre-qipa{font-size:12px; color:var(--vp-muted); margin-top:5px;}
+.vpre-speak{margin-top:14px; border:0; background:var(--vp-blue); color:#fff; font-size:13px; font-weight:700; padding:11px 26px; border-radius:99px; cursor:pointer; box-shadow:0 4px 12px rgba(79,107,255,.32);}
+.vpre-qopts{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;}
+.vpre-qopt{border:2px solid var(--vp-line); background:var(--vp-card); border-radius:14px; padding:14px 6px; font-size:12.5px; font-weight:500; color:var(--vp-ink); cursor:pointer;}
+.vpre-qopt:disabled{cursor:default;}
+.vpre-qopt.is-right{border-color:var(--vp-green); background:var(--vp-green-soft); color:var(--vp-green); font-weight:700;}
+.vpre-qopt.is-wrong{border-color:var(--vp-red); background:var(--vp-red-soft); color:var(--vp-red);}
+.vpre-qnext{margin-top:14px;}
+.vpre-result{padding-top:8px;}
+.vpre-result .vpre-qcard{padding:26px 16px 20px;}
+.vpre-result-num{font-size:32px; font-weight:700; color:var(--vp-blue); text-align:center;}
+.vpre-result-msg{font-size:12px; color:var(--vp-ink-2); text-align:center; margin-top:6px;}
+.vpre-result-stars{font-size:24px; letter-spacing:5px; text-align:center; margin-top:10px; color:var(--vp-orange);}
+.vpre-result-stars .dim{color:var(--vp-line);}
+.vpre-result .vpre-btn{margin-top:12px;}
+
+
+.vpre-mhead-actions{display:flex; gap:6px; align-items:center;}
+.vpre-mgrid{display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; margin-top:4px;}
+.vpre-mcard{border:2px solid var(--vp-line); background:var(--vp-card); border-radius:12px; min-height:66px; padding:6px 4px; font-size:11px; font-weight:600; color:var(--vp-ink); cursor:pointer; display:flex; align-items:center; justify-content:center; text-align:center; line-height:1.3; word-break:break-word;}
+.vpre-mcard.is-sel{border-color:var(--vp-blue); background:var(--vp-blue-soft); color:var(--vp-blue);}
+.vpre-mcard.is-matched{border-color:var(--vp-green); background:var(--vp-green-soft); color:var(--vp-green); cursor:default;}
+.vpre-mcard.is-wrong{border-color:var(--vp-red); background:var(--vp-red-soft); color:var(--vp-red); animation:vpre-shake .3s;}
+@keyframes vpre-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.vpre-mtip{font-size:10.5px; color:var(--vp-muted); text-align:center; margin-top:12px;}
+.vpre-toast{position:absolute; left:50%; bottom:86px; transform:translateX(-50%) translateY(8px); background:rgba(38,50,75,.88); color:#fff; font-size:11px; padding:8px 15px; border-radius:99px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; z-index:20; white-space:nowrap;}
+.vpre-toast.is-show{opacity:1; transform:translateX(-50%) translateY(0);}
+@media (max-width:380px){
+  .vpre-phone{width:318px; border-radius:38px; padding:8px;}
+  .vpre-screen{width:302px; height:660px; border-radius:30px;}
+}
+
+/* ===== H5 单版：全屏响应式 ===== */
+.vpre-label{display:none;}
+.vpre-stack{padding:0; gap:0;}
+.vpre-phone{width:100%; max-width:520px; background:transparent; border-radius:0; padding:0; box-shadow:none;}
+.vpre-screen{width:100%; height:auto; min-height:100dvh; border-radius:0;}
+.vpre-island,.vpre-status,.vpre-urlbar,.vpre-capsule{display:none;}
+.vpre-header{padding:14px 16px 6px;}
+.vpre-body{overflow:visible; padding-bottom:86px;}
+.vpre-tabs{position:sticky; bottom:0; z-index:15; border-radius:18px 18px 0 0; box-shadow:0 -6px 18px rgba(38,50,75,.08);}
+@media (max-width:520px){
+  .vpre-phone{max-width:100%;}
+}
+</style>
+
+<div class="vpre-stack">
+
+  <div class="vpre-phone vpre-h5 vpre-app">
+      <div class="vpre-screen">
+        <div class="vpre-island"></div>
+        <div class="vpre-status">
+          <span>9:41</span>
+          <span class="vpre-status-icons">
+            <span class="vpre-signal" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <span class="vpre-wifi" aria-hidden="true"></span>
+            <span class="vpre-battery" aria-hidden="true"><i></i></span>
+          </span>
+        </div>
+        <div class="vpre-urlbar"><span class="vpre-url">🔒 dancibang.com</span></div>
+        <div class="vpre-header">
+          <div class="vpre-brand"><span class="vpre-logo">🦉</span>单词大冒险</div>
+          <span class="vpre-header-right"><button class="vpre-sfxbtn" type="button" aria-pressed="true" aria-label="音效开关">🔊</button></span>
+        </div>
+        <div class="vpre-body">
+          <div class="vpre-view is-active" data-view="home">
+            <div class="vpre-hero">
+              <div class="vpre-hero-top"><span>早上好，小宇 👋</span><span class="vpre-streak">🔥 连续 7 天</span></div>
+              <div class="vpre-hero-title">今日学习 <b>12 / 18</b> 词</div>
+              <div class="vpre-progress vpre-progress-light"><div style="width:66%"></div></div>
+              <button class="vpre-hero-btn" type="button">继续学习 → 九上 Unit 1</button>
+            </div>
+            <div class="vpre-sec-title">选择词库</div>
+            <div class="vpre-seg" role="group" aria-label="选择年级">
+              <button class="vpre-chip" type="button" data-grade="g7" aria-pressed="false">初一</button>
+              <button class="vpre-chip" type="button" data-grade="g8" aria-pressed="false">初二</button>
+              <button class="vpre-chip is-active" type="button" data-grade="g9" aria-pressed="true">初三</button>
+            </div>
+            <div class="vpre-sec-title">单元列表 <span class="vpre-sec-note">九上</span></div>
+            <div class="vpre-unit-list"></div>
+            <div class="vpre-sec-title">快速闯关</div>
+            <div class="vpre-games">
+              <button class="vpre-game" type="button"><i>📖</i><span>看词选义</span></button>
+              <button class="vpre-game" type="button"><i>🎧</i><span>听音选词</span></button>
+              <button class="vpre-game" type="button"><i>✏️</i><span>拼写闯关</span></button>
+              <button class="vpre-game" type="button"><i>🧩</i><span>连连看</span></button>
+            </div>
+            <div class="vpre-sec-title">今日复习</div>
+            <div class="vpre-review">
+              <span>📌 <b>3</b> 个单词今天到期，按遗忘曲线安排</span>
+              <button class="vpre-btn" type="button">去复习</button>
+            </div>
+          </div>
+          <div class="vpre-view" data-view="wrong">
+            <div class="vpre-hero" style="background:linear-gradient(120deg,#ff8b5c,#ff5d6c); box-shadow:0 8px 20px rgba(255,93,108,.25);">
+              <div class="vpre-hero-top"><span>错词本</span><span class="vpre-streak">12 个词</span></div>
+              <div class="vpre-hero-title">掌握率 <b>78%</b>，继续保持！</div>
+              <div class="vpre-progress vpre-progress-light"><div style="width:78%"></div></div>
+              <button class="vpre-hero-btn" type="button" style="color:var(--vp-red);">一键复习</button>
+            </div>
+            <div class="vpre-sec-title">高频错词</div>
+            <div class="vpre-wrong-list"></div>
+          </div>
+          <div class="vpre-view" data-view="stage">
+            <div class="vpre-sec-title" style="margin-top:2px;">闯关地图 <span>九上</span></div>
+            <div class="vpre-stage">
+              <div class="vpre-stage-num">1-1</div>
+              <div class="vpre-stage-info"><b>认一认</b><span>看词选义 · 40 词</span></div>
+              <span class="vpre-stars">★★★</span>
+              <span class="vpre-stage-done">✓</span>
+            </div>
+            <div class="vpre-stage">
+              <div class="vpre-stage-num">1-2</div>
+              <div class="vpre-stage-info"><b>听一听</b><span>听音选词 · 40 词</span></div>
+              <span class="vpre-stars">★★☆</span>
+              <span class="vpre-stage-done">✓</span>
+            </div>
+            <div class="vpre-stage">
+              <div class="vpre-stage-num">1-3</div>
+              <div class="vpre-stage-info"><b>拼一拼</b><span>拼写闯关 · 40 词</span>
+                <div class="vpre-progress vpre-progress-sm"><div style="width:60%"></div></div>
+              </div>
+              <button class="vpre-btn vpre-btn-mini" type="button">继续</button>
+            </div>
+            <div class="vpre-stage is-locked">
+              <div class="vpre-stage-num">2-1</div>
+              <div class="vpre-stage-info"><b>大作战</b><span>限时混战 · 解锁后开放</span></div>
+              <span style="font-size:14px;">🔒</span>
+            </div>
+          </div>
+          <div class="vpre-view" data-view="mine">
+            <div class="vpre-profile">
+              <div class="vpre-avatar">宇</div>
+              <div><b>小宇</b><span>初三 · 连续打卡 7 天</span></div>
+            </div>
+            <div class="vpre-stats">
+              <div><b>328</b><span>已掌握</span></div>
+              <div><b>7</b><span>连续天数</span></div>
+              <div><b>6</b><span>徽章</span></div>
+            </div>
+            <div class="vpre-sec-title">我的徽章</div>
+            <div class="vpre-badges">
+              <span class="vpre-badge">🔥 坚持 7 天</span>
+              <span class="vpre-badge">✏️ 拼写新星</span>
+              <span class="vpre-badge">🎧 听力入门</span>
+              <span class="vpre-badge">📚 百词达人</span>
+            </div>
+            <button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button">查看家长学习报告</button>
+            <div class="vpre-note">网页版可在手机 / 电脑 / 平板直接打开</div>
+          </div>
+          <div class="vpre-view" data-view="quiz"><div class="vpre-quiz"></div></div>
+        </div>
+        <div class="vpre-toast" role="status"></div>
+        <div class="vpre-tabs" role="tablist" aria-label="底部导航">
+          <button class="vpre-tab is-active" type="button" data-tab="home" aria-pressed="true"><i>📚</i>学习</button>
+          <button class="vpre-tab" type="button" data-tab="stage" aria-pressed="false"><i>🗺️</i>闯关</button>
+          <button class="vpre-tab" type="button" data-tab="wrong" aria-pressed="false"><i>📕</i>错词本</button>
+          <button class="vpre-tab" type="button" data-tab="mine" aria-pressed="false"><i>👤</i>我的</button>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  function q(sel, ctx){ return (ctx||document).querySelector(sel); }
+  function qa(sel, ctx){ return Array.prototype.slice.call((ctx||document).querySelectorAll(sel)); }
+  function shuffle(a){
+    var arr = a.slice();
+    for(var i=arr.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+  var VOCAB = {"g9":[{"n":44,"words":[["lady","n.女士，女子"],["gentleman","n.先生"],["puppet","n.木偶；布袋木偶，手偶"],["performer","n.表演者"],["finger","n.手指"],["teenager","n.青少年"],["old-fashioned","adj.老式的，过时的"],["puppetry","n.木偶表演艺术"],["unless","conj.除非"],["performance","n.表演；演出"],["blood","n.血，血液"],["perform","v.表演，演出"],["edge","n.边缘"],["on the edge of","在……边缘；濒于"],["viewer","n.观看者"],["creativity","n.独创性，创造性，创造力"],["volunteer","n.志愿者"],["artist","n.艺术家"],["group","n.组，群；团体"],["creator","n.创作者；创造者"],["kill","v.弄死，杀死"],["scarecrow","n.稻草人"],["educator","n.教育家"],["youth","n.青年，年轻人"],["inspire","v.鼓舞，激励"],["lie","v.存在，在于"],["intelligent","adj.有智慧的，聪明的"],["wealthy","adj.富有的；富裕的"],["independent","adj.自立的；独立的"],["burst","v.冲，闯；使爆裂"],["hidden","adj.隐藏的，隐秘的"],["scaled","adj.有鳞的"],["claw","n.爪"],["wildly","adv.激动地"],["roar","v.吼叫，呼啸"],["valley","n.谷；山谷"],["scare","v.使惊恐，吓唬"],["eagle","n.雕"],["wing","n.翅膀，翼"],["dust","n.灰尘，尘埃"],["tender","adj.娇嫩的，幼嫩的"],["bud","n.苞；蓓蕾"],["vast","adj.广大无边的，辽阔的"],["grand","adj.宏伟的，壮丽的"]]},{"n":35,"words":[["tin","n.罐头；金属盒"],["spare","adj.备用的；多余的，闲置的"],["piggy bank","n.储蓄罐"],["size","n.大小，尺寸"],["dreamland","n.梦境，理想世界"],["manage","v.终于做成，设法做到"],["laptop","n.笔记本电脑，便携式电脑"],["budget","v.编制预算"],["exactly","adv.正是，一点不错"],["rate","v.对……做评估，评价"],["pleasure","n.愉快，快乐；满足"],["inference","n.推论，推断的结果"],["account","n.账户"],["saving","n.积蓄；存钱"],["habit","n.习惯"],["value","n.价值"],["unlike","prep.不像……和……不同"],["date","n.日期，日子"],["sale","n.出售，销售"],["on sale","有售；廉价销售"],["T-shirt","n.T恤（衫）"],["quick","adj.快的；快速的"],["website","n.网站"],["organiser","n.组织者，安排者"],["dollar","n.美元"],["cent","n.分"],["penny","n.（美国、加拿大的）一分钱硬币"],["exception","n.例外，除外"],["couple","n.一对夫妇；一对情侣"],["treasure","n.珍宝，珍品"],["Christmas Eve","圣诞前夕，平安夜"],["certainly","adv.当然"],["chain","n.链子，链条"],["expensive","adj.昂贵的，花钱多的"],["comb","n.梳子；梳状饰物，发插"]]},{"n":34,"words":[["remains","n.遗迹"],["kingdom","n.王国"],["northwest","n.西北，西北方"],["archaeologist","n.考古学家"],["centre","n.中心"],["period","n.时期"],["valuable","adj.宝贵的，有价值的"],["imagination","n.想象力"],["amaze","v.使大为惊奇，使惊讶"],["dig into sth","探究，探寻"],["luck","n.好运，幸运"],["researcher","n.研究者；调查员"],["detailed","adj.详尽的，详细的"],["cartoon","n.卡通（片），动画片"],["tomb","n.坟墓，冢"],["silk","n.丝绸"],["matchbox","n.火柴盒"],["archaeological","adj.考古的"],["statue","n.雕像；塑像"],["moai","n.摩埃石像"],["mystery","n.神秘事物，谜"],["possibility","n.可能，可能性"],["pretty","adj.漂亮的，好看的"],["besides","prep.除……之外"],["multimedia","adj.多媒体的"],["version","n.版本"],["palace","n.王宫；宫殿"],["background","n.背景"],["fever","n.狂热，兴奋"],["pride","n.自豪，骄傲"],["bat","n.蝙蝠"],["fridge","n.冰箱，冰柜"],["magnet","n.磁铁"],["central","adj.中心的；重要的，主要的"]]},{"n":27,"words":[["fearless","adj.无畏的，不怕的"],["bravely","adv.勇敢地，无畏地"],["footprint","n.足迹"],["northeast","n.东北，东北方向"],["death","n.死，死亡"],["gentle","adj.温和的，温柔的"],["fighter","n.斗士，奋斗者"],["pity","n.可惜，遗憾"],["war","n.战争"],["fixed","adj.固定的；不变的"],["unchanging","adj.不变的，恒定的"],["entry","n.（日记的）一则"],["battle","n.战斗，战役"],["temperature","n.温度，气温"],["selfless","adj.忘我的，无私的"],["heroic","adj.英雄的，英勇的"],["loyal","adj.忠贞的，忠实的，忠诚的"],["recommend","v.劝告，建议"],["dreamer","n.做梦的人"],["burning","adj.火热的；灼热的"],["countless","adj.无数的，数不尽的"],["president","n.国家主席；总统"],["republic","n.共和国"],["productive","adj.多产的"],["type","n.类型，种类"],["soil","n.土壤，土地，泥土"],["socialist","adj.社会主义的"]]},{"n":35,"words":[["drop","v.降低"],["tourist","n.游客"],["ecosystem","n.生态系统"],["balance","v.（使）保持平衡；n.平衡"],["smog","n.烟雾"],["admire","v.欣赏，观赏"],["mark","n.痕迹；标记"],["farmland","n.农田，耕地"],["rapid","adj.快速的，迅速的"],["society","n.社会"],["till","conj.直到"],["cancel","v.取消"],["permit","v.允许；使成为可能"],["organization","n.组织，团体，机构"],["harm","v.损害；危害；伤害"],["punishment","n.惩罚手段；处罚"],["global","adj.全球的，全世界的"],["overfishing","n.过度捕捞"],["greenhouse","n.温室，暖房"],["gas","n.气，气体"],["control","v.控制，限制"],["rubbish","n.垃圾，废弃物"],["cartoonist","n.漫画家；动画家"],["logging","n.伐木"],["alarm","n.警报；警报器"],["foreigner","n.外国人"],["logo","n.标识，标志，徽标"],["endangered","adj.濒危的，濒于灭绝的"],["vulnerable","adj.脆弱的；易受伤害的"],["worldwide","adv.世界各地"],["protection","n.保护"],["environmental","adj.自然环境的"],["population","n.人口；动植物的总数"],["undoubtedly","adv.毫无疑问地"],["survival","n.继续生存；幸存"]]},{"n":39,"words":[["cheap","adj.便宜的，廉价的"],["toothbrush","n.牙刷"],["glove","n.手套"],["silently","adv.默不作声地；无声地"],["former","adj.以前的，从前的"],["tie","v.系，扎，拴，捆"],["bin","n.垃圾箱，垃圾桶"],["average","n.平均数"],["on average","平均来看"],["tiny","adj.极小的"],["nowhere","adv.什么地方都不，无处"],["plastic-free","adj.无塑料的"],["highlight","v.突出，强调"],["setback","n.阻碍，挫折"],["formation","n.构成，组成"],["pollute","v.污染"],["electronic","adj.电子的，用电子操作的；电子器件的"],["fog","n.雾"],["industry","n.工业，制造业"],["capital","n.首都"],["coal","n.煤"],["worst","adj.最坏的；最差的"],["location","n.地点，位置"],["negative","adj.有害的；不良的"],["furthermore","adv.此外；而且"],["recycle","v.再利用，回收利用"],["upcycle","v.升级改造"],["loudly","adv.响亮地，大声地"],["village","n.乡村，村庄"],["noisy","adj.喧闹的；吵闹的"],["reporter","n.记者"],["depth","n.深，深度"],["weight","n.重物"],["businessman","n.商人；企业家"],["truck","n.货车，卡车"],["industrial","adj.工业的"],["litter","n.垃圾，废弃物"],["peace","n.和平；平静，安宁"],["business","n.商业"]]}]};
+  var TYPE_NAME = {word:"看词选义", listen:"听音选词", spell:"拼写闯关", wrong:"错词复习"};
+  var GRADE_NAME = {g7:"初一", g8:"初二", g9:"初三"};
+  var GRADE_BOOK = {g7:"七上", g8:"八上", g9:"九上"};
+  var state = {};
+
+  function unitWords(phone){
+    var s = state[phone.__id];
+    var units = VOCAB.g9;
+    return units[Math.min(s.unit, units.length-1)];
+  }
+  function unitWordList(phone){
+    return unitWords(phone).words.map(function(w){ return {en:w[0], zh:w[1]}; });
+  }
+  function pickWords(arr, n){ return shuffle(arr).slice(0, n); }
+  function badSpells(w){
+    if(/ /.test(w)){ return [w+"e", w+"s", w.slice(0,-1)+"r"]; }
+    var cands = [
+      w + "e",
+      w.slice(0,-1) + (w.slice(-1)==="e" ? "a" : "e"),
+      w.replace(/^(.)(.)/, "$2$1"),
+      w.slice(1) + w.charAt(0),
+      w.charAt(0) + w.slice(2),
+      w.replace("ee","ea").replace("ie","ei").replace("ea","ee")
+    ];
+    var out = [];
+    cands.forEach(function(c){ if(c && c!==w && out.indexOf(c)<0 && out.length<3){ out.push(c); } });
+    while(out.length<3){ out.push(w + "x" + out.length); }
+    return out;
+  }
+  function spellOpts(w){ return shuffle([w].concat(badSpells(w))); }
+  function buildWordItems(list, n){
+    return pickWords(list, n).map(function(x){
+      var others = list.filter(function(y){ return y.zh !== x.zh; });
+      var d = pickWords(others, 3).map(function(y){ return y.zh; });
+      while(d.length < 3){ d.push(d[0]); }
+      return { prompt:x.en, sub:null, opts:shuffle([x.zh].concat(d)), answer:x.zh, speak:null };
+    });
+  }
+  function buildSpellItems(list, n){
+    return pickWords(list.filter(function(x){ return !/ /.test(x.en) && x.en.length>=2; }), n).map(function(x){
+      return { prompt:x.zh, sub:"首字母 "+x.en.charAt(0).toUpperCase(), opts:spellOpts(x.en), answer:x.en, speak:null };
+    });
+  }
+  function buildListenItems(list, n){
+    return pickWords(list.filter(function(x){ return !/ /.test(x.en) && x.en.length>=2; }), n).map(function(x){
+      return { prompt:"🔊", sub:"听发音，选单词", opts:spellOpts(x.en), answer:x.en, speak:x.en };
+    });
+  }
+  function openQuiz(phone, type, unitIdx){
+    if(typeof unitIdx === "number"){ state[phone.__id].unit = unitIdx; }
+    var list = unitWordList(phone);
+    var items;
+    if(type === "word"){ items = buildWordItems(list, 5); }
+    else if(type === "listen"){ items = buildListenItems(list, 5); }
+    else if(type === "spell"){ items = buildSpellItems(list, 5); }
+    else {
+      var demo = [list[Math.min(2,list.length-1)], list[Math.min(5,list.length-1)], list[Math.min(8,list.length-1)], list[Math.min(11,list.length-1)]].filter(Boolean);
+      items = buildWordItems(demo, Math.min(4, demo.length));
+    }
+    phone.__quiz = { type:type, idx:0, score:0, items:items };
+    renderQuiz(phone);
+    setView(phone, "quiz");
+  }
+  function renderQuiz(phone){
+    var z = phone.__quiz;
+    var el = q(".vpre-quiz", phone);
+    if(!el) return;
+    if(z.idx >= z.items.length){ renderResult(phone); return; }
+    var it = z.items[z.idx];
+    var optsHtml = it.opts.map(function(o){ return '<button class="vpre-qopt" type="button">'+o+'</button>'; }).join("");
+    el.innerHTML =
+      '<div class="vpre-quiz-head"><span>'+TYPE_NAME[z.type]+' · 第 '+(z.idx+1)+'/'+z.items.length+' 题</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
+      +'<div class="vpre-progress" style="margin-bottom:14px;"><div style="width:'+Math.round(z.idx/z.items.length*100)+'%"></div></div>'
+      +'<div class="vpre-qcard"><div class="vpre-qword">'+it.prompt+'</div>'
+      +(it.sub ? '<div class="vpre-qipa">'+it.sub+'</div>' : '')
+      +(it.speak ? '<button class="vpre-speak" type="button">🔊 播放发音</button>' : '')
+      +'</div>'
+      +'<div class="vpre-qopts">'+optsHtml+'</div>'
+      +'<button class="vpre-btn vpre-btn-primary vpre-btn-block vpre-qnext" type="button" style="display:none;">下一题</button>';
+    var answered = false;
+    qa(".vpre-qopt", el).forEach(function(btn){
+      btn.addEventListener("click", function(){
+        if(answered) return;
+        answered = true;
+        if(btn.textContent === it.answer){ z.score += 1; }
+        qa(".vpre-qopt", el).forEach(function(b){
+          b.disabled = true;
+          if(b.textContent === it.answer){ b.classList.add("is-right"); }
+          else if(b === btn){ b.classList.add("is-wrong"); }
+        });
+        var next = q(".vpre-qnext", el);
+        next.style.display = "block";
+        next.textContent = (z.idx+1 >= z.items.length) ? "查看成绩" : "下一题";
+      });
+    });
+    q(".vpre-qnext", el).addEventListener("click", function(){ z.idx += 1; renderQuiz(phone); });
+    q(".vpre-quiz-close", el).addEventListener("click", function(){ setView(phone, "home"); });
+    var sp = q(".vpre-speak", el);
+    if(sp){
+      sp.addEventListener("click", function(){ speak(it.speak, phone); });
+      speak(it.speak, phone);
+    }
+  }
+  function renderResult(phone){
+    var z = phone.__quiz;
+    var n = z.items.length;
+    var lit = z.score>=n ? 3 : (z.score>=n-1 ? 2 : (z.score>=n-2 ? 1 : 0));
+    var stars = "";
+    for(var s=0;s<3;s++){ stars += '<span class="'+(s<lit ? "" : "dim")+'">★</span>'; }
+    var msg = z.score>=n ? "太棒了，全对！" : (z.score>=n-1 ? "很好，差一点全对！" : (z.score>=n-2 ? "不错，继续加油！" : "别灰心，多练几次就记住了"));
+    var el = q(".vpre-quiz", phone);
+    el.innerHTML =
+      '<div class="vpre-quiz-head"><span>'+TYPE_NAME[z.type]+' · 结果</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
+      +'<div class="vpre-result"><div class="vpre-qcard">'
+      +'<div class="vpre-result-num">'+z.score+' / '+n+'</div>'
+      +'<div class="vpre-result-stars">'+stars+'</div>'
+      +'<div class="vpre-result-msg">'+msg+'</div>'
+      +'<button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-result-again="1">再玩一次</button>'
+      +'<button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-result-home="1">返回首页</button>'
+      +'</div></div>';
+    q("[data-result-again]", el).addEventListener("click", function(){ openQuiz(phone, z.type); });
+    q("[data-result-home]", el).addEventListener("click", function(){ setView(phone, "home"); });
+    q(".vpre-quiz-close", el).addEventListener("click", function(){ setView(phone, "home"); });
+  }
+  function speak(text, phone){
+    try{
+      if(!("speechSynthesis" in window)){ toast(phone, "当前环境暂不支持发音"); return; }
+      var ss = window.speechSynthesis;
+      ss.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.9;
+      var voices = ss.getVoices();
+      for(var i=0;i<voices.length;i++){
+        if(voices[i].lang && voices[i].lang.toLowerCase().indexOf("en")===0){ u.voice = voices[i]; break; }
+      }
+      ss.speak(u);
+    }catch(e){ toast(phone, "当前环境暂不支持发音"); }
+  }
+  function toast(phone, msg){
+    var t = q(".vpre-toast", phone);
+    if(!t) return;
+    t.textContent = msg;
+    t.classList.add("is-show");
+    clearTimeout(t.__t);
+    t.__t = setTimeout(function(){ t.classList.remove("is-show"); }, 1600);
+  }
+  function setView(phone, name){
+    qa(".vpre-view", phone).forEach(function(v){
+      v.classList.toggle("is-active", v.getAttribute("data-view")===name);
+    });
+    qa(".vpre-tab", phone).forEach(function(t){
+      var on = t.getAttribute("data-tab")===name;
+      t.classList.toggle("is-active", on);
+      t.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  }
+  function runAction(phone, act, unitIdx){
+    if(act === "toast"){ toast(phone, "玩法开发中，敬请期待"); return; }
+    openQuiz(phone, act.replace("quiz-", ""), unitIdx);
+  }
+  function renderUnits(phone){
+    var s = state[phone.__id];
+    var list = q(".vpre-unit-list", phone);
+    var h5 = phone.classList.contains("vpre-h5");
+    if(s.grade === "g9"){
+      var units = VOCAB.g9;
+      list.innerHTML = units.map(function(u, i){
+        var btn = "开始";
+        if(h5){
+          return '<div class="vpre-unit" data-unit="'+i+'">'
+            + '<div class="vpre-ring" style="--p:0%"><i>0%</i></div>'
+            + '<div class="vpre-unit-info"><div class="vpre-unit-title">九上 单元 '+(i+1)+'</div><div class="vpre-unit-meta">'+u.n+' 词 · 本单元词汇表</div></div>'
+            + '<button class="vpre-btn vpre-btn-mini" type="button">'+btn+'</button></div>';
+        }
+        return '<div class="vpre-unit" data-unit="'+i+'">'
+          + '<div class="vpre-unit-badge">U'+(i+1)+'</div>'
+          + '<div class="vpre-unit-info"><div class="vpre-unit-title">九上 单元 '+(i+1)+'</div><div class="vpre-unit-meta">'+u.n+' 词 · 本单元词汇表</div>'
+          + '<div class="vpre-progress vpre-progress-sm"><div style="width:0%"></div></div></div>'
+          + '<button class="vpre-btn vpre-btn-mini" type="button">'+btn+'</button></div>';
+      }).join("");
+    } else {
+      list.innerHTML = '<div class="vpre-placeholder">'+GRADE_NAME[s.grade]+'词库整理中，先用初三上学期内容体验</div>';
+    }
+    var taskUnit = q(".vpre-task-unit", phone);
+    if(taskUnit){ taskUnit.textContent = s.grade==="g9" ? "九上 单元 "+(s.unit+1) : GRADE_BOOK[s.grade]+" 单元 1"; }
+    var secNote = q(".vpre-sec-note", phone);
+    if(secNote){ secNote.textContent = s.grade==="g9" ? "九上 · "+VOCAB.g9.reduce(function(a,u){ return a+u.n; },0)+" 词" : "词库整理中"; }
+    var heroBtn = q(".vpre-view[data-view=home] .vpre-hero-btn", phone);
+    if(heroBtn){ heroBtn.textContent = s.grade==="g9" ? "继续学习 → 九上 单元 "+(s.unit+1) : "继续学习 → "+GRADE_BOOK[s.grade]; }
+    renderWrong(phone);
+  }
+  function renderWrong(phone){
+    var list = q(".vpre-wrong-list", phone);
+    if(!list) return;
+    var s = state[phone.__id];
+    var words = unitWordList(phone);
+    if(s.grade !== "g9" || words.length === 0){
+      list.innerHTML = '<div class="vpre-placeholder">该年级词库整理中</div>';
+      return;
+    }
+    var demo = [words[Math.min(1,words.length-1)], words[Math.min(4,words.length-1)], words[Math.min(7,words.length-1)]].filter(Boolean);
+    list.innerHTML = demo.map(function(w, i){
+      var c = i===0 ? 3 : 2;
+      return '<div class="vpre-wrow"><div class="vpre-wmain"><b>'+w.en+'</b><span>'+w.zh+'</span></div><span class="vpre-wbadge">错 '+c+' 次</span><button class="vpre-btn vpre-btn-mini" type="button">再练一次</button></div>';
+    }).join("");
+  }
+  function initPhone(phone){
+    var id = "p" + qa(".vpre-phone").indexOf(phone);
+    phone.__id = id;
+    state[id] = {grade:"g9", unit:0};
+    qa(".vpre-chip[data-grade]", phone).forEach(function(b){
+      b.addEventListener("click", function(){
+        qa(".vpre-chip[data-grade]", phone).forEach(function(x){ x.classList.remove("is-active"); x.setAttribute("aria-pressed","false"); });
+        b.classList.add("is-active"); b.setAttribute("aria-pressed","true");
+        state[id].grade = b.getAttribute("data-grade");
+        state[id].unit = 0;
+        renderUnits(phone);
+      });
+    });
+    qa(".vpre-tab", phone).forEach(function(b){
+      b.addEventListener("click", function(){ setView(phone, b.getAttribute("data-tab")); });
+    });
+    q(".vpre-body", phone).addEventListener("click", function(ev){
+      var btn = ev.target.closest("button");
+      if(!btn) return;
+      var quizEl = q(".vpre-quiz", phone);
+      if(quizEl && quizEl.contains(btn)) return;
+      var unitCard = btn.closest(".vpre-unit[data-unit]");
+      if(unitCard){ runAction(phone, "quiz-word", parseInt(unitCard.getAttribute("data-unit"),10)); return; }
+      var act = btn.getAttribute("data-action");
+      if(act){ runAction(phone, act); return; }
+      if(btn.closest(".vpre-game")){ runAction(phone, ["quiz-word","quiz-listen","quiz-spell","toast"][qa(".vpre-game", phone).indexOf(btn)]); return; }
+      if(btn.closest(".vpre-wrow") || btn.closest(".vpre-review") || btn.closest(".vpre-summary")){ runAction(phone, "quiz-wrong"); return; }
+      if(btn.closest(".vpre-hero-btn")){ runAction(phone, /复习/.test(btn.textContent) ? "quiz-wrong" : "quiz-word"); return; }
+      if(btn.closest(".vpre-task")){ runAction(phone, "quiz-word"); return; }
+      if(btn.closest(".vpre-stage")){ runAction(phone, "quiz-spell"); return; }
+      if(btn.closest(".vpre-view[data-view=mine]")){ runAction(phone, "toast"); return; }
+    });
+    renderUnits(phone);
+  }
+  qa(".vpre-phone").forEach(initPhone);
+})();
+</script>
+</div>
+
+</body></html>
