@@ -1,158 +1,218 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>单词速记 · 初三上 H5 词汇闯关</title></head>
-<body style="margin:0;background:#f4f6fc;">
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>单词速记 · 初中英语词汇闯关</title></head>
+<body style="margin:0;background:#f6f7f9;">
 <div id="vocab-game-preview">
 <style>
 #vocab-game-preview{
-  --vp-bg:#f4f6fc;
-  --vp-card:#ffffff;
-  --vp-ink:#1c2434;
-  --vp-ink-2:#5a6478;
-  --vp-muted:#98a2b8;
-  --vp-line:#e8ecf5;
-  --vp-blue:#4f6bff;
-  --vp-blue-2:#6a7fff;
-  --vp-purple:#7c5cff;
-  --vp-green:#22b573;
-  --vp-green-soft:#e6f8ef;
-  --vp-orange:#ff9f43;
-  --vp-orange-soft:#fff3e3;
-  --vp-red:#ff5d6c;
-  --vp-red-soft:#ffe9eb;
-  --vp-blue-soft:#edf1ff;
-  --vp-shadow:0 6px 20px rgba(38,50,90,.07);
-  --vp-shadow-sm:0 2px 8px rgba(38,50,90,.05);
+  --vp-bg:#f6f7f9; --vp-card:#ffffff; --vp-ink:#1f2937; --vp-ink-2:#5b6472; --vp-muted:#98a2b3;
+  --vp-line:#e6e9f0; --vp-blue:#3b5bdb; --vp-blue-2:#4c6ef5; --vp-teal:#14b8a6;
+  --vp-green:#0f9f6e; --vp-green-soft:#e7f7f1; --vp-orange:#f59e0b; --vp-orange-soft:#fef3e0;
+  --vp-red:#e5484d; --vp-red-soft:#fdecec; --vp-blue-soft:#eef1fb; --vp-teal-soft:#e6f6f2;
+  --vp-shadow:0 8px 22px rgba(31,41,55,.08); --vp-shadow-sm:0 2px 8px rgba(31,41,55,.05);
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
   color:var(--vp-ink);
   background:var(--vp-bg);
   min-height:100dvh;
 }
-#vocab-game-preview *{box-sizing:border-box; margin:0; padding:0;}
+#vocab-game-preview *, #vocab-game-preview *::before, #vocab-game-preview *::after{box-sizing:border-box;}
 #vocab-game-preview button{font-family:inherit;}
 .vpre-phone,.vpre-screen{width:100%; max-width:520px;}
-.vpre-screen{min-height:100dvh; margin:0 auto; background:linear-gradient(180deg,#f8faff 0%,#f2f5fd 100%); display:flex; flex-direction:column;}
-.vpre-header{position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:14px 18px 10px; background:rgba(248,250,255,.86); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(232,236,245,.8);}
-.vpre-brand{display:flex; align-items:center; gap:10px; font-size:17px; font-weight:700; letter-spacing:.3px;}
-.vpre-logo{width:34px; height:34px; border-radius:12px; background:linear-gradient(135deg,var(--vp-blue),var(--vp-purple)); display:flex; align-items:center; justify-content:center; font-size:17px; box-shadow:0 4px 12px rgba(79,107,255,.28);}
+.vpre-screen{min-height:100dvh; margin:0 auto; background:linear-gradient(180deg,#f8f9fb 0%,#f3f5f9 100%); display:flex; flex-direction:column;}
+.vpre-header{position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:13px 18px 10px; background:rgba(255,255,255,.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid #eef0f5;}
+.vpre-brand{display:flex; align-items:center; gap:10px; font-size:17px; font-weight:700; letter-spacing:.3px; color:var(--vp-ink);}
+.vpre-logo{width:34px; height:34px; border-radius:11px; background:var(--vp-blue); display:flex; align-items:center; justify-content:center; font-size:17px; box-shadow:0 4px 12px rgba(59,91,219,.3);}
 .vpre-header-right{display:flex; align-items:center; gap:8px;}
-.vpre-sfxbtn{background:var(--vp-blue-soft); border:0; border-radius:12px; width:34px; height:34px; font-size:15px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; transition:transform .12s;}
+.vpre-sfxbtn{background:#eef1fb; border:0; border-radius:11px; width:34px; height:34px; font-size:15px; color:var(--vp-blue); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; transition:transform .12s;}
 .vpre-sfxbtn:active{transform:scale(.92);}
-.vpre-body{flex:1; overflow:visible; padding:16px 16px 96px;}
+.vpre-body{flex:1; overflow:visible; padding:16px 16px 128px;}
 .vpre-view{display:none;}
 .vpre-view.is-active{display:block;}
-.vpre-tabs{position:sticky; bottom:10px; z-index:18; display:flex; margin:0 14px 12px; background:rgba(255,255,255,.94); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-radius:22px; padding:6px; box-shadow:0 10px 28px rgba(38,50,90,.16); border:1px solid rgba(232,236,245,.9);}
+.vpre-tabs{position:sticky; bottom:10px; z-index:18; display:flex; margin:0 14px 12px; background:rgba(255,255,255,.96); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-radius:22px; padding:6px; box-shadow:0 10px 26px rgba(31,41,55,.12); border:1px solid #eef0f5;}
 .vpre-tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; border:0; background:none; font-size:10.5px; color:var(--vp-muted); cursor:pointer; padding:8px 0 7px; border-radius:16px; transition:background .18s, color .18s;}
 .vpre-tab i{font-style:normal; font-size:19px; line-height:1;}
-.vpre-tab.is-active{background:linear-gradient(135deg,var(--vp-blue),var(--vp-blue-2)); color:#fff; font-weight:600; box-shadow:0 4px 12px rgba(79,107,255,.3);}
-.vpre-hero{background:linear-gradient(130deg,#4f6bff 0%,#6a7fff 55%,#7c5cff 100%); border-radius:24px; padding:20px; color:#fff; box-shadow:0 12px 28px rgba(79,107,255,.3); position:relative; overflow:hidden;}
-.vpre-hero::after{content:""; position:absolute; right:-34px; top:-38px; width:130px; height:130px; border-radius:50%; background:rgba(255,255,255,.12);}
-.vpre-hero::before{content:""; position:absolute; right:24px; bottom:-52px; width:110px; height:110px; border-radius:50%; background:rgba(255,255,255,.08);}
-.vpre-hero-top{position:relative; z-index:1; display:flex; justify-content:space-between; align-items:center; font-size:14px; font-weight:600; margin-bottom:14px;}
-.vpre-streak{background:rgba(255,255,255,.22); border-radius:99px; padding:5px 12px; font-size:11.5px; font-weight:600;}
-.vpre-hero-title{position:relative; z-index:1; font-size:13px; opacity:.92; margin-bottom:8px;}
-.vpre-hero-title b{font-size:17px;}
-.vpre-progress{height:8px; background:#eef0f6; border-radius:99px; overflow:hidden;}
-.vpre-progress div{height:100%; background:linear-gradient(90deg,var(--vp-blue),var(--vp-blue-2)); border-radius:99px; transition:width .25s;}
-.vpre-progress-light{background:rgba(255,255,255,.25);}
-.vpre-progress-light div{background:#fff;}
-.vpre-hero-btn{position:relative; z-index:1; display:flex; align-items:center; justify-content:center; gap:6px; width:100%; margin-top:16px; border:0; border-radius:14px; padding:12px 0; font-size:14px; font-weight:700; color:var(--vp-blue); background:#fff; cursor:pointer; box-shadow:0 6px 16px rgba(20,30,80,.18); transition:transform .12s;}
-.vpre-hero-btn:active{transform:scale(.98);}
-.vpre-sec-title{font-size:13.5px; font-weight:700; margin:20px 2px 10px; display:flex; justify-content:space-between; align-items:center;}
-.vpre-sec-title span{color:var(--vp-muted); font-weight:500; font-size:11px;}
-.vpre-seg{display:flex; background:#e9edf7; border-radius:14px; padding:4px; gap:4px;}
-.vpre-chip{flex:1; border:0; background:transparent; color:var(--vp-ink-2); border-radius:11px; padding:9px 0; font-size:13px; font-weight:600; cursor:pointer; transition:background .15s, color .15s, box-shadow .15s;}
-.vpre-chip.is-active{background:#fff; color:var(--vp-blue); box-shadow:0 2px 8px rgba(38,50,90,.1);}
-.vpre-unit-list{display:flex; flex-direction:column; gap:10px;}
-.vpre-unit{display:flex; align-items:center; gap:12px; background:var(--vp-card); border-radius:18px; padding:13px 14px; box-shadow:var(--vp-shadow-sm); border:1px solid rgba(232,236,245,.7); cursor:pointer; transition:transform .12s, box-shadow .15s;}
-.vpre-unit:active{transform:scale(.985);}
-.vpre-ring{width:48px; height:48px; border-radius:50%; background:conic-gradient(var(--vp-blue) var(--p), #e8ecf5 0); display:flex; align-items:center; justify-content:center; flex:none;}
-.vpre-ring i{width:38px; height:38px; border-radius:50%; background:var(--vp-card); font-style:normal; font-size:10.5px; font-weight:700; color:var(--vp-blue); display:flex; align-items:center; justify-content:center;}
-.vpre-unit-info{flex:1; min-width:0;}
-.vpre-unit-title{font-size:13.5px; font-weight:600; line-height:1.4;}
-.vpre-unit-meta{font-size:11px; color:var(--vp-muted); margin-top:3px;}
-.vpre-btn{border:0; border-radius:12px; padding:9px 16px; font-size:13px; font-weight:600; cursor:pointer; background:var(--vp-blue-soft); color:var(--vp-blue); transition:transform .12s, box-shadow .12s;}
+.vpre-tab.is-active{background:var(--vp-blue); color:#fff; font-weight:600; box-shadow:0 4px 12px rgba(59,91,219,.35);}
+
+/* ===== 首页 ===== */
+.vpre-welcome{display:flex; justify-content:space-between; align-items:center; margin:2px 2px 16px;}
+.vpre-hi{font-size:20px; font-weight:700; color:var(--vp-ink);}
+.vpre-hi-sub{font-size:12.5px; color:var(--vp-muted); margin-top:4px;}
+.vpre-streak{background:var(--vp-orange-soft); border:1px solid rgba(245,158,11,.35); color:#b45309; border-radius:99px; padding:6px 12px; font-size:12px; font-weight:600; flex:none;}
+.vpre-taskcard{background:linear-gradient(135deg,#3b5bdb,#4c6ef5); border-radius:22px; padding:18px; box-shadow:0 12px 28px rgba(59,91,219,.28); color:#fff;}
+.vpre-task-main{display:flex; align-items:center; gap:14px;}
+.vpre-task-ring{width:68px; height:68px; border-radius:50%; background:conic-gradient(#ffffff var(--p), rgba(255,255,255,.28) 0); display:flex; align-items:center; justify-content:center; flex:none;}
+.vpre-task-ring i{width:54px; height:54px; border-radius:50%; background:rgba(255,255,255,.18); font-style:normal; font-size:14px; font-weight:700; color:#fff; display:flex; align-items:center; justify-content:center;}
+.vpre-task-info{flex:1; min-width:0;}
+.vpre-task-head{display:flex; justify-content:space-between; align-items:center; font-size:13px; font-weight:600; margin-bottom:8px;}
+.vpre-task-unit{color:#fff; opacity:.92;}
+.vpre-task-num{font-size:16px; font-weight:700; color:#fff;}
+.vpre-progress{height:8px; background:#eef0f5; border-radius:99px; overflow:hidden;}
+.vpre-progress div{height:100%; background:var(--vp-blue); border-radius:99px; transition:width .25s;}
+.vpre-taskcard .vpre-progress{background:rgba(255,255,255,.28);}
+.vpre-taskcard .vpre-progress div{background:#fff;}
+.vpre-task-sub{font-size:11.5px; margin-top:8px; color:rgba(255,255,255,.85);}
+.vpre-task-cta{margin-top:14px; border-radius:12px; padding:13px 0; font-size:14px; color:var(--vp-blue); background:#fff; box-shadow:0 6px 16px rgba(20,30,90,.16);}
+
+.vpre-sec-title{font-size:14px; font-weight:700; margin:20px 2px 10px; display:flex; justify-content:space-between; align-items:center; color:var(--vp-ink);}
+.vpre-sec-title span{color:var(--vp-muted); font-weight:500; font-size:11.5px;}
+.vpre-seg{display:flex; background:#eceef4; border-radius:13px; padding:4px; gap:4px;}
+.vpre-chip{flex:1; border:0; background:transparent; color:var(--vp-ink-2); border-radius:10px; padding:9px 0; font-size:13px; font-weight:600; cursor:pointer; transition:background .15s, color .15s;}
+.vpre-chip.is-active{background:#fff; color:var(--vp-blue); box-shadow:0 2px 8px rgba(31,41,55,.08);}
+
+.vpre-bookseg{display:flex; gap:8px; margin-top:10px;}
+.vpre-bchip{flex:1; border:1px solid #dfe3ea; background:#fff; color:var(--vp-ink-2); border-radius:11px; padding:10px 0; font-size:13px; font-weight:600; cursor:pointer; transition:all .15s;}
+.vpre-bchip.is-active{background:var(--vp-blue); color:#fff; border-color:var(--vp-blue); box-shadow:0 4px 12px rgba(59,91,219,.3);}
+
+.vpre-unit-list{display:grid; grid-template-columns:1fr 1fr; gap:11px;}
+.vpre-unit{font-family:inherit; text-align:left; display:flex; flex-direction:column; align-items:stretch; gap:8px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:16px; padding:16px 12px 12px; box-shadow:var(--vp-shadow-sm); cursor:pointer; min-height:118px; transition:transform .14s, box-shadow .16s, border-color .15s;}
+.vpre-unit:active{transform:scale(.97);}
+.vpre-unit:hover{border-color:#c7cfe4; box-shadow:0 6px 16px rgba(31,41,55,.09);}
+.vpre-ring{width:52px; height:52px; align-self:center; border-radius:50%; background:conic-gradient(var(--vp-blue) var(--p), #e6e9f0 0); display:flex; align-items:center; justify-content:center; flex:none;}
+.vpre-ring i{width:42px; height:42px; border-radius:50%; background:var(--vp-card); font-style:normal; font-size:11px; font-weight:700; color:var(--vp-blue); display:flex; align-items:center; justify-content:center;}
+.vpre-unit-info{flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center;}
+.vpre-unit-title{font-size:13.5px; font-weight:600; text-align:center; line-height:1.35;}
+.vpre-unit-meta{font-size:11px; color:var(--vp-muted); text-align:center; margin-top:2px;}
+.vpre-unit-go{display:block; text-align:center; font-size:11px; font-weight:600; color:var(--vp-blue); margin-top:6px;}
+
+.vpre-btn{border:0; border-radius:11px; padding:9px 16px; font-size:13px; font-weight:600; cursor:pointer; background:#eef1fb; color:var(--vp-blue); transition:transform .12s, box-shadow .12s;}
 .vpre-btn:active{transform:scale(.96);}
-.vpre-btn-primary{background:linear-gradient(135deg,var(--vp-blue),var(--vp-blue-2)); color:#fff; box-shadow:0 5px 14px rgba(79,107,255,.3);}
+.vpre-btn-primary{background:var(--vp-blue); color:#fff; box-shadow:0 5px 14px rgba(59,91,219,.3);}
 .vpre-btn-block{display:block; width:100%;}
-.vpre-btn-mini{padding:8px 14px; font-size:12px; border-radius:11px;}
-.vpre-btn-ghost{background:#f2f4f9; color:var(--vp-ink-2);}
+.vpre-btn-mini{padding:8px 14px; font-size:12px; border-radius:10px;}
+.vpre-btn-ghost{background:#f2f4f8; color:var(--vp-ink-2);}
+
 .vpre-games{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-.vpre-game{border:0; border-radius:20px; padding:20px 10px 16px; display:flex; flex-direction:column; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--vp-ink); cursor:pointer; box-shadow:var(--vp-shadow-sm); transition:transform .12s;}
+.vpre-game{border:1px solid #e6e9f0; background:#f7f8fb; border-radius:18px; padding:20px 10px 16px; display:flex; flex-direction:column; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--vp-ink); cursor:pointer; box-shadow:var(--vp-shadow-sm); transition:transform .14s;}
 .vpre-game:active{transform:scale(.97);}
 .vpre-game i{font-style:normal; font-size:30px; line-height:1;}
-.vpre-game:nth-child(1){background:linear-gradient(160deg,#eef1ff,#e2e9ff);}
-.vpre-game:nth-child(2){background:linear-gradient(160deg,#e6f8ef,#d8f3e6);}
-.vpre-game:nth-child(3){background:linear-gradient(160deg,#fff3e3,#ffe8cf);}
-.vpre-game:nth-child(4){background:linear-gradient(160deg,#f0ecff,#e5ddff);}
-.vpre-review{display:flex; align-items:center; gap:12px; background:var(--vp-orange-soft); border:1px solid rgba(255,159,67,.25); border-radius:16px; padding:13px 14px; font-size:12.5px; color:var(--vp-ink);}
+.vpre-game:hover{border-color:#c7cfe4;}
+
+.vpre-review{display:flex; align-items:center; gap:12px; background:var(--vp-orange-soft); border:1px solid rgba(245,158,11,.32); border-radius:15px; padding:13px 14px; font-size:12.5px; color:var(--vp-ink);}
 .vpre-review b{color:var(--vp-orange);}
-.vpre-review .vpre-btn{background:#fff; color:var(--vp-orange); padding:7px 12px; font-size:11.5px; margin-left:auto; box-shadow:0 2px 8px rgba(255,159,67,.18);}
-.vpre-placeholder{background:var(--vp-card); border:1.5px dashed var(--vp-line); border-radius:16px; padding:24px 14px; text-align:center; font-size:12.5px; color:var(--vp-muted);}
-.vpre-card{background:var(--vp-card); border-radius:20px; padding:16px; box-shadow:var(--vp-shadow-sm); border:1px solid rgba(232,236,245,.7);}
-.vpre-summary{display:flex; align-items:center; gap:12px; background:var(--vp-card); border-radius:18px; padding:14px 16px; box-shadow:var(--vp-shadow-sm); border:1px solid rgba(232,236,245,.7); margin-bottom:14px;}
+.vpre-review .vpre-btn{background:#fff; color:#b45309; padding:7px 12px; font-size:11.5px; margin-left:auto; border-radius:10px; box-shadow:0 2px 8px rgba(245,158,11,.18);}
+.vpre-placeholder{background:var(--vp-card); border:1.5px dashed #d8dde7; border-radius:15px; padding:24px 14px; text-align:center; font-size:12.5px; color:var(--vp-muted);}
+.vpre-card{background:var(--vp-card); border:1px solid #e6e9f0; border-radius:18px; padding:16px; box-shadow:var(--vp-shadow-sm);}
+
+/* ===== 错词本 ===== */
+.vpre-hero{background:linear-gradient(130deg,#e5484d,#f2708a); border-radius:20px; padding:18px; color:#fff; box-shadow:0 10px 24px rgba(229,72,77,.26);}
+.vpre-hero-top{display:flex; justify-content:space-between; align-items:center; font-size:13.5px; font-weight:600; margin-bottom:10px;}
+.vpre-hero .vpre-streak{background:rgba(255,255,255,.2); border-color:rgba(255,255,255,.3); color:#fff;}
+.vpre-hero-title{font-size:12.5px; opacity:.95; margin-bottom:8px;}
+.vpre-hero-title b{font-size:16px;}
+.vpre-progress-light{background:rgba(255,255,255,.28);}
+.vpre-progress-light div{background:#fff;}
+.vpre-hero-btn{display:block; width:100%; margin-top:14px; border:0; border-radius:12px; padding:12px 0; font-size:14px; font-weight:700; color:#e5484d; background:#fff; cursor:pointer;}
+.vpre-summary{display:flex; align-items:center; gap:12px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:16px; padding:14px 16px; box-shadow:var(--vp-shadow-sm); margin-bottom:14px;}
 .vpre-summary b{display:block; font-size:20px; color:var(--vp-blue);}
 .vpre-summary span{font-size:11px; color:var(--vp-muted);}
 .vpre-summary .vpre-btn{margin-left:auto;}
-.vpre-wrow{display:flex; align-items:center; gap:12px; background:var(--vp-card); border-radius:16px; padding:12px 14px; margin-bottom:9px; box-shadow:var(--vp-shadow-sm); border:1px solid rgba(232,236,245,.7);}
+.vpre-wrow{display:flex; align-items:center; gap:12px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:15px; padding:12px 14px; margin-bottom:9px; box-shadow:var(--vp-shadow-sm);}
 .vpre-wmain{flex:1; min-width:0;}
-.vpre-wmain b{font-size:14px; display:block; letter-spacing:.2px;}
+.vpre-wmain b{font-size:14px; display:block; letter-spacing:.2px; color:var(--vp-ink);}
 .vpre-wmain span{font-size:11.5px; color:var(--vp-muted);}
-.vpre-wbadge{font-size:10.5px; color:var(--vp-red); background:var(--vp-red-soft); border-radius:99px; padding:4px 10px; flex:none; font-weight:600;}
-.vpre-wbadge.is-flat{color:var(--vp-ink-2); background:#f2f4f9;}
-.vpre-stage{display:flex; align-items:center; gap:12px; background:var(--vp-card); border-radius:18px; padding:14px; margin-bottom:10px; box-shadow:var(--vp-shadow-sm); border:1px solid rgba(232,236,245,.7);}
-.vpre-stage-num{width:42px; height:42px; border-radius:14px; background:linear-gradient(135deg,var(--vp-blue),var(--vp-blue-2)); color:#fff; font-weight:700; font-size:12.5px; display:flex; align-items:center; justify-content:center; flex:none; box-shadow:0 4px 10px rgba(79,107,255,.25);}
+.vpre-wbadge{font-size:10.5px; color:#e5484d; background:var(--vp-red-soft); border-radius:99px; padding:4px 10px; flex:none; font-weight:600;}
+.vpre-wbadge.is-flat{background:#f2f4f8; color:var(--vp-ink-2);}
+
+/* ===== 闯关地图（简洁同款） ===== */
+.vpre-stage-rules{font-size:11px; color:var(--vp-muted); background:#f8f9fb; border:1px dashed #d8dde7; border-radius:11px; padding:10px 12px; line-height:1.7; margin-bottom:12px;}
+.vpre-stage{display:flex; align-items:center; gap:12px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:16px; padding:14px; margin-bottom:10px; box-shadow:var(--vp-shadow-sm);}
+.vpre-stage.is-playable{font-family:inherit; width:100%; cursor:pointer; text-align:left; transition:transform .12s, border-color .15s;}
+.vpre-stage.is-playable:active{transform:scale(.98);}
+.vpre-stage.is-playable:hover{border-color:#c7cfe4;}
+.vpre-stage-num{width:42px; height:42px; border-radius:13px; background:var(--vp-blue); color:#fff; font-weight:700; font-size:12.5px; display:flex; align-items:center; justify-content:center; flex:none; box-shadow:0 4px 10px rgba(59,91,219,.28);}
 .vpre-stage-info{flex:1; min-width:0;}
-.vpre-stage-info b{font-size:13.5px; display:block;}
+.vpre-stage-info b{font-size:13.5px; display:block; color:var(--vp-ink);}
 .vpre-stage-info span{font-size:11px; color:var(--vp-muted);}
 .vpre-stars{font-size:11.5px; letter-spacing:1.5px; color:var(--vp-orange); flex:none;}
-.vpre-stage-done{width:22px; height:22px; border-radius:50%; background:var(--vp-green); color:#fff; font-size:12px; display:flex; align-items:center; justify-content:center; flex:none;}
-.vpre-stage.is-locked{opacity:.62;}
-.vpre-stage.is-locked .vpre-stage-num{background:#e9edf7; color:var(--vp-muted); box-shadow:none;}
+.vpre-stage-done{width:22px; height:22px; border-radius:50%; background:var(--vp-green); color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none;}
+.vpre-stage.is-locked{opacity:.55;}
+.vpre-stage.is-locked .vpre-stage-num{background:#eceef4; color:var(--vp-muted); box-shadow:none;}
+.vpre-stage-go{font-size:11.5px; font-weight:600; color:var(--vp-blue); flex:none;}
+.vpre-stage-list{display:flex; flex-direction:column; gap:10px;}
+.vpre-stage-unit{background:var(--vp-card); border:1px solid #e6e9f0; border-radius:16px; padding:14px; box-shadow:var(--vp-shadow-sm);}
+.vpre-stage-unit-head{display:flex; justify-content:space-between; align-items:center; font-size:13.5px; font-weight:700; margin-bottom:10px;}
+.vpre-stage-unit-clear{font-size:11px; color:var(--vp-green); font-weight:600;}
+.vpre-stage-chips{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+.vpre-stage-chip{border:1px solid #dfe3ea; background:#f7f8fb; border-radius:11px; padding:9px 6px; display:flex; flex-direction:column; align-items:center; gap:3px; font-size:12px; font-weight:600; color:var(--vp-ink); cursor:pointer; transition:border-color .15s, transform .1s;}
+.vpre-stage-chip:active{transform:scale(.97);}
+.vpre-stage-chip:disabled{opacity:.5; cursor:default;}
+.vpre-stage-chip:hover{border-color:#c7cfe4;}
+.vpre-stage-chip[data-type="match"]{color:var(--vp-blue);}
+.vpre-chipstars{font-size:10px; letter-spacing:1px; color:var(--vp-orange);}
+
+/* ===== 我的 ===== */
 .vpre-profile{display:flex; align-items:center; gap:14px; margin-bottom:16px;}
-.vpre-avatar{width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,var(--vp-blue),var(--vp-purple)); color:#fff; font-size:20px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none; box-shadow:0 6px 14px rgba(79,107,255,.3);}
-.vpre-profile b{font-size:16px; display:block;}
+.vpre-avatar{width:56px; height:56px; border-radius:50%; background:var(--vp-blue); color:#fff; font-size:20px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none; box-shadow:0 6px 16px rgba(59,91,219,.3);}
+.vpre-profile b{font-size:16px; display:block; color:var(--vp-ink);}
 .vpre-profile span{font-size:12px; color:var(--vp-muted);}
 .vpre-stats{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px;}
-.vpre-stats div{background:var(--vp-card); border-radius:16px; padding:14px 4px; text-align:center; box-shadow:var(--vp-shadow-sm); border:1px solid rgba(232,236,245,.7);}
+.vpre-stats div{background:var(--vp-card); border:1px solid #e6e9f0; border-radius:15px; padding:14px 4px; text-align:center; box-shadow:var(--vp-shadow-sm);}
 .vpre-stats b{display:block; font-size:19px; color:var(--vp-blue);}
 .vpre-stats span{font-size:10.5px; color:var(--vp-muted);}
 .vpre-badges{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:16px;}
-.vpre-badge{background:var(--vp-card); border:1px solid var(--vp-line); border-radius:99px; padding:7px 13px; font-size:11.5px; color:var(--vp-ink-2);}
+.vpre-badge{background:var(--vp-card); border:1px solid #e6e9f0; border-radius:99px; padding:7px 13px; font-size:11.5px; color:var(--vp-muted); opacity:.75;}
+.vpre-badge.is-earned{background:var(--vp-orange-soft); border-color:rgba(245,158,11,.4); color:#b45309; font-weight:600; opacity:1;}
 .vpre-note{font-size:11px; color:var(--vp-muted); text-align:center; margin-top:10px;}
-.vpre-quiz-head{display:flex; justify-content:space-between; align-items:center; font-size:12.5px; font-weight:600; margin:2px 0 12px;}
-.vpre-quiz-close{border:0; background:var(--vp-blue-soft); color:var(--vp-blue); width:30px; height:30px; border-radius:50%; font-size:13px; cursor:pointer; line-height:1;}
-.vpre-qcard{background:var(--vp-card); border-radius:22px; padding:28px 16px 24px; text-align:center; box-shadow:var(--vp-shadow); border:1px solid rgba(232,236,245,.7);}
-.vpre-qword{font-size:28px; font-weight:700; letter-spacing:.5px;}
+
+/* ===== 答题页 ===== */
+.vpre-quiz-head{display:flex; justify-content:space-between; align-items:center; font-size:12.5px; font-weight:600; margin:2px 0 12px; color:var(--vp-ink);}
+.vpre-quiz-close{border:0; background:#eef1fb; color:var(--vp-blue); width:30px; height:30px; border-radius:50%; font-size:13px; cursor:pointer; line-height:1;}
+.vpre-qcard{background:var(--vp-card); border:1px solid #e6e9f0; border-radius:20px; padding:28px 16px 24px; text-align:center; box-shadow:var(--vp-shadow);}
+.vpre-qword{font-size:28px; font-weight:700; letter-spacing:.5px; color:var(--vp-ink);}
 .vpre-qipa{font-size:12.5px; color:var(--vp-muted); margin-top:6px;}
-.vpre-speak{margin-top:16px; border:0; background:linear-gradient(135deg,var(--vp-blue),var(--vp-blue-2)); color:#fff; font-size:13px; font-weight:700; padding:11px 26px; border-radius:99px; cursor:pointer; box-shadow:0 5px 14px rgba(79,107,255,.3);}
+.vpre-speak{margin-top:16px; border:0; background:var(--vp-blue); color:#fff; font-size:13px; font-weight:700; padding:11px 26px; border-radius:99px; cursor:pointer; box-shadow:0 5px 14px rgba(59,91,219,.3);}
 .vpre-qopts{display:grid; grid-template-columns:1fr 1fr; gap:11px; margin-top:16px; counter-reset:qopt;}
-.vpre-qopt{position:relative; border:1.5px solid var(--vp-line); background:var(--vp-card); border-radius:15px; padding:14px 12px 14px 44px; font-size:13px; font-weight:500; color:var(--vp-ink); cursor:pointer; text-align:left; transition:border-color .15s, background .15s, transform .1s;}
+.vpre-qopt{position:relative; border:1.5px solid #dfe3ea; background:var(--vp-card); border-radius:14px; padding:14px 12px 14px 44px; font-size:13px; font-weight:500; color:var(--vp-ink); cursor:pointer; text-align:left; transition:border-color .15s, background .15s, transform .1s;}
 .vpre-qopt:active{transform:scale(.97);}
-.vpre-qopt::before{counter-increment:qopt; content:counter(qopt, upper-alpha); position:absolute; left:11px; top:50%; transform:translateY(-50%); width:24px; height:24px; border-radius:8px; background:var(--vp-blue-soft); color:var(--vp-blue); font-size:11.5px; font-weight:700; display:flex; align-items:center; justify-content:center; transition:background .15s, color .15s;}
+.vpre-qopt::before{counter-increment:qopt; content:counter(qopt, upper-alpha); position:absolute; left:11px; top:50%; transform:translateY(-50%); width:24px; height:24px; border-radius:8px; background:#eef1fb; color:var(--vp-blue); font-size:11.5px; font-weight:700; display:flex; align-items:center; justify-content:center; transition:background .15s, color .15s;}
 .vpre-qopt:disabled{cursor:default; opacity:.9;}
-.vpre-qopt.is-right{border-color:var(--vp-green); background:var(--vp-green-soft); color:var(--vp-green); font-weight:700;}
+.vpre-qopt.is-right{border-color:var(--vp-green); background:var(--vp-green-soft); color:#0a7a52; font-weight:700;}
 .vpre-qopt.is-right::before{background:var(--vp-green); color:#fff;}
-.vpre-qopt.is-wrong{border-color:var(--vp-red); background:var(--vp-red-soft); color:var(--vp-red);}
+.vpre-qopt.is-wrong{border-color:var(--vp-red); background:var(--vp-red-soft); color:#d02f35;}
 .vpre-qopt.is-wrong::before{background:var(--vp-red); color:#fff;}
-.vpre-qnext{margin-top:16px; border-radius:14px; padding:13px 0; font-size:14px;}
+.vpre-qnext{margin-top:16px; border-radius:12px; padding:13px 0; font-size:14px;}
 .vpre-result{padding-top:6px;}
 .vpre-result .vpre-qcard{padding:30px 18px 22px;}
 .vpre-result-num{font-size:38px; font-weight:700; color:var(--vp-blue); text-align:center;}
 .vpre-result-msg{font-size:13px; color:var(--vp-ink-2); text-align:center; margin-top:8px;}
 .vpre-result-stars{font-size:26px; letter-spacing:6px; text-align:center; margin-top:12px; color:var(--vp-orange);}
-.vpre-result-stars .dim{color:var(--vp-line);}
+.vpre-result-stars .dim{color:#e0e4ec;}
 .vpre-result .vpre-btn{margin-top:12px;}
+
+/* ===== 连连看 ===== */
 .vpre-mhead-actions{display:flex; gap:6px; align-items:center;}
-.vpre-mgrid{display:grid; grid-template-columns:repeat(4, 1fr); gap:9px; margin-top:4px;}
-.vpre-mcard{border:1.5px solid var(--vp-line); background:var(--vp-card); border-radius:14px; min-height:72px; padding:8px 4px; font-size:11px; font-weight:600; color:var(--vp-ink); cursor:pointer; display:flex; align-items:center; justify-content:center; text-align:center; line-height:1.35; word-break:break-word; box-shadow:var(--vp-shadow-sm); transition:border-color .15s, background .15s, transform .1s;}
+.vpre-mgrid{display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-top:4px;}
+.vpre-mcard{position:relative; border:1.5px solid #dfe3ea; background:var(--vp-card); border-radius:13px; min-height:62px; padding:8px 4px; font-size:11px; font-weight:600; color:var(--vp-ink); cursor:pointer; display:flex; align-items:center; justify-content:center; text-align:center; line-height:1.35; word-break:break-word; box-shadow:var(--vp-shadow-sm); transition:border-color .15s, background .15s, transform .12s, box-shadow .15s;}
+.vpre-mcard.is-en{background:#f7f8fb; border-color:#d9deea;}
+.vpre-mcard.is-zh{background:#f7faf8; border-color:#dce8e2;}
 .vpre-mcard:active{transform:scale(.96);}
-.vpre-mcard.is-sel{border-color:var(--vp-blue); background:var(--vp-blue-soft); color:var(--vp-blue); box-shadow:0 4px 12px rgba(79,107,255,.2);}
-.vpre-mcard.is-matched{border-color:var(--vp-green); background:var(--vp-green-soft); color:var(--vp-green); cursor:default;}
-.vpre-mcard.is-wrong{border-color:var(--vp-red); background:var(--vp-red-soft); color:var(--vp-red); animation:vpre-shake .3s;}
+.vpre-mcard.is-sel{border-color:var(--vp-blue); background:#eef1fb; color:var(--vp-blue); box-shadow:0 0 0 2px rgba(59,91,219,.2); transform:scale(1.03);}
+.vpre-mcard.is-matched{border-color:var(--vp-green); background:var(--vp-green-soft); color:#0a7a52; cursor:default; opacity:.9;}
+.vpre-mcard.is-matched::after{content:"✓"; position:absolute; top:4px; right:7px; font-size:12px; font-weight:700; color:#0a7a52;}
+.vpre-mcard.is-wrong{border-color:var(--vp-red); background:var(--vp-red-soft); color:#d02f35; animation:vpre-shake .3s;}
 @keyframes vpre-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 .vpre-mtip{font-size:11px; color:var(--vp-muted); text-align:center; margin-top:14px;}
-.vpre-toast{position:fixed; left:50%; bottom:96px; transform:translateX(-50%) translateY(8px); background:rgba(28,36,52,.88); color:#fff; font-size:12px; padding:9px 16px; border-radius:99px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; z-index:30; white-space:nowrap;}
+
+/* ===== 学习报告 ===== */
+.vpre-report-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;}
+.vpre-report-back{border:0; background:#eef1fb; color:var(--vp-blue); border-radius:10px; padding:7px 12px; font-size:12px; cursor:pointer;}
+.vpre-bookrow{display:flex; align-items:center; gap:10px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:14px; padding:10px 12px; margin-bottom:8px; box-shadow:var(--vp-shadow-sm);}
+.vpre-bookrow b{width:34px; font-size:12.5px; flex:none; color:var(--vp-ink);}
+.vpre-bookrow .vpre-progress{flex:1;}
+.vpre-bookrow .vpre-progress div{background:var(--vp-blue);}
+.vpre-bookrow span{font-size:11px; color:var(--vp-muted); width:56px; text-align:right; flex:none;}
+.vpre-report-stats{grid-template-columns:1fr 1fr;}
+
+.vpre-toast{position:fixed; left:50%; bottom:96px; transform:translateX(-50%) translateY(8px); background:rgba(31,41,55,.92); color:#fff; font-size:12px; padding:9px 16px; border-radius:99px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; z-index:30; white-space:nowrap;}
 .vpre-toast.is-show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+@media (max-width:360px){
+  .vpre-body{padding:14px 12px 120px;}
+  .vpre-unit{min-height:112px; padding:14px 10px 10px;}
+  .vpre-unit-title{font-size:12.5px;}
+  .vpre-qopt{font-size:12px; padding-left:40px;}
+  .vpre-qopt::before{left:9px; width:22px; height:22px;}
+  .vpre-hero{padding:16px;}
+}
 
 </style>
 
@@ -160,27 +220,29 @@
 
   <div class="vpre-phone vpre-h5 vpre-app">
       <div class="vpre-screen">
-        <div class="vpre-island"></div>
-        <div class="vpre-status">
-          <span>9:41</span>
-          <span class="vpre-status-icons">
-            <span class="vpre-signal" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-            <span class="vpre-wifi" aria-hidden="true"></span>
-            <span class="vpre-battery" aria-hidden="true"><i></i></span>
-          </span>
-        </div>
-        <div class="vpre-urlbar"><span class="vpre-url">🔒 dancibang.com</span></div>
         <div class="vpre-header">
           <div class="vpre-brand"><span class="vpre-logo">🦉</span>单词大冒险</div>
           <span class="vpre-header-right"><button class="vpre-sfxbtn" type="button" aria-pressed="true" aria-label="音效开关">🔊</button></span>
         </div>
         <div class="vpre-body">
           <div class="vpre-view is-active" data-view="home">
-            <div class="vpre-hero">
-              <div class="vpre-hero-top"><span>早上好，小宇 👋</span><span class="vpre-streak">🔥 连续 7 天</span></div>
-              <div class="vpre-hero-title">今日学习 <b>12 / 18</b> 词</div>
-              <div class="vpre-progress vpre-progress-light"><div style="width:66%"></div></div>
-              <button class="vpre-hero-btn" type="button">继续学习 → 九上 Unit 1</button>
+            <div class="vpre-welcome">
+              <div class="vpre-welcome-txt">
+                <div class="vpre-hi vpre-hi-text">早上好 👋</div>
+                <div class="vpre-hi-sub">今天也要坚持背单词哦</div>
+              </div>
+              <span class="vpre-streak">🔥 连续 7 天</span>
+            </div>
+            <div class="vpre-taskcard">
+              <div class="vpre-task-main">
+                <div class="vpre-task-ring" style="--p:0%"><i class="vpre-task-pct">0%</i></div>
+                <div class="vpre-task-info">
+                  <div class="vpre-task-head"><span class="vpre-task-unit">九上 单元 1</span><span class="vpre-task-num">0 / 44</span></div>
+                  <div class="vpre-progress"><div style="width:0%"></div></div>
+                  <div class="vpre-task-sub">已学 0 词</div>
+                </div>
+              </div>
+              <button class="vpre-btn vpre-btn-primary vpre-btn-block vpre-task-cta" type="button" data-action="quiz-word">继续学习 → 九上 单元 1</button>
             </div>
             <div class="vpre-sec-title">选择词库</div>
             <div class="vpre-seg" role="group" aria-label="选择年级">
@@ -188,6 +250,7 @@
               <button class="vpre-chip" type="button" data-grade="g8" aria-pressed="false">初二</button>
               <button class="vpre-chip is-active" type="button" data-grade="g9" aria-pressed="true">初三</button>
             </div>
+            <div class="vpre-bookseg" role="group" aria-label="选择上下册"></div>
             <div class="vpre-sec-title">单元列表 <span class="vpre-sec-note">九上</span></div>
             <div class="vpre-unit-list"></div>
             <div class="vpre-sec-title">快速闯关</div>
@@ -199,67 +262,48 @@
             </div>
             <div class="vpre-sec-title">今日复习</div>
             <div class="vpre-review">
-              <span>📌 <b>3</b> 个单词今天到期，按遗忘曲线安排</span>
+              <span class="vpre-review-txt">📌 今天没有错词，继续保持！</span>
               <button class="vpre-btn" type="button">去复习</button>
             </div>
           </div>
           <div class="vpre-view" data-view="wrong">
             <div class="vpre-hero" style="background:linear-gradient(120deg,#ff8b5c,#ff5d6c); box-shadow:0 8px 20px rgba(255,93,108,.25);">
-              <div class="vpre-hero-top"><span>错词本</span><span class="vpre-streak">12 个词</span></div>
-              <div class="vpre-hero-title">掌握率 <b>78%</b>，继续保持！</div>
-              <div class="vpre-progress vpre-progress-light"><div style="width:78%"></div></div>
+              <div class="vpre-hero-top"><span>错词本</span><span class="vpre-streak vpre-wrong-count">0 个词</span></div>
+              <div class="vpre-hero-title">掌握率 <b class="vpre-wrong-rate">0%</b></div>
+              <div class="vpre-progress vpre-progress-light"><div class="vpre-wrong-bar" style="width:0%"></div></div>
               <button class="vpre-hero-btn" type="button" style="color:var(--vp-red);">一键复习</button>
             </div>
             <div class="vpre-sec-title">高频错词</div>
             <div class="vpre-wrong-list"></div>
           </div>
           <div class="vpre-view" data-view="stage">
-            <div class="vpre-sec-title" style="margin-top:2px;">闯关地图 <span>九上</span></div>
-            <div class="vpre-stage">
-              <div class="vpre-stage-num">1-1</div>
-              <div class="vpre-stage-info"><b>认一认</b><span>看词选义 · 40 词</span></div>
-              <span class="vpre-stars">★★★</span>
-              <span class="vpre-stage-done">✓</span>
+            <div class="vpre-sec-title" style="margin-top:2px;">闯关地图 <span class="vpre-stage-note">九上</span></div>
+            <div class="vpre-stage-rules">
+              规则：每单元 4 关——认一认 / 听一听 / 拼一拼各 20 词，大作战（连连看）10 对；<br>
+              前三关都拿到 3 星，才解锁本单元大作战；大作战通关后解锁下一单元。<br>
+              计星：20 题对 ≥18 题 3 星、≥15 题 2 星、≥12 题 1 星，低于 12 题需重打。
             </div>
-            <div class="vpre-stage">
-              <div class="vpre-stage-num">1-2</div>
-              <div class="vpre-stage-info"><b>听一听</b><span>听音选词 · 40 词</span></div>
-              <span class="vpre-stars">★★☆</span>
-              <span class="vpre-stage-done">✓</span>
-            </div>
-            <div class="vpre-stage">
-              <div class="vpre-stage-num">1-3</div>
-              <div class="vpre-stage-info"><b>拼一拼</b><span>拼写闯关 · 40 词</span>
-                <div class="vpre-progress vpre-progress-sm"><div style="width:60%"></div></div>
-              </div>
-              <button class="vpre-btn vpre-btn-mini" type="button">继续</button>
-            </div>
-            <div class="vpre-stage is-locked">
-              <div class="vpre-stage-num">2-1</div>
-              <div class="vpre-stage-info"><b>大作战</b><span>限时混战 · 解锁后开放</span></div>
-              <span style="font-size:14px;">🔒</span>
-            </div>
+            <div class="vpre-stage-list"></div>
           </div>
           <div class="vpre-view" data-view="mine">
             <div class="vpre-profile">
-              <div class="vpre-avatar">宇</div>
-              <div><b>小宇</b><span>初三 · 连续打卡 7 天</span></div>
+              <div class="vpre-avatar">同</div>
+              <div><b>同学</b><span class="vpre-mine-profile">初三 · 连续打卡 1 天</span></div>
             </div>
             <div class="vpre-stats">
-              <div><b>328</b><span>已掌握</span></div>
-              <div><b>7</b><span>连续天数</span></div>
-              <div><b>6</b><span>徽章</span></div>
+              <div><b class="vpre-mine-learned">0</b><span>已掌握</span></div>
+              <div><b class="vpre-mine-streak">1</b><span>连续天数</span></div>
+              <div><b class="vpre-mine-badges">0</b><span>星星(颗)</span></div>
             </div>
             <div class="vpre-sec-title">我的徽章</div>
-            <div class="vpre-badges">
-              <span class="vpre-badge">🔥 坚持 7 天</span>
-              <span class="vpre-badge">✏️ 拼写新星</span>
-              <span class="vpre-badge">🎧 听力入门</span>
-              <span class="vpre-badge">📚 百词达人</span>
-            </div>
-            <button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button">查看家长学习报告</button>
-            <div class="vpre-note">网页版可在手机 / 电脑 / 平板直接打开</div>
+            <div class="vpre-badges vpre-badge-dynamic"></div>
+            <button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-action="open-report">查看家长学习报告</button>
+            <div class="vpre-note">数据保存在本机浏览器，家长可查看学习报告</div>
           </div>
+          <div class="vpre-view" data-view="report">
+            <div class="vpre-report"></div>
+          </div>
+
           <div class="vpre-view" data-view="quiz"><div class="vpre-quiz"></div></div>
         </div>
         <div class="vpre-toast" role="status"></div>
@@ -287,7 +331,7 @@
     }
     return arr;
   }
-  var VOCAB = {"g9":[{"n":44,"words":[["lady","n.女士，女子"],["gentleman","n.先生"],["puppet","n.木偶；布袋木偶，手偶"],["performer","n.表演者"],["finger","n.手指"],["teenager","n.青少年"],["old-fashioned","adj.老式的，过时的"],["puppetry","n.木偶表演艺术"],["unless","conj.除非"],["performance","n.表演；演出"],["blood","n.血，血液"],["perform","v.表演，演出"],["edge","n.边缘"],["on the edge of","在……边缘；濒于"],["viewer","n.观看者"],["creativity","n.独创性，创造性，创造力"],["volunteer","n.志愿者"],["artist","n.艺术家"],["group","n.组，群；团体"],["creator","n.创作者；创造者"],["kill","v.弄死，杀死"],["scarecrow","n.稻草人"],["educator","n.教育家"],["youth","n.青年，年轻人"],["inspire","v.鼓舞，激励"],["lie","v.存在，在于"],["intelligent","adj.有智慧的，聪明的"],["wealthy","adj.富有的；富裕的"],["independent","adj.自立的；独立的"],["burst","v.冲，闯；使爆裂"],["hidden","adj.隐藏的，隐秘的"],["scaled","adj.有鳞的"],["claw","n.爪"],["wildly","adv.激动地"],["roar","v.吼叫，呼啸"],["valley","n.谷；山谷"],["scare","v.使惊恐，吓唬"],["eagle","n.雕"],["wing","n.翅膀，翼"],["dust","n.灰尘，尘埃"],["tender","adj.娇嫩的，幼嫩的"],["bud","n.苞；蓓蕾"],["vast","adj.广大无边的，辽阔的"],["grand","adj.宏伟的，壮丽的"]]},{"n":35,"words":[["tin","n.罐头；金属盒"],["spare","adj.备用的；多余的，闲置的"],["piggy bank","n.储蓄罐"],["size","n.大小，尺寸"],["dreamland","n.梦境，理想世界"],["manage","v.终于做成，设法做到"],["laptop","n.笔记本电脑，便携式电脑"],["budget","v.编制预算"],["exactly","adv.正是，一点不错"],["rate","v.对……做评估，评价"],["pleasure","n.愉快，快乐；满足"],["inference","n.推论，推断的结果"],["account","n.账户"],["saving","n.积蓄；存钱"],["habit","n.习惯"],["value","n.价值"],["unlike","prep.不像……和……不同"],["date","n.日期，日子"],["sale","n.出售，销售"],["on sale","有售；廉价销售"],["T-shirt","n.T恤（衫）"],["quick","adj.快的；快速的"],["website","n.网站"],["organiser","n.组织者，安排者"],["dollar","n.美元"],["cent","n.分"],["penny","n.（美国、加拿大的）一分钱硬币"],["exception","n.例外，除外"],["couple","n.一对夫妇；一对情侣"],["treasure","n.珍宝，珍品"],["Christmas Eve","圣诞前夕，平安夜"],["certainly","adv.当然"],["chain","n.链子，链条"],["expensive","adj.昂贵的，花钱多的"],["comb","n.梳子；梳状饰物，发插"]]},{"n":34,"words":[["remains","n.遗迹"],["kingdom","n.王国"],["northwest","n.西北，西北方"],["archaeologist","n.考古学家"],["centre","n.中心"],["period","n.时期"],["valuable","adj.宝贵的，有价值的"],["imagination","n.想象力"],["amaze","v.使大为惊奇，使惊讶"],["dig into sth","探究，探寻"],["luck","n.好运，幸运"],["researcher","n.研究者；调查员"],["detailed","adj.详尽的，详细的"],["cartoon","n.卡通（片），动画片"],["tomb","n.坟墓，冢"],["silk","n.丝绸"],["matchbox","n.火柴盒"],["archaeological","adj.考古的"],["statue","n.雕像；塑像"],["moai","n.摩埃石像"],["mystery","n.神秘事物，谜"],["possibility","n.可能，可能性"],["pretty","adj.漂亮的，好看的"],["besides","prep.除……之外"],["multimedia","adj.多媒体的"],["version","n.版本"],["palace","n.王宫；宫殿"],["background","n.背景"],["fever","n.狂热，兴奋"],["pride","n.自豪，骄傲"],["bat","n.蝙蝠"],["fridge","n.冰箱，冰柜"],["magnet","n.磁铁"],["central","adj.中心的；重要的，主要的"]]},{"n":27,"words":[["fearless","adj.无畏的，不怕的"],["bravely","adv.勇敢地，无畏地"],["footprint","n.足迹"],["northeast","n.东北，东北方向"],["death","n.死，死亡"],["gentle","adj.温和的，温柔的"],["fighter","n.斗士，奋斗者"],["pity","n.可惜，遗憾"],["war","n.战争"],["fixed","adj.固定的；不变的"],["unchanging","adj.不变的，恒定的"],["entry","n.（日记的）一则"],["battle","n.战斗，战役"],["temperature","n.温度，气温"],["selfless","adj.忘我的，无私的"],["heroic","adj.英雄的，英勇的"],["loyal","adj.忠贞的，忠实的，忠诚的"],["recommend","v.劝告，建议"],["dreamer","n.做梦的人"],["burning","adj.火热的；灼热的"],["countless","adj.无数的，数不尽的"],["president","n.国家主席；总统"],["republic","n.共和国"],["productive","adj.多产的"],["type","n.类型，种类"],["soil","n.土壤，土地，泥土"],["socialist","adj.社会主义的"]]},{"n":35,"words":[["drop","v.降低"],["tourist","n.游客"],["ecosystem","n.生态系统"],["balance","v.（使）保持平衡；n.平衡"],["smog","n.烟雾"],["admire","v.欣赏，观赏"],["mark","n.痕迹；标记"],["farmland","n.农田，耕地"],["rapid","adj.快速的，迅速的"],["society","n.社会"],["till","conj.直到"],["cancel","v.取消"],["permit","v.允许；使成为可能"],["organization","n.组织，团体，机构"],["harm","v.损害；危害；伤害"],["punishment","n.惩罚手段；处罚"],["global","adj.全球的，全世界的"],["overfishing","n.过度捕捞"],["greenhouse","n.温室，暖房"],["gas","n.气，气体"],["control","v.控制，限制"],["rubbish","n.垃圾，废弃物"],["cartoonist","n.漫画家；动画家"],["logging","n.伐木"],["alarm","n.警报；警报器"],["foreigner","n.外国人"],["logo","n.标识，标志，徽标"],["endangered","adj.濒危的，濒于灭绝的"],["vulnerable","adj.脆弱的；易受伤害的"],["worldwide","adv.世界各地"],["protection","n.保护"],["environmental","adj.自然环境的"],["population","n.人口；动植物的总数"],["undoubtedly","adv.毫无疑问地"],["survival","n.继续生存；幸存"]]},{"n":39,"words":[["cheap","adj.便宜的，廉价的"],["toothbrush","n.牙刷"],["glove","n.手套"],["silently","adv.默不作声地；无声地"],["former","adj.以前的，从前的"],["tie","v.系，扎，拴，捆"],["bin","n.垃圾箱，垃圾桶"],["average","n.平均数"],["on average","平均来看"],["tiny","adj.极小的"],["nowhere","adv.什么地方都不，无处"],["plastic-free","adj.无塑料的"],["highlight","v.突出，强调"],["setback","n.阻碍，挫折"],["formation","n.构成，组成"],["pollute","v.污染"],["electronic","adj.电子的，用电子操作的；电子器件的"],["fog","n.雾"],["industry","n.工业，制造业"],["capital","n.首都"],["coal","n.煤"],["worst","adj.最坏的；最差的"],["location","n.地点，位置"],["negative","adj.有害的；不良的"],["furthermore","adv.此外；而且"],["recycle","v.再利用，回收利用"],["upcycle","v.升级改造"],["loudly","adv.响亮地，大声地"],["village","n.乡村，村庄"],["noisy","adj.喧闹的；吵闹的"],["reporter","n.记者"],["depth","n.深，深度"],["weight","n.重物"],["businessman","n.商人；企业家"],["truck","n.货车，卡车"],["industrial","adj.工业的"],["litter","n.垃圾，废弃物"],["peace","n.和平；平静，安宁"],["business","n.商业"]]}]};
+  var VOCAB = {"g7":{"books":{"七上":{"units":[{"name":"Starter","n":51,"words":[["lab","n.实验室"],["junior high","初级中学"],["hold","v.召开，举行；进行"],["ready","adj.准备好（做某事）的"],["event","n.活动"],["textbook","n.教科书，教材，课本"],["delicious","adj.美味的，可口的"],["forget","v.忘记，遗忘芳香的"],["pack","v.（把）打包"],["join","v.参与，加入（某项活动）"],["eraser","n.橡皮"],["club","n.俱乐部"],["history","n.历史"],["life","n.生活"],["geography","n.地理"],["introduce","v.介绍"],["biology","n.生物"],["yourself","pron.你自己；你们自己"],["physics","n.物理"],["everyone","pron.每个人，人人"],["information technology","信息技术"],["holiday","n.假期，休假日"],["chemistry","n.化学"],["enjoy","v.喜欢；享受的乐趣"],["jacket","n.夹克，短上衣"],["nervous","adj.神经紧张的"],["red scarf","红领巾焦虑不安的"],["jeans","n.牛仔裤"],["classmate","n.同班同学"],["hat","n.帽子"],["hobby","n.业余爱好，嗜好"],["T-shirt","n.T恤（衫），短袖运动衫"],["organise","v.组织，策划"],["grey","adj.灰色的"],["uniform","n.制服"],["need","v.需要"],["future","adj.将来的，未来的"],["snack","n.（正餐以外的）小吃"],["passage","n.（书籍、文章等的）段，点心节"],["activity","n.活动"],["teaching building","教学楼"],["decoration","n.装饰物"],["dining hall","食堂"],["balloon","n.气球"],["grow","v.成长，长大"],["around","adv.到处，四处"],["paint","v.（给）涂颜料"],["follow","v.跟着，跟随"],["start","v.创办；建立"],["better","adj.更好的，较好的"],["plan","n.计划"]]},{"name":"Unit 1","n":74,"words":[["into","prep.进入，到⋯⋯里面"],["complete","v.使完整"],["ourselves","pron.我们自己"],["without","prep.缺乏；没有"],["silly","adj.可笑的，荒唐的"],["sentence","n.句子"],["sir","n.老师（中小学生对男教师的称呼）"],["mistake","n.错误"],["just","adv.正好，恰好"],["polite","adj.有礼貌的客气的"],["smile","n.微笑，笑容"],["mind","n.头脑；思想，思维"],["lucky","adj.运气好的，幸运的"],["hers","pron.她的"],["until","prep.直到.⋯为止"],["dry","adj.干的干燥的"],["happen","v.（尤指意外地）发生"],["meaning","n.意义；意思；含义"],["during","prep.在期间J"],["fact","事实；真相"],["more","det.另外的、更多的"],["in fact","事实上"],["conversation","n.（非正式的）"],["important","adj.重要的谈话，交谈，会话重大的"],["advice","n.意见，建议：忠告"],["remember","v.记住，记得劝告"],["really","adv.很，十分"],["task","n.工作，任务"],["choose","v.挑选，选择；选取"],["project","n.（学校的）课题"],["main","adj.（同类中）最大的，研究项目最重要的"],["journey","n.旅行，旅程"],["expression","n.词；词组：历程，过程措辞"],["of course","当然，自然"],["point","v.指；用（手指）指"],["together","adv.一起，共同"],["point out","指出，指明一齐，一块儿"],["praise","v.（尤指公开地）称赞"],["pool","n.水塘，水洼赞扬，表扬"],["sail","v.起航"],["other","adj.其余的，另外的"],["away","adv.朝另一方向"],["grammar","n.语法"],["thought","n.意见，主意，观点"],["rule","n.规则，定律"],["primary","adj.小学教育的"],["circle","v.在初级教育的"],["mine","pron.我的"],["primary school","小学"],["diary","n.日记，日志，日记簿"],["protect","v.保护；防护"],["bell","n.铃；电铃"],["wind","n.风"],["ring","v.（仲、铃）鸣响"],["wide","adj.宽的，宽阔的"],["problem","n.问题，难题；困难"],["everybody","pron.每个人，人人"],["still","adv.仍然，还"],["understand","v.懂得，理解"],["pain","n.（肉体上的）疼痛"],["gain","n.（尤指靠计划或努力得到的）好处，利益，改进"],["feeling","n.感觉"],["directly","adv.直接地"],["through","prep.从一端至另一端"],["describe","v.描述，形容，描写"],["action","n.行为，行动"],["storm","n.暴风雨（雪）"],["group","n.组，团体，群体"],["towards","prep.向（着）"],["member","n.成员、会员朝（着）"],["hope","v.希望，期望，指望"],["skate","v.滑冰，溜冰"],["volleyball","n.排球（运动）"],["photography","n.摄影"]]},{"name":"Unit 2","n":77,"words":[["correct","adj.正确的，无误的"],["form","n.形式"],["rock music","摇滚乐"],["tradition","n.传统"],["as","prep.像……如同"],["interest","n.兴趣"],["electric","adj.用电的；电动的"],["lover","n.爱好者"],["guitar","n.吉他"],["prize","n.（给予获胜者的）奖品"],["band","n.乐队乐团奖金，奖赏"],["online","adv.在网上"],["competition","n.竞争"],["fun","n.乐趣"],["programme","n.（电视或"],["moment","n.某一时刻"],["sound","n.声音"],["paper-cutting","剪纸"],["different","adj.不同的不"],["only","adv.只有仅仅一样的"],["few","det.一些几个"],["suddenly","adv.突然，突如其来地"],["same","adj.相同的，同一个的"],["hit","v.使（某人）突然意识到"],["social","adj.社会的，有关社会的"],["check","v.检查，核查"],["media","n.新闻媒体，传媒"],["rush","v.冲，奔"],["social media","社交媒体，社会化媒体"],["festival","n.电影、戏剧、音"],["chance","n.机会，可能性乐等的）节，节庆，会演"],["partner","n.搭档，伙伴"],["practice","n.练习"],["note","n.笔记，记录"],["stage","n.舞台"],["example","n.例子，例证"],["nod","v.点头"],["knowledge","n.知识；学问；认识"],["nature","n.大自然，自然界"],["touching","adj.感人的；动人的"],["report","n.新闻报道"],["son","n.儿子"],["awake","adj.醒着的"],["serve","v.为.⋯工作；供职"],["midnight","n.午夜"],["area","n.（国家、市镇等的）地区"],["appear","v.（尤指突然）出现，呈现"],["heart","n.心（脏）"],["absent","adj.不在的缺席的"],["almost","adv.几乎、差不多"],["seldom","adv.很少，罕见，不常"],["tap","v.（用手指）轻拍，轻叩，轻敲"],["position","n.职位，职务"],["shake","v.摇动"],["bit","adv.有点儿，稍微"],["each","pron.（两个或两个以上物或"],["lonely","adj.孤单的，寂寞的人中的）每个，各"],["magic","adj.有魔力的，神奇的"],["carry","v.把（某物或某人）"],["joy","n.欢欣，愉快，喜悦带至（新的地点或位置）"],["adventure","n.历险，奇远"],["across","prep.横跨，跨越"],["notebook","n.笔记本"],["memory","n.记忆，回忆"],["shelf","n.隔板，：架子"],["tear","v.离开"],["nervously","adv.神经紧张地"],["growth","n.（性格、智力或情感的）焦虑不安地发展，成长"],["page","n.（书、报纸、文件等的）"],["hide","v.把藏起来，隐藏页，面"],["care","n.担心；忧虑"],["writing","n.文字"],["hug","n.拥抱"],["ending","n.故事、电影"],["kiss","n.吻活动等的）结局、结尾"],["review","n.书评；剧评；影评"],["character","n.（书、剧本、电影中的）人物，角色"]]},{"name":"Unit 3","n":60,"words":[["quote","n.引语，引文，语录"],["reason","n.原因，理由"],["silent","adj.不作声的"],["comment","n.意见，评论"],["along","prep.顺着；沿着"],["loud","adj.大声的，喧闹的"],["mountain","n.高山，山岳"],["than","prep.比（用于两个事物的比较"],["road","n.路，道路，公路引出第二个事物）"],["handsome","adj.（男子）英俊的"],["theme","n.主题漂亮的"],["marry","v.结婚；娶；嫁"],["strict","adj.严格的严厉的"],["screen","n.屏幕，荧光屏"],["abroad","adv.在国外；到国外"],["high-speed","adj.高速的"],["anything","pron.任何事物快速的"],["myself","pron.我本人，我亲自"],["railway","n.铁路、铁道；我自己铁路系统"],["dumpling","n.水饺"],["alive","adj.仍然存在的"],["whole","adj.全部的，整个的"],["meeting","n.会议"],["become","v.成为，变成"],["cheese","笑一笑，说“茄子“"],["chef","n.厨师"],["harmony","n.融洽相处"],["even","adv.甚至，即使"],["solve","v.解决（问题）"],["cucumber","n.黄瓜"],["relationship","n.（事物之间的）"],["hang","v.悬挂联系关联"],["lantern","n.提灯；灯笼"],["parent","n.父，母"],["dish","n.（烹制好的）菜肴，一道菜"],["race","v.比赛"],["joke","v.说笑话；开玩笑"],["against","prep.违背与.⋯相悖"],["finish","v.完成，做完"],["shocked","adj.震惊的"],["serious","adj.严重的"],["laugh","v.发出笑声，（大）笑"],["disease","n.疾病，病"],["pork","n.猪肉"],["trailer","n.拖车，挂车"],["round","adj.圆形的，环形的"],["pull","v.拉；扯；拖"],["shape","n.形，形状，外形"],["refuse","v.拒绝，回绝"],["reunion","n.团圆，团聚"],["result","n.结果，后果"],["piece","n.片；块；段；截"],["matter","v.（尤指对某人自己或对发生"],["knife","n.刀之事）重要，要紧，有关系"],["smell","n.气味"],["power","给（车辆或机器）"],["laughter","n.笑；笑声"],["fill","v.（使）充满；装满"],["meal","n.一餐；饭"],["hate","v.讨厌，不喜欢"]]},{"name":"Unit 4","n":28,"words":[["spend","v.度过，消磨、花（时间）"],["unusual","adj.不平常的"],["alone","adv.独自；单独"],["treat","v.请客，款待，招待"],["miss","v.思念，想念，怀念（某人）"],["British","adj.英国的；英国人的"],["however","adv.然而，不过"],["special","adj.特的；特别的但是"],["common","adj.常见的普通的状况；局面"],["celebrate","庆祝"],["regret","v.后悔（做了某事）"],["stay","v.保持原状，维持"],["post","n.帖子对感到遗憾"],["dragon","n.龙"],["decision","n.决定，抉择"],["culture","n.文化"],["most","pron.大多数，大部分"],["double","adj.成双的"],["part","n.部分"],["support","n.支持"],["riverside","n.河边，河畔"],["medical","adj.医学的；医疗的"],["crowded","adj.挤满人（物）的"],["bright","adv.光明地；明亮地拥挤的"],["festive","adj.欢乐的，欢庆的"],["north","n.北北方"],["firework","n.烟火，烟花"],["sweet","adj.酣的，味甜的"]]},{"name":"Unit 5","n":84,"words":[["south","n.南南方"],["salty","adj.咸的，含盐的"],["view","n.观点，意见"],["prefer","v.更喜欢"],["pigeon","n.鸽子"],["usually","adv.通常地；惯常地"],["surprise","n.意想不到的事"],["Christmas","n.圣诞节（期间）"],["knock","v.敲门（窗）"],["waste","n.金钱，技能等的｝浪费"],["present","n.礼物，赠品"],["droppings","n.（兽或鸟的）粪"],["pollution","n.污染"],["boring","adj.无趣的，无聊的"],["plastic","adj.塑料制的乏味的"],["cause","v.导致，引起"],["feed","v.喂养，饲养，给⋯食物"],["duty","n.（道德或法律上的）"],["madly","adv.疯狂地；无法控制地"],["scary","adj.可怕的，骇人的"],["shine","v.发光，发亮恐怖的"],["mean","v.意思是，表示的意思"],["research","n.（对某一主题的）"],["break","n.短暂的假期，休假研究、搜索"],["emergency","紧急情况"],["recognise","v.认出；认识；不测事件辨认出"],["thirsty","adj.渴的，口渴的"],["themselves","pron.他们自己：她们自己；它们自己"],["challenge","n.挑战"],["mirror","n.镜子具有挑战性的事物"],["engineer","n.工程师；设计商"],["would","v.将将会"],["video","n.视频（表示想做某事或认为某事会发生）"],["opinion","n.意见，看法；主张"],["itself","pron.自己，自身"],["human","n.人"],["maybe","adv.也许，大概，可能"],["guide","n.指南，指导手册（表示不肯定）"],["hero","n.英雄；偶像"],["kilometre","n.千米，公里"],["rescue","n.营救，救援"],["lost","adj.迷路的"],["missing","adj.我不到的"],["get lost","迷路"],["dead","adj.死的，去世的"],["speed","n.速度速率"],["dodo","n.渡渡鸟"],["amazing","adj.惊人的，了不起的"],["as dead as a dodo","彻底死亡"],["enough","det.足够的，充足的"],["actually","adv.实际上，充分的事实上"],["another","det.另一个；别的"],["museum","n.博物馆、博物院不同的"],["island","n.岛，岛龄"],["tone","n.语气，口气，腔调"],["ocean","n.海洋，大海"],["change","n.变化，改变"],["plenty","pron.丰富，充足"],["dolphin","n.海豚众多，大量"],["believe","v.相信"],["friendly","adj.友好的，友善的"],["camera","n.照相机；摄像机"],["peaceful","adj.和平的非暴力的"],["real","adj.真的，真正的"],["arrive","v.到达，抵达"],["beaver","n.河覆，海狸"],["forest","n.森林，林区"],["tooth","n.牙，牙齿"],["hunt","v.打猎；猎杀"],["stick","n.柴枝，枝条"],["soon","adv.不久，即刻，很快"],["create","v.创造；创建"],["die","v.死去，死亡"],["pond","n.池塘"],["die out","消失；绝迹灭绝"],["wolf","n.狼"],["full","adj.满的；满是的"],["fox","n.狐狸"],["fantastic","adj.较好的"],["such","det.这样，如此吸引人的，有趣的非常（用于强调）"],["clam","n.蛤；蛤蜊"],["wonder","n.奇事"],["as happy as a clam","非常高兴的，相当满足的"],["seed","n.种子，籽"]]},{"name":"Unit 6","n":51,"words":[["rainforest","n.（热带）雨林"],["raincoat","n.雨衣"],["within","prep.在（建筑或地区）里"],["own","pron.自己的，属于自己的"],["quarter","n.一刻钟，十五分钟"],["cloud","n.云"],["past","prep.晚于在⋯之后"],["somewhere","adv.在某处"],["influence","v.影响，对"],["workshop","n.车间，工场起作用"],["collect","v.收集，采集；使集中"],["climate","n.气候"],["sunlight","n.阳光"],["corn","n.玉米"],["root","n.根"],["silk","n.丝绸"],["send","v.送出，发出"],["rose","n.玫瑰：蔷薇"],["rise","v.升高上升"],["cotton","n.棉花"],["stem","n.（植物的）茎，梗，柄"],["mix","v.（便）混合，拌和"],["popular","adj.受大众喜爱的"],["produce","v.（自然地）生产，受欢迎的产生，出产"],["health","n.健康（状况）"],["importantly","adv.重要的是"],["key","adj.至关重要的；必不可少的"],["sugar","n.糖关键的"],["product","n.（自然过程或化学"],["teahouse","n.茶馆，茶楼，茶室反应的）生成物"],["news","n.消息"],["oxygen","n.氧"],["coffee","n.咖啡"],["though","conj.虽然，尽管"],["secret","n.秘密"],["breathe","v.呼吸"],["husband","n.丈夫"],["dark","adj.昏暗的；黑暗的"],["adult","n.成人，成年人"],["rest","n.休息（时间）"],["weekend","n.周末"],["natural","adj.自然的，天然的"],["chat","n.闲职，闲谈，聊天"],["pun","n.双关语"],["relax","v.放松，休息"],["text","n.（书、杂志等的）正文"],["enter","v.进入"],["biscuit","n.饼干"],["simple","adj.简单的，简易的"],["connect","v.联结，连接"],["sunflower","n.向日葵"]]}]},"七下":{"units":[{"name":"Unit 1","n":74,"words":[["review","n.书评"],["chocolate","n.巧克力，朱古力"],["factory","n.工厂，制造厂"],["exciting","adj.令人兴奋的；使人激动的；刺激的"],["most","adv.最"],["magical","adj.奇异的，美妙的，迷人的"],["part","n.部分"],["side","n.边，面，侧"],["town","n.镇，城镇，市镇"],["poor","adj.贫穷的，贫困的"],["stay","v.停留"],["only","adj.唯一的，仅有的"],["watery","adj.（食物）稀薄的，含水太多的；味淡的"],["cabbage","n.卷心菜"],["freezing","adj.极冷的，严寒的"],["forget","v.忘记，遗忘"],["touch","v.感动，触动，打动"],["once","adv.曾经，过去"],["sunless","adj.无阳（日）光的"],["everything","pron.每件事物；所有事物"],["rich","adj.有钱的，富有的"],["choose","v.选择"],["complete","v.完成"],["expression","n.词组"],["passage","n.一段，一节"],["comment","n.意见，评论"],["theme","n.主题"],["description","n.描述，描写，叙述，形容"],["agree","v.同意，赞同"],["understand","v.理解"],["paragraph","n.（文章的）段，段落"],["other","pron.另外的人，其他的人"],["relate","v.相联系，有关联"],["experience","n.经验"],["opinion","n.意见，看法"],["topic","n.话题，论题"],["grammar","n.语法"],["rule","n.规则"],["more","det.另外的，更多的"],["correct","adj.正确的"],["form","n.形式"],["chess","n.国际象棋"],["trip","n.旅游；旅行，出行"],["post","n.帖子"],["dragon","n.龙"],["bath","v.给……洗澡"],["decide","v.决定，决断，判断"],["basket","n.篮子；篓子；筐子"],["princess","n.公主"],["example","n.例子"],["believe","v.认为"],["experiment","n.（科学）实验"],["empty","adj.空的"],["positive","adj.有信心的；积极乐观的"],["blow","v.吹动；刮动"],["wave","v.挥动，摆动（某物）；（某物）上下起伏，左右摇晃"],["voice","n.说话声，嗓音；发声能力"],["just","adv.只不过，只是"],["himself","pron.他自己"],["shame","n.羞愧，羞耻，惭愧"],["finally","adv.最后，终于"],["into","prep.进入，到……里面"],["barber","n.（为男性剪发或刮脸的）男理发师"],["fall","v.落下，降落，跌落"],["shoulder","n.肩膀"],["customer","n.顾客，客户"],["surprised","adj.吃惊的，惊奇的，惊讶的，诧异的"],["scissors","n.剪刀；剪子"],["office","n.办公楼，办事处，公司"],["receive","v.得到，收到"],["cancer","n.癌（症）"],["wig","n.假发"],["smart","adj.聪颖的，机灵的；明智的"],["smile","v.微笑"]]},{"name":"Unit 2","n":80,"words":[["last but not\nleast","最后但同样重要的（一点）"],["marathon","n.马拉松赛跑（全程约英里或千米）"],["however","adv.然而"],["still","adv.还，仍然"],["metre","n.（书面缩写为m）米，公尺"],["line","n.线"],["breath","n.呼出的气；吸入的气"],["hold your\nbreath","屏住呼吸；屏息静气"],["would","v.会"],["confident","adj.有信心的，自信的"],["stomachache","n.胃痛，肚子痛"],["shall","v.要不要……？"],["either","pron.（两者中的）任何一个"],["choice","n.选择；选择权"],["seem","v.看来，似乎，好像"],["someone","pron.某人，有人"],["neither","pron.两者都不（的），两者中无一的"],["cheer","v.（为……）欢呼，喝彩；（为…）加油"],["cross","v.穿过，越过，跑过（终点线、小径等）"],["lifelong","adj.终身的，毕生的"],["dream","n.梦想，愿望，理想"],["past","adv.经过"],["record","n.记录，记载"],["none","pron.全无，没有一点"],["member","n.成员"],["moment","n.某一时刻"],["if","conj.假若，要是，如果"],["possible","adj.可能的，可能做到的，可能实现的"],["purpose","n.目的，意图"],["raise","v.筹集；筹募"],["charity","n.慈善事业"],["encourage","v.鼓励，激励"],["teach","v.教"],["note","n.笔记"],["during","prep.在……期间"],["consider","v.考虑，细想"],["both","pron.两者，双方，两个都"],["sink","v.下沉，沉没"],["sink or swim","自生自灭，成败全靠自己"],["as","prep.在某一年龄段时"],["surfer","n.冲浪者"],["shark","n.鲨（鱼）"],["attack","v.袭击，殴打；破坏"],["nearly","adv.几乎，差不多，将近"],["die","v.死去，死亡"],["surf","v.沖（浪）"],["competition","n.比赛"],["compare","v.相比较；可媲美"],["achievement","n.成绩；成就"],["surfboard","n.冲浪板"],["ride","v.漂浮"],["lover","n.爱好者"],["gold","adj.金质的"],["medal","n.奖牌；勋章"],["fit","adj.健壮的，健康的"],["final","n.决赛"],["team","n.（游戏或体育比赛的）队"],["even","adv.甚至"],["worse","adv.（badly的比较级）更严重地；更厉害地"],["pay attention","认真看，仔细听，用心思考"],["continue","v.（使）继续；（使）延续"],["brave","adj.勇敢的，无畏的"],["action","n.行为"],["fight","v.努力争取，为（……）斗争"],["score","v.（在运动、比赛或考试中）得（分）"],["goal","n.进球；进球得分"],["victory","n.胜利，成功，赢"],["lead","v.带路，领路；引领"],["international","adj.国际的"],["chance","n.机会"],["improve","v.改善，改进；变得更好"],["create","v.创造"],["wonder","v.想要知道"],["success","n.成功，胜利，成就"],["explain","v.解释，说明"],["simple","adj.单纯的，纯粹的，完全的"],["same","adj.相同的，同一个的"],["courage","n.勇气，胆量，勇敢"],["ahead","adv.在前面"],["spirit","n.（某一特定历史时期、地方或群体的）精神，风气"]]},{"name":"Unit 3","n":74,"words":[["certain","adj.某个；某些"],["mine","pron.我的（东西）"],["beef","n.牛肉"],["carrot","n.胡萝卜"],["mutton","n.羊肉"],["fat","adj.肥胖的"],["hen","n.母鸡"],["pot","n.（通常为金属制成的圆而深的）锅"],["onion","n.洋葱（头）"],["pancake","n.薄煎（烤，烙）饼"],["porridge","n.粥"],["sweet","adj.甜的"],["plain","adj.无装饰的，简单的，朴素的，单纯的"],["menu","n.（尤指餐馆的）菜单"],["medicine","n.药，药物（尤指口服的药水）"],["than","prep.比"],["pill","n.药丸；药片"],["remain","v.继续，依然（保持某种状态）"],["another","det.另一个，别的"],["connection","n.（两个事实、观点、事件等之间的）联系，关联"],["prove","v.证明，证实"],["similar","adj.相似的，近似的，类似的"],["special","adj.特殊的，特别的"],["order","n.顺序，次序"],["pie","n.水果馅饼，派"],["delicious","adj.美味的，可口的"],["sandwich","n.三明治，夹心面包"],["scramble","v.炒（蛋）"],["circle","v.圈出"],["slice","n.片，薄片，切片"],["beat","v.搅拌，搅打"],["salt","n.盐，食盐"],["pepper","n.胡椒粉"],["oil","n.(尤用于烹调或生产美容用品)植物油动物油"],["pan","n.(长柄有盖的)锅，平底锅"],["add","v.添加，增加"],["mixture","n.(尤指烹饪中的)混合液，混合料"],["stir","v.搅，搅拌，搅动"],["until","直到……为止"],["golden","adj.金色的，金黄色的"],["plate","n.盘，碟"],["loud","adj.大声的，喧闹的"],["heat","n.(烹饪或加热时的)温度"],["firm","adj.结实的，坚实的"],["recipe","n.烹饪法;食谱"],["ingredient","n.(烹调用的)成分，食材"],["step","n.步骤"],["diet","n.节食;规定饮食"],["restaurant","n.饭店，餐馆"],["salad","n.(生吃的)蔬菜沙拉"],["hamburger","n.汉堡包"],["snack","n.(正餐以外的)小吃，点心"],["border","n.边界;边境"],["Western","adj.(观念或方式)西方的，欧美的"],["dessert","n.(饭后的)甜点，甜食，甜品"],["actually","adv.实际上，事实上"],["dynasty","n.朝代"],["store","v.贮藏，贮存，积蓄"],["mean","v.意思是"],["modern","adj.现代的，近代的"],["folk","adj.民间的，民俗的"],["tale","n.故事"],["emperor","n.皇帝"],["suffer","v.(身体或精神上)受苦，遭受(痛苦)"],["stomach","n.胃"],["totally","adv.完全地，彻底地"],["Iranian","n.伊朗人"],["flat","adj.平的，平坦的"],["stone","n.石块，石子"],["symbol","n.(某一特性或思想的)代表，代表性人物(事物)"],["American","adj.美国的;美国人的"],["twin","adj.双胞胎之一的"],["bridge","n.(事物之间的)桥梁，纽带"],["happen","v.发生"]]},{"name":"Unit 4","n":59,"words":[["dull","adj.愚笨的，迟钝的"],["imagine","v.想象"],["alone","adv.单独，独自"],["might","v.也许，可能，大概"],["tool","n.工具"],["list","n.名单，清单，目录"],["something","pron.某物：某事；某种东西"],["novel","n.(长篇)小说"],["magazine","n.杂志，期刊"],["solar","adj.利用太阳能的"],["media","n.媒介物"],["bored","adj.厌烦的，不感兴趣的;烦闷的"],["feeling","n.感觉"],["lift","v.抬起;提起;举起"],["funny","adj.使人发笑的，有趣的;滑稽的"],["youthful","adj.年轻的"],["invite","v.邀请"],["number","n.数目，数量"],["a number of","一些"],["able","adj.有能力做……的，会做……的"],["importance","n.重要(性)"],["detail","n.细节，细微之处"],["conclusion","n.结论"],["open- minded","adj.愿意考虑不同意见的;思想开明的"],["ourselves","pron.我们自己"],["else","adv.另外，其他;别的，另外的(用于表示不同的人、事物、地方等)"],["differently","adv.不同地;相异地"],["instruction","n.命令，指示"],["daily","adj.每日，每天"],["daily life","日常生活"],["while","conj.当……时，在……时"],["housework","n.家务(劳动)"],["explore","v.探讨，探究"],["discussion","n.讨论，谈论，商讨"],["unforgettable","adj.难以忘怀的"],["discover","v.发现，找到"],["mosquito","n.蚊子"],["insect","n.昆虫"],["butterfly","n.蝴蝶"],["prince","n.王子"],["monster","n.妖怪;怪兽，怪物"],["ever","adv.在任何时候"],["notice","v.看到;听到;感觉到;注意到"],["dangerous","adj.危险的，有危害的"],["social","adj.社交的"],["screen","n.屏幕"],["couch","n.长沙发"],["couch potato","老泡在电视机前的人"],["sore","adj.疼痛的;酸痛的"],["neck","n.颈，脖子"],["deaf","adj.不愿听的，不肯听取的"],["real","adj.实际存在的，非想象的"],["balanced","adj.均衡的"],["outside","adv.在室外"],["jog","v.慢跑"],["fresh","adj.新鲜的"],["tennis","n.网球(运动)"],["hike","v.(在……)徒步旅行，远足"],["ours","pron.(属于)我们的"]]},{"name":"Unit 5","n":43,"words":[["plateau","n.高原"],["cloud","n.云"],["soft","adj.柔软的"],["brightly","adv.明亮地"],["lotus","n.莲花(图案)，荷花(图案)"],["sky","n.天，天空"],["calm","adj.镇静的，沉着的;心平气和的"],["above","prep.在(.)上方"],["express","v.表达;表示;表现"],["grassland","n.草原"],["field","n.田地，田野"],["few","adj.很少，不多"],["present","n.礼物，赠品"],["proud","adj.自豪的，得意的"],["likely","adj.可能的;可能发生的;可能属实的"],["local","adj.地方性的，当(本)地的"],["designer","n.(服装、家具、设备等的)设计师，设计者"],["guide","n.指南，指南手册"],["describe","v.描述，描写"],["landscape","n.(陆上的)风景，景致，景色"],["common","adj.常见的，普遍的"],["Mount","n.(书面缩写为"],["tide","n.海潮潮汐"],["exhibition","n.展览(会)"],["tour","n.参观，游览"],["lungfish","n.肺鱼"],["lung","n.肺"],["scientist","n.科学家"],["behaviour","n.行为，举止"],["land","n.陆地"],["aloud","adv.出声地"],["salty","adj.咸的，含盐的"],["lie","v.躺，平卧"],["surface","n.表面，面"],["level","n.水平高度;相对高度"],["less","det.不那么多，更(较)少"],["suggest","v.暗示，暗指"],["such as","像，诸如，例如"],["snake","n.蛇"],["wood","n.木头;木材，木料"],["disappear","v.消失，不见"],["glacier","n.冰川"],["national","adj.国家的，全国性的"]]},{"name":"Unit 6","n":49,"words":[["airport","n.机场，航空站(港)"],["burn","v.(使)(身体部位)灼痛，(使)火辣辣地痛"],["expect","v.预料，预期，预计"],["deep","adj.(呼吸或叹息)深深的"],["lemon","n.柠檬"],["reply","v.回答，答复"],["mouthful","n.(食物或饮料的)一口，一满口"],["surprisingly","adv.惊人地，使人吃惊地，出人意料地"],["mask","n.假面具，假面"],["normal","n.正常"],["ancient","adj.古代的"],["further","adv.更远"],["look forward to","兴奋地)期待，盼望"],["general","adj.大体的，大致的"],["in general","通常，一般情况下;普遍地、总的说来"],["curious","adj.好奇的，好打听的"],["cultural","adj.文化的;文化上的"],["understanding","n.了解;熟悉"],["sb’s\nunderstanding","某人(对某事)的理解"],["main","adj.最大的，最重要的"],["prefer","v.更喜欢"],["interest","n.吸引力"],["places of\ninterest","名胜"],["hotel","n.宾馆，酒店"],["comfortable","adj.舒适的，令人舒服的"],["postcard","n.明信片"],["waterfall","n.瀑布"],["south","adj.在南方的"],["powerful","adj.猛烈的，有力的"],["thunder","n.雷声"],["painting","n.绘画(作品)"],["roller coaster","过山车，云霄飞车"],["huge","adj.巨大的，庞大的;极大量的"],["ant","n.蚂蚁"],["beauty","n.美，美丽，漂亮"],["discuss","v.商讨，谈论，讨论"],["accept","v.接受;同意做"],["award","n.奖，奖赏;奖品;奖金"],["traffic","n.路上行使的车辆，交通"],["unexplored","adj.(地方)未曾探索的，未经勘察的"],["seriously","adv.严重地，非常"],["set","v.(坚决地)开始做;使(某人)开始做"],["set out","动身踏上(尤指漫长的)旅途"],["achieve","v.实现;(尤指经过努力)取得，达到"],["geographical","adj.地理的，地理位置的"],["discovery","n.被发现的事实(事物)"],["peak","n.山顶，山峰;山，山岳"],["truth","n.事实，真相，实情"],["climb","v.爬(山)，登(山)"]]}]}}},"g8":{"books":{"八上":{"units":[{"name":"Unit 1","n":54,"words":[["suppose","v.假设，认为"],["birthmark","n.胎记，胎痣"],["bright","adj.鲜艳的"],["strawberry","n.草莓"],["secretly","adv.暗自"],["crowded","adj.挤满人（物）的；拥挤的"],["disaster","n.灾难，灾祸"],["therefore","n.因此，由此，所以"],["cover","v.遮盖"],["instead","adv.代替；…而不是…"],["instead of","代替…；而不是…"],["although","conj.虽然，尽管"],["bathroom","n.浴室，卫生间"],["quickly","adv.快速地"],["truly","adv.真实地，确实地"],["paint","v.（给…）涂颜料"],["yet","adv.还，尚"],["already","adv.已经"],["difference","n.差别，差异"],["hate","v.讨厌，不喜欢"],["successful","adj.有成就的，出人头地的"],["scientific","adj.科学（上）的"],["wise","adj.明智的，明断的"],["perfect","n.（动词的）完成式"],["underline","v.在…之下画线"],["row","n.一排，一行，一列"],["primary","adj.小学教育的，初级教育的"],["reach","v.伸；伸手（以触碰或提起某物）"],["height","n.身高；高，高度"],["literature","n.文学；文学作品"],["search","n.寻找；搜寻"],["value","n.价值"],["character","n.(书、剧本、电影中的)人物，角色"],["wizard","n.男巫"],["impossible","adj.不可能发生的；办不到的"],["nothing","pron.没有任何东西；没有事"],["British","adj.英国的；英国人的"],["actress","n.女演员"],["silver","adj.银制的，银质的"],["silver screen","n.电影业"],["doubt","n.怀疑"],["fear","n.害怕，恐惧；担忧"],["succeed","v.成功，达成"],["excellent","adj.卓越的；极好的"],["second","n.秒"],["satisfy","v.使（某人）满意"],["risky","adj.有危险的，有风险的"],["zero","num.零"],["athlete","n.运动员；田径运动员"],["Olympics","n.奥林匹克运动会，奥运会"],["youngster","n.年轻人"],["stick","v.粘，贴"],["stick to","坚持"],["superman","n.超人"]]},{"name":"Unit 2","n":44,"words":[["large","adj.巨大的，大的"],["shout","v.大声说，喊叫，呼喊"],["gate","n.（栅栏或围墙上的）大门"],["build","v.建造，盖；造"],["since","prep.自从…以来；自从…之后"],["nor","conj.也不"],["hole","n.洞，孔，坑"],["glad","adj.高兴的，开心的"],["knock","v.碰撞；碰倒，撞倒"],["knockdown","摧毁，拆毁（建筑物或其中一部分）"],["afraid","adj.害怕的，恐惧的"],["message","n.（电影、书籍、讲话等的）要旨，主题思想，寓意"],["double","adj.双倍的，两倍的"],["introduction","n.开始"],["return","v.返回，回来，回去"],["lively","adj.充满活力的，生气勃勃的"],["theirs","pron.他们的，她们的（用于指代属于前面所提之人的东西）"],["grade","n.年级"],["article","n.（报刊的）文章，论文"],["priceless","adj.极其贵重的；无价的"],["offer","v.提供，给予"],["plan","n.计划"],["quite","adv.很；较为"],["stressed","adj.焦虑的，紧张的，无法放松的"],["recently","adv.最近，近来，不久前"],["online","adv.从网上，在网上"],["personal","adj.个人的，私人的"],["narrow","adj.狭窄的"],["lane","n.…巷（常用于路名中）"],["unit","n.（计量用的）单位"],["perhaps","adv.可能，大概，也许"],["argue","v.争论，争吵"],["divide","v.（把…）分开"],["dividing line","n.分界线，界限"],["agreement","n.（意见的）一致，相合"],["relative","n.家人；亲戚"],["government","n.政府"],["poem","n.诗；韵文"],["inside","adv.（在容器或其他封闭的空间）里面；往里面"],["neighbour","n.邻居，邻人"],["act","n.行为，行动，动作，举动"],["deeply","adv.非常，很深地"],["pass","v.过去，流逝"],["whenever","conj.每当"]]},{"name":"Unit 3","n":51,"words":[["fair","n.展览会"],["block","n.一块（指木头、石头等有直边的硬物）"],["artificial","adj.人造的，人工的"],["condition","n.健康情况"],["cost","v.价格为，需支付（某一数量的钱）"],["lend","v.帮助（某人）做事（尤指需要体力的事）；（给某人）搭把手"],["3-D","adj.三维的，立体的"],["printer","n.（与计算机连接的）打印机"],["invent","v.发明，创造"],["brain","n.脑，大脑"],["weigh","v.重，重量是…"],["kilogram","n.千克，公斤"],["fix","v.解决（问题）"],["invention","n.发明（物）（如机器、工具、仪器等）"],["download","v.下载（信息或程序）"],["allow","v.允许，容许，准许"],["report","n.新闻报道"],["apply","v.应用，运用"],["blind","adj.盲的，失明的"],["machine","n.机器"],["warn","v.警告，告诫；提醒"],["object","n.物体"],["sense","v.检测并记录"],["nearby","adv.附近"],["congratulation","n.恭喜，祝贺"],["advertisement","n.广告；启事"],["everyday","adj.日常的；平常的；每天的"],["trouble","v.使忧虑，使苦恼"],["creative","adj.（人）有创造力的"],["imaginative","adj.富有想象力的；创新的"],["inventor","n.发明者，发明家"],["quality","n.品性"],["glue","n.胶，胶水"],["talent","n.天资，天赋，才能"],["electricity","n.电"],["lightning","n.闪电"],["lightning rod","避雷针"],["pioneer","n.先驱，先锋，创始人"],["exploration","n.探索；探险；勘探；勘查"],["test","v.验证；检验"],["despite","prep.尽管，虽然，任凭"],["curiosity","n.好奇心"],["future","adj.将来的，未来的"],["failure","n.失败"],["explorer","n.探险者，勘察者"],["risk","n.冒险举动"],["drive","v.促使（某人做某事）"],["towards","prep.朝，向，接近（某种结果）"],["spend","v.度过，花（时间）"],["earthquake","n.地震"],["keyhole","n.锁眼，钥匙孔"]]},{"name":"Unit 4","n":33,"words":[["digital","adj.数字的，数码的"],["century","n.世纪"],["forever","adv.永远"],["pound","n.英镑"],["smartphone","n.智能手机"],["wallet","n.（装钞票等的）钱包，皮夹子"],["payment","n.支付，付款"],["cash","n.现款，现金"],["app","n.应用程序，应用软件"],["oven","n.烤箱"],["except","prep.除…之外"],["convenient","adj.方便的，便利的；合宜的"],["development","n.进步，发展"],["mobile","adj.非固定的，移动式的"],["anywhere","adv.任何地方，无论何"],["agreat deal","处，随便哪里充裕，丰富"],["via","prep.通过"],["progress","n.进步，进展"],["offline","adj.未联网的，不在线的"],["nowadays","adv.（与过去相比）现今，现时"],["simply","adv.只是，仅仅"],["save","v.节省，节约"],["advantage","n.好处，优点"],["effect","n.效应，影响，结果"],["attitude","n.看法，态度"],["device","n.设备，仪器"],["strange","adj.奇怪的，不寻常的；不可思议的"],["throw","v.投，扔，抛，掷"],["guess","v.猜，猜测"],["anyone","pron.有人，任何人"],["bedroom","n.卧室"],["homework","n.（学生的）家庭作业，功课"],["neighbourhood","n.社区，住宅小区；四邻，街坊"]]},{"name":"Unit 5","n":43,"words":[["opposite","prep.在…的对面"],["packet","n.（装商品的）小包，小盒，小袋"],["picnic","n.野餐"],["smelly","adj.有臭味的"],["cheese","n.干酪，奶酪"],["noise","n.噪声；嘈杂声"],["reduce","v.缩小；减少；降低"],["kick","v.踢"],["seat","n.座，座位"],["passenger","n.（车辆、飞机、船舶等的）乘客，旅客"],["anything","pron.任何事物都（没有）"],["fool","n.蠢人，傻子，笨蛋"],["sign","n.标记；指示牌，标牌"],["throat","n.喉咙，咽喉"],["clear your throat","清清嗓子"],["responsibility","n.责任"],["cause","n.起因，原因"],["belt","n.腰带，皮带"],["seat belt","n.（汽车或飞机上的）安全带"],["station","n.车站"],["flowerpot","n.花盆"],["pick up","捡起"],["mess","n.脏乱，凌乱"],["honesty","n.诚实，正直；坦诚"],["respect","v.尊重"],["spread","v.传播"],["lawyer","n.律师"],["urgent","adj.紧急的，急迫的"],["citizen","n.市民，城镇居民；公民"],["click","n.点击（鼠标）"],["basic","adj.基础的，基本的，根本的"],["private","adj.（感情、消息或意见）个人的，秘密的"],["avoid","v.避免"],["address","n.地址"],["passport","n.护照"],["limit","v.（在数量上）限制，限定"],["careless","adj.不小心的，粗心的，疏忽的"],["aware","adj.意识到的，明白的，知道的"],["cheat","v.欺诈，欺骗"],["trust","v.信任，信赖，相信"],["enemy","n.敌人"],["behave","v.表现"],["cyberbullying","n.网络欺凌"]]},{"name":"Unit 6","n":41,"words":[["lost","adj.丢失的，遗失的"],["ground","n.地，地面"],["scared","adj.害怕的，恐惧的"],["shut","v.（使）关（合）上，（使）关闭"],["shocking","adj.惊人的，骇人的，令人难以置信的"],["coach","n.公共马车，四轮大马车"],["straight","adv.笔直地，成直线地"],["sand","n.沙滩"],["flood","n.洪水，水灾"],["thick","adj.浓密的；混浊的"],["smoke","n.（燃烧产生的）烟"],["shower","n.一大批，一阵（在空中洒落或出现的小而轻的东西）"],["historical","adj.（有关）历史的"],["expert","n.专家"],["timeline","n.时间表"],["reaction","n.反应"],["airline","n.航空公司"],["weekday","n.工作日"],["railway","n.铁路，铁道"],["rainstorm","n.暴风雨"],["service","n.服务"],["motherland","n.祖国"],["develop","v.（使）发展"],["terrible","adj.非常严重的"],["warning","n.警告，警示"],["text","n.短信，短消息"],["programme","n.（电视或广播的）节目"],["danger","n.危险"],["tsunami","n.海啸"],["iron","n.铁"],["fashion","n.时尚"],["slim","adj.苗条的，修长的"],["bleed","v.流血，出血"],["uncomfortable","adj.不舒服的"],["jeans","n.牛仔裤"],["encouraging","adj.令人鼓舞的，振奋人心的"],["herself","pron.她自己"],["university","n.大学"],["honour","n.荣幸，光荣"],["wound","n.伤痛，伤害"],["heroine","n.女英雄"]]}]},"八下":{"units":[{"name":"Unit 1","n":37,"words":[["spiderman","n.“蜘蛛人”（指高空作业人员）"],["wet","adj.湿的，潮的，潮湿的"],["drop","n.（液体的）滴"],["sweat","n.汗，汗水"],["watermelon","n.西瓜"],["remind","v.使想起（故人或旧事）"],["newborn","adj.新生的"],["brush","n.刷子；毛刷"],["speech","n.演说，演讲"],["challenging","adj.富于挑战性的；困难而有趣的"],["context","n.上下文，语境"],["company","n.公司"],["interview","n.面试，面谈"],["communication","n.信息交流；沟通"],["skill","n.技能，技巧，技艺"],["personality","n.个性，性格"],["require","v.需要（某物）"],["organise","v.组织，策划，安排"],["throughout","prep.在整个期间，自始至终"],["benefit","n.好处，益处，裨益"],["leadership","n.领导才能，领导素质"],["training","n.训练，培训"],["cashier","n.出纳员"],["necessary","adj.必要的，必需的，必不可少的"],["replace","v.以……替换，更换"],["human","adj.人的，人类的"],["pilot","n.（飞机或飞行器的）驾驶员，飞行员"],["autopilot","n.自动驾驶仪"],["tourism","n.旅游业，观光业"],["surely","adv.确实地，无疑地"],["provide","v.提供，供应，供给"],["low","adj.（数量、水平或价值）少的、低的"],["beyond","adv.在更远处；往更远处"],["virtual","adj.虚拟的，模拟的"],["reality","n.真实；现实"],["fashionable","adj.时髦的，流行的"],["market","n.市场"]]},{"name":"Unit 2","n":28,"words":[["pm","n.下午（用于表示钟点的数字之后）"],["promise","n.许诺，保证，答应；保证，承诺，诺言"],["tonight","adv.（在）今晚打断（某人的）讲话；中断（某人的）"],["interrupt","v.打断（某人的）讲话；中断（某人的）行动；打扰"],["realise","v.知道；明白；认识到；顿悟"],["lamp","n.灯"],["blouse","n.女士宽松短衫，女衬衫"],["pale","adj.苍白的"],["attach","v.系；绑；贴"],["wrist","n.手腕"],["policewoman","n.女警察"],["elderly","adj.年老的，渐老的（委婉用法）"],["plot","n.情节"],["point","n.要点，重点，中心意思，主要含义"],["lazy","adj.懒洋洋度过的"],["sofa","n.长沙发"],["term","n.学期"],["conversation","n.谈话，交谈，会话"],["disagreement","n.意见不和，分歧，争论"],["peer","n.同龄人"],["pressure","n.（工作或生活中的）压力"],["disappointed","adj.失望的，沮丧的"],["fail","v.失败，未做到"],["heartbreaking","adj.使人心碎的"],["skiing","n.滑雪运动"],["completely","adv.完全地，全部地，彻底地"],["upon","prep.在……上面"],["clearly","adv.清楚地，明白地"]]},{"name":"Unit 3","n":36,"words":[["director","n.导演"],["drama","n.戏剧"],["leader","n.领导者"],["role","n.角色"],["freeze","v.突然停止；呆住"],["silence","n.沉默，缄默"],["awful","adj.糟糕的，恶劣的；讨厌的"],["advise","v.建议"],["yours","pron.你的"],["teamwork","n.合作，协作，配合"],["strength","n.优点，长处，优势"],["weakness","n.弱点，缺点，不足"],["queen","n.女王"],["vote","v.投票，表决"],["suggestion","n.建议，提议"],["meeting","n.会议，集会"],["Captain","n.队长，组长"],["camp","v.扎营，宿营，露营（划分地界或捆扎东西等用的）带子"],["tape","n.线带"],["voluntary","adj.志愿的"],["cooperation","n.合作，协作"],["shy","adj.羞怯的，腼腆的（尤指在陌生人面前）"],["confidence","n.自信，信心"],["noon","n.正午，中午"],["climber","n.登山者，登山运动员"],["roof","n.顶，顶部"],["thirty-metre-high","adj.三十米高的"],["ladder","n.梯子"],["teammate","n.队友"],["lower","v.把（某物）移低，降下"],["painful","adj.令人痛苦的"],["rope","n.绳，粗绳，绳索，缆"],["effort","n.努力"],["north","n.北，北方"],["base","n.基地，根据地，总部，大本营"],["mountaineering","n.登山运动"]]},{"name":"Unit 4","n":31,"words":[["excuse","v.原谅"],["purple","adj.紫色的"],["crayon","n.彩色蜡笔"],["five-year-old","adj.五岁的"],["sunshine","n.阳光"],["virus","n.病毒"],["afford","v.买得起，付得起"],["disappointment","n.失望，扫兴，沮丧"],["X-ray","n.X光检查"],["treatment","n.治疗，诊治；疗法"],["pocket","n.衣袋，口袋"],["illness","n.病，疾病"],["wheelchair","n.轮椅"],["public","adj.公众的，大众的"],["mention","v.提到，说起，谈到"],["directly","adv.直接地"],["solution","n.解决，解决方法"],["bottle","n.瓶子"],["exam","n.考试"],["dialogue","n.对话，对白"],["flu","n.流行性感冒，流感"],["homeless","adj.无家可归的"],["soldier","n.士兵，军人"],["fireman","n.消防队员"],["against","prep.反对"],["graduate","v.大学毕业"],["college","n.大学；学院"],["goodwill","n.好意，亲善，友善"],["warmth","n.温暖"],["means","n.手段；方法；工具"],["lucky","adj.运气好的，幸运的"]]},{"name":"Unit 5","n":42,"words":[["dinosaur","n.恐龙"],["feather","n.羽毛，翎"],["feather-covered","adj.羽毛覆盖的"],["lizard","n.蜥蜴"],["amber","n.琥珀"],["whether","conj.是否（用于表示选择或对某事不确定）"],["species","n.物种"],["unknown","adj.不知道的，未知的"],["northern","adj.北部的"],["African","adj.非洲的，非洲人的"],["belief","n.观点"],["fully","adv.完全地；充分地；彻底地"],["unlock","v.解锁"],["finding","n.发现，（调查、研究等的）结果"],["newspaper","n.报纸"],["writing","n.写作，著书"],["style","n.风格"],["method","n.方法，办法"],["alive","adj.变得兴味盎然，生动起来"],["argument","n.论点，论据"],["board","n.布告牌，公告牌"],["model","n.模型"],["planet","n.行星"],["true","adj.符合事实的，真的，真实的"],["clear","v.清除；清理"],["upload","v.上载，上传"],["whale","n.鲸"],["boiling","adj.很热的，滚热的"],["chemical","n.化学物质"],["react","v.起化学反应"],["endless","adj.无数的，无限的"],["country","n.国，国家"],["sight","n.视力，视觉"],["anybody","pron.任何人"],["magnifier","n.放大镜"],["wealth","n.财富"],["state","n.国家"],["prize","n.奖品，奖赏"],["hardly","adv.几乎不"],["belong","v.应在（某处）"],["granddaughter","n.孙女；外孙女"],["softly","adv.轻柔地，柔和地"]]},{"name":"Unit 6","n":35,"words":[["sweetly","adv.悦耳动听地，好听地"],["villager","n.村民"],["wheat","n.小麦"],["childhood","n.童年，儿童时代"],["countryside","n.乡下，农村"],["province","n.省"],["especially","adv.尤其"],["wisdom","n.智慧，知识，学问"],["below","prep.在……下面"],["arrival","n.到来"],["calendar","n.历法"],["webpage","n.网页"],["energetic","adj.精力充沛的，充满活力的"],["safely","adv.安全地，无危害地"],["bee-keeping","n.养蜂"],["accord","v.与某事物相符（一致）"],["energy","n.能源"],["material","n.材料"],["desert","n.沙漠，荒漠"],["charge","v.（使）充电"],["environment","n.生态环境"],["resource","n.资源（指土地、矿产等）"],["probably","adv.很可能，大概"],["west","n.西部"],["east","n.东部"],["mid-summer","n.仲夏"],["crazy","adj.疯狂的"],["rainfall","n.雨量"],["survive","v.活下来；幸存"],["underground","adj.地（面）下的"],["canal","n.运河"],["amazingly","adv.惊人地；了不起地"],["among","prep.在……（人员）中，是……之中的一员"],["shortage","n.短缺，不足，缺乏"],["increase","n.增加，增多；增长"]]}]}}},"g9":{"books":{"九上":{"units":[{"name":"单元 1","n":44,"words":[["lady","n.女士，女子"],["gentleman","n.先生"],["puppet","n.木偶；布袋木偶，手偶"],["performer","n.表演者"],["finger","n.手指"],["teenager","n.青少年"],["old-fashioned","adj.老式的，过时的"],["puppetry","n.木偶表演艺术"],["unless","conj.除非"],["performance","n.表演；演出"],["blood","n.血，血液"],["perform","v.表演，演出"],["edge","n.边缘"],["on the edge of","在……边缘；濒于"],["viewer","n.观看者"],["creativity","n.独创性，创造性，创造力"],["volunteer","n.志愿者"],["artist","n.艺术家"],["group","n.组，群；团体"],["creator","n.创作者；创造者"],["kill","v.弄死，杀死"],["scarecrow","n.稻草人"],["educator","n.教育家"],["youth","n.青年，年轻人"],["inspire","v.鼓舞，激励"],["lie","v.存在，在于"],["intelligent","adj.有智慧的，聪明的"],["wealthy","adj.富有的；富裕的"],["independent","adj.自立的；独立的"],["burst","v.冲，闯；使爆裂"],["hidden","adj.隐藏的，隐秘的"],["scaled","adj.有鳞的"],["claw","n.爪"],["wildly","adv.激动地"],["roar","v.吼叫，呼啸"],["valley","n.谷；山谷"],["scare","v.使惊恐，吓唬"],["eagle","n.雕"],["wing","n.翅膀，翼"],["dust","n.灰尘，尘埃"],["tender","adj.娇嫩的，幼嫩的"],["bud","n.苞；蓓蕾"],["vast","adj.广大无边的，辽阔的"],["grand","adj.宏伟的，壮丽的"]]},{"name":"单元 2","n":35,"words":[["tin","n.罐头；金属盒"],["spare","adj.备用的；多余的，闲置的"],["piggy bank","n.储蓄罐"],["size","n.大小，尺寸"],["dreamland","n.梦境，理想世界"],["manage","v.终于做成，设法做到"],["laptop","n.笔记本电脑，便携式电脑"],["budget","v.编制预算"],["exactly","adv.正是，一点不错"],["rate","v.对……做评估，评价"],["pleasure","n.愉快，快乐；满足"],["inference","n.推论，推断的结果"],["account","n.账户"],["saving","n.积蓄；存钱"],["habit","n.习惯"],["value","n.价值"],["unlike","prep.不像……和……不同"],["date","n.日期，日子"],["sale","n.出售，销售"],["on sale","有售；廉价销售"],["T-shirt","n.T恤（衫）"],["quick","adj.快的；快速的"],["website","n.网站"],["organiser","n.组织者，安排者"],["dollar","n.美元"],["cent","n.分"],["penny","n.（美国、加拿大的）一分钱硬币"],["exception","n.例外，除外"],["couple","n.一对夫妇；一对情侣"],["treasure","n.珍宝，珍品"],["Christmas Eve","圣诞前夕，平安夜"],["certainly","adv.当然"],["chain","n.链子，链条"],["expensive","adj.昂贵的，花钱多的"],["comb","n.梳子；梳状饰物，发插"]]},{"name":"单元 3","n":34,"words":[["remains","n.遗迹"],["kingdom","n.王国"],["northwest","n.西北，西北方"],["archaeologist","n.考古学家"],["centre","n.中心"],["period","n.时期"],["valuable","adj.宝贵的，有价值的"],["imagination","n.想象力"],["amaze","v.使大为惊奇，使惊讶"],["dig into sth","探究，探寻"],["luck","n.好运，幸运"],["researcher","n.研究者；调查员"],["detailed","adj.详尽的，详细的"],["cartoon","n.卡通（片），动画片"],["tomb","n.坟墓，冢"],["silk","n.丝绸"],["matchbox","n.火柴盒"],["archaeological","adj.考古的"],["statue","n.雕像；塑像"],["moai","n.摩埃石像"],["mystery","n.神秘事物，谜"],["possibility","n.可能，可能性"],["pretty","adj.漂亮的，好看的"],["besides","prep.除……之外"],["multimedia","adj.多媒体的"],["version","n.版本"],["palace","n.王宫；宫殿"],["background","n.背景"],["fever","n.狂热，兴奋"],["pride","n.自豪，骄傲"],["bat","n.蝙蝠"],["fridge","n.冰箱，冰柜"],["magnet","n.磁铁"],["central","adj.中心的；重要的，主要的"]]},{"name":"单元 4","n":27,"words":[["fearless","adj.无畏的，不怕的"],["bravely","adv.勇敢地，无畏地"],["footprint","n.足迹"],["northeast","n.东北，东北方向"],["death","n.死，死亡"],["gentle","adj.温和的，温柔的"],["fighter","n.斗士，奋斗者"],["pity","n.可惜，遗憾"],["war","n.战争"],["fixed","adj.固定的；不变的"],["unchanging","adj.不变的，恒定的"],["entry","n.（日记的）一则"],["battle","n.战斗，战役"],["temperature","n.温度，气温"],["selfless","adj.忘我的，无私的"],["heroic","adj.英雄的，英勇的"],["loyal","adj.忠贞的，忠实的，忠诚的"],["recommend","v.劝告，建议"],["dreamer","n.做梦的人"],["burning","adj.火热的；灼热的"],["countless","adj.无数的，数不尽的"],["president","n.国家主席；总统"],["republic","n.共和国"],["productive","adj.多产的"],["type","n.类型，种类"],["soil","n.土壤，土地，泥土"],["socialist","adj.社会主义的"]]},{"name":"单元 5","n":35,"words":[["drop","v.降低"],["tourist","n.游客"],["ecosystem","n.生态系统"],["balance","v.（使）保持平衡；n.平衡"],["smog","n.烟雾"],["admire","v.欣赏，观赏"],["mark","n.痕迹；标记"],["farmland","n.农田，耕地"],["rapid","adj.快速的，迅速的"],["society","n.社会"],["till","conj.直到"],["cancel","v.取消"],["permit","v.允许；使成为可能"],["organization","n.组织，团体，机构"],["harm","v.损害；危害；伤害"],["punishment","n.惩罚手段；处罚"],["global","adj.全球的，全世界的"],["overfishing","n.过度捕捞"],["greenhouse","n.温室，暖房"],["gas","n.气，气体"],["control","v.控制，限制"],["rubbish","n.垃圾，废弃物"],["cartoonist","n.漫画家；动画家"],["logging","n.伐木"],["alarm","n.警报；警报器"],["foreigner","n.外国人"],["logo","n.标识，标志，徽标"],["endangered","adj.濒危的，濒于灭绝的"],["vulnerable","adj.脆弱的；易受伤害的"],["worldwide","adv.世界各地"],["protection","n.保护"],["environmental","adj.自然环境的"],["population","n.人口；动植物的总数"],["undoubtedly","adv.毫无疑问地"],["survival","n.继续生存；幸存"]]},{"name":"单元 6","n":39,"words":[["cheap","adj.便宜的，廉价的"],["toothbrush","n.牙刷"],["glove","n.手套"],["silently","adv.默不作声地；无声地"],["former","adj.以前的，从前的"],["tie","v.系，扎，拴，捆"],["bin","n.垃圾箱，垃圾桶"],["average","n.平均数"],["on average","平均来看"],["tiny","adj.极小的"],["nowhere","adv.什么地方都不，无处"],["plastic-free","adj.无塑料的"],["highlight","v.突出，强调"],["setback","n.阻碍，挫折"],["formation","n.构成，组成"],["pollute","v.污染"],["electronic","adj.电子的，用电子操作的；电子器件的"],["fog","n.雾"],["industry","n.工业，制造业"],["capital","n.首都"],["coal","n.煤"],["worst","adj.最坏的；最差的"],["location","n.地点，位置"],["negative","adj.有害的；不良的"],["furthermore","adv.此外；而且"],["recycle","v.再利用，回收利用"],["upcycle","v.升级改造"],["loudly","adv.响亮地，大声地"],["village","n.乡村，村庄"],["noisy","adj.喧闹的；吵闹的"],["reporter","n.记者"],["depth","n.深，深度"],["weight","n.重物"],["businessman","n.商人；企业家"],["truck","n.货车，卡车"],["industrial","adj.工业的"],["litter","n.垃圾，废弃物"],["peace","n.和平；平静，安宁"],["business","n.商业"]]}]},"九下":{"units":[{"name":"Unit 1","n":53,"words":[["steal","v.偷，窃取"],["count","v.重要，有价值"],["translation","n.翻译；翻译作品，译文"],["master","n.大师"],["perfectly","adv.完美地"],["praise","v.称赞，赞扬"],["lifetime","n.一生，终生"],["translator","n.翻译（者），译员"],["characteristic","n.特征，特性"],["Japanese","adj.日本的"],["daughter","n.女儿"],["force","n.军队"],["prepare","v.（为）做准备"],["air force","空军"],["slasher","n.斜杠族，斜杠青年"],["army","n.陆军"],["auto-loving","adj.热爱”汽车的"],["translate","v.翻译，译"],["borrow","v.借用"],["host","n.节目主持人"],["awaken","v.激发起，唤起"],["guest","n.嘉宾"],["classic","adj.经典的"],["outstanding","adj.优秀的，出色的"],["standard","adj.标准的，规范的"],["mechanic","n.技工，机械工，机修工"],["original","adj.原先的"],["language","n.语言，语言文字"],["apart","adv.成零碎"],["poet","n.诗人"],["pardon","v.原谅"],["fight","行，飞翔"],["would rather","宁愿，宁可"],["path","n.小径，小道"],["butter","n.黄油"],["fisherman","n.钓鱼者"],["trade","n.某一行业"],["afloat","adj.漂浮的"],["part-time","adj.（工作）部分时间的，兼职的"],["figure","n.人物"],["skilled","adj.有技能的，熟练的"],["boss","n.老板，上司"],["calculation","n.计算"],["repair","n.修理；修补"],["separate","v.（使）分开，（使）隔开"],["operate","v.使用，操作"],["high-tech","adj.高科技的"],["co-worker","n.同事，同僚"],["accuracy","n.正确，准确"],["luckily Clakali","幸运地，幸好"],["depend on sb/sth","依靠，依赖"],["publish","v.出版"],["similarly","adv.相似地，相像地"]]},{"name":"Unit 2","n":27,"words":[["operation","n.运转，运行"],["talented","adj.有天赋的，有才能的"],["chief","adj.首席的"],["attend","v.参加"],["gun","n.枪"],["telescope","n.望远镜"],["shot","n.开枪"],["radio telescope","n.射电望远镜"],["bang","interj.砰"],["pack","v.（把）打包"],["shoot","v.开（枪）；射击"],["corner","n.角落"],["aim","v.力求达到"],["perfect","adj.最佳的，理想的"],["champion","n.冠军，第一名"],["accurate","adj.精确的"],["technological","adj.技术的；科技的；工艺的"],["repeat","v.重复"],["history repeats itself","历史重演"],["single","adj.唯一的"],["wife","n.妻子"],["universe","n.宇宙"],["unlucky","adj.不幸的"],["active","adj.（动词或句子）主动的"],["winner","n.获胜者"],["equally","adv.相等地，相同地公众号刘开明"],["concert","n.音乐会"]]},{"name":"Unit 3","n":43,"words":[["possibly","adv.可能，也许，或许"],["guard","v.保卫，守卫"],["partner","n.搭档，同伴"],["Crane","n.鹤"],["creation","n.创造物；作品"],["chalk","n.粉笔"],["disadvantage","n.缺点，劣势"],["sculpture","n.雕像，雕刻品"],["flip-flops","n.人字拖鞋"],["garbage","n.垃圾"],["musician","n.音乐家"],["violin","n.小提琴w"],["drum","n.鼓"],["fork","n.餐叉，叉子"],["spoon","n.勺"],["hairbrush","n.发梳，发刷"],["classical","adj.经典的；古典的"],["pour","v.倾泻，大量涌出"],["community","n.社区"],["ton","n.英吨（合，千克）"],["hopeless","adj.没有希望（好转）的"],["tackie","n.橡胶底帆布鞋"],["fin","n.鱼觰"],["idiom","n.习语，成语"],["long-standing","adj.长久持续的"],["sick","adj.生病的，患病的"],["German","n.德国人"],["imaginary","adj.想象的，虛构的"],["tongue twister","n.绕口令"],["Danish","adj.丹麦的"],["prepared","adj.有准备的，准备好的"],["badminton","n.羽毛球运动"],["misunderstanding","n.误解，误会"],["importantly","adv.重要的是"],["birth","n.出生"],["video","n.录影，录像"],["give birth","生孩子"],["manner","n.态度；举止"],["turtle","n.海龟"],["internationally","adv.国际性地"],["chemical","adj.化学的"],["clean-up","n.清扫；扫除"],["communicate","v.沟通"]]},{"name":"Unit 4","n":19,"words":[["confuse","v.使困惑"],["spelling","n.（单词的）拼（写）法"],["French fry","n.炸马铃薯条"],["movie","n.电影"],["apartment","n.一套住房，公寓套房"],["mall","n.购物中心"],["confusing","adj.令人困惑的"],["misunderstand","v.误解，误会"],["trainer","n.教练（员）；运动鞋"],["pronunciation","n.发音"],["direct","adj.坦率的，直言的"],["straight-talking","adj.直言不讳的"],["separately","adv.独立地，分开地"],["dictionary","n.词典，字典"],["mostly","adv.大部分"],["Australian","adj.澳大利亚的"],["g'day","interj.你好"],["lekker","adj.很棒的"],["Woras and expressions","公众号刘开明"]]},{"name":"Unit 5","n":24,"words":[["dive","n.下潜"],["fishy","adj.可疑的，靠不住的；鱼的"],["greeting","n.问候，招呼"],["octopus","n.章鱼"],["creature","n.非植物生物；动物"],["camera","n.照相机"],["strange-looking","adj.模样奇怪的"],["vessel","n.船；舰"],["bottom","n.底部"],["state","v.陈述，说明"],["seabed","n.海床，海底"],["jellyfish","n.水母；海蜇"],["expectation","n.预料，预期"],["parrot","n.鹦鹉"],["mermaid","n.美人鱼"],["source","n.来源公众号刘开明"],["outer space","n.外太空"],["historic","adj.历史上重要的，将载入史册的"],["uncover","v.发现"],["never-ending","adj.永无休止的"],["landmark","n.地标"],["juggle","v.玩杂要"],["landing","n.着陆；降落"],["comet","n.彗星"]]},{"name":"Unit 6","n":26,"words":[["spacecraft","n.航天器，宇宙飞船"],["footprint","n.脚印，足迹"],["qualified","adj.具有⋯的学历（资历）的"],["mile","n.英里（约，米）"],["baseball","n.棒球"],["coin","v.创造（新词或短语）"],["dirt","n.（泥）土"],["taikonaut","n.（中国的）航天员，宇航员"],["flag","n.旗，旗帜"],["goddess","n.女神"],["withstand","v.承受，经受"],["rover","n.（地外天体）巡逻器，探测车"],["rocket","n.火箭"],["press","v.按，压"],["vacation","n.假期"],["willingness","n.愿意，乐意"],["parachute","n.降落伞"],["hardship","n.艰苦"],["excitement","n.令人兴奋的事"],["mankind","n.人类"],["proudly","adv.自豪地"],["gravity","n.重力，引力"],["era","n.时代，年代"],["high","adv.高高地"],["destination","n.目的地，终点公众号刘开明"],["skydiving","n.特技跳伞运动，高空跳水式跳伞"]]}]}}}};
   var TYPE_NAME = {word:"看词选义", listen:"听音选词", spell:"拼写闯关", wrong:"错词复习", match:"连连看"};
   var GRADE_NAME = {g7:"初一", g8:"初二", g9:"初三"};
   var GRADE_BOOK = {g7:"七上", g8:"八上", g9:"九上"};
@@ -338,10 +382,110 @@
     function isOn(){ return on; }
     return { play:play, toggle:toggle, isOn:isOn, unlock:ensure };
   })();
+  function currentBook(phone){
+    var s = state[phone.__id];
+    return VOCAB[s.grade].books[s.book];
+  }
+  var PROGRESS_KEY = "vpreProgress";
+  function todayStr(){
+    var d = new Date();
+    return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+  }
+  function loadProgress(){
+    var d = {stageStars:{}, words:{}, wrong:{}, stats:{answers:0, correct:0, learned:0, day:"", dayWords:0, streak:1, byType:{}}};
+    try{
+      var raw = localStorage.getItem(PROGRESS_KEY);
+      if(raw){ var p = JSON.parse(raw); if(p && p.stats) return p; }
+    }catch(e){}
+    return d;
+  }
+  var PROG = loadProgress();
+  function saveProgress(){ try{ localStorage.setItem(PROGRESS_KEY, JSON.stringify(PROG)); }catch(e){} }
+  function tickDay(){
+    var t = todayStr();
+    if(PROG.stats.day !== t){
+      var y = new Date(); y.setDate(y.getDate()-1);
+      var yt = y.getFullYear()+"-"+(y.getMonth()+1)+"-"+y.getDate();
+      if(PROG.stats.day === yt){ PROG.stats.streak += 1; } else { PROG.stats.streak = 1; }
+      PROG.stats.day = t; PROG.stats.dayWords = 0;
+      saveProgress();
+    }
+  }
+  function starsEarned(z){
+    if(z.type === "match"){ return z.attempts <= z.total+2 ? 3 : (z.attempts <= z.total*2+2 ? 2 : 1); }
+    var n = z.items.length;
+    if(n >= 15){ return z.score >= n-2 ? 3 : (z.score >= n-5 ? 2 : (z.score >= n-8 ? 1 : 0)); }
+    return z.score >= n ? 3 : (z.score >= n-1 ? 2 : (z.score >= n-2 ? 1 : 0));
+  }
+  function recordQuizResult(phone){
+    tickDay();
+    var z = phone.__quiz; if(!z) return;
+    var s = state[phone.__id];
+    var book = s.book, unit = unitWords(phone).name;
+    var wset = PROG.words[book] || (PROG.words[book] = {});
+    var uset = wset[unit] || (wset[unit] = {});
+    var wb = PROG.wrong[book] || (PROG.wrong[book] = {});
+    if(z.type === "match"){
+      z.pairs.forEach(function(p){
+        var k = p.en.toLowerCase();
+        if(!uset[k]){ uset[k] = 1; PROG.stats.learned++; }
+      });
+    } else {
+      z.items.forEach(function(it){
+        PROG.stats.answers++;
+        var en = (z.type === "word" || z.type === "wrong") ? it.prompt : it.answer;
+        var k = en.toLowerCase();
+        if(it.correct){
+          PROG.stats.correct++;
+          if(!uset[k]){ uset[k] = 1; PROG.stats.learned++; }
+          if(wb[k]){ delete wb[k]; }
+        } else {
+          wb[k] = (wb[k] || 0) + 1;
+        }
+      });
+    }
+    PROG.stats.dayWords += (z.type === "match" ? z.total : z.items.length);
+    PROG.stats.byType = PROG.stats.byType || {};
+    PROG.stats.byType[z.type] = (PROG.stats.byType[z.type] || 0) + (z.type === "match" ? z.total : z.items.length);
+    var st = phone.__quizStage;
+    if(st){
+      var sk = st.book + "|" + st.unit + "|" + st.num;
+      var cur = PROG.stageStars[sk] || 0;
+      var got = starsEarned(z);
+      if(got > cur){ PROG.stageStars[sk] = got; }
+      phone.__quizStage = null;
+    }
+    saveProgress();
+  }
+  function stageStars(phone, ui, num){
+    var s = state[phone.__id];
+    var u = currentBook(phone).units[ui];
+    return PROG.stageStars[s.book+"|"+u.name+"|"+num] || 0;
+  }
+  function starsStr(n){
+    return n >= 3 ? "★★★" : (n === 2 ? "★★☆" : (n === 1 ? "★☆☆" : "☆☆☆"));
+  }
+  function unitCleared(phone, ui){
+    return stageStars(phone, ui, "boss") > 0;
+  }
+  function totalStars(){
+    var n = 0;
+    for(var k in PROG.stageStars){ n += PROG.stageStars[k]; }
+    return n;
+  }
   function unitWords(phone){
     var s = state[phone.__id];
-    var units = VOCAB.g9;
-    return units[Math.min(s.unit, units.length-1)];
+    var book = currentBook(phone);
+    return book.units[Math.min(s.unit, book.units.length-1)];
+  }
+  function unitLabel(phone){
+    var s = state[phone.__id];
+    return s.book + ' ' + unitWords(phone).name;
+  }
+  function greetName(){
+    var h = new Date().getHours();
+    var g = h < 5 ? "夜深了" : (h < 11 ? "早上好" : (h < 13 ? "中午好" : (h < 18 ? "下午好" : "晚上好")));
+    return g + " 👋";
   }
   function unitWordList(phone){
     return unitWords(phone).words.map(function(w){ return {en:w[0], zh:w[1]}; });
@@ -385,11 +529,12 @@
     if(typeof unitIdx === "number"){ state[phone.__id].unit = unitIdx; }
     var list = unitWordList(phone);
     var items;
-    if(type === "word"){ items = buildWordItems(list, 5); }
-    else if(type === "listen"){ items = buildListenItems(list, 5); }
-    else if(type === "spell"){ items = buildSpellItems(list, 5); }
+    var stageMode = !!phone.__quizStage;
+    if(type === "word"){ items = buildWordItems(list, stageMode ? 20 : 10); }
+    else if(type === "listen"){ items = buildListenItems(list, stageMode ? 20 : 10); }
+    else if(type === "spell"){ items = buildSpellItems(list, stageMode ? 20 : 10); }
     else if(type === "match"){
-      var pairs = pickWords(list, 6).map(function(x){ return {en:x.en, zh:x.zh}; });
+      var pairs = pickWords(list, 10).map(function(x){ return {en:x.en, zh:x.zh}; });
       var cards = [];
       pairs.forEach(function(p, i){
         cards.push({pair:i, kind:"en", text:p.en});
@@ -401,22 +546,39 @@
       return;
     }
     else {
-      var demo = [list[Math.min(2,list.length-1)], list[Math.min(5,list.length-1)], list[Math.min(8,list.length-1)], list[Math.min(11,list.length-1)]].filter(Boolean);
-      items = buildWordItems(demo, Math.min(4, demo.length));
+      var s = state[phone.__id];
+      var book = currentBook(phone);
+      var all = [];
+      book.units.forEach(function(u){ u.words.forEach(function(w){ all.push({en:w[0], zh:w[1]}); }); });
+      var wb = PROG.wrong[s.book] || {};
+      var pool = [];
+      Object.keys(wb).forEach(function(k){
+        for(var i=0;i<all.length;i++){
+          if(all[i].en.toLowerCase() === k){ pool.push(all[i]); break; }
+        }
+      });
+      if(pool.length < 4){
+        var demo = [list[Math.min(2,list.length-1)], list[Math.min(5,list.length-1)], list[Math.min(8,list.length-1)], list[Math.min(11,list.length-1)]].filter(Boolean);
+        pool = pool.concat(demo).slice(0,4);
+      }
+      items = buildWordItems(pool, Math.min(4, pool.length));
     }
     phone.__quiz = { type:type, idx:0, score:0, items:items };
     renderQuiz(phone);
     setView(phone, "quiz");
+  }
+  function matchHeadText(z){
+    return "连连看 · 已配对 " + z.matched + " / " + z.total + " · 尝试 " + z.attempts + " 次";
   }
   function renderMatch(phone){
     var z = phone.__quiz;
     var el = q(".vpre-quiz", phone);
     if(!el) return;
     el.innerHTML =
-      '<div class="vpre-quiz-head"><span class="vpre-mtitle">连连看 · 已配对 ' + z.matched + ' / ' + z.total + '</span><span class="vpre-mhead-actions"><button class="vpre-btn vpre-btn-mini" type="button" data-mnew="1">换一组</button><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></span></div>'
+      '<div class="vpre-quiz-head"><span class="vpre-mtitle">' + matchHeadText(z) + '</span><span class="vpre-mhead-actions"><button class="vpre-btn vpre-btn-mini" type="button" data-mnew="1">换一组</button><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></span></div>'
       + '<div class="vpre-progress" style="margin-bottom:14px;"><div style="width:' + Math.round(z.matched/z.total*100) + '%"></div></div>'
       + '<div class="vpre-mgrid">' + z.cards.map(function(c, i){
-          return '<button class="vpre-mcard" type="button" data-i="' + i + '">' + c.text + '</button>';
+          return '<button class="vpre-mcard ' + (c.kind === "en" ? "is-en" : "is-zh") + '" type="button" data-i="' + i + '">' + c.text + '</button>';
         }).join("") + '</div>'
       + '<div class="vpre-mtip">点两张卡片：英文 ↔ 中文，配对成功即消除</div>';
     var sel = null, lock = false;
@@ -445,7 +607,7 @@
             if(k === i || k === j){ b.classList.remove("is-sel"); b.classList.add("is-matched"); b.disabled = true; }
           });
           var head = q(".vpre-mtitle", el);
-          if(head){ head.textContent = "连连看 · 已配对 " + z.matched + " / " + z.total; }
+          if(head){ head.textContent = matchHeadText(z); }
           q(".vpre-progress div", el).style.width = Math.round(z.matched/z.total*100) + "%";
           if(z.matched >= z.total){ renderResult(phone); }
         } else {
@@ -455,6 +617,8 @@
             var k = parseInt(b.getAttribute("data-i"), 10);
             if(k === i || k === j){ b.classList.remove("is-sel"); b.classList.add("is-wrong"); }
           });
+          var head = q(".vpre-mtitle", el);
+          if(head){ head.textContent = matchHeadText(z); }
           setTimeout(function(){
             qa(".vpre-mcard", el).forEach(function(b){
               var k = parseInt(b.getAttribute("data-i"), 10);
@@ -465,9 +629,9 @@
         }
       });
     });
-    q(".vpre-quiz-close", el).addEventListener("click", function(){ setView(phone, "home"); });
+    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
     var mnew = q("[data-mnew]", el);
-    if(mnew){ mnew.addEventListener("click", function(){ openQuiz(phone, "match"); }); }
+    if(mnew){ mnew.addEventListener("click", function(){ sfx.play("tap"); openQuiz(phone, "match"); }); }
   }
   function replayMatch(phone){
     var z = phone.__quiz;
@@ -498,10 +662,10 @@
       + '<button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-result-again="1">再玩一次（同一组）</button>'
       + '<button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-result-home="1">返回首页</button>'
       + '</div></div>';
-    q("[data-result-new]", el).addEventListener("click", function(){ openQuiz(phone, "match"); });
-    q("[data-result-again]", el).addEventListener("click", function(){ replayMatch(phone); });
-    q("[data-result-home]", el).addEventListener("click", function(){ setView(phone, "home"); });
-    q(".vpre-quiz-close", el).addEventListener("click", function(){ setView(phone, "home"); });
+    q("[data-result-new]", el).addEventListener("click", function(){ sfx.play("tap"); openQuiz(phone, "match"); });
+    q("[data-result-again]", el).addEventListener("click", function(){ sfx.play("tap"); replayMatch(phone); });
+    q("[data-result-home]", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
+    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
   }
   function renderQuiz(phone){
     var z = phone.__quiz;
@@ -526,6 +690,7 @@
         answered = true;
         var isRight = btn.textContent === it.answer;
         if(isRight){ z.score += 1; }
+        it.correct = isRight;
         sfx.play(isRight ? "right" : "wrong");
         qa(".vpre-qopt", el).forEach(function(b){
           b.disabled = true;
@@ -537,12 +702,12 @@
         next.textContent = (z.idx+1 >= z.items.length) ? "查看成绩" : "下一题";
       });
     });
-    q(".vpre-qnext", el).addEventListener("click", function(){ z.idx += 1; renderQuiz(phone); });
-    q(".vpre-quiz-close", el).addEventListener("click", function(){ setView(phone, "home"); });
+    q(".vpre-qnext", el).addEventListener("click", function(){ sfx.play("tap"); z.idx += 1; renderQuiz(phone); });
+    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
     clearTimeout(phone.__speakTimer);
     var sp = q(".vpre-speak", el);
     if(sp){
-      sp.addEventListener("click", function(){ speak(it.speak, phone); });
+      sp.addEventListener("click", function(){ sfx.play("tap"); speak(it.speak, phone); });
       if(it.speak){
         speak(it.speak, phone);
         phone.__speakTimer = setTimeout(function(){ speak(it.speak, phone); }, 1500);
@@ -551,6 +716,7 @@
   }
   function renderResult(phone){
     var z = phone.__quiz;
+    recordQuizResult(phone);
     if(z.type === "match"){ renderMatchResult(phone); return; }
     sfx.play("win");
     var n = z.items.length;
@@ -568,9 +734,9 @@
       +'<button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-result-again="1">再玩一次</button>'
       +'<button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-result-home="1">返回首页</button>'
       +'</div></div>';
-    q("[data-result-again]", el).addEventListener("click", function(){ openQuiz(phone, z.type); });
-    q("[data-result-home]", el).addEventListener("click", function(){ setView(phone, "home"); });
-    q(".vpre-quiz-close", el).addEventListener("click", function(){ setView(phone, "home"); });
+    q("[data-result-again]", el).addEventListener("click", function(){ sfx.play("tap"); openQuiz(phone, z.type); });
+    q("[data-result-home]", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
+    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
   }
   function pickVoice(ss){
     var vs = ss.getVoices();
@@ -622,70 +788,221 @@
     });
   }
   function runAction(phone, act, unitIdx){
+    if(act === "open-report"){ renderReport(phone); setView(phone, "report"); return; }
+
     if(act === "toast"){ toast(phone, "玩法开发中，敬请期待"); return; }
     openQuiz(phone, act.replace("quiz-", ""), unitIdx);
   }
+  var GRADE_BOOKS = {g7:["七上","七下"], g8:["八上","八下"], g9:["九上","九下"]};
   function renderUnits(phone){
+    tickDay();
     var s = state[phone.__id];
     var list = q(".vpre-unit-list", phone);
-    var h5 = phone.classList.contains("vpre-h5");
-    if(s.grade === "g9"){
-      var units = VOCAB.g9;
-      list.innerHTML = units.map(function(u, i){
-        var btn = "开始";
-        if(h5){
-          return '<div class="vpre-unit" data-unit="'+i+'">'
-            + '<div class="vpre-ring" style="--p:0%"><i>0%</i></div>'
-            + '<div class="vpre-unit-info"><div class="vpre-unit-title">九上 单元 '+(i+1)+'</div><div class="vpre-unit-meta">'+u.n+' 词 · 本单元词汇表</div></div>'
-            + '<button class="vpre-btn vpre-btn-mini" type="button">'+btn+'</button></div>';
-        }
-        return '<div class="vpre-unit" data-unit="'+i+'">'
-          + '<div class="vpre-unit-badge">U'+(i+1)+'</div>'
-          + '<div class="vpre-unit-info"><div class="vpre-unit-title">九上 单元 '+(i+1)+'</div><div class="vpre-unit-meta">'+u.n+' 词 · 本单元词汇表</div>'
-          + '<div class="vpre-progress vpre-progress-sm"><div style="width:0%"></div></div></div>'
-          + '<button class="vpre-btn vpre-btn-mini" type="button">'+btn+'</button></div>';
+    var bseg = q(".vpre-bookseg", phone);
+    var books = GRADE_BOOKS[s.grade] || [];
+    if(bseg){
+      bseg.innerHTML = books.map(function(b){
+        return '<button class="vpre-bchip'+(b===s.book ? " is-active" : "")+'" type="button" data-book="'+b+'">'+b+'</button>';
       }).join("");
-    } else {
-      list.innerHTML = '<div class="vpre-placeholder">'+GRADE_NAME[s.grade]+'词库整理中，先用初三上学期内容体验</div>';
     }
+    var book = currentBook(phone);
+    list.innerHTML = book.units.map(function(u, i){
+      return '<button class="vpre-unit" data-unit="'+i+'" type="button">'
+        + '<div class="vpre-ring" style="--p:0%"><i>0%</i></div>'
+        + '<div class="vpre-unit-info"><div class="vpre-unit-title">'+u.name+'</div><div class="vpre-unit-meta">'+u.n+' 词</div></div>'
+        + '<span class="vpre-unit-go">进入 ▸</span></button>';
+    }).join("");
+    var hi = q(".vpre-hi-text", phone);
+    if(hi){ hi.textContent = greetName(); }
     var taskUnit = q(".vpre-task-unit", phone);
-    if(taskUnit){ taskUnit.textContent = s.grade==="g9" ? "九上 单元 "+(s.unit+1) : GRADE_BOOK[s.grade]+" 单元 1"; }
+    if(taskUnit){ taskUnit.textContent = unitLabel(phone); }
+    var uw = unitWords(phone);
+    var uset = (PROG.words[s.book] || {})[uw.name] || {};
+    var learned = Object.keys(uset).length;
+    var total = uw.n;
+    var pct = total ? Math.round(learned/total*100) : 0;
+    var ring = q(".vpre-task-ring", phone);
+    if(ring){ ring.style.setProperty("--p", pct + "%"); }
+    var pctEl = q(".vpre-task-pct", phone);
+    if(pctEl){ pctEl.textContent = pct + "%"; }
+    var numEl = q(".vpre-task-num", phone);
+    if(numEl){ numEl.textContent = learned + " / " + total; }
+    var subEl = q(".vpre-task-sub", phone);
+    if(subEl){ subEl.textContent = "已学 " + learned + " 词 · 今日 +" + (PROG.stats.dayWords||0) + " · 还有 " + (total - learned) + " 个新词"; }
+    var wb = PROG.wrong[s.book] || {};
+    var wc = Object.keys(wb).length;
+    var reviewTxt = q(".vpre-review-txt", phone);
+    if(reviewTxt){ reviewTxt.textContent = wc > 0 ? "📌 " + wc + " 个错词待复习，重练才能记住" : "📌 今天没有错词，继续保持！"; }
+    var reviewBtn = q(".vpre-review .vpre-btn", phone);
+    if(reviewBtn){ reviewBtn.style.display = wc > 0 ? "" : "none"; }
     var secNote = q(".vpre-sec-note", phone);
-    if(secNote){ secNote.textContent = s.grade==="g9" ? "九上 · "+VOCAB.g9.reduce(function(a,u){ return a+u.n; },0)+" 词" : "词库整理中"; }
-    var heroBtn = q(".vpre-view[data-view=home] .vpre-hero-btn", phone);
-    if(heroBtn){ heroBtn.textContent = s.grade==="g9" ? "继续学习 → 九上 单元 "+(s.unit+1) : "继续学习 → "+GRADE_BOOK[s.grade]; }
+    if(secNote){ secNote.textContent = s.book + " · " + book.units.reduce(function(a,u){ return a+u.n; },0) + " 词"; }
+    var taskCta = q(".vpre-task-cta", phone);
+    if(taskCta){ taskCta.textContent = "继续学习 → " + unitLabel(phone); }
     renderWrong(phone);
+    renderStageMap(phone);
+  }
+  var BOOK_LIST = ["七上","七下","八上","八下","九上","九下"];
+  function bookData(book){
+    if(VOCAB.g7.books[book]) return VOCAB.g7.books[book];
+    if(VOCAB.g8.books[book]) return VOCAB.g8.books[book];
+    return VOCAB.g9.books[book];
+  }
+  function renderStageMap(phone){
+    var list = q(".vpre-stage-list", phone);
+    var note = q(".vpre-stage-note", phone);
+    if(!list) return;
+    var s = state[phone.__id];
+    var book = currentBook(phone);
+    if(note){ note.textContent = s.book + " · 三关20词 大作战10词"; }
+    var html = book.units.map(function(u, ui){
+      if(ui > 0 && !unitCleared(phone, ui-1)){
+        return '<div class="vpre-stage is-locked"><div class="vpre-stage-num">U'+(ui+1)+'</div><div class="vpre-stage-info"><b>'+u.name+'</b><span>完成上一单元后解锁</span></div><span style="font-size:14px;">🔒</span></div>';
+      }
+      var s1 = stageStars(phone, ui, 1), s2 = stageStars(phone, ui, 2), s3 = stageStars(phone, ui, 3);
+      var sb = stageStars(phone, ui, "boss");
+      var bossOpen = s1 >= 3 && s2 >= 3 && s3 >= 3;
+      var cleared = sb > 0;
+      function chip(num, label, stars, type, locked){
+        return '<button class="vpre-stage-chip" type="button" data-unit="'+ui+'" data-num="'+num+'" data-type="'+type+'"'+(locked?' disabled':'')+'><span>'+label+'</span><span class="vpre-chipstars">'+(locked?"🔒 三星解锁":starsStr(stars))+'</span></button>';
+      }
+      return '<div class="vpre-stage-unit">'
+        + '<div class="vpre-stage-unit-head"><b>'+u.name+'</b><span class="vpre-stage-unit-clear">'+(cleared?"已通关 ✓":"")+'</span></div>'
+        + '<div class="vpre-stage-chips">'
+        + chip(1,"认一认 · 20词",s1,"word",false)
+        + chip(2,"听一听 · 20词",s2,"listen",false)
+        + chip(3,"拼一拼 · 20词",s3,"spell",false)
+        + chip("boss","大作战 · 10词",sb,"match",!bossOpen)
+        + '</div></div>';
+    }).join("");
+    list.innerHTML = html;
+  }
+  function renderReport(phone){
+    var el = q(".vpre-report", phone);
+    if(!el) return;
+    tickDay();
+    var learned = PROG.stats.learned || 0;
+    var rate = PROG.stats.answers ? Math.round(PROG.stats.correct / PROG.stats.answers * 100) : 0;
+    var rows = BOOK_LIST.map(function(b){
+      var bd = bookData(b);
+      var total = bd.units.reduce(function(a,u){ return a+u.n; },0);
+      var lw = 0;
+      var wb = PROG.words[b] || {};
+      for(var u in wb){ lw += Object.keys(wb[u]).length; }
+      var pct = total ? Math.round(lw/total*100) : 0;
+      return {book:b, total:total, lw:lw, pct:pct};
+    });
+    var wrongAll = [];
+    for(var bk in PROG.wrong){
+      var w = PROG.wrong[bk];
+      for(var en in w){ wrongAll.push({en:en, c:w[en], book:bk}); }
+    }
+    wrongAll.sort(function(a,b){ return b.c - a.c; });
+    var topWrong = wrongAll.slice(0,5);
+    var zhMap = {};
+    BOOK_LIST.forEach(function(b){ bookData(b).units.forEach(function(u){ u.words.forEach(function(w){ zhMap[w[0].toLowerCase()] = w[1]; }); }); });
+    el.innerHTML =
+      '<div class="vpre-report-head"><b>学习报告</b><button class="vpre-report-back" type="button">← 返回</button></div>'
+      + '<div class="vpre-stats vpre-report-stats">'
+      + '<div><b>'+learned+'</b><span>已学词</span></div>'
+      + '<div><b>'+rate+'%</b><span>掌握率</span></div>'
+      + '<div><b>'+PROG.stats.streak+'</b><span>连续天数</span></div>'
+      + '<div><b>'+(PROG.stats.dayWords||0)+'</b><span>今日学词</span></div>'
+      + '</div>'
+      + '<div class="vpre-sec-title">各册进度</div>'
+      + rows.map(function(r){
+          return '<div class="vpre-bookrow"><b>'+r.book+'</b><div class="vpre-progress"><div style="width:'+r.pct+'%"></div></div><span>'+r.lw+'/'+r.total+'</span></div>';
+        }).join("")
+      + '<div class="vpre-sec-title">闯关星星 <span>累计 '+totalStars()+' 颗</span></div>'
+      + '<div class="vpre-sec-title">错词榜</div>'
+      + (topWrong.length ? topWrong.map(function(w){
+          return '<div class="vpre-wrow"><div class="vpre-wmain"><b>'+w.en+'</b><span>'+(zhMap[w.en]||w.book)+'</span></div><span class="vpre-wbadge">错 '+w.c+' 次</span></div>';
+        }).join("") : '<div class="vpre-placeholder">没有错词，继续保持！</div>');
+  }
+  function clearedUnits(){
+    var n = 0;
+    BOOK_LIST.forEach(function(b){
+      bookData(b).units.forEach(function(u){
+        if((PROG.stageStars[b+"|"+u.name+"|boss"]||0) > 0){ n++; }
+      });
+    });
+    return n;
+  }
+  function renderMine(phone){
+    tickDay();
+    var learned = q(".vpre-mine-learned", phone);
+    if(learned) learned.textContent = PROG.stats.learned || 0;
+    var streak = q(".vpre-mine-streak", phone);
+    if(streak) streak.textContent = PROG.stats.streak || 1;
+    var stars = q(".vpre-mine-badges", phone);
+    if(stars) stars.textContent = totalStars();
+    var prof = q(".vpre-mine-profile", phone);
+    if(prof) prof.textContent = GRADE_NAME[state[phone.__id].grade] + " · 连续打卡 " + (PROG.stats.streak||1) + " 天";
+    var bt = PROG.stats.byType || {};
+    var defs = [
+      {icon:"🔥", name:"坚持 7 天", ok: (PROG.stats.streak||1) >= 7},
+      {icon:"✏️", name:"拼写新星", ok: (bt.spell||0) >= 10},
+      {icon:"🎧", name:"听力入门", ok: (bt.listen||0) >= 10},
+      {icon:"📚", name:"百词达人", ok: (PROG.stats.learned||0) >= 100},
+      {icon:"🌟", name:"星星收藏家", ok: totalStars() >= 10},
+      {icon:"🏆", name:"闯关先锋", ok: clearedUnits() >= 1}
+    ];
+    var wrap = q(".vpre-badge-dynamic", phone);
+    if(wrap){
+      wrap.innerHTML = defs.map(function(d){
+        return '<span class="vpre-badge'+(d.ok?" is-earned":"")+'">'+d.icon+' '+d.name+(d.ok?"":" · 未解锁")+'</span>';
+      }).join("");
+    }
   }
   function renderWrong(phone){
     var list = q(".vpre-wrong-list", phone);
     if(!list) return;
     var s = state[phone.__id];
-    var words = unitWordList(phone);
-    if(s.grade !== "g9" || words.length === 0){
-      list.innerHTML = '<div class="vpre-placeholder">该年级词库整理中</div>';
+    var wb = PROG.wrong[s.book] || {};
+    var wc = Object.keys(wb).length;
+    var rate = PROG.stats.answers ? Math.round(PROG.stats.correct / PROG.stats.answers * 100) : 0;
+    var cnt = q(".vpre-wrong-count", phone);
+    if(cnt){ cnt.textContent = wc + " 个词"; }
+    var rt = q(".vpre-wrong-rate", phone);
+    if(rt){ rt.textContent = rate + "%"; }
+    var bar = q(".vpre-wrong-bar", phone);
+    if(bar){ bar.style.width = rate + "%"; }
+    var arr = Object.keys(wb).map(function(k){ return {en:k, c:wb[k]}; }).sort(function(a,b){ return b.c-a.c; }).slice(0,6);
+    if(!arr.length){
+      list.innerHTML = '<div class="vpre-placeholder">还没有错词，去闯关练一练吧</div>';
       return;
     }
-    var demo = [words[Math.min(1,words.length-1)], words[Math.min(4,words.length-1)], words[Math.min(7,words.length-1)]].filter(Boolean);
-    list.innerHTML = demo.map(function(w, i){
-      var c = i===0 ? 3 : 2;
-      return '<div class="vpre-wrow"><div class="vpre-wmain"><b>'+w.en+'</b><span>'+w.zh+'</span></div><span class="vpre-wbadge">错 '+c+' 次</span><button class="vpre-btn vpre-btn-mini" type="button">再练一次</button></div>';
+    var book = currentBook(phone);
+    var zhMap = {};
+    book.units.forEach(function(u){ u.words.forEach(function(w){ zhMap[w[0].toLowerCase()] = w[1]; }); });
+    list.innerHTML = arr.map(function(w){
+      return '<div class="vpre-wrow"><div class="vpre-wmain"><b>'+w.en+'</b><span>'+(zhMap[w.en]||"")+'</span></div><span class="vpre-wbadge">错 '+w.c+' 次</span><button class="vpre-btn vpre-btn-mini" type="button">再练一次</button></div>';
     }).join("");
   }
   function initPhone(phone){
     var id = "p" + qa(".vpre-phone").indexOf(phone);
     phone.__id = id;
-    state[id] = {grade:"g9", unit:0};
+    state[id] = {grade:"g9", book:"九上", unit:0};
     qa(".vpre-chip[data-grade]", phone).forEach(function(b){
       b.addEventListener("click", function(){
         qa(".vpre-chip[data-grade]", phone).forEach(function(x){ x.classList.remove("is-active"); x.setAttribute("aria-pressed","false"); });
         b.classList.add("is-active"); b.setAttribute("aria-pressed","true");
         state[id].grade = b.getAttribute("data-grade");
+        state[id].book = GRADE_BOOKS[state[id].grade][0];
         state[id].unit = 0;
         renderUnits(phone);
       });
     });
     qa(".vpre-tab", phone).forEach(function(b){
-      b.addEventListener("click", function(){ sfx.play("tap"); setView(phone, b.getAttribute("data-tab")); });
+      b.addEventListener("click", function(){
+        sfx.play("tap");
+        var t = b.getAttribute("data-tab");
+        if(t === "home"){ renderUnits(phone); }
+        if(t === "stage"){ renderStageMap(phone); }
+        if(t === "wrong"){ renderWrong(phone); }
+        if(t === "mine"){ renderMine(phone); }
+        setView(phone, t);
+      });
     });
     var sbtn = q(".vpre-sfxbtn", phone);
     if(sbtn){
@@ -695,12 +1012,35 @@
         var on = sfx.toggle();
         sbtn.textContent = on ? "🔊" : "🔇";
         sbtn.setAttribute("aria-pressed", on ? "true" : "false");
-        if(on){ sfx.play("tap"); }
+        sfx.play("tap");
+      });
+    }
+    var bseg = q(".vpre-bookseg", phone);
+    if(bseg){
+      bseg.addEventListener("click", function(ev){
+        var b = ev.target.closest(".vpre-bchip");
+        if(!b) return;
+        state[id].book = b.getAttribute("data-book");
+        state[id].unit = 0;
+        renderUnits(phone);
       });
     }
     q(".vpre-body", phone).addEventListener("click", function(ev){
       var btn = ev.target.closest("button");
       if(!btn) return;
+      var qzEl = q(".vpre-quiz", phone);
+      if(qzEl && qzEl.contains(btn)) return;
+      sfx.play("tap");
+var chip = btn.closest(".vpre-stage-chip");
+      if(chip){
+        var ui = parseInt(chip.getAttribute("data-unit"),10);
+        var num = chip.getAttribute("data-num");
+        var typ = chip.getAttribute("data-type");
+        phone.__quizStage = {book: state[id].book, unit: currentBook(phone).units[ui].name, num: num};
+        runAction(phone, "quiz-" + typ, ui);
+        return;
+      }
+      if(btn.closest(".vpre-report-back")){ setView(phone, "mine"); return; }
       var quizEl = q(".vpre-quiz", phone);
       if(quizEl && quizEl.contains(btn)) return;
       var unitCard = btn.closest(".vpre-unit[data-unit]");
