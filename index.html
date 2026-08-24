@@ -761,7 +761,7 @@
   }
   function speak(text, phone){
     try{
-      if(!("speechSynthesis" in window)){ playAudio(text, phone); return; }
+      if(phone.__speechDead || IS_WECHAT || !("speechSynthesis" in window)){ playAudio(text, phone); return; }
       var ss = window.speechSynthesis;
       var hasVoice = false;
       try{
@@ -779,27 +779,36 @@
       ss.speak(u);
       clearTimeout(phone.__speechFallback);
       phone.__speechFallback = setTimeout(function(){
-        if(!started && !ss.speaking){ playAudio(text, phone); }
+        if(!started && !ss.speaking){
+          phone.__speechDead = true;
+          playAudio(text, phone);
+        }
       }, 600);
-    }catch(e){ playAudio(text, phone); }
+    }catch(e){ phone.__speechDead = true; playAudio(text, phone); }
   }
   var TTS_SOURCES = [
     function(w){ return "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(w) + "&type=2"; },
     function(w){ return "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=" + encodeURIComponent(w); }
   ];
-  function playAudio(text, phone, i){
+  var IS_WECHAT = /MicroMessenger/i.test(navigator.userAgent || "");
+  function playAudio(text, phone, i, blocked){
     i = i || 0;
-    if(i >= TTS_SOURCES.length){ toast(phone, "当前环境暂不支持发音"); return; }
+    if(i >= TTS_SOURCES.length){
+      toast(phone, blocked ? "请点击🔊按钮播放发音" : "发音加载失败，请检查网络后点🔊重试");
+      return;
+    }
     try{
       var a = phone.__audio || (phone.__audio = new Audio());
       a.pause();
-      a.onerror = function(){ playAudio(text, phone, i+1); };
+      a.onerror = function(){ playAudio(text, phone, i+1, blocked); };
       a.src = TTS_SOURCES[i](text);
       var p = a.play();
       if(p && p.catch){
-        p.catch(function(){ playAudio(text, phone, i+1); });
+        p.catch(function(err){
+          playAudio(text, phone, i+1, blocked || (err && err.name === "NotAllowedError"));
+        });
       }
-    }catch(e){ playAudio(text, phone, i+1); }
+    }catch(e){ playAudio(text, phone, i+1, blocked); }
   }
   function toast(phone, msg){
     var t = q(".vpre-toast", phone);
