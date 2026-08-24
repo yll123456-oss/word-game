@@ -705,6 +705,8 @@
     q(".vpre-qnext", el).addEventListener("click", function(){ sfx.play("tap"); z.idx += 1; renderQuiz(phone); });
     q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
     clearTimeout(phone.__speakTimer);
+    clearTimeout(phone.__speechFallback);
+    if(phone.__audio){ try{ phone.__audio.pause(); }catch(e2){} }
     var sp = q(".vpre-speak", el);
     if(sp){
       sp.addEventListener("click", function(){ sfx.play("tap"); speak(it.speak, phone); });
@@ -759,15 +761,45 @@
   }
   function speak(text, phone){
     try{
-      if(!("speechSynthesis" in window)){ toast(phone, "当前环境暂不支持发音"); return; }
+      if(!("speechSynthesis" in window)){ playAudio(text, phone); return; }
       var ss = window.speechSynthesis;
+      var hasVoice = false;
+      try{
+        var vs = ss.getVoices();
+        hasVoice = !!(vs && vs.some(function(v){ return (v.lang||"").toLowerCase().indexOf("en")===0; }));
+      }catch(e1){ hasVoice = false; }
+      if(!hasVoice){ playAudio(text, phone); return; }
       ss.cancel();
       var u = new SpeechSynthesisUtterance(text);
       u.lang = "en-US"; u.rate = 0.8; u.pitch = 1; u.volume = 1;
       var v = pickVoice(ss);
       if(v){ u.voice = v; }
+      var started = false;
+      u.onstart = function(){ started = true; };
       ss.speak(u);
-    }catch(e){ toast(phone, "当前环境暂不支持发音"); }
+      clearTimeout(phone.__speechFallback);
+      phone.__speechFallback = setTimeout(function(){
+        if(!started && !ss.speaking){ playAudio(text, phone); }
+      }, 600);
+    }catch(e){ playAudio(text, phone); }
+  }
+  var TTS_SOURCES = [
+    function(w){ return "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(w) + "&type=2"; },
+    function(w){ return "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=" + encodeURIComponent(w); }
+  ];
+  function playAudio(text, phone, i){
+    i = i || 0;
+    if(i >= TTS_SOURCES.length){ toast(phone, "当前环境暂不支持发音"); return; }
+    try{
+      var a = phone.__audio || (phone.__audio = new Audio());
+      a.pause();
+      a.onerror = function(){ playAudio(text, phone, i+1); };
+      a.src = TTS_SOURCES[i](text);
+      var p = a.play();
+      if(p && p.catch){
+        p.catch(function(){ playAudio(text, phone, i+1); });
+      }
+    }catch(e){ playAudio(text, phone, i+1); }
   }
   function toast(phone, msg){
     var t = q(".vpre-toast", phone);
