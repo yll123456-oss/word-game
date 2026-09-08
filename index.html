@@ -216,6 +216,8 @@
 .vpre-img-actions{display:flex; gap:10px; justify-content:center;}
 .vpre-img-dl{flex:1; display:block; text-align:center; background:var(--vp-blue); color:#fff; text-decoration:none; border-radius:12px; padding:11px 0; font-size:13px; font-weight:700;}
 .vpre-img-close{flex:1; border:0; background:#eef1fb; color:var(--vp-blue); border-radius:12px; padding:11px 0; font-size:13px; font-weight:700; cursor:pointer;}
+.vpre-img-ghost{background:#eef1fb; color:var(--vp-blue);}
+.vpre-img-close-block{width:100%; margin-top:10px;}
 .vpre-print-root{display:none;}
 @media print{
   body{background:#fff !important;}
@@ -1030,8 +1032,9 @@
         '<div class="vpre-sheet">'
         + '<div class="vpre-sheet-title">导出学习报告</div>'
         + '<div class="vpre-sheet-sub">选择一种方式</div>'
-        + '<button class="vpre-sheet-opt" data-export="print" type="button"><b>🖨</b><span><span class="vpre-opt-title">打印 / 存为 PDF</span><span class="vpre-opt-tip">电脑和手机浏览器适用；微信内不支持系统打印</span></span></button>'
-        + '<button class="vpre-sheet-opt" data-export="image" type="button"><b>🖼</b><span><span class="vpre-opt-title">保存报告图片</span><span class="vpre-opt-tip">生成图片，长按即可保存或转发，微信里推荐</span></span></button>'
+        + '<button class="vpre-sheet-opt" data-export="image" type="button"><b>🖼</b><span><span class="vpre-opt-title">保存报告图片（推荐）</span><span class="vpre-opt-tip">微信/手机长按即可保存或转发，电脑可下载后打印</span></span></button>'
+        + '<button class="vpre-sheet-opt" data-export="pdf" type="button"><b>📄</b><span><span class="vpre-opt-title">导出 PDF 文件</span><span class="vpre-opt-tip">直接生成 PDF 下载，可随时打印或转发</span></span></button>'
+        + '<button class="vpre-sheet-opt" data-export="print" type="button"><b>🖨</b><span><span class="vpre-opt-title">系统打印</span><span class="vpre-opt-tip">仅电脑浏览器可用；微信与 App 内不支持</span></span></button>'
         + '<button class="vpre-sheet-cancel" type="button">取消</button>'
         + '</div>';
       document.body.appendChild(mask);
@@ -1041,13 +1044,49 @@
         if(!b) return;
         mask.classList.remove("is-show");
         var t = b.getAttribute("data-export");
-        if(t === "print"){ printReport(phone); }
-        else if(t === "image"){ exportReportImage(phone); }
+        if(t === "image" || t === "pdf"){ exportReportImage(phone); }
+        else if(t === "print"){ printReport(phone); }
       });
     }
     mask.classList.add("is-show");
   }
-  function showReportImage(dataUrl){
+  function pdfFromJpeg(jpegUrl, w, h){
+    try{
+      var b64 = jpegUrl.split(",")[1];
+      var bin = atob(b64);
+      var imgLen = bin.length;
+      var pageW = 595.28, pageH = 841.89, m = 28.35;
+      var scale = Math.min((pageW - 2*m) / w, (pageH - 2*m) / h);
+      var dw = Math.round(w * scale), dh = Math.round(h * scale);
+      var x = (pageW - dw) / 2, y = (pageH - dh) / 2;
+      var header = "%PDF-1.4\n";
+      var parts = [], offsets = {}, cur = header.length;
+      function obj(n, body){
+        offsets[n] = cur;
+        var s = n + " 0 obj\n" + body + "\nendobj\n";
+        parts.push(s);
+        cur += s.length;
+      }
+      obj(1, "<< /Type /Catalog /Pages 2 0 R >>");
+      obj(2, "<< /Type /Pages /Kids [3 0 R] /Count 1 >>");
+      obj(4, "<< /Type /XObject /Subtype /Image /Width " + w + " /Height " + h + " /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length " + imgLen + " >>\nstream\n" + bin + "\nendstream");
+      var content = "q\n" + dw + " 0 0 " + dh + " " + x.toFixed(2) + " " + y.toFixed(2) + " cm\n/Im4 Do\nQ";
+      obj(5, "<< /Length " + content.length + " >>\nstream\n" + content + "\nendstream");
+      obj(3, "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 " + pageW + " " + pageH + "] /Resources << /XObject << /Im4 4 0 R >> >> /Contents 5 0 R >>");
+      var body = parts.join("");
+      var xrefPos = header.length + body.length;
+      var xref = "xref\n0 6\n0000000000 65535 f \n";
+      for(var i=1;i<=5;i++){
+        xref += ("0000000000" + offsets[i]).slice(-10) + " 00000 n \n";
+      }
+      var trailer = "trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n" + xrefPos + "\n%%EOF";
+      var pdf = header + body + xref + trailer;
+      var u8 = new Uint8Array(pdf.length);
+      for(var bi=0; bi<pdf.length; bi++){ u8[bi] = pdf.charCodeAt(bi) & 255; }
+      return URL.createObjectURL(new Blob([u8], {type:"application/pdf"}));
+    }catch(e){ return null; }
+  }
+  function showReportImage(dataUrl, pdfUrl){
     var mask = q(".vpre-img-mask");
     if(!mask){
       mask = document.createElement("div");
@@ -1056,7 +1095,8 @@
         '<div class="vpre-img-panel">'
         + '<img alt="学习报告图片">'
         + '<div class="vpre-img-tip">📱 手机上长按图片即可保存或转发（微信里同样适用）。💻 电脑上可点“下载图片”后打印。</div>'
-        + '<div class="vpre-img-actions"><a class="vpre-img-dl" download="单词学习报告.png">下载图片</a><button class="vpre-img-close" type="button">关闭</button></div>'
+        + '<div class="vpre-img-actions"><a class="vpre-img-dl" data-kind="png" download="单词学习报告.png">下载图片</a><a class="vpre-img-dl vpre-img-ghost" data-kind="pdf" download="单词学习报告.pdf">下载 PDF</a></div>'
+        + '<button class="vpre-img-close vpre-img-close-block" type="button">关闭</button>'
         + '</div>';
       document.body.appendChild(mask);
       mask.addEventListener("click", function(ev){
@@ -1064,9 +1104,16 @@
       });
     }
     var img = q("img", mask);
-    var dl = q("a", mask);
+    var pngA = q('a[data-kind="png"]', mask);
+    var pdfA = q('a[data-kind="pdf"]', mask);
     if(img){ img.src = dataUrl; }
-    if(dl){ dl.href = dataUrl; }
+    if(pngA){ pngA.href = dataUrl; }
+    if(mask.__prevUrl){ try{ URL.revokeObjectURL(mask.__prevUrl); }catch(e2){} }
+    mask.__prevUrl = pdfUrl || "";
+    if(pdfA){
+      if(pdfUrl){ pdfA.href = pdfUrl; pdfA.style.display = ""; }
+      else{ pdfA.removeAttribute("href"); pdfA.style.display = "none"; }
+    }
     mask.classList.add("is-show");
   }
   function exportReportImage(phone){
@@ -1216,7 +1263,10 @@
       out.width = c.width;
       out.height = y;
       out.getContext("2d").drawImage(c, 0, 0);
-      showReportImage(out.toDataURL("image/png"));
+      var pngUrl = out.toDataURL("image/png");
+      var jpgUrl = out.toDataURL("image/jpeg", 0.92);
+      var pdfUrl = pdfFromJpeg(jpgUrl, out.width, out.height);
+      showReportImage(pngUrl, pdfUrl);
     }catch(e){
       toast(phone, "图片生成失败，请用系统打印");
     }
