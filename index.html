@@ -197,6 +197,25 @@
 .vpre-report-actions{display:flex; gap:8px;}
 .vpre-report-back{border:0; background:#eef1fb; color:var(--vp-blue); border-radius:10px; padding:7px 12px; font-size:12px; cursor:pointer;}
 .vpre-report-print{border:0; background:var(--vp-blue); color:#fff; border-radius:10px; padding:7px 12px; font-size:12px; cursor:pointer;}
+.vpre-sheet-mask{position:fixed; inset:0; background:rgba(23,29,45,.45); z-index:60; display:none; align-items:flex-end; justify-content:center;}
+.vpre-sheet-mask.is-show{display:flex;}
+.vpre-sheet{width:100%; max-width:520px; background:#fff; border-radius:20px 20px 0 0; padding:18px 18px calc(20px + env(safe-area-inset-bottom,0px)); box-shadow:0 -8px 30px rgba(23,29,45,.18);}
+.vpre-sheet-title{font-size:15.5px; font-weight:700; text-align:center; color:var(--vp-ink);}
+.vpre-sheet-sub{font-size:11px; color:var(--vp-muted); text-align:center; margin:4px 0 16px;}
+.vpre-sheet-opt{display:flex; align-items:center; gap:12px; width:100%; border:1px solid #e6e9f0; background:#f8f9fb; border-radius:14px; padding:12px 14px; cursor:pointer; margin-bottom:10px; text-align:left; color:var(--vp-ink);}
+.vpre-sheet-opt > b{font-size:20px; flex:none;}
+.vpre-sheet-opt:active{transform:scale(.98);}
+.vpre-sheet-opt .vpre-opt-title{display:block; font-size:13.5px; font-weight:700;}
+.vpre-sheet-opt .vpre-opt-tip{display:block; font-size:10.5px; color:var(--vp-muted); font-weight:400; margin-top:2px; line-height:1.5;}
+.vpre-sheet-cancel{width:100%; border:0; background:#eef1fb; color:var(--vp-blue); border-radius:14px; padding:12px; font-size:13.5px; font-weight:700; cursor:pointer;}
+.vpre-img-mask{position:fixed; inset:0; background:rgba(23,29,45,.6); z-index:70; display:none; align-items:center; justify-content:center; padding:22px;}
+.vpre-img-mask.is-show{display:flex;}
+.vpre-img-panel{background:#fff; border-radius:16px; padding:16px; width:100%; max-width:400px; max-height:92vh; overflow:auto; text-align:center;}
+.vpre-img-panel img{width:100%; border-radius:8px; background:#fff; display:block;}
+.vpre-img-tip{font-size:12px; color:#555; margin:12px 2px; line-height:1.7; text-align:left;}
+.vpre-img-actions{display:flex; gap:10px; justify-content:center;}
+.vpre-img-dl{flex:1; display:block; text-align:center; background:var(--vp-blue); color:#fff; text-decoration:none; border-radius:12px; padding:11px 0; font-size:13px; font-weight:700;}
+.vpre-img-close{flex:1; border:0; background:#eef1fb; color:var(--vp-blue); border-radius:12px; padding:11px 0; font-size:13px; font-weight:700; cursor:pointer;}
 .vpre-print-root{display:none;}
 @media print{
   body{background:#fff !important;}
@@ -1002,6 +1021,220 @@
     root.appendChild(box);
     try{ window.print(); }catch(e){}
   }
+  function showExportSheet(phone){
+    var mask = q(".vpre-sheet-mask");
+    if(!mask){
+      mask = document.createElement("div");
+      mask.className = "vpre-sheet-mask";
+      mask.innerHTML =
+        '<div class="vpre-sheet">'
+        + '<div class="vpre-sheet-title">导出学习报告</div>'
+        + '<div class="vpre-sheet-sub">选择一种方式</div>'
+        + '<button class="vpre-sheet-opt" data-export="print" type="button"><b>🖨</b><span><span class="vpre-opt-title">打印 / 存为 PDF</span><span class="vpre-opt-tip">电脑和手机浏览器适用；微信内不支持系统打印</span></span></button>'
+        + '<button class="vpre-sheet-opt" data-export="image" type="button"><b>🖼</b><span><span class="vpre-opt-title">保存报告图片</span><span class="vpre-opt-tip">生成图片，长按即可保存或转发，微信里推荐</span></span></button>'
+        + '<button class="vpre-sheet-cancel" type="button">取消</button>'
+        + '</div>';
+      document.body.appendChild(mask);
+      mask.addEventListener("click", function(ev){
+        if(ev.target === mask){ mask.classList.remove("is-show"); return; }
+        var b = ev.target.closest("button");
+        if(!b) return;
+        mask.classList.remove("is-show");
+        var t = b.getAttribute("data-export");
+        if(t === "print"){ printReport(phone); }
+        else if(t === "image"){ exportReportImage(phone); }
+      });
+    }
+    mask.classList.add("is-show");
+  }
+  function showReportImage(dataUrl){
+    var mask = q(".vpre-img-mask");
+    if(!mask){
+      mask = document.createElement("div");
+      mask.className = "vpre-img-mask";
+      mask.innerHTML =
+        '<div class="vpre-img-panel">'
+        + '<img alt="学习报告图片">'
+        + '<div class="vpre-img-tip">📱 手机上长按图片即可保存或转发（微信里同样适用）。💻 电脑上可点“下载图片”后打印。</div>'
+        + '<div class="vpre-img-actions"><a class="vpre-img-dl" download="单词学习报告.png">下载图片</a><button class="vpre-img-close" type="button">关闭</button></div>'
+        + '</div>';
+      document.body.appendChild(mask);
+      mask.addEventListener("click", function(ev){
+        if(ev.target === mask || ev.target.closest(".vpre-img-close")){ mask.classList.remove("is-show"); }
+      });
+    }
+    var img = q("img", mask);
+    var dl = q("a", mask);
+    if(img){ img.src = dataUrl; }
+    if(dl){ dl.href = dataUrl; }
+    mask.classList.add("is-show");
+  }
+  function exportReportImage(phone){
+    var el = q(".vpre-report", phone);
+    if(!el) return;
+    try{
+      var c = document.createElement("canvas");
+      c.width = 720;
+      c.height = 2600;
+      var ctx = c.getContext("2d");
+      var X = 44, RIGHT = 676;
+      function t(n){ return n ? (n.textContent||"").trim() : ""; }
+      function rr(x,y,w,h,r){
+        ctx.beginPath();
+        ctx.moveTo(x+r,y);
+        ctx.arcTo(x+w,y,x+w,y+h,r);
+        ctx.arcTo(x+w,y+h,x,y+h,r);
+        ctx.arcTo(x,y+h,x,y,r);
+        ctx.arcTo(x,y,x+w,y,r);
+        ctx.closePath();
+      }
+      function secTitle(text){
+        y += 22;
+        ctx.font = "bold 21px 'PingFang SC','Microsoft YaHei',sans-serif";
+        ctx.fillStyle = "#1f2430";
+        ctx.textBaseline = "top";
+        ctx.fillText(text, X, y);
+        y += 34;
+      }
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(0,0,c.width,c.height);
+      var y = 36;
+      ctx.textBaseline = "top";
+      ctx.font = "bold 29px 'PingFang SC','Microsoft YaHei',sans-serif";
+      ctx.fillStyle = "#1f2430";
+      ctx.fillText("单词大冒险 · 学习报告", X, y);
+      ctx.font = "13px 'PingFang SC','Microsoft YaHei',sans-serif";
+      ctx.fillStyle = "#8a91a5";
+      ctx.textAlign = "right";
+      ctx.fillText("生成时间 " + fmtDate(), RIGHT, y + 12);
+      ctx.textAlign = "left";
+      y += 52;
+      ctx.fillStyle = "#3b5bdb";
+      ctx.fillRect(X, y, RIGHT - X, 3);
+      y += 30;
+      var stats = qa(".vpre-report-stats > div", el).map(function(d){
+        return {v:t(q("b",d)), k:t(q("span",d))};
+      });
+      var boxW = (RIGHT - X - 14) / 2, boxH = 86;
+      for(var i=0;i<4;i++){
+        var col = i % 2, row = Math.floor(i / 2);
+        var bx = X + col * (boxW + 14), by = y + row * (boxH + 14);
+        ctx.fillStyle = "#f5f7fd";
+        rr(bx, by, boxW, boxH, 14);
+        ctx.fill();
+        ctx.strokeStyle = "#e6e9f0";
+        ctx.lineWidth = 1;
+        rr(bx, by, boxW, boxH, 14);
+        ctx.stroke();
+        var s = stats[i] || {v:"0", k:""};
+        ctx.fillStyle = "#3b5bdb";
+        ctx.font = "bold 30px 'PingFang SC','Microsoft YaHei',sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(s.v, bx + boxW/2, by + 18);
+        ctx.fillStyle = "#6b7280";
+        ctx.font = "13px 'PingFang SC','Microsoft YaHei',sans-serif";
+        ctx.fillText(s.k, bx + boxW/2, by + boxH - 22);
+        ctx.textAlign = "left";
+      }
+      y += 2 * boxH + 14 + 12;
+      secTitle("各册进度");
+      var rows = qa(".vpre-bookrow", el).map(function(r){
+        var sp = t(q("span", r));
+        var m = sp.match(/(\d+)\s*\/\s*(\d+)/);
+        var pct = 0;
+        if(m && +m[2]){ pct = Math.round(+m[1]/+m[2]*100); }
+        return {name:t(q("b",r)), txt:sp, pct:Math.min(100,Math.max(0,pct))};
+      });
+      rows.forEach(function(r){
+        ctx.fillStyle = "#1f2430";
+        ctx.font = "bold 17px 'PingFang SC','Microsoft YaHei',sans-serif";
+        ctx.fillText(r.name, X, y + 6);
+        ctx.fillStyle = "#eceef4";
+        rr(X + 86, y + 12, RIGHT - X - 86 - 96, 12, 6);
+        ctx.fill();
+        if(r.pct > 0){
+          ctx.fillStyle = "#3b5bdb";
+          rr(X + 86, y + 12, Math.max(12, (RIGHT - X - 86 - 96) * r.pct / 100), 12, 6);
+          ctx.fill();
+        }
+        ctx.fillStyle = "#6b7280";
+        ctx.font = "15px 'PingFang SC','Microsoft YaHei',sans-serif";
+        ctx.textAlign = "right";
+        ctx.fillText(r.txt, RIGHT, y + 8);
+        ctx.textAlign = "left";
+        y += 46;
+      });
+      var starText = "";
+      qa(".vpre-sec-title", el).forEach(function(s){
+        if(t(s).indexOf("闯关星星") === 0){ starText = t(s).replace(/\s+/g," "); }
+      });
+      secTitle(starText || "闯关星星");
+      secTitle("错词榜");
+      var wrongs = qa(".vpre-wrow", el).map(function(w){
+        return {word:t(q("b",w)), mean:t(q(".vpre-wmain span",w)), badge:t(q(".vpre-wbadge",w))};
+      });
+      var noWrong = !!q(".vpre-placeholder", el);
+      if(noWrong){
+        ctx.font = "16px 'PingFang SC','Microsoft YaHei',sans-serif";
+        ctx.fillStyle = "#8a91a5";
+        ctx.fillText("没有错词，继续保持！", X, y);
+        y += 40;
+      }
+      wrongs.forEach(function(w){
+        ctx.fillStyle = "#1f2430";
+        ctx.font = "bold 19px 'PingFang SC','Microsoft YaHei',sans-serif";
+        ctx.fillText(w.word, X, y + 2);
+        ctx.fillStyle = "#b45309";
+        ctx.font = "bold 13px 'PingFang SC','Microsoft YaHei',sans-serif";
+        var bw = ctx.measureText(w.badge).width;
+        ctx.textAlign = "right";
+        ctx.fillText(w.badge, RIGHT, y + 7);
+        ctx.textAlign = "left";
+        ctx.fillStyle = "#6b7280";
+        ctx.font = "13.5px 'PingFang SC','Microsoft YaHei',sans-serif";
+        var words = wrapText(w.mean, RIGHT - X - bw - 20);
+        words.forEach(function(ln, li){
+          ctx.fillText(ln, X, y + 32 + li * 20);
+        });
+        y += 34 + (words.length - 1) * 20 + 10;
+      });
+      y += 8;
+      ctx.strokeStyle = "#e6e9f0";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(X, y);
+      ctx.lineTo(RIGHT, y);
+      ctx.stroke();
+      y += 22;
+      ctx.fillStyle = "#8a91a5";
+      ctx.font = "12px 'PingFang SC','Microsoft YaHei',sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("数据保存在本机 · 单词大冒险", X + (RIGHT-X)/2, y);
+      ctx.textAlign = "left";
+      y += 40;
+      var out = document.createElement("canvas");
+      out.width = c.width;
+      out.height = y;
+      out.getContext("2d").drawImage(c, 0, 0);
+      showReportImage(out.toDataURL("image/png"));
+    }catch(e){
+      toast(phone, "图片生成失败，请用系统打印");
+    }
+    function wrapText(text, maxW){
+      var lines = [], cur = "";
+      for(var ci=0; ci<text.length; ci++){
+        var nx = cur + text[ci];
+        if(cur && ctx.measureText(nx).width > maxW){
+          lines.push(cur);
+          cur = text[ci];
+        }else{
+          cur = nx;
+        }
+      }
+      if(cur){ lines.push(cur); }
+      return lines;
+    }
+  }
   function clearedUnits(){
     var n = 0;
     BOOK_LIST.forEach(function(b){
@@ -1124,7 +1357,7 @@ var chip = btn.closest(".vpre-stage-chip");
         return;
       }
       if(btn.closest(".vpre-report-back")){ setView(phone, "mine"); return; }
-      if(btn.closest(".vpre-report-print")){ printReport(phone); return; }
+      if(btn.closest(".vpre-report-print")){ showExportSheet(phone); return; }
       var quizEl = q(".vpre-quiz", phone);
       if(quizEl && quizEl.contains(btn)) return;
       var unitCard = btn.closest(".vpre-unit[data-unit]");
