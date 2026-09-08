@@ -194,7 +194,27 @@
 
 /* ===== 学习报告 ===== */
 .vpre-report-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;}
+.vpre-report-actions{display:flex; gap:8px;}
 .vpre-report-back{border:0; background:#eef1fb; color:var(--vp-blue); border-radius:10px; padding:7px 12px; font-size:12px; cursor:pointer;}
+.vpre-report-print{border:0; background:var(--vp-blue); color:#fff; border-radius:10px; padding:7px 12px; font-size:12px; cursor:pointer;}
+.vpre-print-root{display:none;}
+@media print{
+  body{background:#fff !important;}
+  .vpre-phone{display:none !important;}
+  .vpre-print-root{display:block !important;}
+  .vpre-print-report{max-width:720px; margin:0 auto; padding:10px 0; color:#111;}
+  .vpre-print-report .vpre-report-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:2px solid #3b5bdb; padding-bottom:10px;}
+  .vpre-print-report .vpre-report-head b{font-size:17px; color:#111;}
+  .vpre-print-date{font-size:11.5px; color:#555; font-weight:400;}
+  .vpre-print-report .vpre-sec-title{color:#111;}
+  .vpre-print-report .vpre-stats{grid-template-columns:repeat(4,1fr);}
+  .vpre-print-report .vpre-stats div{box-shadow:none;}
+  .vpre-print-report .vpre-bookrow,
+  .vpre-print-report .vpre-wrow,
+  .vpre-print-report .vpre-stats div{break-inside:avoid; box-shadow:none;}
+  .vpre-print-report .vpre-progress{background:#eef0f5;}
+  .vpre-print-report .vpre-progress div{background:#3b5bdb !important;}
+}
 .vpre-bookrow{display:flex; align-items:center; gap:10px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:14px; padding:10px 12px; margin-bottom:8px; box-shadow:var(--vp-shadow-sm);}
 .vpre-bookrow b{width:34px; font-size:12.5px; flex:none; color:var(--vp-ink);}
 .vpre-bookrow .vpre-progress{flex:1;}
@@ -317,6 +337,8 @@
     </div>
 
 </div>
+
+<div id="vpre-print-root" class="vpre-print-root" aria-hidden="true"></div>
 
 <script>
 (function(){
@@ -943,7 +965,7 @@
     var zhMap = {};
     BOOK_LIST.forEach(function(b){ bookData(b).units.forEach(function(u){ u.words.forEach(function(w){ zhMap[w[0].toLowerCase()] = w[1]; }); }); });
     el.innerHTML =
-      '<div class="vpre-report-head"><b>学习报告</b><button class="vpre-report-back" type="button">← 返回</button></div>'
+      '<div class="vpre-report-head"><b>学习报告</b><span class="vpre-report-actions"><button class="vpre-report-print" type="button">🖨 打印/导出</button><button class="vpre-report-back" type="button">← 返回</button></span></div>'
       + '<div class="vpre-stats vpre-report-stats">'
       + '<div><b>'+learned+'</b><span>已学词</span></div>'
       + '<div><b>'+rate+'%</b><span>掌握率</span></div>'
@@ -959,6 +981,26 @@
       + (topWrong.length ? topWrong.map(function(w){
           return '<div class="vpre-wrow"><div class="vpre-wmain"><b>'+w.en+'</b><span>'+(zhMap[w.en]||w.book)+'</span></div><span class="vpre-wbadge">错 '+w.c+' 次</span></div>';
         }).join("") : '<div class="vpre-placeholder">没有错词，继续保持！</div>');
+  }
+  function fmtDate(){
+    var d = new Date();
+    function p(n){ return (n<10?"0":"")+n; }
+    return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+" "+p(d.getHours())+":"+p(d.getMinutes());
+  }
+  function printReport(phone){
+    var src = q(".vpre-report", phone);
+    var root = document.getElementById("vpre-print-root");
+    if(!src || !root) return;
+    var box = document.createElement("div");
+    box.className = "vpre-print-report";
+    box.innerHTML = src.innerHTML;
+    var head = q(".vpre-report-head", box);
+    if(head){
+      head.innerHTML = "<b>单词大冒险 · 学习报告</b><span class=\"vpre-print-date\">生成时间：" + fmtDate() + "</span>";
+    }
+    root.innerHTML = "";
+    root.appendChild(box);
+    try{ window.print(); }catch(e){}
   }
   function clearedUnits(){
     var n = 0;
@@ -1082,6 +1124,7 @@ var chip = btn.closest(".vpre-stage-chip");
         return;
       }
       if(btn.closest(".vpre-report-back")){ setView(phone, "mine"); return; }
+      if(btn.closest(".vpre-report-print")){ printReport(phone); return; }
       var quizEl = q(".vpre-quiz", phone);
       if(quizEl && quizEl.contains(btn)) return;
       var unitCard = btn.closest(".vpre-unit[data-unit]");
