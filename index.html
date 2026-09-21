@@ -678,6 +678,88 @@
       saveProgress();
     }
   }
+  var API_BASE = "";
+  var ZH_MAP = null;
+  function zhOf(en){
+    if(!ZH_MAP){
+      ZH_MAP = {};
+      for(var gk in VOCAB){
+        var books = VOCAB[gk].books || {};
+        for(var bk in books){
+          (books[bk].units || []).forEach(function(u){
+            (u.words || []).forEach(function(w){ ZH_MAP[String(w[0]).toLowerCase()] = w[1]; });
+          });
+        }
+      }
+    }
+    return ZH_MAP[String(en || "").toLowerCase()] || "";
+  }
+  function apiUrl(path){ return (API_BASE || "") + path; }
+  function queueReport(payload){
+    try{
+      var q = JSON.parse(localStorage.getItem("vpreUploadQueue") || "[]");
+      q.push(payload);
+      if(q.length > 50){ q = q.slice(-50); }
+      localStorage.setItem("vpreUploadQueue", JSON.stringify(q));
+    }catch(e){}
+  }
+  function submitReport(payload){
+    try{
+      return fetch(apiUrl("/api/report"), {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(payload)
+      }).then(function(r){
+        if(!r.ok){ throw new Error("bad status"); }
+        return true;
+      }).catch(function(){ queueReport(payload); return false; });
+    }catch(e){
+      queueReport(payload);
+      return Promise.resolve(false);
+    }
+  }
+  function flushQueue(){
+    var q = [];
+    try{ q = JSON.parse(localStorage.getItem("vpreUploadQueue") || "[]"); }catch(e){ q = []; }
+    if(!q.length) return;
+    try{ localStorage.setItem("vpreUploadQueue", "[]"); }catch(e){}
+    q.forEach(function(p){ submitReport(p); });
+  }
+  function buildReport(phone, z){
+    var s = state[phone.__id];
+    var details = [];
+    if(z.type === "match"){
+      (z.pairs || []).forEach(function(pr){
+        details.push({word:pr.en, meaning:pr.zh, chosen:"", ok:1, module:"连连看"});
+      });
+    } else {
+      (z.items || []).forEach(function(it){
+        var word = (z.type === "word" || z.type === "wrong") ? it.prompt : it.answer;
+        details.push({
+          word:word,
+          meaning:zhOf(word) || (z.type === "wrong" ? "" : ""),
+          chosen:it.chosen || "",
+          ok:it.correct ? 1 : 0,
+          module:TYPE_NAME[z.type] || ""
+        });
+      });
+    }
+    var total = (z.type === "match") ? (z.total || 0) : (z.items || []).length;
+    var correct = (z.type === "match") ? (z.matched || 0) : (z.score || 0);
+    var duration = z.start ? Math.max(0, Math.round((Date.now() - z.start) / 1000)) : 0;
+    return {
+      phone: STUDENT ? STUDENT.phone : "",
+      name: STUDENT ? STUDENT.name : "",
+      mode: TYPE_NAME[z.type] || "",
+      book: s.book,
+      unit: unitWords(phone).name,
+      total: total,
+      correct: correct,
+      duration: duration,
+      stars: phone.__quizStage ? starsEarned(z) : 0,
+      details: details
+    };
+  }
   function starsEarned(z){
     if(z.type === "match"){ return z.attempts <= z.total+2 ? 3 : (z.attempts <= z.total*2+2 ? 2 : 1); }
     var n = z.items.length;
@@ -723,6 +805,9 @@
       phone.__quizStage = null;
     }
     saveProgress();
+    if(STUDENT){
+      try{ submitReport(buildReport(phone, z)); }catch(e){}
+    }
   }
   function stageStars(phone, ui, num){
     var s = state[phone.__id];
@@ -808,7 +893,7 @@
         cards.push({pair:i, kind:"en", text:p.en});
         cards.push({pair:i, kind:"zh", text:p.zh});
       });
-      phone.__quiz = { type:"match", idx:0, score:0, attempts:0, matched:0, total:pairs.length, pairs:pairs, cards:shuffle(cards) };
+      phone.__quiz = { type:"match", idx:0, score:0, attempts:0, matched:0, total:pairs.length, pairs:pairs, cards:shuffle(cards), start:Date.now() };
       renderMatch(phone);
       setView(phone, "quiz");
       return;
@@ -831,7 +916,7 @@
       }
       items = buildWordItems(pool, Math.min(4, pool.length));
     }
-    phone.__quiz = { type:type, idx:0, score:0, items:items };
+    phone.__quiz = { type:type, idx:0, score:0, items:items, start:Date.now() };
     renderQuiz(phone);
     setView(phone, "quiz");
   }
@@ -959,6 +1044,7 @@
         var isRight = btn.textContent === it.answer;
         if(isRight){ z.score += 1; }
         it.correct = isRight;
+        it.chosen = btn.textContent;
         sfx.play(isRight ? "right" : "wrong");
         qa(".vpre-qopt", el).forEach(function(b){
           b.disabled = true;
@@ -1660,6 +1746,7 @@ var chip = btn.closest(".vpre-stage-chip");
   qa(".vpre-phone").forEach(initPhone);
   bindLogin();
   if(STUDENT){ hideLogin(); }
+  flushQueue();
   loadRoster(function(){
     if(STUDENT){ hideLogin(); } else { showLogin(); }
     refreshStudents();
