@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>名单生成器 · 单词大冒险（老师专用）</title>
+<style>
+  body{margin:0; background:#f4f6fb; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; color:#1f2430;}
+  .wrap{max-width:720px; margin:0 auto; padding:28px 20px 60px;}
+  h1{font-size:20px; margin:0 0 6px;}
+  .sub{font-size:13px; color:#6b7280; line-height:1.8; margin-bottom:18px;}
+  .card{background:#fff; border:1px solid #e6e9f0; border-radius:16px; padding:16px; margin-bottom:16px; box-shadow:0 6px 18px rgba(31,41,55,.05);}
+  .card h2{font-size:14px; margin:0 0 10px;}
+  textarea{width:100%; box-sizing:border-box; min-height:150px; font-size:14px; line-height:1.7; padding:12px; border:1px solid #dfe3ea; border-radius:12px; background:#fafbfe; color:#1f2430; outline:none; font-family:inherit;}
+  textarea:focus{border-color:#3b5bdb; background:#fff;}
+  button{border:0; background:#3b5bdb; color:#fff; font-size:14px; font-weight:700; padding:12px 20px; border-radius:12px; cursor:pointer; margin-top:10px;}
+  button.ghost{background:#eef1fb; color:#3b5bdb;}
+  button:active{transform:scale(.99);}
+  .msg{font-size:12.5px; color:#6b7280; margin-top:10px; line-height:1.7; min-height:18px;}
+  .msg.err{color:#e5484d;}
+  .msg.ok{color:#0f9d76;}
+  code{background:#eef1fb; border-radius:6px; padding:1px 6px; font-size:12.5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>名单生成器（老师专用）</h1>
+  <div class="sub">
+    把学生名单粘贴到下面，每行一个，格式：<code>手机号,姓名</code>（逗号、空格、Tab 都行）。<br>
+    生成结果保存为 <code>roster.json</code>，放到网页同一目录即可。名单里存的是<b>加密后的指纹</b>，不会泄露手机号。
+  </div>
+
+  <div class="card">
+    <h2>第一步：粘贴名单</h2>
+    <textarea id="src" placeholder="13800000001,张三
+13800000002,李四
+13800000003,王五"></textarea>
+    <button id="gen" type="button">生成 roster.json 内容</button>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="card">
+    <h2>第二步：复制结果，存成 roster.json</h2>
+    <textarea id="out" readonly placeholder="点上面的按钮生成…"></textarea>
+    <button class="ghost" id="copy" type="button">复制全部内容</button>
+  </div>
+</div>
+<script>
+(function(){
+  function q(s){ return document.querySelector(s); }
+  function hex(buf){
+    var a = new Uint8Array(buf), s = "";
+    for(var i=0;i<a.length;i++){ s += ("0" + a[i].toString(16)).slice(-2); }
+    return s;
+  }
+  function sha256(str){
+    if(!(window.crypto && window.crypto.subtle)){
+      return Promise.reject(new Error("当前浏览器不支持本地加密，请用 Chrome / Edge 打开本页面"));
+    }
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(str)).then(hex);
+  }
+  function parse(text){
+    var out = [];
+    String(text || "").split(/\r?\n/).forEach(function(line){
+      var s = line.trim();
+      if(!s || /^(手机号|phone)/i.test(s)) return;
+      var p = s.split(/[,\t，;； ]+/).map(function(x){ return x.trim(); }).filter(Boolean);
+      if(p.length >= 2 && /^\d{11}$/.test(p[0])){ out.push({phone:p[0], name:p[1]}); }
+    });
+    return out;
+  }
+  q("#gen").addEventListener("click", function(){
+    var msg = q("#msg");
+    var list = parse(q("#src").value);
+    if(!list.length){ msg.className = "msg err"; msg.textContent = "没识别到有效数据，请检查格式：13800000001,张三"; return; }
+    var salt = hex(crypto.getRandomValues(new Uint8Array(8)));
+    Promise.all(list.map(function(it){ return sha256(it.phone + "|" + it.name + "|" + salt); }))
+      .then(function(hashes){
+        var json = JSON.stringify({salt:salt, items:hashes}, null, 2);
+        q("#out").value = json;
+        msg.className = "msg ok";
+        msg.textContent = "已生成 " + list.length + " 个学生的加密名单（核对一下人数对不对）。";
+      })
+      .catch(function(err){
+        msg.className = "msg err";
+        msg.textContent = err.message || "生成失败";
+      });
+  });
+  q("#copy").addEventListener("click", function(){
+    var out = q("#out");
+    if(!out.value){ return; }
+    out.select();
+    try{ document.execCommand("copy"); q("#msg").className = "msg ok"; q("#msg").textContent = "已复制，粘贴保存成 roster.json 即可。"; }catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

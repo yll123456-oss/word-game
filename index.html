@@ -141,6 +141,9 @@
 
 /* ===== 我的 ===== */
 .vpre-profile{display:flex; align-items:center; gap:14px; margin-bottom:16px;}
+.vpre-profile-txt{flex:1; min-width:0;}
+.vpre-logout{border:1px solid #dfe3ea; background:#fff; color:var(--vp-muted); font-size:11.5px; padding:6px 10px; border-radius:10px; cursor:pointer; flex:none;}
+.vpre-logout:active{transform:scale(.98);}
 .vpre-avatar{width:56px; height:56px; border-radius:50%; background:var(--vp-blue); color:#fff; font-size:20px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none; box-shadow:0 6px 16px rgba(59,91,219,.3);}
 .vpre-profile b{font-size:16px; display:block; color:var(--vp-ink);}
 .vpre-profile span{font-size:12px; color:var(--vp-muted);}
@@ -243,6 +246,20 @@
 .vpre-bookrow span{font-size:11px; color:var(--vp-muted); width:56px; text-align:right; flex:none;}
 .vpre-report-stats{grid-template-columns:1fr 1fr;}
 
+.vpre-login{position:fixed; inset:0; z-index:80; background:linear-gradient(160deg,#eef2ff,#f7f8fb 60%,#fff); display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box;}
+.vpre-login.is-hidden{display:none;}
+.vpre-login-card{width:100%; max-width:380px; background:#fff; border:1px solid #e6e9f0; border-radius:22px; padding:26px 22px 20px; box-shadow:0 16px 40px rgba(31,41,55,.10); text-align:center;}
+.vpre-login-logo{font-size:34px; line-height:1;}
+.vpre-login-title{font-size:20px; font-weight:800; color:var(--vp-ink); margin:10px 0 4px;}
+.vpre-login-sub{font-size:12.5px; color:var(--vp-muted); line-height:1.7; margin-bottom:18px;}
+.vpre-login-label{display:block; text-align:left; font-size:12px; color:var(--vp-muted); margin:0 2px 6px;}
+.vpre-login-input{width:100%; box-sizing:border-box; font-size:16px; padding:13px 14px; border:1px solid #dfe3ea; border-radius:13px; margin-bottom:14px; background:#fafbfe; color:var(--vp-ink); outline:none;}
+.vpre-login-input:focus{border-color:var(--vp-blue); background:#fff;}
+.vpre-login-err{min-height:18px; font-size:12px; color:var(--vp-red); text-align:left; margin:-4px 2px 8px;}
+.vpre-login-btn{width:100%; border:0; background:var(--vp-blue); color:#fff; font-size:15px; font-weight:700; padding:14px; border-radius:14px; cursor:pointer; box-shadow:0 8px 18px rgba(59,91,219,.28);}
+.vpre-login-btn:active{transform:scale(.99);}
+.vpre-login-note{font-size:11px; color:var(--vp-muted); line-height:1.6; margin-top:12px;}
+
 .vpre-toast{position:fixed; left:50%; bottom:96px; transform:translateX(-50%) translateY(8px); background:rgba(31,41,55,.92); color:#fff; font-size:12px; padding:9px 16px; border-radius:99px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; z-index:30; white-space:nowrap;}
 .vpre-toast.is-show{opacity:1; transform:translateX(-50%) translateY(0);}
 
@@ -261,6 +278,20 @@
 
   <div class="vpre-phone vpre-h5 vpre-app">
       <div class="vpre-screen">
+        <div class="vpre-login" id="vpre-login">
+          <div class="vpre-login-card">
+            <div class="vpre-login-logo">🦉</div>
+            <div class="vpre-login-title">单词大冒险</div>
+            <div class="vpre-login-sub">输入手机号和姓名，开始今天的单词练习</div>
+            <label class="vpre-login-label" for="vpre-login-phone">手机号</label>
+            <input class="vpre-login-input" id="vpre-login-phone" type="tel" inputmode="numeric" maxlength="11" placeholder="11 位手机号" autocomplete="off">
+            <label class="vpre-login-label" for="vpre-login-name">姓名</label>
+            <input class="vpre-login-input" id="vpre-login-name" type="text" placeholder="填写你的姓名" autocomplete="off">
+            <div class="vpre-login-err" id="vpre-login-err"></div>
+            <button class="vpre-login-btn" id="vpre-login-btn" type="button">进入练习</button>
+            <div class="vpre-login-note">仅用于记录你的学习情况，帮助老师安排复习</div>
+          </div>
+        </div>
         <div class="vpre-header">
           <div class="vpre-brand"><span class="vpre-logo">🦉</span>单词大冒险</div>
           <span class="vpre-header-right"><button class="vpre-sfxbtn" type="button" aria-pressed="true" aria-label="音效开关">🔊</button></span>
@@ -328,8 +359,9 @@
           </div>
           <div class="vpre-view" data-view="mine">
             <div class="vpre-profile">
-              <div class="vpre-avatar">同</div>
-              <div><b>同学</b><span class="vpre-mine-profile">初三 · 连续打卡 1 天</span></div>
+              <div class="vpre-avatar vpre-mine-avatar">同</div>
+              <div class="vpre-profile-txt"><b class="vpre-mine-name">同学</b><span class="vpre-mine-profile">初三 · 连续打卡 1 天</span></div>
+              <button class="vpre-logout" type="button">切换账号</button>
             </div>
             <div class="vpre-stats">
               <div><b class="vpre-mine-learned">0</b><span>已掌握</span></div>
@@ -429,7 +461,199 @@
     var s = state[phone.__id];
     return VOCAB[s.grade].books[s.book];
   }
-  var PROGRESS_KEY = "vpreProgress";
+  var LEGACY_PROGRESS_KEY = "vpreProgress";
+  var STUDENT_KEY = "vpreStudent";
+  function loadStudent(){
+    try{
+      var raw = localStorage.getItem(STUDENT_KEY);
+      if(raw){ var st = JSON.parse(raw); if(st && st.phone && st.name){ return {phone:String(st.phone), name:String(st.name)}; } }
+    }catch(e){}
+    return null;
+  }
+  function saveStudent(st){
+    try{
+      if(st){ localStorage.setItem(STUDENT_KEY, JSON.stringify(st)); }
+      else{ localStorage.removeItem(STUDENT_KEY); }
+    }catch(e){}
+  }
+  var STUDENT = loadStudent();
+  var ROSTER = {mode:"plain", plain:[], hashes:[], salt:""};
+  function applyRosterData(data){
+    if(!data) return false;
+    if(!Array.isArray(data) && data.items){
+      var hs = [];
+      data.items.forEach(function(x){
+        var v = String(x || "").trim().toLowerCase();
+        if(v.length === 64){ hs.push(v); }
+      });
+      if(hs.length){
+        ROSTER = {mode:"hash", plain:[], hashes:hs, salt:String(data.salt || "")};
+        return true;
+      }
+      return false;
+    }
+    var norm = normalizeRoster(data);
+    if(norm.length){
+      ROSTER = {mode:"plain", plain:norm, hashes:[], salt:""};
+      return true;
+    }
+    return false;
+  }
+  function sha256Hex(str){
+    if(!(window.crypto && window.crypto.subtle && window.crypto.subtle.digest)){
+      return Promise.reject(new Error("unsupported"));
+    }
+    var data = new TextEncoder().encode(str);
+    return window.crypto.subtle.digest("SHA-256", data).then(function(buf){
+      var arr = new Uint8Array(buf), hex = "";
+      for(var i=0;i<arr.length;i++){ hex += ("0" + arr[i].toString(16)).slice(-2); }
+      return hex;
+    });
+  }
+  function normalizeRoster(list){
+    var out = [];
+    (list || []).forEach(function(r){
+      if(!r) return;
+      var ph = String(r.phone || r["手机号"] || "").replace(/\D/g, "");
+      var nm = String(r.name || r["姓名"] || "").trim();
+      if(ph.length === 11 && nm){ out.push({phone:ph, name:nm}); }
+    });
+    return out;
+  }
+  function parseRosterCsv(text){
+    var out = [];
+    String(text || "").split(/\r?\n/).forEach(function(line){
+      var li = line.trim();
+      if(!li || /^(手机号|phone)/i.test(li)) return;
+      var parts = li.split(/[,\t，]/).map(function(x){ return x.trim(); });
+      if(parts.length >= 2 && /^\d{11}$/.test(parts[0]) && parts[1]){ out.push({phone:parts[0], name:parts[1]}); }
+    });
+    return out;
+  }
+  function loadRoster(cb){
+    var done = false;
+    function finish(list){
+      if(list){ applyRosterData(list); }
+      if(!done){ done = true; if(cb){ cb(); } }
+    }
+    function tryCsv(){
+      try{
+        fetch("roster.csv", {cache:"no-store"}).then(function(r){ return r.ok ? r.text() : null; }).then(function(txt){
+          finish(txt ? parseRosterCsv(txt) : null);
+        }).catch(function(){ finish(null); });
+      }catch(e){ finish(null); }
+    }
+    try{
+      fetch("roster.json", {cache:"no-store"}).then(function(r){ return r.ok ? r.json() : null; }).then(function(list){
+        if(applyRosterData(list)){ finish(null); } else { tryCsv(); }
+      }).catch(tryCsv);
+    }catch(e){ tryCsv(); }
+  }
+  function maskPhone(p){
+    p = String(p || "");
+    return p.length >= 11 ? p.slice(0,3) + "****" + p.slice(7) : p;
+  }
+  function checkRoster(phone, name){
+    var ph = String(phone || "").replace(/\D/g, "");
+    var nm = String(name || "").trim();
+    if(ph.length !== 11){ return Promise.resolve({error:"请输入 11 位手机号"}); }
+    if(!nm){ return Promise.resolve({error:"请填写你的姓名"}); }
+    if(ROSTER.mode === "plain"){
+      if(!ROSTER.plain.length){ return Promise.resolve({error:"老师还没有导入名单，请联系老师"}); }
+      var hit = null, phoneHit = null;
+      ROSTER.plain.forEach(function(r){
+        if(r.phone === ph){
+          phoneHit = r;
+          if(r.name === nm){ hit = r; }
+        }
+      });
+      if(hit){ return Promise.resolve({student:{phone:ph, name:hit.name}}); }
+      if(phoneHit){ return Promise.resolve({error:"姓名与手机号不匹配，请核对后重试"}); }
+      return Promise.resolve({error:"名单中没有这个手机号，请联系老师确认"});
+    }
+    if(!ROSTER.hashes.length){ return Promise.resolve({error:"老师还没有导入名单，请联系老师"}); }
+    return sha256Hex(ph + "|" + nm + "|" + ROSTER.salt).then(function(hx){
+      for(var i=0;i<ROSTER.hashes.length;i++){
+        if(ROSTER.hashes[i] === hx){ return {student:{phone:ph, name:nm}}; }
+      }
+      return {error:"手机号与姓名不匹配，请核对后重试"};
+    }).catch(function(){
+      return {error:"当前打开方式不支持校验，请点击老师发的链接进入"};
+    });
+  }
+  function adoptLegacyProgress(phone){
+    try{
+      if(localStorage.getItem("vpreLegacyAdopted")) return;
+      localStorage.setItem("vpreLegacyAdopted", "1");
+      var legacy = localStorage.getItem(LEGACY_PROGRESS_KEY);
+      var key = "vpreProgress:" + phone;
+      if(legacy && !localStorage.getItem(key)){ localStorage.setItem(key, legacy); }
+    }catch(e){}
+  }
+  function progressKey(){
+    return STUDENT ? ("vpreProgress:" + STUDENT.phone) : LEGACY_PROGRESS_KEY;
+  }
+  function refreshStudents(){
+    qa(".vpre-phone").forEach(function(ph){
+      renderUnits(ph);
+      renderMine(ph);
+      renderWrong(ph);
+    });
+  }
+  function showLogin(){
+    var el = document.getElementById("vpre-login");
+    if(el){ el.classList.remove("is-hidden"); }
+  }
+  function hideLogin(){
+    var el = document.getElementById("vpre-login");
+    if(el){ el.classList.add("is-hidden"); }
+  }
+  function applyLogin(res, errEl){
+    if(!res || res.error){
+      if(errEl){ errEl.textContent = (res && res.error) || "登录失败，请重试"; }
+      return;
+    }
+    if(errEl){ errEl.textContent = ""; }
+    STUDENT = res.student;
+    saveStudent(STUDENT);
+    adoptLegacyProgress(STUDENT.phone);
+    PROG = loadProgress();
+    hideLogin();
+    refreshStudents();
+  }
+  function doLogin(){
+    var phEl = document.getElementById("vpre-login-phone");
+    var nmEl = document.getElementById("vpre-login-name");
+    var errEl = document.getElementById("vpre-login-err");
+    var res = checkRoster(phEl ? phEl.value : "", nmEl ? nmEl.value : "");
+    if(res && res.then){
+      if(errEl){ errEl.textContent = "正在校验…"; }
+      res.then(function(r){ applyLogin(r, errEl); });
+      return;
+    }
+    applyLogin(res, errEl);
+  }
+  function logout(){
+    saveStudent(null);
+    STUDENT = null;
+    PROG = loadProgress();
+    var errEl = document.getElementById("vpre-login-err");
+    if(errEl){ errEl.textContent = ""; }
+    var phEl = document.getElementById("vpre-login-phone");
+    var nmEl = document.getElementById("vpre-login-name");
+    if(phEl){ phEl.value = ""; }
+    if(nmEl){ nmEl.value = ""; }
+    showLogin();
+    refreshStudents();
+  }
+  function bindLogin(){
+    var btn = document.getElementById("vpre-login-btn");
+    if(btn){ btn.addEventListener("click", function(){ sfx.play("tap"); doLogin(); }); }
+    ["vpre-login-phone","vpre-login-name"].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el){ el.addEventListener("keydown", function(ev){ if(ev.key === "Enter"){ doLogin(); } }); }
+    });
+  }
   function todayStr(){
     var d = new Date();
     return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
@@ -437,13 +661,13 @@
   function loadProgress(){
     var d = {stageStars:{}, words:{}, wrong:{}, stats:{answers:0, correct:0, learned:0, day:"", dayWords:0, streak:1, byType:{}}};
     try{
-      var raw = localStorage.getItem(PROGRESS_KEY);
+      var raw = localStorage.getItem(progressKey());
       if(raw){ var p = JSON.parse(raw); if(p && p.stats) return p; }
     }catch(e){}
     return d;
   }
   var PROG = loadProgress();
-  function saveProgress(){ try{ localStorage.setItem(PROGRESS_KEY, JSON.stringify(PROG)); }catch(e){} }
+  function saveProgress(){ try{ localStorage.setItem(progressKey(), JSON.stringify(PROG)); }catch(e){} }
   function tickDay(){
     var t = todayStr();
     if(PROG.stats.day !== t){
@@ -528,7 +752,8 @@
   function greetName(){
     var h = new Date().getHours();
     var g = h < 5 ? "夜深了" : (h < 11 ? "早上好" : (h < 13 ? "中午好" : (h < 18 ? "下午好" : "晚上好")));
-    return g + " 👋";
+    var nm = STUDENT && STUDENT.name ? STUDENT.name : "";
+    return g + (nm ? "，" + nm : "") + " 👋";
   }
   function unitWordList(phone){
     return unitWords(phone).words.map(function(w){ return {en:w[0], zh:w[1]}; });
@@ -1303,7 +1528,14 @@
     var stars = q(".vpre-mine-badges", phone);
     if(stars) stars.textContent = totalStars();
     var prof = q(".vpre-mine-profile", phone);
-    if(prof) prof.textContent = GRADE_NAME[state[phone.__id].grade] + " · 连续打卡 " + (PROG.stats.streak||1) + " 天";
+    if(prof){
+      prof.textContent = GRADE_NAME[state[phone.__id].grade] + " · 连续打卡 " + (PROG.stats.streak||1) + " 天"
+        + (STUDENT ? (" · " + maskPhone(STUDENT.phone)) : "");
+    }
+    var nmShow = q(".vpre-mine-name", phone);
+    if(nmShow){ nmShow.textContent = STUDENT ? STUDENT.name : "同学"; }
+    var avShow = q(".vpre-mine-avatar", phone);
+    if(avShow){ avShow.textContent = STUDENT && STUDENT.name ? STUDENT.name.charAt(0) : "同"; }
     var bt = PROG.stats.byType || {};
     var defs = [
       {icon:"🔥", name:"坚持 7 天", ok: (PROG.stats.streak||1) >= 7},
@@ -1370,6 +1602,8 @@
         setView(phone, t);
       });
     });
+    var lo = q(".vpre-logout", phone);
+    if(lo){ lo.addEventListener("click", function(){ sfx.play("tap"); logout(); }); }
     var sbtn = q(".vpre-sfxbtn", phone);
     if(sbtn){
       sbtn.textContent = sfx.isOn() ? "🔊" : "🔇";
@@ -1424,6 +1658,12 @@ var chip = btn.closest(".vpre-stage-chip");
     renderUnits(phone);
   }
   qa(".vpre-phone").forEach(initPhone);
+  bindLogin();
+  if(STUDENT){ hideLogin(); }
+  loadRoster(function(){
+    if(STUDENT){ hideLogin(); } else { showLogin(); }
+    refreshStudents();
+  });
   document.addEventListener("pointerdown", function(){ sfx.unlock(); }, {once:true});
   if("speechSynthesis" in window){
     window.speechSynthesis.getVoices();
