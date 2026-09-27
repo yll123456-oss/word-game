@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>单词大冒险 · 前端改版展示</title>
+<style>
+  :root{--ink:#1b2434; --muted:#78839c; --line:#e7ebf6; --blue:#4b63e6;}
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; color:var(--ink);
+       background:radial-gradient(900px 420px at 10% -8%, #eaf0ff 0%, rgba(255,255,255,0) 60%),
+                  radial-gradient(700px 360px at 100% 0%, #eef6ff 0%, rgba(255,255,255,0) 55%),
+                  linear-gradient(180deg,#f8faff 0%,#f3f6fc 50%,#f7f9ff 100%);}
+  .wrap{max-width:1180px; margin:0 auto; padding:30px 20px 80px;}
+  h1{font-size:26px; margin:0 0 6px;}
+  .lead{color:var(--muted); font-size:14px; line-height:1.8; margin-bottom:22px;}
+  .panel{background:#fff; border:1px solid var(--line); border-radius:20px; padding:20px 22px; box-shadow:0 10px 30px rgba(27,36,52,.06); margin-bottom:20px;}
+  .panel h2{font-size:16px; margin:0 0 14px;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .list{margin:0; padding-left:20px; font-size:14px; line-height:2; color:#39435c;}
+  .list b{color:var(--blue);}
+  .swatches{display:grid; grid-template-columns:repeat(6,1fr); gap:10px;}
+  .sw{border-radius:14px; padding:12px 10px; color:#fff; font-size:12.5px; font-weight:700; text-align:center; line-height:1.7;}
+  .sw small{display:block; font-weight:400; opacity:.9; font-size:11px;}
+  .frames{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:22px; margin-top:8px;}
+  .frame{background:#fff; border:1px solid var(--line); border-radius:24px; padding:12px; box-shadow:0 12px 34px rgba(27,36,52,.08);}
+  .frame h3{font-size:13.5px; margin:2px 4px 10px; color:#39435c;}
+  .frame iframe{width:100%; height:720px; border:0; border-radius:18px; background:#fff; display:block;}
+  .frame.small iframe{height:620px;}
+  .badge{display:inline-block; background:#eef2ff; color:#3f57d6; border-radius:99px; padding:4px 10px; font-size:11.5px; margin:0 6px 6px 0;}
+  .tip{font-size:12.5px; color:var(--muted); line-height:1.8;}
+  code{background:#f2f4fb; border-radius:6px; padding:1px 6px; font-size:12.5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>单词大冒险 · 前端改版展示</h1>
+  <div class="lead">本次前端调整全部完成，下面每个手机框都是<b>真实页面</b>（可点、可玩），左边是改动清单，下面是配色方案与各页面预览。</div>
+
+  <div class="panel">
+    <h2>本次调整清单</h2>
+    <div class="grid2">
+      <ul class="list">
+        <li><b>长词条换行</b>：超过 16 字符自动缩小字号并换行，选项不再被撑破</li>
+        <li><b>首页单元卡片重排</b>：编号 + 单元名 + 词数 + 掌握进度条 + 状态标签</li>
+        <li><b>登录页优化</b>：说明更清楚、记住登录提示、错误提示、回车提交</li>
+        <li><b>练习页重做</b>：进度条与题号、更大卡片、对错反馈文案与颜色</li>
+      </ul>
+      <ul class="list">
+        <li><b>报告页 + 晒图</b>：一键生成成绩分享图（长按保存/转发）</li>
+        <li><b>配色与底纹</b>：浅色渐变底纹，六册各一套主题色</li>
+        <li><b>性能</b>：词库按册拆分、按需加载（页面 151KB→123KB，且只加载当前册 6–14KB）</li>
+        <li><b>小屏适配</b>：320~380px 字号与间距自动收紧</li>
+        <li><b>新玩法</b>：新增 <b>跟读打卡</b>、<b>默写闯关</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>配色方案（每册一套主题色 + 浅色底纹）</h2>
+    <div class="swatches">
+      <div class="sw" style="background:#12b886;">七上<small>#12b886</small></div>
+      <div class="sw" style="background:#3b82f6;">七下<small>#3b82f6</small></div>
+      <div class="sw" style="background:#7c5cff;">八上<small>#7c5cff</small></div>
+      <div class="sw" style="background:#ef8a17;">八下<small>#ef8a17</small></div>
+      <div class="sw" style="background:#e5484d;">九上<small>#e5484d</small></div>
+      <div class="sw" style="background:#12a4a4;">九下<small>#12a4a4</small></div>
+    </div>
+    <div class="tip" style="margin-top:12px;">底纹：白 → 浅蓝渐变，叠加两处柔光；卡片白色、圆角 18px、柔和投影。切换年级/册时，整个页面的主色会跟着变。</div>
+  </div>
+
+  <div class="panel">
+    <h2>各页面实机预览（可直接点击操作）</h2>
+    <div class="frames">
+      <div class="frame"><h3>① 登录页</h3><iframe src="index.html?demo=login" loading="lazy"></iframe></div>
+      <div class="frame"><h3>② 首页 · 单元卡片（新版）</h3><iframe src="index.html?demo=home" loading="lazy"></iframe></div>
+      <div class="frame"><h3>③ 练习页 · 看词选义</h3><iframe src="index.html?demo=quiz&mode=word" loading="lazy"></iframe></div>
+      <div class="frame"><h3>④ 练习页 · 听音选词</h3><iframe src="index.html?demo=quiz&mode=listen" loading="lazy"></iframe></div>
+      <div class="frame"><h3>⑤ 新玩法 · 跟读打卡</h3><iframe src="index.html?demo=quiz&mode=read" loading="lazy"></iframe></div>
+      <div class="frame"><h3>⑥ 新玩法 · 默写闯关</h3><iframe src="index.html?demo=quiz&mode=dictate" loading="lazy"></iframe></div>
+      <div class="frame"><h3>⑦ 连连看</h3><iframe src="index.html?demo=quiz&mode=match" loading="lazy"></iframe></div>
+      <div class="frame"><h3>⑧ 闯关地图</h3><iframe src="index.html?demo=stage" loading="lazy"></iframe></div>
+      <div class="frame"><h3>⑨ 错词本</h3><iframe src="index.html?demo=wrong" loading="lazy"></iframe></div>
+      <div class="frame"><h3>⑩ 学习报告（含晒一晒）</h3><iframe src="index.html?demo=report" loading="lazy"></iframe></div>
+      <div class="frame small"><h3>⑪ 小屏 320px 适配</h3><iframe src="index.html?demo=home" style="width:320px; margin:0 auto;" loading="lazy"></iframe></div>
+    </div>
+    <div class="tip" style="margin-top:14px;">提示：点右上角"晒一晒"可生成成绩分享图；练习页可以真的答题、看反馈。</div>
+  </div>
+
+  <div class="panel">
+    <h2>改动一览（数据侧）</h2>
+    <div class="badge">词库按册拆分：7 个 JSON（单册 6–14KB）</div>
+    <div class="badge">首屏只加载当前册（6–14KB），其余按需</div>
+    <div class="badge">本地缓存 + 加载失败重试</div>
+    <div class="badge">断网补传队列保留</div>
+    <div class="badge">上报/统计/错题本链路未改动</div>
+    <div class="tip" style="margin-top:10px;">后端接口保持不变：学生端上报 <code>POST /api/report</code>，老师后台仍在 <code>/admin/</code>。</div>
+  </div>
+</div>
+</body>
+</html>
