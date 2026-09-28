@@ -1413,7 +1413,7 @@ body{
     if(z.type === "match"){ renderMatchResult(phone); return; }
     sfx.play("win");
     var n = z.items.length;
-    var lit = z.score>=n ? 3 : (z.score>=n-1 ? 2 : (z.score>=n-2 ? 1 : 0));
+    var lit = starsEarned(z);   // 与闯关地图、计星规则保持一致
     var stars = "";
     for(var s=0;s<3;s++){ stars += '<span class="'+(s<lit ? "" : "dim")+'">★</span>'; }
     var msg = z.score>=n ? "太棒了，全对！" : (z.score>=n-1 ? "很好，差一点全对！" : (z.score>=n-2 ? "不错，继续加油！" : "别灰心，多练几次就记住了"));
