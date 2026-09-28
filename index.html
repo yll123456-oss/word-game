@@ -205,6 +205,7 @@ body{
 .vpre-btn-mini{padding:8px 14px; font-size:12px; border-radius:10px;}
 .vpre-btn-ghost{background:#f2f4f8; color:var(--vp-ink-2);}
 
+.vpre-games-note{font-size:11.5px; color:var(--vp-muted); background:#fff; border:1px dashed var(--vp-line); border-radius:12px; padding:8px 12px; margin-bottom:10px;}
 .vpre-games{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
 .vpre-game{border:1px solid #e6e9f0; background:#f7f8fb; border-radius:18px; padding:20px 10px 16px; display:flex; flex-direction:column; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--vp-ink); cursor:pointer; box-shadow:var(--vp-shadow-sm); transition:transform .14s;}
 .vpre-game:active{transform:scale(.97);}
@@ -454,6 +455,7 @@ body{
             <div class="vpre-sec-title">单元列表 <span class="vpre-sec-note">九上</span></div>
             <div class="vpre-unit-list"></div>
             <div class="vpre-sec-title">快速闯关</div>
+            <div class="vpre-games-note" data-games-note="1">练习范围：加载中…</div>
             <div class="vpre-games">
               <button class="vpre-game" type="button"><i>📖</i><span>看词选义</span><small>看词选中文 · 可听发音</small></button>
               <button class="vpre-game" type="button"><i>✏️</i><span>拼写闯关</span><small>看中文拼单词</small></button>
@@ -1574,6 +1576,12 @@ body{
     }).join("");
     var hi = q(".vpre-hi-text", phone);
     if(hi){ hi.textContent = greetName(); }
+    var noteEl = q("[data-games-note]", phone);
+    if(noteEl){
+      var cu = currentBook(phone).units.length ? currentBook(phone).units[Math.min(s.unit, currentBook(phone).units.length-1)] : null;
+      noteEl.textContent = '练习范围：' + s.book + ' ' + (cu ? cu.name : '')
+        + ' · 每组随机抽 10 词' + (cu ? ('（共 ' + cu.words.length + ' 词）') : '');
+    }
     var taskUnit = q(".vpre-task-unit", phone);
     if(taskUnit){ taskUnit.textContent = unitLabel(phone); }
     var uw = unitWords(phone);
