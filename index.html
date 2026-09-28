@@ -209,6 +209,7 @@ body{
 .vpre-game{border:1px solid #e6e9f0; background:#f7f8fb; border-radius:18px; padding:20px 10px 16px; display:flex; flex-direction:column; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--vp-ink); cursor:pointer; box-shadow:var(--vp-shadow-sm); transition:transform .14s;}
 .vpre-game:active{transform:scale(.97);}
 .vpre-game i{font-style:normal; font-size:30px; line-height:1;}
+.vpre-game small{display:block; font-size:10.5px; color:var(--vp-muted); font-weight:400; margin-top:2px;}
 .vpre-game:hover{border-color:#c7cfe4;}
 
 .vpre-review{display:flex; align-items:center; gap:12px; background:var(--vp-orange-soft); border:1px solid rgba(245,158,11,.32); border-radius:15px; padding:13px 14px; font-size:12.5px; color:var(--vp-ink);}
@@ -454,12 +455,10 @@ body{
             <div class="vpre-unit-list"></div>
             <div class="vpre-sec-title">快速闯关</div>
             <div class="vpre-games">
-              <button class="vpre-game" type="button"><i>📖</i><span>看词选义</span></button>
-              <button class="vpre-game" type="button"><i>🎧</i><span>听音选词</span></button>
-              <button class="vpre-game" type="button"><i>✏️</i><span>拼写闯关</span></button>
-              <button class="vpre-game" type="button"><i>🎤</i><span>跟读打卡</span></button>
-              <button class="vpre-game" type="button"><i>📝</i><span>默写闯关</span></button>
-              <button class="vpre-game" type="button"><i>🧩</i><span>连连看</span></button>
+              <button class="vpre-game" type="button"><i>📖</i><span>看词选义</span><small>看词选中文 · 可听发音</small></button>
+              <button class="vpre-game" type="button"><i>✏️</i><span>拼写闯关</span><small>看中文拼单词</small></button>
+              <button class="vpre-game" type="button"><i>🎤</i><span>跟读打卡</span><small>听音跟读 · 录音对比</small></button>
+              <button class="vpre-game" type="button"><i>📝</i><span>默写闯关</span><small>键盘默写 · 判对错</small></button>
             </div>
             <div class="vpre-sec-title">今日复习</div>
             <div class="vpre-review">
@@ -1043,7 +1042,7 @@ body{
       var others = list.filter(function(y){ return y.zh !== x.zh; });
       var d = pickWords(others, 3).map(function(y){ return y.zh; });
       while(d.length < 3){ d.push(d[0]); }
-      return { prompt:x.en, sub:null, opts:shuffle([x.zh].concat(d)), answer:x.zh, speak:null };
+      return { prompt:x.en, sub:null, opts:shuffle([x.zh].concat(d)), answer:x.zh, speak:x.en, optsAreWords:true };
     });
   }
   function buildSpellItems(list, n){
@@ -1053,7 +1052,7 @@ body{
   }
   function buildListenItems(list, n){
     return pickWords(list.filter(function(x){ return !/ /.test(x.en) && x.en.length>=2; }), n).map(function(x){
-      return { prompt:"🔊", sub:"听发音，选单词 · "+x.en.length+" 个字母", opts:spellOpts(x.en), answer:x.en, speak:x.en };
+      return { prompt:"🔊", sub:"听发音，选单词 · "+x.en.length+" 个字母", opts:spellOpts(x.en), answer:x.en, speak:x.en, autoSpeak:true };
     });
   }
   function buildReadItems(list, n){
@@ -1402,7 +1401,7 @@ body{
     var sp = q(".vpre-speak", el);
     if(sp){
       sp.addEventListener("click", function(){ sfx.play("tap"); speak(it.speak, phone); });
-      if(it.speak){
+      if(it.speak && it.autoSpeak){
         speak(it.speak, phone);
         phone.__speakTimer = setTimeout(function(){ speak(it.speak, phone); }, 1500);
       }
@@ -2218,7 +2217,7 @@ var chip = btn.closest(".vpre-stage-chip");
       if(unitCard){ runAction(phone, "quiz-word", parseInt(unitCard.getAttribute("data-unit"),10)); return; }
       var act = btn.getAttribute("data-action");
       if(act){ runAction(phone, act); return; }
-      if(btn.closest(".vpre-game")){ runAction(phone, ["quiz-word","quiz-listen","quiz-spell","quiz-read","quiz-dictate","quiz-match"][qa(".vpre-game", phone).indexOf(btn)]); return; }
+      if(btn.closest(".vpre-game")){ runAction(phone, ["quiz-word","quiz-spell","quiz-read","quiz-dictate"][qa(".vpre-game", phone).indexOf(btn)]); return; }
       if(btn.closest(".vpre-wrow") || btn.closest(".vpre-review") || btn.closest(".vpre-summary")){ runAction(phone, "quiz-wrong"); return; }
       if(btn.closest(".vpre-hero-btn")){ runAction(phone, /复习/.test(btn.textContent) ? "quiz-wrong" : "quiz-word"); return; }
       if(btn.closest(".vpre-task")){ runAction(phone, "quiz-word"); return; }
