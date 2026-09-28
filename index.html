@@ -548,23 +548,34 @@ body{
     VOCAB[g].books[obj.book] = {units: obj.units.map(function(u){ return {name:u.name, n:u.words.length, words:u.words}; })};
     return VOCAB[g].books[obj.book];
   }
+  var DATA_VERSION = "2026-09-28b";
   function loadBook(book, cb){
     var g = gradeOfBook(book);
     if(VOCAB[g].books[book]){ if(cb){ cb(VOCAB[g].books[book]); } return Promise.resolve(VOCAB[g].books[book]); }
-    var cached = null;
-    try{ cached = localStorage.getItem("vpreData:" + book); }catch(e){}
-    if(cached){
-      try{ if(applyBookData(JSON.parse(cached))){ if(cb){ cb(VOCAB[g].books[book]); } return Promise.resolve(VOCAB[g].books[book]); } }catch(e){}
-    }
-    return fetch("data/" + encodeURIComponent(book) + ".json", {cache:"force-cache"}).then(function(r){
+    // 本地缓存只作"离线兜底"，联网时永远以服务器数据为准
+    var cachedObj = null;
+    try{
+      var rawC = localStorage.getItem("vpreData:" + book);
+      if(rawC){
+        var c = JSON.parse(rawC);
+        if(c && c.data){ cachedObj = c.data; }
+        else if(c && c.units){ cachedObj = c; }
+      }
+    }catch(e){}
+    return fetch("data/" + encodeURIComponent(book) + ".json", {cache:"no-cache"}).then(function(r){
       if(!r.ok){ throw new Error("HTTP " + r.status); }
       return r.json();
     }).then(function(obj){
-      try{ localStorage.setItem("vpreData:" + book, JSON.stringify(obj)); }catch(e){}
+      try{ localStorage.setItem("vpreData:" + book, JSON.stringify({__v: DATA_VERSION, data: obj})); }catch(e){}
       applyBookData(obj);
       if(cb){ cb(VOCAB[g].books[book]); }
       return VOCAB[g].books[book];
     }).catch(function(){
+      if(cachedObj){
+        applyBookData(cachedObj);
+        if(cb){ cb(VOCAB[g].books[book]); }
+        return VOCAB[g].books[book];
+      }
       if(cb){ cb(null); }
       return null;
     });
