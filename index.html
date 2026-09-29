@@ -217,6 +217,18 @@ body{
 .vpre-mode{border:1px solid var(--vp-line); background:#fafbff; border-radius:12px; padding:10px 8px; font-size:12.5px; font-weight:600; color:var(--vp-ink); cursor:pointer;}
 .vpre-mode:disabled{opacity:.5; cursor:default;}
 .vpre-mode.is-done{background:#e9f8f2; border-color:#9fd9c3; color:#0f7a5c;}
+.vpre-mode.is-next{border-color:var(--vp-blue); background:#f4f7ff; box-shadow:0 0 0 3px rgba(75,99,230,.10);}
+.vpre-continue{border-radius:14px; font-size:14px; margin-bottom:2px;}
+.vpre-result-group{font-size:12.5px; color:var(--vp-ink-2); background:#f6f8ff; border:1px solid var(--vp-line); border-radius:12px; padding:10px 12px; margin-top:10px; line-height:1.7; text-align:left;}
+.vpre-celebrate{position:fixed; inset:0; z-index:90; display:none; align-items:center; justify-content:center; background:rgba(20,26,45,.45);}
+.vpre-celebrate.is-show{display:flex;}
+.vpre-celebrate-card{background:#fff; border-radius:24px; padding:26px 30px; text-align:center; box-shadow:0 24px 60px rgba(20,26,45,.28); animation:vpre-pop .32s cubic-bezier(.2,1.3,.5,1);}
+.vpre-celebrate-emoji{font-size:46px; line-height:1; animation:vpre-bounce .6s ease-in-out infinite alternate;}
+.vpre-celebrate-title{font-size:19px; font-weight:800; color:var(--vp-ink); margin:12px 0 6px;}
+.vpre-celebrate-sub{font-size:12.5px; color:var(--vp-muted);}
+.vpre-celebrate-stars{font-size:22px; margin-top:10px; letter-spacing:2px;}
+@keyframes vpre-pop{from{transform:scale(.8); opacity:0} to{transform:scale(1); opacity:1}}
+@keyframes vpre-bounce{from{transform:translateY(0)} to{transform:translateY(-8px)}}
 .vpre-games-note{font-size:11.5px; color:var(--vp-muted); background:#fff; border:1px dashed var(--vp-line); border-radius:12px; padding:8px 12px; margin-bottom:10px;}
 .vpre-games{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
 .vpre-game{border:1px solid #e6e9f0; background:#f7f8fb; border-radius:18px; padding:20px 10px 16px; display:flex; flex-direction:column; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--vp-ink); cursor:pointer; box-shadow:var(--vp-shadow-sm); transition:transform .14s;}
@@ -1436,6 +1448,20 @@ body{
     var stars = "";
     for(var s=0;s<3;s++){ stars += '<span class="'+(s<lit ? "" : "dim")+'">★</span>'; }
     var msg = z.score>=n ? "太棒了，全对！" : (z.score>=n-1 ? "很好，差一点全对！" : (z.score>=n-2 ? "不错，继续加油！" : "别灰心，多练几次就记住了"));
+    var groupBox = "";
+    var nextMode = null;
+    if(phone.__quizGroup){
+      var sNow = state[phone.__id];
+      var uNow = unitWords(phone);
+      var gpNow = groupProgress(sNow.book, uNow.name, phone.__quizGroup.gi);
+      var doneN = groupDoneCount(gpNow);
+      var remain = [];
+      GROUP_MODES.forEach(function(m){ if(!gpNow[m[0]]){ remain.push(m[1].replace(/^[^ ]+ /, "")); } });
+      nextMode = nextModeInGroup(phone, phone.__quizGroup.gi);
+      groupBox = '<div class="vpre-result-group">第 ' + (phone.__quizGroup.gi+1) + ' 组进度：<b>' + doneN + '/4</b> 个玩法已完成'
+        + (remain.length ? '<br>还差：' + remain.join('、') : '<br>这组已经全部完成 🎉')
+        + '</div>';
+    }
     var el = q(".vpre-quiz", phone);
     el.innerHTML =
       '<div class="vpre-quiz-head"><span>'+TYPE_NAME[z.type]+' · 结果</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
@@ -1443,7 +1469,9 @@ body{
       +'<div class="vpre-result-num">'+z.score+' / '+n+'</div>'
       +'<div class="vpre-result-stars">'+stars+'</div>'
       +'<div class="vpre-result-msg">'+msg+'</div>'
+      +groupBox
       +'<button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-share="1">📸 晒一晒（生成成绩图）</button>'
+      +(nextMode ? '<button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-nextmode="1">继续下一个玩法：' + modeLabel(nextMode).replace(/^[^ ]+ /, "") + ' ▶</button>' : '')
       +'<button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-result-again="1">再玩一次</button>'
       +(phone.__quizGroup ? '<button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-result-unit="1">返回本单元</button>' : '')
       +'<button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-result-home="1">返回首页</button>'
@@ -1451,6 +1479,8 @@ body{
     var sh = q("[data-share]", el);
     if(sh){ sh.addEventListener("click", function(){ sfx.play("tap"); shareImage(phone, z); }); }
     q("[data-result-again]", el).addEventListener("click", function(){ sfx.play("tap"); openQuiz(phone, z.type, null, phone.__quizGroup ? phone.__quizGroup.gi : undefined); });
+    var nxt = q("[data-nextmode]", el);
+    if(nxt){ nxt.addEventListener("click", function(){ sfx.play("tap"); openQuiz(phone, nextMode, null, phone.__quizGroup.gi); }); }
     var ru = q("[data-result-unit]", el);
     if(ru){ ru.addEventListener("click", function(){ sfx.play("tap"); renderUnitDetail(phone); setView(phone, "unit"); }); }
     q("[data-result-home]", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
@@ -1613,11 +1643,50 @@ body{
     if(isGroupComplete(s.book, u.name, phone.__quizGroup.gi)){
       var gs = unitGroups(u);
       if(phone.__quizGroup.gi + 1 < gs.length){
-        toast(phone, "第 " + (phone.__quizGroup.gi+1) + " 组完成！已解锁第 " + (phone.__quizGroup.gi+2) + " 组");
+        celebrate(phone, "第 " + (phone.__quizGroup.gi+1) + " 组完成！", "已解锁第 " + (phone.__quizGroup.gi+2) + " 组，继续加油");
       } else {
-        toast(phone, u.name + " 全部 " + gs.length + " 组完成！");
+        celebrate(phone, u.name + " 全部完成！", "共 " + gs.length + " 组 · 4 个玩法全部通关");
       }
     }
+  }
+  function modeLabel(t){
+    for(var i=0;i<GROUP_MODES.length;i++){ if(GROUP_MODES[i][0] === t){ return GROUP_MODES[i][1]; } }
+    return "";
+  }
+  function nextModeInGroup(phone, gi){
+    var s = state[phone.__id];
+    var gp = groupProgress(s.book, unitWords(phone).name, gi);
+    for(var i=0;i<GROUP_MODES.length;i++){ if(!gp[GROUP_MODES[i][0]]){ return GROUP_MODES[i][0]; } }
+    return null;
+  }
+  function nextTask(phone){
+    var u = unitWords(phone);
+    var gs = unitGroups(u);
+    var s = state[phone.__id];
+    for(var gi=0; gi<gs.length; gi++){
+      if(!isGroupComplete(s.book, u.name, gi)){
+        return {gi: gi, mode: nextModeInGroup(phone, gi) || "word"};
+      }
+    }
+    return {gi: 0, mode: "word", allDone: true};
+  }
+  function celebrate(phone, title, sub){
+    var el = q(".vpre-celebrate", phone);
+    if(!el){
+      el = document.createElement("div");
+      el.className = "vpre-celebrate";
+      phone.appendChild(el);
+    }
+    el.innerHTML = '<div class="vpre-celebrate-card">'
+      + '<div class="vpre-celebrate-emoji">🎉</div>'
+      + '<div class="vpre-celebrate-title">' + title + '</div>'
+      + (sub ? '<div class="vpre-celebrate-sub">' + sub + '</div>' : '')
+      + '<div class="vpre-celebrate-stars">⭐️⭐️⭐️</div>'
+      + '</div>';
+    el.classList.add("is-show");
+    try{ sfx.play("win"); }catch(e){}
+    clearTimeout(phone.__celebrateTimer);
+    phone.__celebrateTimer = setTimeout(function(){ el.classList.remove("is-show"); }, 2300);
   }
   function renderUnitDetail(phone){
     var el = q(".vpre-unit-detail", phone);
@@ -1635,9 +1704,14 @@ body{
     var learned = Object.keys(uset).length;
     var html = '<div class="vpre-report-head"><b>' + s.book + ' · ' + unit.name + '</b>'
       + '<span class="vpre-report-actions"><button class="vpre-report-back" type="button">← 返回</button></span></div>'
+      + (function(){
+          var nt = nextTask(phone);
+          var label = nt.allDone ? "本单元已全部完成 🎉 去复习第 1 组" : ("继续练习：第 " + (nt.gi+1) + " 组 · " + modeLabel(nt.mode));
+          return '<button class="vpre-btn vpre-btn-primary vpre-btn-block vpre-continue" type="button" data-continue="1">▶ ' + label + '</button>';
+        })()
       + '<div class="vpre-ud-stat">共 <b>' + unit.words.length + '</b> 词 · 分 <b>' + groups.length + '</b> 组（每组约 20 词）<br>'
       + '已完成 <b>' + doneGroups + '/' + groups.length + '</b> 组 · 已掌握 <b>' + learned + '/' + unit.words.length + '</b><br>'
-      + '<span style="color:var(--vp-muted)">每组 4 个玩法都做完才算完成，完成后解锁下一组</span></div>';
+      + '<span style="color:var(--vp-muted)">建议顺序：① 看词选义 → ② 拼写闯关 → ③ 跟读打卡 → ④ 默写闯关（由易到难）<br>每组 4 个玩法都做完才算完成，完成后解锁下一组</span></div>';
     groups.forEach(function(g, gi){
       var gp = groupProgress(s.book, unit.name, gi);
       var complete = isGroupComplete(s.book, unit.name, gi);
@@ -1652,10 +1726,11 @@ body{
         + '<span class="vpre-gcard-meta">' + words.length + ' 词 · 完成 ' + groupDoneCount(gp) + '/4</span>' + pill + '</div>'
         + '<div class="vpre-gcard-words">' + preview + '</div>'
         + '<div class="vpre-gcard-modes">'
-        + GROUP_MODES.map(function(m){
+        + GROUP_MODES.map(function(m, mi){
             var done = gp[m[0]] ? ' is-done' : '';
-            return '<button class="vpre-mode' + done + '" type="button" data-mode="' + m[0] + '" data-group="' + gi + '"'
-              + (unlocked ? '' : ' disabled') + '>' + m[1] + (gp[m[0]] ? ' ✅' : '') + '</button>';
+            var isNext = !done && unlocked && (m[0] === nextModeInGroup(phone, gi));
+            return '<button class="vpre-mode' + done + (isNext ? ' is-next' : '') + '" type="button" data-mode="' + m[0] + '" data-group="' + gi + '"'
+              + (unlocked ? '' : ' disabled') + '>' + (mi+1) + '. ' + m[1] + (gp[m[0]] ? ' ✅' : (isNext ? ' 👈推荐' : '')) + '</button>';
           }).join('')
         + '</div></div>';
     });
@@ -1684,15 +1759,20 @@ body{
     var wbBook = PROG.words[s.book] || {};
     list.innerHTML = book.units.map(function(u, i){
       var learned = wbBook[u.name] ? Object.keys(wbBook[u.name]).length : 0;
-      var pct = u.n ? Math.round(learned / u.n * 100) : 0;
-      var tag = learned === 0 ? '<span class="vpre-pill new">未开始</span>'
-              : (pct >= 80 ? '<span class="vpre-pill done">已完成</span>' : '<span class="vpre-pill doing">进行中</span>');
+      var ugs = unitGroups(u);
+      var doneG = 0;
+      ugs.forEach(function(g, gi){ if(isGroupComplete(s.book, u.name, gi)){ doneG++; } });
+      var pct = ugs.length ? Math.round(doneG / ugs.length * 100) : 0;
+      var inGroup = 1;
+      for(var k=0;k<ugs.length;k++){ if(!isGroupComplete(s.book, u.name, k)){ inGroup = k+1; break; } inGroup = k+1; }
+      var tag = (doneG === 0 && learned === 0) ? '<span class="vpre-pill new">未开始</span>'
+              : (doneG >= ugs.length ? '<span class="vpre-pill done">已完成</span>' : '<span class="vpre-pill doing">进行中</span>');
       var cls = u.name.length > 8 ? ' is-long' : '';
       return '<button class="vpre-unit" data-unit="'+i+'" type="button">'
         + '<span class="vpre-unit-no">'+(i+1)+'</span>'
         + '<span class="vpre-unit-body">'
         +   '<span class="vpre-unit-title'+cls+'">'+u.name+'</span>'
-        +   '<span class="vpre-unit-meta"><i style="font-style:normal">'+u.n+' 词</i>·<i style="font-style:normal">已掌握 '+learned+'</i></span>'
+        +   '<span class="vpre-unit-meta"><i style="font-style:normal">'+u.n+' 词</i>·<i style="font-style:normal">第 '+inGroup+'/'+ugs.length+' 组</i>·<i style="font-style:normal">完成 '+doneG+'/'+ugs.length+' 组</i></span>'
         +   '<span class="vpre-unit-bar"><i style="width:'+pct+'%"></i></span>'
         + '</span>'
         + '<span class="vpre-unit-right">'+tag+'<span class="vpre-unit-go">进入 ▸</span></span>'
@@ -2356,6 +2436,11 @@ var chip = btn.closest(".vpre-stage-chip");
       if(unitCard){
         state[id].unit = parseInt(unitCard.getAttribute("data-unit"),10);
         renderUnitDetail(phone); setView(phone, "unit"); return;
+      }
+      if(btn.closest("[data-continue]")){
+        var nt2 = nextTask(phone);
+        openQuiz(phone, nt2.mode, null, nt2.gi);
+        return;
       }
       var modeBtn = btn.closest("[data-mode][data-group]");
       if(modeBtn){
