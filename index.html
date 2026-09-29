@@ -266,6 +266,30 @@ body{
 .vpre-wbadge.is-flat{background:#f2f4f8; color:var(--vp-ink-2);}
 
 /* ===== 闯关地图（简洁同款） ===== */
+.vpre-rgames{background:#fff; border:1px solid var(--vp-line); border-radius:18px; padding:12px; margin-bottom:14px; box-shadow:var(--vp-shadow-sm);}
+.vpre-rgames-scope{font-size:12px; color:var(--vp-muted); margin-bottom:8px;}
+.vpre-rgames-chips{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;}
+.vpre-rgames-chips button{border:1px solid var(--vp-line); background:#f8faff; color:var(--vp-ink-2); border-radius:10px; padding:6px 10px; font-size:11.5px; font-weight:600; cursor:pointer;}
+.vpre-rgames-chips button.is-active{background:var(--vp-blue); color:#fff; border-color:var(--vp-blue);}
+.vpre-rgames-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;}
+.vpre-rgame{border:1px solid var(--vp-line); background:#fafbff; border-radius:14px; padding:12px 6px; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; color:var(--vp-ink);}
+.vpre-rgame:active{transform:scale(.97);}
+.vpre-rgame i{font-style:normal; font-size:24px; line-height:1;}
+.vpre-rgame span{font-size:12px; font-weight:700;}
+.vpre-rgame small{font-size:10px; color:var(--vp-muted); text-align:center; line-height:1.4;}
+.vpre-mgrid{display:grid; gap:8px;}
+.vpre-mgrid.is-memory{grid-template-columns:repeat(4,1fr);}
+.vpre-mcard-flip{aspect-ratio:1/1.15; border-radius:14px; border:1px solid var(--vp-line); background:#fff; font-size:13px; font-weight:600; color:var(--vp-ink); display:flex; align-items:center; justify-content:center; text-align:center; padding:4px; word-break:break-word; cursor:pointer; transition:transform .12s;}
+.vpre-mcard-flip.is-back{background:linear-gradient(135deg,#eef2ff,#e6ecff); color:transparent; position:relative;}
+.vpre-mcard-flip.is-back::after{content:"?"; position:absolute; color:#9aa8d8; font-size:20px; font-weight:800;}
+.vpre-mcard-flip.is-matched{background:#e9f8f2; border-color:#9fd9c3; color:#0f7a5c; opacity:.75; cursor:default;}
+.vpre-mcard-flip.is-open{transform:scale(.97); border-color:var(--vp-blue);}
+.vpre-speedbar{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+.vpre-speedbar .vpre-progress{flex:1; height:8px; border-radius:99px; background:#eef1f8;}
+.vpre-speedbar .vpre-progress > div{height:100%; background:linear-gradient(90deg,#3b82f6,#7c5cff); border-radius:99px; transition:width .3s linear;}
+.vpre-speedbar b{font-size:13px; font-variant-numeric:tabular-nums; white-space:nowrap;}
+.vpre-speedstat{display:flex; gap:14px; justify-content:center; font-size:12.5px; color:var(--vp-muted); margin-top:10px;}
+.vpre-speedstat b{color:var(--vp-ink); font-size:15px;}
 .vpre-stage-rules{font-size:11px; color:var(--vp-muted); background:#f8f9fb; border:1px dashed #d8dde7; border-radius:11px; padding:10px 12px; line-height:1.7; margin-bottom:12px;}
 .vpre-stage{display:flex; align-items:center; gap:12px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:16px; padding:14px; margin-bottom:10px; box-shadow:var(--vp-shadow-sm);}
 .vpre-stage.is-playable{font-family:inherit; width:100%; cursor:pointer; text-align:left; transition:transform .12s, border-color .15s;}
@@ -497,7 +521,17 @@ body{
             <div class="vpre-wrong-list"></div>
           </div>
           <div class="vpre-view" data-view="stage">
-            <div class="vpre-sec-title" style="margin-top:2px;">闯关地图 <span class="vpre-stage-note">九上</span></div>
+            <div class="vpre-sec-title" style="margin-top:2px;">复习小游戏 <span class="vpre-sec-note">纯复习 · 不计星</span></div>
+            <div class="vpre-rgames">
+              <div class="vpre-rgames-scope">练习范围：<b data-rg-unit>—</b></div>
+              <div class="vpre-rgames-chips" data-rg-chips></div>
+              <div class="vpre-rgames-grid">
+                <button class="vpre-rgame" type="button" data-rgame="memory"><i>🃏</i><span>翻牌记忆</span><small>10 对 · 翻牌配对</small></button>
+                <button class="vpre-rgame" type="button" data-rgame="speed"><i>⚡</i><span>限时快答</span><small>60 秒 · 看词选义</small></button>
+                <button class="vpre-rgame" type="button" data-rgame="wrongboss"><i>📕</i><span>错词大作战</span><small>10 对 · 只练错词</small></button>
+              </div>
+            </div>
+            <div class="vpre-sec-title">闯关地图 <span class="vpre-stage-note">九上</span></div>
             <div class="vpre-stage-rules">
               规则：每单元 4 关——认一认 / 听一听 / 拼一拼各 20 词，大作战（连连看）10 对；<br>
               前三关都拿到 3 星，才解锁本单元大作战；大作战通关后解锁下一单元。<br>
@@ -603,7 +637,7 @@ body{
   function loadAllBooks(){
     return Promise.all(BOOK_LIST.map(function(b){ return loadBook(b); }));
   }
-  var TYPE_NAME = {word:"看词选义", listen:"听音选词", spell:"拼写闯关", read:"跟读打卡", dictate:"默写闯关", wrong:"错词复习", match:"连连看"};
+  var TYPE_NAME = {word:"看词选义", listen:"听音选词", spell:"拼写闯关", read:"跟读打卡", dictate:"默写闯关", wrong:"错词复习", match:"连连看", memory:"翻牌记忆", speed:"限时快答", wrongboss:"错词大作战"};
   var GRADE_NAME = {g7:"初一", g8:"初二", g9:"初三"};
   var GRADE_BOOK = {g7:"七上", g8:"八上", g9:"九上"};
   var state = {};
@@ -925,13 +959,13 @@ body{
   function buildReport(phone, z){
     var s = state[phone.__id];
     var details = [];
-    if(z.type === "match"){
+    if(z.type === "match" || z.type === "memory" || z.type === "wrongboss"){
       (z.pairs || []).forEach(function(pr){
         details.push({word:pr.en, meaning:pr.zh, chosen:"", ok:1, module:"连连看"});
       });
     } else {
       (z.items || []).forEach(function(it){
-        var word = (z.type === "word" || z.type === "wrong") ? it.prompt : it.answer;
+        var word = (z.type === "word" || z.type === "wrong" || z.type === "speed") ? it.prompt : it.answer;
         details.push({
           word:word,
           meaning:zhOf(word) || (z.type === "wrong" ? "" : ""),
@@ -960,7 +994,10 @@ body{
     };
   }
   function starsEarned(z){
-    if(z.type === "match"){ return z.attempts <= z.total+2 ? 3 : (z.attempts <= z.total*2+2 ? 2 : 1); }
+    if(z.type === "match" || z.type === "memory" || z.type === "wrongboss"){
+      return z.attempts <= z.total+4 ? 3 : (z.attempts <= z.total*2+4 ? 2 : 1);
+    }
+    if(z.type === "speed"){ var t = z.total || 1; return z.score >= t ? 3 : (z.score >= t*0.8 ? 2 : (z.score >= t*0.6 ? 1 : 0)); }
     var n = z.items.length;
     if(n >= 15){ return z.score >= n-2 ? 3 : (z.score >= n-5 ? 2 : (z.score >= n-8 ? 1 : 0)); }
     return z.score >= n ? 3 : (z.score >= n-1 ? 2 : (z.score >= n-2 ? 1 : 0));
@@ -973,7 +1010,7 @@ body{
     var wset = PROG.words[book] || (PROG.words[book] = {});
     var uset = wset[unit] || (wset[unit] = {});
     var wb = PROG.wrong[book] || (PROG.wrong[book] = {});
-    if(z.type === "match"){
+    if(z.type === "match" || z.type === "memory" || z.type === "wrongboss"){
       z.pairs.forEach(function(p){
         var k = p.en.toLowerCase();
         if(!uset[k]){ uset[k] = 1; PROG.stats.learned++; }
@@ -1185,14 +1222,202 @@ body{
     setView(phone, "quiz");
   }
   function matchHeadText(z){
-    return "连连看 · 已配对 " + z.matched + " / " + z.total + " · 尝试 " + z.attempts + " 次";
+    return (TYPE_NAME[z.type] || "连连看") + " · 已配对 " + z.matched + " / " + z.total + " · 尝试 " + z.attempts + " 次";
+  }
+  // ===== 复习小游戏（闯关页独立区）=====
+  function renderRgames(phone){
+    var s = state[phone.__id];
+    var book = currentBook(phone);
+    var u = unitWords(phone);
+    var scope = q("[data-rg-unit]", phone);
+    if(scope){ scope.textContent = (book && book.units.length) ? (s.book + " " + (u ? u.name : "")) : "加载中…"; }
+    var chips = q("[data-rg-chips]", phone);
+    if(chips && book && book.units.length){
+      chips.innerHTML = book.units.map(function(x, i){
+        return '<button type="button" data-rgunit="' + i + '" class="' + (i === s.unit ? 'is-active' : '') + '">' + x.name + '</button>';
+      }).join("");
+    }
+  }
+  function openMemory(phone){
+    var list = unitWordList(phone);
+    if(list.length < 5){ toast(phone, "本单元单词太少，换一个单元试试"); return; }
+    var pairs = pickWords(list, Math.min(10, list.length)).map(function(w){ return {en:w.en, zh:w.zh}; });
+    var cards = [];
+    pairs.forEach(function(pr, i){
+      cards.push({pair:i, kind:"en", text:pr.en});
+      cards.push({pair:i, kind:"zh", text:pr.zh});
+    });
+    phone.__quizStage = null;
+    phone.__quizGroup = null;
+    phone.__quiz = {type:"memory", idx:0, score:0, matched:0, attempts:0, total:pairs.length,
+                    pairs:pairs, cards:shuffle(cards), open:[], lock:false, start:Date.now()};
+    renderMemory(phone);
+    setView(phone, "quiz");
+  }
+  function renderMemory(phone){
+    var z = phone.__quiz, el = q(".vpre-quiz", phone);
+    if(!el) return;
+    el.innerHTML =
+      '<div class="vpre-quiz-head"><span>翻牌记忆 · 已配对 ' + z.matched + ' / ' + z.total + ' · 尝试 ' + z.attempts + ' 次</span>'
+      + '<button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
+      + '<div class="vpre-quiz-progress"><div class="vpre-progress"><div style="width:' + Math.round(z.matched / z.total * 100) + '%"></div></div>'
+      + '<span class="vpre-quiz-count">' + z.matched + ' / ' + z.total + ' 对</span></div>'
+      + '<div class="vpre-qipa" style="text-align:left; margin:0 0 10px;">点两张卡片，把英文和中文配成一对</div>'
+      + '<div class="vpre-mgrid is-memory">'
+      + z.cards.map(function(c, i){
+          var cls = c.done ? " is-matched" : ((z.open.indexOf(i) >= 0) ? " is-open" : " is-back");
+          return '<button class="vpre-mcard-flip' + cls + '" type="button" data-mi="' + i + '"' + (c.done ? ' disabled' : '') + '>' + c.text + '</button>';
+        }).join("")
+      + '</div>';
+    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); renderStageMap(phone); setView(phone, "stage"); });
+    qa("[data-mi]", el).forEach(function(b){
+      b.addEventListener("click", function(){
+        var i = parseInt(b.getAttribute("data-mi"), 10);
+        var c = z.cards[i];
+        if(!c || c.done || z.lock || z.open.indexOf(i) >= 0){ return; }
+        sfx.play("flip");
+        z.open.push(i);
+        if(z.open.length < 2){ renderMemory(phone); return; }
+        var i1 = z.open[0], i2 = z.open[1];
+        var a = z.cards[i1], b2 = z.cards[i2];
+        z.attempts += 1;
+        if(a.pair === b2.pair && a.kind !== b2.kind){
+          a.done = true; b2.done = true; z.matched += 1;
+          sfx.play("match");
+          z.open = [];
+          if(z.matched >= z.total){ renderResult(phone); return; }
+          renderMemory(phone);
+        } else {
+          sfx.play("wrong");
+          z.lock = true;
+          renderMemory(phone);
+          setTimeout(function(){ z.open = []; z.lock = false; renderMemory(phone); }, 750);
+        }
+      });
+    });
+  }
+  function openWrongBoss(phone){
+    var s = state[phone.__id];
+    var wb = PROG.wrong[s.book] || {};
+    var book = currentBook(phone);
+    var pool = Object.keys(wb).map(function(k){
+      var zh = zhOf(k);
+      if(!zh){
+        book.units.forEach(function(u){ u.words.forEach(function(w){ if(String(w[0]).toLowerCase() === k){ zh = w[1]; } }); });
+      }
+      return {en:k, zh: zh || ""};
+    });
+    if(pool.length < 4){ toast(phone, "错词还不够 4 个，先去练几组积累错词吧"); return; }
+    var pairs = shuffle(pool).slice(0, Math.min(10, pool.length));
+    var cards = [];
+    pairs.forEach(function(pr, i){
+      cards.push({pair:i, kind:"en", text:pr.en});
+      cards.push({pair:i, kind:"zh", text:pr.zh || "（无释义）"});
+    });
+    phone.__quizStage = null;
+    phone.__quizGroup = null;
+    phone.__quiz = {type:"wrongboss", idx:0, score:0, attempts:0, matched:0, total:pairs.length,
+                    pairs:pairs, cards:shuffle(cards), start:Date.now()};
+    renderMatch(phone);
+    setView(phone, "quiz");
+  }
+  function openSpeed(phone){
+    var list = unitWordList(phone);
+    if(list.length < 4){ toast(phone, "本单元单词太少"); return; }
+    phone.__quizStage = null;
+    phone.__quizGroup = null;
+    phone.__quiz = {type:"speed", idx:0, score:0, wrong:0, total:0, items:[], start:Date.now(), endAt: Date.now() + 60000, q:null};
+    clearInterval(phone.__speedTimer);
+    phone.__speedTimer = setInterval(function(){
+      var z = phone.__quiz;
+      if(!z || z.type !== "speed"){ clearInterval(phone.__speedTimer); return; }
+      if(Date.now() >= z.endAt){ renderResult(phone); return; }
+      var bar = q(".vpre-speedbar .vpre-progress > div", phone);
+      var t = q(".vpre-speedbar b", phone);
+      var left = Math.max(0, Math.ceil((z.endAt - Date.now()) / 1000));
+      if(bar){ bar.style.width = Math.round(Math.max(0, (z.endAt - Date.now()) / 60000) * 100) + "%"; }
+      if(t){ t.textContent = left + " 秒"; }
+    }, 300);
+    renderSpeed(phone);
+    setView(phone, "quiz");
+  }
+  function renderSpeed(phone){
+    var z = phone.__quiz, el = q(".vpre-quiz", phone);
+    if(!el) return;
+    var list = unitWordList(phone);
+    var q1 = buildWordItems(list, 1)[0];
+    z.q = q1;
+    var prompt = String(q1.prompt || "");
+    var pcls = prompt.length > 24 ? " is-xlong" : (prompt.length > 16 ? " is-long" : "");
+    var opts = q1.opts.map(function(o){
+      var ol = String(o).length;
+      var oc = ol > 26 ? " is-xlong" : (ol > 16 ? " is-long" : "");
+      return '<button class="vpre-qopt' + oc + '" type="button">' + o + '</button>';
+    }).join("");
+    var left = Math.max(0, Math.ceil((z.endAt - Date.now()) / 1000));
+    el.innerHTML =
+      '<div class="vpre-quiz-head"><span>限时快答 · 60 秒</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
+      + '<div class="vpre-speedbar"><div class="vpre-progress"><div style="width:' + Math.round(Math.max(0, (z.endAt - Date.now()) / 60000) * 100) + '%"></div></div><b>' + left + ' 秒</b></div>'
+      + '<div class="vpre-qcard"><div class="vpre-qword' + pcls + '">' + prompt + '</div>'
+      + (q1.speak ? '<button class="vpre-speak" type="button">🔊 播放发音</button>' : '')
+      + '</div>'
+      + '<div class="vpre-qopts">' + opts + '</div>'
+      + '<div class="vpre-speedstat"><span>答对 <b>' + z.score + '</b></span><span>答错 <b>' + z.wrong + '</b></span></div>';
+    q(".vpre-quiz-close", el).addEventListener("click", function(){ clearInterval(phone.__speedTimer); sfx.play("tap"); renderStageMap(phone); setView(phone, "stage"); });
+    var sp = q(".vpre-speak", el);
+    if(sp){ sp.addEventListener("click", function(){ sfx.play("tap"); speak(q1.speak, phone); }); }
+    qa(".vpre-qopt", el).forEach(function(b){
+      b.addEventListener("click", function(){
+        if(q1.correct !== undefined) return;
+        var isRight = b.textContent === q1.answer;
+        q1.correct = isRight;
+        q1.chosen = b.textContent;
+        z.items.push(q1);
+        z.total += 1;
+        if(isRight){ z.score += 1; sfx.play("right"); b.classList.add("is-right"); }
+        else { z.wrong += 1; sfx.play("wrong"); b.classList.add("is-wrong");
+               qa(".vpre-qopt", el).forEach(function(x){ if(x.textContent === q1.answer){ x.classList.add("is-right"); } }); }
+        qa(".vpre-qopt", el).forEach(function(x){ x.disabled = true; });
+        setTimeout(function(){
+          if(Date.now() >= z.endAt){ renderResult(phone); return; }
+          renderSpeed(phone);
+        }, isRight ? 320 : 620);
+      });
+    });
+  }
+  function renderSpeedResult(phone){
+    var z = phone.__quiz;
+    clearInterval(phone.__speedTimer);
+    sfx.play("win");
+    var n = z.total || 0;
+    var acc = n ? Math.round(z.score / n * 100) : 0;
+    var lit = n ? starsEarned(z) : 0;
+    var stars = "";
+    for(var i=0;i<3;i++){ stars += '<span class="' + (i < lit ? "" : "dim") + '">★</span>'; }
+    var msg = n === 0 ? "还没来得及答题，再试一局吧" : (acc >= 90 ? "又快又准，太棒了！" : (acc >= 70 ? "不错，速度还能再提" : "多练几局会更熟练"));
+    var el = q(".vpre-quiz", phone);
+    el.innerHTML =
+      '<div class="vpre-quiz-head"><span>限时快答 · 结果</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
+      + '<div class="vpre-result"><div class="vpre-qcard">'
+      + '<div class="vpre-result-num">' + z.score + ' 题</div>'
+      + '<div class="vpre-result-stars">' + stars + '</div>'
+      + '<div class="vpre-result-msg">' + msg + '</div>'
+      + '<div class="vpre-speedstat"><span>答对 <b>' + z.score + '</b></span><span>答错 <b>' + z.wrong + '</b></span><span>正确率 <b>' + acc + '%</b></span></div>'
+      + '<button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-result-again="1" style="margin-top:12px;">再来一局</button>'
+      + '<button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-result-stage="1">返回闯关</button>'
+      + '</div></div>';
+    q("[data-result-again]", el).addEventListener("click", function(){ sfx.play("tap"); openSpeed(phone); });
+    q("[data-result-stage]", el).addEventListener("click", function(){ sfx.play("tap"); renderStageMap(phone); setView(phone, "stage"); });
+    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); renderStageMap(phone); setView(phone, "stage"); });
   }
   function renderMatch(phone){
     var z = phone.__quiz;
     var el = q(".vpre-quiz", phone);
     if(!el) return;
     el.innerHTML =
-      '<div class="vpre-quiz-head"><span class="vpre-mtitle">' + matchHeadText(z) + '</span><span class="vpre-mhead-actions"><button class="vpre-btn vpre-btn-mini" type="button" data-mnew="1">换一组</button><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></span></div>'
+      '<div class="vpre-quiz-head"><span class="vpre-mtitle">' + matchHeadText(z) + '</span><span class="vpre-mhead-actions">'
+      + (z.type === "wrongboss" ? '' : '<button class="vpre-btn vpre-btn-mini" type="button" data-mnew="1">换一组</button>')
+      + '<button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></span></div>'
       + '<div class="vpre-progress" style="margin-bottom:14px;"><div style="width:' + Math.round(z.matched/z.total*100) + '%"></div></div>'
       + '<div class="vpre-mgrid">' + z.cards.map(function(c, i){
           return '<button class="vpre-mcard ' + (c.kind === "en" ? "is-en" : "is-zh") + '" type="button" data-i="' + i + '">' + c.text + '</button>';
@@ -1270,16 +1495,21 @@ body{
     var msg = lit === 3 ? "太棒了，全部配对！" : (lit === 2 ? "很好，再快一点就满分！" : "不错，多练几遍更熟练！");
     var el = q(".vpre-quiz", phone);
     el.innerHTML =
-      '<div class="vpre-quiz-head"><span>连连看 · 结果</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
+      '<div class="vpre-quiz-head"><span>' + (TYPE_NAME[z.type] || "连连看") + ' · 结果</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
       + '<div class="vpre-result"><div class="vpre-qcard">'
       + '<div class="vpre-result-num">' + z.matched + ' / ' + z.total + ' 对</div>'
       + '<div class="vpre-result-stars">' + stars + '</div>'
       + '<div class="vpre-result-msg">' + msg + '（尝试 ' + z.attempts + ' 次）</div>'
-      + '<button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-result-new="1">换一组单词</button>'
+      + '<button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-result-new="1">再来一组（随机换词）</button>'
       + '<button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-result-again="1">再玩一次（同一组）</button>'
       + '<button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-result-home="1">返回首页</button>'
       + '</div></div>';
-    q("[data-result-new]", el).addEventListener("click", function(){ sfx.play("tap"); openQuiz(phone, "match"); });
+    q("[data-result-new]", el).addEventListener("click", function(){
+      sfx.play("tap");
+      if(z.type === "memory"){ openMemory(phone); }
+      else if(z.type === "wrongboss"){ openWrongBoss(phone); }
+      else { openQuiz(phone, "match"); }
+    });
     q("[data-result-again]", el).addEventListener("click", function(){ sfx.play("tap"); replayMatch(phone); });
     q("[data-result-home]", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
     q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
@@ -1486,7 +1716,8 @@ body{
   function renderResult(phone){
     var z = phone.__quiz;
     recordQuizResult(phone);
-    if(z.type === "match"){ renderMatchResult(phone); return; }
+    if(z.type === "match" || z.type === "memory" || z.type === "wrongboss"){ renderMatchResult(phone); return; }
+    if(z.type === "speed"){ renderSpeedResult(phone); return; }
     sfx.play("win");
     var n = z.items.length;
     var lit = starsEarned(z);   // 与闯关地图、计星规则保持一致
@@ -1523,7 +1754,13 @@ body{
       +'</div></div>';
     var sh = q("[data-share]", el);
     if(sh){ sh.addEventListener("click", function(){ sfx.play("tap"); shareImage(phone, z); }); }
-    q("[data-result-again]", el).addEventListener("click", function(){ sfx.play("tap"); openQuiz(phone, z.type, null, phone.__quizGroup ? phone.__quizGroup.gi : undefined); });
+    q("[data-result-again]", el).addEventListener("click", function(){
+      sfx.play("tap");
+      if(z.type === "speed"){ openSpeed(phone); return; }
+      if(z.type === "memory"){ openMemory(phone); return; }
+      if(z.type === "wrongboss"){ openWrongBoss(phone); return; }
+      openQuiz(phone, z.type, null, phone.__quizGroup ? phone.__quizGroup.gi : undefined);
+    });
     var nxt = q("[data-nextmode]", el);
     if(nxt){ nxt.addEventListener("click", function(){ sfx.play("tap"); openQuiz(phone, nextMode, null, phone.__quizGroup.gi); }); }
     var ru = q("[data-result-unit]", el);
@@ -1914,6 +2151,7 @@ body{
     var s = state[phone.__id];
     var book = currentBook(phone);
     if(note){ note.textContent = s.book + " · 三关20词 大作战10词"; }
+    renderRgames(phone);
     var html = book.units.map(function(u, ui){
       if(ui > 0 && !unitCleared(phone, ui-1)){
         return '<div class="vpre-stage is-locked"><div class="vpre-stage-num">U'+(ui+1)+'</div><div class="vpre-stage-info"><b>'+u.name+'</b><span>完成上一单元后解锁</span></div><span style="font-size:14px;">🔒</span></div>';
@@ -2510,6 +2748,20 @@ var chip = btn.closest(".vpre-stage-chip");
       if(unitCard){
         state[id].unit = parseInt(unitCard.getAttribute("data-unit"),10);
         renderUnitDetail(phone); setView(phone, "unit"); return;
+      }
+      var rgBtn = btn.closest("[data-rgame]");
+      if(rgBtn){
+        var gname = rgBtn.getAttribute("data-rgame");
+        if(gname === "memory"){ openMemory(phone); }
+        else if(gname === "speed"){ openSpeed(phone); }
+        else { openWrongBoss(phone); }
+        return;
+      }
+      var rgUnitBtn = btn.closest("[data-rgunit]");
+      if(rgUnitBtn){
+        state[id].unit = parseInt(rgUnitBtn.getAttribute("data-rgunit"), 10);
+        renderRgames(phone); renderUnits(phone);
+        return;
       }
       if(btn.closest("[data-reshuffle]")){
         reshuffleGroups(phone);
