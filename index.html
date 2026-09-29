@@ -101,6 +101,7 @@ body{
 .vpre-read-btn.rec{background:#e5484d; animation:vpre-pulse 1s infinite;}
 @keyframes vpre-pulse{0%{opacity:1}50%{opacity:.72}100%{opacity:1}}
 .vpre-read-tip{font-size:12.5px; color:var(--vp-muted); text-align:center; line-height:1.7;}
+.vpre-qipa.is-pattern{font-size:13px; line-height:1.9; letter-spacing:.5px; word-break:break-word; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; background:#f7f9ff; border:1px dashed var(--vp-line); border-radius:12px; padding:8px 12px; color:var(--vp-ink-2);}
 .vpre-write-input{width:100%; box-sizing:border-box; font-size:20px; letter-spacing:1px; padding:16px; border:2px solid var(--vp-line); border-radius:16px; text-align:center; background:#fafbff; color:var(--vp-ink); outline:none;}
 .vpre-write-input:focus{border-color:var(--vp-blue); background:#fff;}
 .vpre-write-input.is-right{border-color:#8fd8bf; background:#f2fdf9;}
@@ -1098,13 +1099,36 @@ body{
       return {word:x.en, meaning:x.zh, prompt:x.en, sub:x.zh, answer:x.en, speak:x.en, correct:null, chosen:""};
     });
   }
+  function wordPattern(w){
+    var letters = (String(w).match(/[A-Za-z]/g) || []);
+    if(!letters.length){ return String(w); }
+    var tail = "";
+    for(var i=1;i<letters.length;i++){ tail += "_"; }
+    return letters[0].toUpperCase() + tail;
+  }
+  function isLongPhrase(en){
+    var t = String(en).trim();
+    if(t.indexOf(" ") < 0){ return false; }
+    var words = t.split(/\s+/).length;
+    var letters = t.replace(/[^A-Za-z]/g, "").length;
+    return words >= 3 || letters >= 12;
+  }
   function buildDictateItems(list, n){
     return pickWords(list.filter(function(x){ return x.en.length>=2; }), n).map(function(x){
       var isPhrase = / /.test(x.en);
-      var hint = isPhrase
-        ? ("首字母 " + x.en.charAt(0).toUpperCase() + " · " + x.en.split(" ").length + " 个单词 · 共 " + x.en.replace(/\s/g,"").length + " 个字母")
-        : ("首字母 " + x.en.charAt(0).toUpperCase() + " · 共 " + x.en.length + " 个字母");
-      return {prompt:x.zh, hint:hint, answer:x.en, speak:x.en};
+      var nWords = x.en.split(/\s+/).length;
+      var nLetters = x.en.replace(/[^A-Za-z]/g, "").length;
+      var longPhrase = isLongPhrase(x.en);
+      var hint;
+      if(longPhrase){
+        var pat = x.en.split(/\s+/).map(wordPattern).join("  ");
+        hint = "首字母提示：" + pat + "\n" + nWords + " 个单词 · 共 " + nLetters + " 个字母";
+      } else if(isPhrase){
+        hint = "首字母 " + x.en.charAt(0).toUpperCase() + " · " + nWords + " 个单词 · 共 " + nLetters + " 个字母";
+      } else {
+        hint = "首字母 " + x.en.charAt(0).toUpperCase() + " · 共 " + nLetters + " 个字母";
+      }
+      return {prompt:x.zh, hint:hint, answer:x.en, speak:x.en, longHint: longPhrase, pattern: longPhrase ? x.en.split(/\s+/).map(wordPattern) : null};
     });
   }
   function openQuiz(phone, type, unitIdx, groupIdx){
@@ -1360,7 +1384,7 @@ body{
       + '<div class="vpre-quiz-progress"><div class="vpre-progress"><div style="width:'+Math.round(z.idx/z.items.length*100)+'%"></div></div>'
       + '<span class="vpre-quiz-count">'+(z.idx+1)+' / '+z.items.length+'</span></div>'
       + '<div class="vpre-qcard"><div class="vpre-qword is-long">'+it.prompt+'</div>'
-      +   '<div class="vpre-qipa">'+it.hint+'</div>'
+      +   '<div class="vpre-qipa'+(it.longHint ? ' is-pattern' : '')+'">'+String(it.hint).replace(/\n/g, '<br>')+'</div>'
       +   '<button class="vpre-speak" type="button" data-play="1">🔊 听发音提示</button></div>'
       + '<input class="vpre-write-input" data-input="1" type="text" placeholder="在这里拼写单词" autocomplete="off" autocapitalize="off" spellcheck="false">'
       + '<div class="vpre-answer-reveal" data-reveal="1" style="display:none"></div>'
