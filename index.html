@@ -1045,7 +1045,20 @@ body{
   }
   function pickWords(arr, n){ return shuffle(arr).slice(0, n); }
   function badSpells(w){
-    if(/ /.test(w)){ return [w+"e", w+"s", w.slice(0,-1)+"r"]; }
+    if(/ /.test(w)){
+      var ps = w.split(' ');
+      var lastW = ps[ps.length-1];
+      var candsP = [
+        ps.slice().reverse().join(' '),                       // 词序颠倒
+        ps.slice(0,-1).join(' ') + ' ' + lastW.slice(0,-1),    // 末词少一个字母
+        ps.slice(0,-1).join(' ') + ' ' + lastW + 's',          // 末词加 s
+        ps[0].slice(0,-1) + ' ' + ps.slice(1).join(' ')        // 首词少一个字母
+      ];
+      var outP = [];
+      candsP.forEach(function(c){ if(c && c!==w && outP.indexOf(c)<0 && c.length>1 && outP.length<3){ outP.push(c); } });
+      while(outP.length<3){ outP.push(w + ' ' + (outP.length+1)); }
+      return outP;
+    }
     var cands = [
       w + "e",
       w.slice(0,-1) + (w.slice(-1)==="e" ? "a" : "e"),
@@ -1069,8 +1082,10 @@ body{
     });
   }
   function buildSpellItems(list, n){
-    return pickWords(list.filter(function(x){ return !/ /.test(x.en) && x.en.length>=2; }), n).map(function(x){
-      return { prompt:x.zh, sub:"首字母 "+x.en.charAt(0).toUpperCase(), opts:spellOpts(x.en), answer:x.en, speak:null };
+    return pickWords(list.filter(function(x){ return x.en.length>=2; }), n).map(function(x){
+      var tip = / /.test(x.en) ? ("首字母 " + x.en.charAt(0).toUpperCase() + " · " + x.en.split(" ").length + " 个单词")
+                               : ("首字母 " + x.en.charAt(0).toUpperCase());
+      return { prompt:x.zh, sub:tip, opts:spellOpts(x.en), answer:x.en, speak:null };
     });
   }
   function buildListenItems(list, n){
@@ -1084,8 +1099,12 @@ body{
     });
   }
   function buildDictateItems(list, n){
-    return pickWords(list.filter(function(x){ return !/ /.test(x.en) && x.en.length>=3; }), n).map(function(x){
-      return {prompt:x.zh, hint:"首字母 "+x.en.charAt(0).toUpperCase()+" · 共 "+x.en.length+" 个字母", answer:x.en, speak:x.en};
+    return pickWords(list.filter(function(x){ return x.en.length>=2; }), n).map(function(x){
+      var isPhrase = / /.test(x.en);
+      var hint = isPhrase
+        ? ("首字母 " + x.en.charAt(0).toUpperCase() + " · " + x.en.split(" ").length + " 个单词 · 共 " + x.en.replace(/\s/g,"").length + " 个字母")
+        : ("首字母 " + x.en.charAt(0).toUpperCase() + " · 共 " + x.en.length + " 个字母");
+      return {prompt:x.zh, hint:hint, answer:x.en, speak:x.en};
     });
   }
   function openQuiz(phone, type, unitIdx, groupIdx){
@@ -1353,7 +1372,8 @@ body{
     function submit(){
       var val = String(input.value || "").trim();
       if(!val){ input.focus(); return; }
-      var ok = val.toLowerCase() === String(it.answer).toLowerCase();
+      var norm = function(t){ return String(t || "").toLowerCase().replace(/\s+/g, " ").trim(); };
+      var ok = norm(val) === norm(it.answer);
       it.correct = ok; it.chosen = val;
       if(ok){ z.score += 1; sfx.play("right"); } else { sfx.play("wrong"); }
       input.disabled = true;
