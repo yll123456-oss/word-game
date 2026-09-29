@@ -1623,9 +1623,7 @@ body{
   }
   function isGroupComplete(book, unitName, gi){ return groupDoneCount(groupProgress(book, unitName, gi)) >= GROUP_MODES.length; }
   function groupUnlocked(phone, gi){
-    if(gi <= 0) return true;
-    var s = state[phone.__id];
-    return isGroupComplete(s.book, unitWords(phone).name, gi-1);
+    return true;   // 各组自由选择，不设先后顺序
   }
   function firstOpenGroup(phone){
     var gs = unitGroups(unitWords(phone));
@@ -1643,7 +1641,7 @@ body{
     if(isGroupComplete(s.book, u.name, phone.__quizGroup.gi)){
       var gs = unitGroups(u);
       if(phone.__quizGroup.gi + 1 < gs.length){
-        celebrate(phone, "第 " + (phone.__quizGroup.gi+1) + " 组完成！", "已解锁第 " + (phone.__quizGroup.gi+2) + " 组，继续加油");
+        celebrate(phone, "第 " + (phone.__quizGroup.gi+1) + " 组完成！", "可以接着做第 " + (phone.__quizGroup.gi+2) + " 组，也可以任选其他组");
       } else {
         celebrate(phone, u.name + " 全部完成！", "共 " + gs.length + " 组 · 4 个玩法全部通关");
       }
@@ -1711,7 +1709,7 @@ body{
         })()
       + '<div class="vpre-ud-stat">共 <b>' + unit.words.length + '</b> 词 · 分 <b>' + groups.length + '</b> 组（每组约 20 词）<br>'
       + '已完成 <b>' + doneGroups + '/' + groups.length + '</b> 组 · 已掌握 <b>' + learned + '/' + unit.words.length + '</b><br>'
-      + '<span style="color:var(--vp-muted)">建议顺序：① 看词选义 → ② 拼写闯关 → ③ 跟读打卡 → ④ 默写闯关（由易到难）<br>每组 4 个玩法都做完才算完成，完成后解锁下一组</span></div>';
+      + '<span style="color:var(--vp-muted)">建议每个组内的顺序：① 看词选义 → ② 拼写闯关 → ③ 跟读打卡 → ④ 默写闯关（由易到难）<br>各组之间可以任意顺序练习，每组 4 个玩法都做完即算完成</span></div>';
     groups.forEach(function(g, gi){
       var gp = groupProgress(s.book, unit.name, gi);
       var complete = isGroupComplete(s.book, unit.name, gi);
@@ -1719,8 +1717,7 @@ body{
       var words = unit.words.slice(g[0], g[1]).map(function(w){ return w[0]; });
       var preview = words.slice(0, 5).join(' · ') + (words.length > 5 ? ' …' : '');
       var pill = complete ? '<span class="vpre-pill done">已完成</span>'
-               : (unlocked ? '<span class="vpre-pill doing">进行中 ' + groupDoneCount(gp) + '/4</span>'
-                           : '<span class="vpre-pill new">🔒 完成上一组解锁</span>');
+                          : '<span class="vpre-pill doing">进行中 ' + groupDoneCount(gp) + '/4</span>';
       html += '<div class="vpre-gcard' + (unlocked ? '' : ' is-locked') + '">'
         + '<div class="vpre-gcard-head"><b>第 ' + (gi+1) + ' 组</b>'
         + '<span class="vpre-gcard-meta">' + words.length + ' 词 · 完成 ' + groupDoneCount(gp) + '/4</span>' + pill + '</div>'
@@ -1772,7 +1769,7 @@ body{
         + '<span class="vpre-unit-no">'+(i+1)+'</span>'
         + '<span class="vpre-unit-body">'
         +   '<span class="vpre-unit-title'+cls+'">'+u.name+'</span>'
-        +   '<span class="vpre-unit-meta"><i style="font-style:normal">'+u.n+' 词</i>·<i style="font-style:normal">第 '+inGroup+'/'+ugs.length+' 组</i>·<i style="font-style:normal">完成 '+doneG+'/'+ugs.length+' 组</i></span>'
+        +   '<span class="vpre-unit-meta"><i style="font-style:normal">'+u.n+' 词</i>·<i style="font-style:normal">完成 '+doneG+'/'+ugs.length+' 组</i>·<i style="font-style:normal">进行中：第 '+inGroup+' 组</i></span>'
         +   '<span class="vpre-unit-bar"><i style="width:'+pct+'%"></i></span>'
         + '</span>'
         + '<span class="vpre-unit-right">'+tag+'<span class="vpre-unit-go">进入 ▸</span></span>'
@@ -1804,7 +1801,7 @@ body{
     var gpNow = groupProgress(s.book, uw.name, giNow);
     var subEl = q(".vpre-task-sub", phone);
     if(subEl){
-      subEl.textContent = "第 " + (giNow+1) + "/" + gsNow.length + " 组 · 本组完成 " + groupDoneCount(gpNow) + "/4 个玩法 · 已掌握 " + learned + "/" + total;
+      subEl.textContent = "进行中：第 " + (giNow+1) + " 组 · 本组完成 " + groupDoneCount(gpNow) + "/4 个玩法 · 已掌握 " + learned + "/" + total;
     }
     var ctaEl = q(".vpre-task-cta", phone);
     if(ctaEl){ ctaEl.textContent = "继续学习 → " + s.book + " " + uw.name + " · 第 " + (giNow+1) + " 组"; }
