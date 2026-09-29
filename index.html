@@ -219,6 +219,7 @@ body{
 .vpre-mode.is-done{background:#e9f8f2; border-color:#9fd9c3; color:#0f7a5c;}
 .vpre-mode.is-next{border-color:var(--vp-blue); background:#f4f7ff; box-shadow:0 0 0 3px rgba(75,99,230,.10);}
 .vpre-continue{border-radius:14px; font-size:14px; margin-bottom:2px;}
+.vpre-reshuffle{border-radius:14px; font-size:12.5px; padding:11px 0;}
 .vpre-result-group{font-size:12.5px; color:var(--vp-ink-2); background:#f6f8ff; border:1px solid var(--vp-line); border-radius:12px; padding:10px 12px; margin-top:10px; line-height:1.7; text-align:left;}
 .vpre-celebrate{position:fixed; inset:0; z-index:90; display:none; align-items:center; justify-content:center; background:rgba(20,26,45,.45);}
 .vpre-celebrate.is-show{display:flex;}
@@ -491,7 +492,7 @@ body{
               <div class="vpre-progress vpre-progress-light"><div class="vpre-wrong-bar" style="width:0%"></div></div>
               <button class="vpre-hero-btn" type="button" style="color:var(--vp-red);">一键复习</button>
             </div>
-            <div class="vpre-sec-title">高频错词</div>
+            <div class="vpre-sec-title">错词（每次随机排列）</div>
             <div class="vpre-wrong-list"></div>
           </div>
           <div class="vpre-view" data-view="stage">
@@ -1093,7 +1094,7 @@ body{
     var unitNow = unitWords(phone);
     var list;
     if(typeof groupIdx === "number" && !stageMode){
-      list = groupWords(unitNow, groupIdx);
+      list = groupWords(phone, groupIdx);
       phone.__quizGroup = {gi: groupIdx, total: list.length};
     } else {
       list = unitWordList(phone);
@@ -1590,25 +1591,56 @@ body{
   }
   var GROUP_SIZE = 20;
   var GROUP_MODES = [["word","📖 看词选义"],["spell","✏️ 拼写闯关"],["read","🎤 跟读打卡"],["dictate","📝 默写闯关"]];
-  function unitGroups(unit){
-    var n = (unit.words || []).length;
-    var groups = [];
-    for(var i=0;i<n;i+=GROUP_SIZE){ groups.push([i, Math.min(i+GROUP_SIZE, n)]); }
-    if(groups.length > 1){
-      var last = groups[groups.length-1], prev = groups[groups.length-2];
-      var lastLen = last[1]-last[0];
-      if(lastLen < GROUP_SIZE/2){
-        var total = (prev[1]-prev[0]) + lastLen;
-        var half = Math.ceil(total/2);
-        prev[1] = prev[0] + half;
-        last[0] = prev[1];
-      }
+  function groupSeed(book, unitName){
+    PROG.groupSeed = PROG.groupSeed || {};
+    var b = PROG.groupSeed[book] || (PROG.groupSeed[book] = {});
+    if(!b[unitName]){ b[unitName] = Math.floor(Math.random() * 90000) + 1; saveProgress(); }
+    return b[unitName];
+  }
+  function reshuffleGroups(phone){
+    var s = state[phone.__id];
+    var u = unitWords(phone);
+    PROG.groupSeed = PROG.groupSeed || {};
+    PROG.groupSeed[s.book] = PROG.groupSeed[s.book] || {};
+    PROG.groupSeed[s.book][u.name] = Math.floor(Math.random() * 90000) + 1;
+    if(PROG.groups && PROG.groups[s.book]){ delete PROG.groups[s.book][u.name]; }
+    saveProgress();
+  }
+  // 用种子打乱词序后按每组 20 词切分（同一轮内分组稳定，重新分组后洗牌）
+  function unitGroups(unit, seed){
+    var words = unit.words || [];
+    var n = words.length;
+    var idx = [];
+    for(var i=0;i<n;i++){ idx.push(i); }
+    var sd = ((seed || 1) % 233280) + 1;
+    for(var j=idx.length-1;j>0;j--){
+      sd = (sd * 9301 + 49297) % 233280;
+      var k = Math.floor((sd / 233280) * (j + 1));
+      var t = idx[j]; idx[j] = idx[k]; idx[k] = t;
     }
+    var sizes = [];
+    for(var a=0;a<n;a+=GROUP_SIZE){ sizes.push(Math.min(GROUP_SIZE, n - a)); }
+    if(sizes.length > 1 && sizes[sizes.length-1] < GROUP_SIZE/2){
+      var last = sizes.pop(), prev = sizes.pop();
+      var total2 = last + prev, half = Math.ceil(total2/2);
+      sizes.push(half); sizes.push(total2 - half);
+    }
+    var groups = [], cur = 0;
+    sizes.forEach(function(sz){
+      var grp = [];
+      for(var m=0;m<sz;m++){ grp.push(words[idx[cur++]]); }
+      groups.push(grp);
+    });
     return groups;
   }
-  function groupWords(unit, gi){
-    var g = unitGroups(unit)[gi] || [0, (unit.words||[]).length];
-    return (unit.words || []).slice(g[0], g[1]).map(function(w){ return {en:w[0], zh:w[1]}; });
+  function unitGroupsOf(phone){
+    var s = state[phone.__id];
+    var u = unitWords(phone);
+    return unitGroups(u, groupSeed(s.book, u.name));
+  }
+  function groupWords(phone, gi){
+    var g = unitGroupsOf(phone)[gi] || [];
+    return g.map(function(w){ return {en:w[0], zh:w[1]}; });
   }
   function groupProgress(book, unitName, gi){
     PROG.groups = PROG.groups || {};
@@ -1626,7 +1658,7 @@ body{
     return true;   // 各组自由选择，不设先后顺序
   }
   function firstOpenGroup(phone){
-    var gs = unitGroups(unitWords(phone));
+    var gs = unitGroupsOf(phone);
     var s = state[phone.__id];
     for(var i=0;i<gs.length;i++){ if(!isGroupComplete(s.book, unitWords(phone).name, i)) return i; }
     return gs.length - 1;
@@ -1639,7 +1671,7 @@ body{
     gp[type] = 1;
     saveProgress();
     if(isGroupComplete(s.book, u.name, phone.__quizGroup.gi)){
-      var gs = unitGroups(u);
+      var gs = unitGroupsOf(phone);
       if(phone.__quizGroup.gi + 1 < gs.length){
         celebrate(phone, "第 " + (phone.__quizGroup.gi+1) + " 组完成！", "可以接着做第 " + (phone.__quizGroup.gi+2) + " 组，也可以任选其他组");
       } else {
@@ -1659,7 +1691,7 @@ body{
   }
   function nextTask(phone){
     var u = unitWords(phone);
-    var gs = unitGroups(u);
+    var gs = unitGroupsOf(phone);
     var s = state[phone.__id];
     for(var gi=0; gi<gs.length; gi++){
       if(!isGroupComplete(s.book, u.name, gi)){
@@ -1695,13 +1727,14 @@ body{
       el.innerHTML = '<div class="vpre-unit-loading"><b>正在加载词库…</b><span>请稍候</span></div>';
       return;
     }
-    var groups = unitGroups(unit);
+    var groups = unitGroupsOf(phone);
     var doneGroups = 0;
     groups.forEach(function(g, gi){ if(isGroupComplete(s.book, unit.name, gi)){ doneGroups++; } });
     var uset = (PROG.words[s.book] || {})[unit.name] || {};
     var learned = Object.keys(uset).length;
     var html = '<div class="vpre-report-head"><b>' + s.book + ' · ' + unit.name + '</b>'
       + '<span class="vpre-report-actions"><button class="vpre-report-back" type="button">← 返回</button></span></div>'
+      + '<button class="vpre-btn vpre-btn-ghost vpre-btn-block vpre-reshuffle" type="button" data-reshuffle="1">🔀 重新随机分组（本轮组进度会重置）</button>'
       + (function(){
           var nt = nextTask(phone);
           var label = nt.allDone ? "本单元已全部完成 🎉 去复习第 1 组" : ("继续练习：第 " + (nt.gi+1) + " 组 · " + modeLabel(nt.mode));
@@ -1714,7 +1747,7 @@ body{
       var gp = groupProgress(s.book, unit.name, gi);
       var complete = isGroupComplete(s.book, unit.name, gi);
       var unlocked = groupUnlocked(phone, gi);
-      var words = unit.words.slice(g[0], g[1]).map(function(w){ return w[0]; });
+      var words = g.map(function(w){ return w[0]; });
       var preview = words.slice(0, 5).join(' · ') + (words.length > 5 ? ' …' : '');
       var pill = complete ? '<span class="vpre-pill done">已完成</span>'
                           : '<span class="vpre-pill doing">进行中 ' + groupDoneCount(gp) + '/4</span>';
@@ -1756,7 +1789,7 @@ body{
     var wbBook = PROG.words[s.book] || {};
     list.innerHTML = book.units.map(function(u, i){
       var learned = wbBook[u.name] ? Object.keys(wbBook[u.name]).length : 0;
-      var ugs = unitGroups(u);
+      var ugs = unitGroups(u, groupSeed(s.book, u.name));
       var doneG = 0;
       ugs.forEach(function(g, gi){ if(isGroupComplete(s.book, u.name, gi)){ doneG++; } });
       var pct = ugs.length ? Math.round(doneG / ugs.length * 100) : 0;
@@ -1796,7 +1829,7 @@ body{
     if(pctEl){ pctEl.textContent = pct + "%"; }
     var numEl = q(".vpre-task-num", phone);
     if(numEl){ numEl.textContent = learned + " / " + total; }
-    var gsNow = unitGroups(uw);
+    var gsNow = unitGroups(uw, groupSeed(s.book, uw.name));
     var giNow = firstOpenGroup(phone);
     var gpNow = groupProgress(s.book, uw.name, giNow);
     var subEl = q(".vpre-task-sub", phone);
@@ -2348,7 +2381,7 @@ body{
     if(rt){ rt.textContent = rate + "%"; }
     var bar = q(".vpre-wrong-bar", phone);
     if(bar){ bar.style.width = rate + "%"; }
-    var arr = Object.keys(wb).map(function(k){ return {en:k, c:wb[k]}; }).sort(function(a,b){ return b.c-a.c; }).slice(0,6);
+    var arr = shuffle(Object.keys(wb).map(function(k){ return {en:k, c:wb[k]}; })).slice(0, 8);   // 顺序随机，每次打开可能不同
     if(!arr.length){
       list.innerHTML = '<div class="vpre-placeholder">还没有错词，去闯关练一练吧</div>';
       return;
@@ -2433,6 +2466,13 @@ var chip = btn.closest(".vpre-stage-chip");
       if(unitCard){
         state[id].unit = parseInt(unitCard.getAttribute("data-unit"),10);
         renderUnitDetail(phone); setView(phone, "unit"); return;
+      }
+      if(btn.closest("[data-reshuffle]")){
+        reshuffleGroups(phone);
+        renderUnitDetail(phone);
+        renderUnits(phone);
+        toast(phone, "已重新随机分组");
+        return;
       }
       if(btn.closest("[data-continue]")){
         var nt2 = nextTask(phone);
