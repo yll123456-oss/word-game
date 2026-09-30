@@ -423,6 +423,7 @@ body{
 .vpre-sheet-opt:active{transform:scale(.98);}
 .vpre-sheet-opt .vpre-opt-title{display:block; font-size:13.5px; font-weight:700;}
 .vpre-sheet-opt .vpre-opt-tip{display:block; font-size:10.5px; color:var(--vp-muted); font-weight:400; margin-top:2px; line-height:1.5;}
+.vpre-confirm-text{font-size:13px; color:var(--vp-ink-2); line-height:2; text-align:left; background:#f7f9ff; border:1px solid var(--vp-line); border-radius:14px; padding:12px 14px;}
 .vpre-sheet-cancel{width:100%; border:0; background:#eef1fb; color:var(--vp-blue); border-radius:14px; padding:12px; font-size:13.5px; font-weight:700; cursor:pointer;}
 .vpre-img-mask{position:fixed; inset:0; background:rgba(23,29,45,.6); z-index:70; display:none; align-items:center; justify-content:center; padding:22px;}
 .vpre-img-mask.is-show{display:flex;}
@@ -2097,6 +2098,32 @@ body{
     if(!b[unitName]){ b[unitName] = Math.floor(Math.random() * 90000) + 1; saveProgress(); }
     return b[unitName];
   }
+  function showConfirmSheet(phone, opts){
+    var mask = document.createElement("div");
+    mask.className = "vpre-sheet-mask";
+    mask.innerHTML = '<div class="vpre-sheet">'
+      + '<div class="vpre-sheet-title">' + (opts.title || "确认操作") + '</div>'
+      + (opts.sub ? '<div class="vpre-sheet-sub">' + opts.sub + '</div>' : '')
+      + '<div class="vpre-confirm-text">' + (opts.body || "") + '</div>'
+      + '<div class="vpre-btn-row" style="margin-top:14px;">'
+      +   '<button class="vpre-btn" type="button" data-confirm-cancel="1">取消</button>'
+      +   '<button class="vpre-btn vpre-btn-primary" type="button" data-confirm-ok="1">' + (opts.okText || "确认") + '</button>'
+      + '</div></div>';
+    document.body.appendChild(mask);
+    mask.classList.add("is-show");
+    function close(){
+      mask.classList.remove("is-show");
+      setTimeout(function(){ if(mask.parentNode){ mask.parentNode.removeChild(mask); } }, 220);
+    }
+    mask.addEventListener("click", function(ev){
+      if(ev.target === mask || ev.target.closest("[data-confirm-cancel]")){ sfx.play("tap"); close(); return; }
+      if(ev.target.closest("[data-confirm-ok]")){
+        sfx.play("tap");
+        close();
+        if(opts.onOk){ opts.onOk(); }
+      }
+    });
+  }
   function reshuffleGroups(phone){
     var s = state[phone.__id];
     var u = unitWords(phone);
@@ -3003,10 +3030,20 @@ var chip = btn.closest(".vpre-stage-chip");
         return;
       }
       if(btn.closest("[data-reshuffle]")){
-        reshuffleGroups(phone);
-        renderUnitDetail(phone);
-        renderUnits(phone);
-        toast(phone, "已重新随机分组");
+        showConfirmSheet(phone, {
+          title: "重新随机分组？",
+          sub: "本单元会换一套全新的分组",
+          body: "• 把本单元的词重新打乱，生成一套<b>新分组</b><br>"
+              + "• 本单元已完成的组进度会<b>清空</b>（第 N 组 × 4 玩法的记录归零）<br>"
+              + "• 已掌握词数、错词本、打卡记录<b>不受影响</b>",
+          okText: "确认重新分组",
+          onOk: function(){
+            reshuffleGroups(phone);
+            renderUnitDetail(phone);
+            renderUnits(phone);
+            toast(phone, "已重新随机分组");
+          }
+        });
         return;
       }
       if(btn.closest("[data-continue]")){
