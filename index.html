@@ -495,15 +495,15 @@ body{
           <div class="vpre-login-card">
             <div class="vpre-login-logo">🦉</div>
             <div class="vpre-login-title">单词大冒险</div>
-            <div class="vpre-login-sub">输入手机号和姓名，开始今天的单词闯关<br>老师会看到你的练习情况，帮你安排复习</div>
+            <div class="vpre-login-sub">输入手机号和姓名，开始今天的单词闯关<br>第一次填写会自动创建账号，用于记录学习情况</div>
             <label class="vpre-login-label" for="vpre-login-phone">手机号</label>
             <input class="vpre-login-input" id="vpre-login-phone" type="tel" inputmode="numeric" maxlength="11" placeholder="11 位手机号" autocomplete="off">
             <label class="vpre-login-label" for="vpre-login-name">姓名</label>
             <input class="vpre-login-input" id="vpre-login-name" type="text" placeholder="填写你的姓名" autocomplete="off">
             <div class="vpre-login-err" id="vpre-login-err"></div>
-            <button class="vpre-login-btn" id="vpre-login-btn" type="button">进入练习</button>
+            <button class="vpre-login-btn" id="vpre-login-btn" type="button">注册 / 进入练习</button>
             <div class="vpre-login-hint"><b>提示</b><span>登录状态会保存在本机，下次打开直接进入；换同学使用请点"我的 → 切换账号"。</span></div>
-            <div class="vpre-login-note">数据仅用于记录学习情况，不会对外公开</div>
+            <div class="vpre-login-note">手机号和姓名仅用于记录你的学习情况，不会对外公开</div>
           </div>
         </div>
         <div class="vpre-header">
@@ -826,33 +826,14 @@ body{
     p = String(p || "");
     return p.length >= 11 ? p.slice(0,3) + "****" + p.slice(7) : p;
   }
-  function checkRoster(phone, name){
+  // 开放注册：手机号 + 姓名即可创建/进入（用于统计使用人数）
+  function validateStudent(phone, name){
     var ph = String(phone || "").replace(/\D/g, "");
-    var nm = String(name || "").trim();
-    if(ph.length !== 11){ return Promise.resolve({error:"请输入 11 位手机号"}); }
-    if(!nm){ return Promise.resolve({error:"请填写你的姓名"}); }
-    if(ROSTER.mode === "plain"){
-      if(!ROSTER.plain.length){ return Promise.resolve({error:"老师还没有导入名单，请联系老师"}); }
-      var hit = null, phoneHit = null;
-      ROSTER.plain.forEach(function(r){
-        if(r.phone === ph){
-          phoneHit = r;
-          if(r.name === nm){ hit = r; }
-        }
-      });
-      if(hit){ return Promise.resolve({student:{phone:ph, name:hit.name}}); }
-      if(phoneHit){ return Promise.resolve({error:"姓名与手机号不匹配，请核对后重试"}); }
-      return Promise.resolve({error:"名单中没有这个手机号，请联系老师确认"});
-    }
-    if(!ROSTER.hashes.length){ return Promise.resolve({error:"老师还没有导入名单，请联系老师"}); }
-    return sha256Hex(ph + "|" + nm + "|" + ROSTER.salt).then(function(hx){
-      for(var i=0;i<ROSTER.hashes.length;i++){
-        if(ROSTER.hashes[i] === hx){ return {student:{phone:ph, name:nm}}; }
-      }
-      return {error:"手机号与姓名不匹配，请核对后重试"};
-    }).catch(function(){
-      return {error:"当前打开方式不支持校验，请点击老师发的链接进入"};
-    });
+    var nm = String(name || "").trim().replace(/\s+/g, " ");
+    if(!/^1\d{10}$/.test(ph)){ return {error:"请输入 11 位手机号（以 1 开头）"}; }
+    if(nm.length < 1){ return {error:"请填写你的姓名"}; }
+    if(nm.length > 20){ return {error:"姓名太长了，请填真实姓名"}; }
+    return {student:{phone:ph, name:nm}};
   }
   function adoptLegacyProgress(phone){
     try{
@@ -893,18 +874,14 @@ body{
     PROG = loadProgress();
     hideLogin();
     refreshStudents();
+    try{ submitRegister(STUDENT); }catch(e){}
+    try{ flushRegQueue(); }catch(e){}
   }
   function doLogin(){
     var phEl = document.getElementById("vpre-login-phone");
     var nmEl = document.getElementById("vpre-login-name");
     var errEl = document.getElementById("vpre-login-err");
-    var res = checkRoster(phEl ? phEl.value : "", nmEl ? nmEl.value : "");
-    if(res && res.then){
-      if(errEl){ errEl.textContent = "正在校验…"; }
-      res.then(function(r){ applyLogin(r, errEl); });
-      return;
-    }
-    applyLogin(res, errEl);
+    applyLogin(validateStudent(phEl ? phEl.value : "", nmEl ? nmEl.value : ""), errEl);
   }
   function logout(){
     saveStudent(null);
@@ -1048,6 +1025,30 @@ body{
       queueReport(payload);
       return Promise.resolve(false);
     }
+  }
+  function submitRegister(student){
+    if(!student || !student.phone){ return; }
+    var payload = {phone:student.phone, name:student.name, ts:new Date().toISOString()};
+    try{
+      fetch(apiUrl("/api/register"), {
+        method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)
+      }).then(function(r){ if(!r.ok){ throw new Error("bad"); } }).catch(function(){ queueRegister(payload); });
+    }catch(e){ queueRegister(payload); }
+  }
+  function queueRegister(payload){
+    try{
+      var q = JSON.parse(localStorage.getItem("vpreRegQueue") || "[]");
+      q.push(payload);
+      if(q.length > 5){ q = q.slice(-5); }
+      localStorage.setItem("vpreRegQueue", JSON.stringify(q));
+    }catch(e){}
+  }
+  function flushRegQueue(){
+    var q = [];
+    try{ q = JSON.parse(localStorage.getItem("vpreRegQueue") || "[]"); }catch(e){ q = []; }
+    if(!q.length){ return; }
+    try{ localStorage.setItem("vpreRegQueue", "[]"); }catch(e){}
+    q.forEach(function(p){ submitRegister({phone:p.phone, name:p.name}); });
   }
   function flushQueue(){
     var q = [];
@@ -3023,6 +3024,7 @@ var chip = btn.closest(".vpre-stage-chip");
   bindLogin();
   if(STUDENT){ hideLogin(); }
   flushQueue();
+  flushRegQueue();
   loadRoster(function(){
     if(STUDENT){ hideLogin(); } else { showLogin(); }
     loadBook(currentBookName(), function(){
