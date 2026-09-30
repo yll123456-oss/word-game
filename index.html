@@ -1386,7 +1386,24 @@ body{
     setView(phone, "quiz");
   }
   function matchHeadText(z){
-    return arenaLevelTag() + (TYPE_NAME[z.type] || "连连看") + " · 已配对 " + z.matched + " / " + z.total + " · 尝试 " + z.attempts + " 次";
+    var batch = "";
+    if((z.pairs || []).length > 10 && z.dealt){ batch = " · 第 " + Math.ceil(z.dealt / 10) + " 批"; }
+    return arenaLevelTag() + (TYPE_NAME[z.type] || "连连看") + " · 已配对 " + z.matched + " / " + z.total + " · 尝试 " + z.attempts + " 次" + batch;
+  }
+  // 连连看发牌：从 z.pairs 里取下一批（最多 10 对）铺到棋盘上
+  function matchDealNext(phone){
+    var z = phone.__quiz;
+    if(!z || !z.pairs){ return; }
+    var startIdx = (z.dealt == null) ? 0 : z.dealt;
+    var batch = z.pairs.slice(startIdx, startIdx + 10);
+    z.dealt = startIdx + batch.length;
+    var cards = [];
+    batch.forEach(function(pr, k){
+      var gi = startIdx + k;
+      cards.push({pair:gi, kind:"en", text:pr.en});
+      cards.push({pair:gi, kind:"zh", text:pr.zh});
+    });
+    z.cards = shuffle(cards);
   }
   // ===== 复习小游戏（闯关页独立区）=====
   function reviewPool(phone){
@@ -1526,7 +1543,7 @@ body{
     phone.__quizStage = null;
     phone.__quizGroup = null;
     phone.__quiz = {type:"speed", idx:0, score:0, wrong:0, total:0, items:[], start:Date.now(), endAt: Date.now() + 60000, q:null,
-                    dirs:{en2zh:{total:0, score:0}, zh2en:{total:0, score:0}}};
+                    queue:[], dirs:{en2zh:{total:0, score:0}, zh2en:{total:0, score:0}}};
     clearInterval(phone.__speedTimer);
     phone.__speedTimer = setInterval(function(){
       var z = phone.__quiz;
@@ -1549,15 +1566,31 @@ body{
     (bd.units || []).forEach(function(u){ u.words.forEach(function(w){ out.push({en:w[0], zh:w[1]}); }); });
     return out;
   }
+  // 按指定词条出一道快答题（干扰项从 wide 里抽；同义项会被排除，不会出现两个都对）
+  function speedItemOf(x, wide, dir){
+    var dsrc = wide.filter(function(y){ return y.en !== x.en && y.zh !== x.zh; });
+    if(dsrc.length < 3){ dsrc = wide.filter(function(y){ return y.en !== x.en; }); }
+    if(!dsrc.length){ dsrc = wide; }
+    if(dir === "zh2en"){
+      var d = pickWords(dsrc, 3).map(function(y){ return y.en; });
+      while(d.length < 3 && d.length){ d.push(d[0]); }
+      return { prompt:x.zh, sub:null, opts:shuffle([x.en].concat(d)), answer:x.en, speak:null, optsAreWords:true, dir:"zh2en" };
+    }
+    var d2 = pickWords(dsrc, 3).map(function(y){ return y.zh; });
+    while(d2.length < 3 && d2.length){ d2.push(d2[0]); }
+    return { prompt:x.en, sub:null, opts:shuffle([x.zh].concat(d2)), answer:x.zh, speak:x.en, optsAreWords:true, dir:"en2zh" };
+  }
   function renderSpeed(phone){
     var z = phone.__quiz, el = q(".vpre-quiz", phone);
     if(!el) return;
-    var list = phone.__arena ? arenaWords() : unitWordList(phone);
+    var list = phone.__arena ? arenaLevelWords(phone) : unitWordList(phone);
     if(!list.length){ toast(phone, "词库还没加载好"); return; }
-    // 英译汉 / 汉译英 混合出题（约各占一半）
+    // 英译汉 / 汉译英 混合出题（约各占一半）；整组洗牌后按顺序出，出完再洗一轮，避免同一个词反复出现
     var dir = (Math.random() < 0.5) ? "en2zh" : "zh2en";
     var wide = speedWidePool(phone);
-    var q1 = (dir === "zh2en") ? buildEnItems(list, 1, wide)[0] : buildWordItems(list, 1)[0];
+    if(!z.queue || !z.queue.length){ z.queue = shuffle(list.slice()); }
+    var basis = z.queue.shift();
+    var q1 = speedItemOf(basis, wide, dir);
     q1.dir = dir;
     z.q = q1;
     var dirTxt = (dir === "zh2en") ? "中 → 英" : "英 → 中";
@@ -1646,10 +1679,10 @@ body{
   // ===== 闯关（第二页）：独立设置 + 4 款小游戏 + 通关标记 =====
   var ARENA_BOOKS = ["七上","七下","八上","八下","九上","九下"];
   var ARENA_GAMES = [
-    ["link",   "🧩", "连连看",   "英中配对 · 10 对"],
+    ["link",   "🧩", "连连看",   "英中配对 · 一批 10 对 · 练完整组"],
     ["speed",  "⚡", "限时快答", "60 秒 · 英译汉 + 汉译英"],
-    ["listen", "🎤", "听音接力", "听发音选单词 · 10 题"],
-    ["build",  "📝", "拼词积木", "字母块拼单词 · 10 题"]
+    ["listen", "🎤", "听音接力", "听发音选单词 · 整组全出"],
+    ["build",  "📝", "拼词积木", "字母块拼单词 · 整组全出"]
   ];
   function arenaSel(){
     PROG.arenaSel = PROG.arenaSel || {book: state[qa(".vpre-phone")[0].__id].book, unit: 0};
@@ -1663,6 +1696,14 @@ body{
   }
   function arenaWords(){
     return (arenaUnit().words || []).map(function(w){ return {en:w[0], zh:w[1]}; });
+  }
+  // 当前关卡（= 第一页的第 N 组）对应的词表
+  function arenaLevelWords(phone){
+    var gs = arenaGroups();
+    var idx = (phone && phone.__arenaLvl != null) ? phone.__arenaLvl : 0;
+    var g = gs[idx] || [];
+    var out = g.map(function(w){ return {en:w[0], zh:w[1]}; });
+    return out.length ? out : arenaWords();
   }
   function arenaGroups(){
     return unitGroups(arenaUnit(), groupSeed(arenaBook(), arenaUnit().name));
@@ -1862,25 +1903,22 @@ body{
     phone.__quizGroup = null;
     phone.__arena = gameId;
     if(gameId === "link"){
-      var pairs = pickWords(list, Math.min(10, list.length)).map(function(w){ return {en:w.en, zh:w.zh}; });
-      var cards = [];
-      pairs.forEach(function(pr, i){
-        cards.push({pair:i, kind:"en", text:pr.en});
-        cards.push({pair:i, kind:"zh", text:pr.zh});
-      });
+      // 一关 = 整组词；棋盘一次只放 10 对，消完自动补下一批，直到把这组练完
+      var pairs = shuffle(list).map(function(w){ return {en:w.en, zh:w.zh}; });
       phone.__quiz = {type:"match", idx:0, score:0, attempts:0, matched:0, total:pairs.length,
-                      pairs:pairs, cards:shuffle(cards), start:Date.now()};
+                      pairs:pairs, cards:[], dealt:0, start:Date.now()};
+      matchDealNext(phone);
       renderMatch(phone);
       setView(phone, "quiz");
       return;
     }
     if(gameId === "speed"){ openSpeed(phone); return; }
     if(gameId === "listen"){
-      phone.__quiz = {type:"listen", idx:0, score:0, items:buildListenItems(list, Math.min(10, list.length)), start:Date.now()};
+      phone.__quiz = {type:"listen", idx:0, score:0, items:buildListenItems(list, list.length), start:Date.now()};
       renderQuiz(phone); setView(phone, "quiz"); return;
     }
     if(gameId === "build"){
-      phone.__quiz = {type:"build", idx:0, score:0, items:buildBuilderItems(list, Math.min(10, list.length)), start:Date.now()};
+      phone.__quiz = {type:"build", idx:0, score:0, items:buildBuilderItems(list, list.length), start:Date.now()};
       renderBuilder(phone); setView(phone, "quiz"); return;
     }
   }
@@ -1969,7 +2007,8 @@ body{
           if(c.done){ return '<button class="vpre-mcard is-gone" type="button" disabled aria-hidden="true"></button>'; }
           return '<button class="vpre-mcard ' + (c.kind === "en" ? "is-en" : "is-zh") + '" type="button" data-i="' + i + '">' + c.text + '</button>';
         }).join("") + '</div>'
-      + '<div class="vpre-mtip">点两张卡片：英文 ↔ 中文，配对成功即消除</div>';
+      + '<div class="vpre-mtip">点两张卡片：英文 ↔ 中文，配对成功即消除'
+      + (((z.pairs || []).length > 10) ? '；一批 10 对消完自动补下一批，直到把这组练完' : '') + '</div>';
     var sel = null, lock = false;
     qa(".vpre-mcard", el).forEach(function(card){
       card.addEventListener("click", function(){
@@ -2007,7 +2046,18 @@ body{
           var head = q(".vpre-mtitle", el);
           if(head){ head.textContent = matchHeadText(z); }
           q(".vpre-progress div", el).style.width = Math.round(z.matched/z.total*100) + "%";
-          if(z.matched >= z.total){ renderResult(phone); }
+          if(z.matched >= z.total){ renderResult(phone); return; }
+          // 这一批全部消完，且整组还有没练的词 → 自动补下一批
+          var leftOnBoard = z.cards.filter(function(c){ return !c.done; }).length;
+          if(!leftOnBoard && z.dealt != null && z.dealt < (z.pairs || []).length){
+            setTimeout(function(){
+              if(phone.__quiz !== z){ return; }          // 已退出/重开这一局
+              if(z.matched >= z.total){ return; }        // 刚好整组消完
+              matchDealNext(phone);
+              renderMatch(phone);
+              sfx.play("flip");
+            }, 420);
+          }
         } else {
           sfx.play("wrong");
           lock = true;
