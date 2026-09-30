@@ -1,5 +1,10 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>单词速记 · 初中英语词汇闯关</title><style id="theme">
+<html lang="zh-CN"><head><meta charset="utf-8"><link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#4b63e6">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="单词大冒险">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>单词速记 · 初中英语词汇闯关</title><style id="theme">
 /* ===== 主题升级：配色 / 底纹 / 长词条 / 小屏适配 ===== */
 :root{
   --vp-ink:#1b2434; --vp-ink-2:#3c4760; --vp-muted:#78839c;
@@ -2999,6 +3004,11 @@ var chip = btn.closest(".vpre-stage-chip");
     return ph ? state[ph.__id].book : "九上";
   }
   document.addEventListener("pointerdown", function(){ sfx.unlock(); }, {once:true});
+  if("serviceWorker" in navigator && location.protocol !== "file:"){
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("sw.js").catch(function(){});
+    });
+  }
   if("speechSynthesis" in window){
     window.speechSynthesis.getVoices();
     window.speechSynthesis.onvoiceschanged = function(){ window.speechSynthesis.getVoices(); };
