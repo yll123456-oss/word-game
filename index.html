@@ -301,6 +301,31 @@ body{
 .vpre-wl-row span{display:block; font-size:11.5px; color:var(--vp-muted); grid-column:1;}
 .vpre-wl-row button{grid-row:1 / span 2; border:0; background:#f2f5ff; color:var(--vp-blue); width:34px; height:34px; border-radius:50%; font-size:14px; cursor:pointer;}
 .vpre-wl-row.is-done b::after{content:" ✓"; color:var(--vp-green); font-size:12px;}
+.vpre-arena-scope{background:#fff; border:1px solid var(--vp-line); border-radius:18px; padding:12px; margin-bottom:12px; box-shadow:var(--vp-shadow-sm);}
+.vpre-arena-row{display:flex; align-items:flex-start; gap:10px; margin-bottom:8px;}
+.vpre-arena-row:last-child{margin-bottom:0;}
+.vpre-arena-row > span{font-size:12px; color:var(--vp-muted); flex:none; padding-top:6px; width:28px;}
+.vpre-arena-chips{display:flex; gap:6px; flex-wrap:wrap; flex:1;}
+.vpre-arena-chips button{border:1px solid var(--vp-line); background:#f8faff; color:var(--vp-ink-2); border-radius:10px; padding:6px 10px; font-size:11.5px; font-weight:600; cursor:pointer;}
+.vpre-arena-chips button.is-active{background:var(--vp-blue); color:#fff; border-color:var(--vp-blue);}
+.vpre-arena-chips button.is-clear{border-color:#9fd9c3; color:#0f7a5c; background:#eefaf5;}
+.vpre-arena-chips button.is-active.is-clear{background:var(--vp-blue); color:#fff;}
+.vpre-arena-summary{font-size:12px; color:var(--vp-muted); background:#f7f9ff; border:1px dashed var(--vp-line); border-radius:12px; padding:9px 12px; margin-bottom:12px; line-height:1.7;}
+.vpre-arena-summary b{color:var(--vp-ink);}
+.vpre-arena-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.vpre-arena-game{border:1px solid var(--vp-line); background:#fff; border-radius:18px; padding:16px 12px 12px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; color:var(--vp-ink); box-shadow:var(--vp-shadow-sm);}
+.vpre-arena-game:active{transform:scale(.97);}
+.vpre-arena-game i{font-style:normal; font-size:28px; line-height:1;}
+.vpre-arena-game span{font-size:13.5px; font-weight:800;}
+.vpre-arena-game small{font-size:10.5px; color:var(--vp-muted); text-align:center; line-height:1.5;}
+.vpre-arena-meta{font-style:normal; font-size:10.5px; color:var(--vp-blue); margin-top:2px; font-weight:700;}
+.vpre-build-slots{display:flex; gap:6px; flex-wrap:wrap; justify-content:center; min-height:44px; margin:12px 0 6px; align-items:center;}
+.vpre-build-slot{width:30px; height:38px; border-bottom:2px solid var(--vp-line); display:flex; align-items:center; justify-content:center; font-size:19px; font-weight:700; color:var(--vp-ink);}
+.vpre-build-slot.is-filled{border-bottom-color:var(--vp-blue);}
+.vpre-build-tiles{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:10px 0 4px;}
+.vpre-build-tile{width:38px; height:42px; border:1px solid var(--vp-line); background:#fafbff; border-radius:10px; font-size:18px; font-weight:700; cursor:pointer; color:var(--vp-ink);}
+.vpre-build-tile:disabled{opacity:.35; cursor:default;}
+.vpre-build-tile:active{transform:scale(.94);}
 .vpre-rgames{background:#fff; border:1px solid var(--vp-line); border-radius:18px; padding:12px; margin-bottom:14px; box-shadow:var(--vp-shadow-sm);}
 .vpre-rgames-scope{font-size:12px; color:var(--vp-muted); margin-bottom:8px;}
 .vpre-rgames-chips{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;}
@@ -554,6 +579,19 @@ body{
               <span class="vpre-review-txt">📌 今天没有错词，继续保持！</span>
               <button class="vpre-btn" type="button">去复习</button>
             </div>
+          </div>
+          <div class="vpre-view" data-view="wrong">
+            <div class="vpre-hero" style="background:linear-gradient(120deg,#ff8b5c,#ff5d6c); box-shadow:0 8px 20px rgba(255,93,108,.25);">
+              <div class="vpre-hero-top"><span>错词本</span><span class="vpre-streak vpre-wrong-count">0 个词</span></div>
+              <div class="vpre-hero-title">掌握率 <b class="vpre-wrong-rate">0%</b></div>
+              <div class="vpre-progress vpre-progress-light"><div class="vpre-wrong-bar" style="width:0%"></div></div>
+              <button class="vpre-hero-btn" type="button" style="color:var(--vp-red);">一键复习</button>
+            </div>
+            <div class="vpre-sec-title">错词（每次随机排列）</div>
+            <div class="vpre-wrong-list"></div>
+          </div>
+          <div class="vpre-view" data-view="stage">
+            <div class="vpre-arena" data-arena></div>
           </div>
           <div class="vpre-view" data-view="wrong">
             <div class="vpre-hero" style="background:linear-gradient(120deg,#ff8b5c,#ff5d6c); box-shadow:0 8px 20px rgba(255,93,108,.25);">
@@ -1116,6 +1154,7 @@ body{
   function recordQuizResult(phone){
     tickDay();
     var z = phone.__quiz; if(!z) return;
+    if(phone.__arena){ try{ arenaFinish(phone); }catch(e){} return; }   // 闯关：只写闯关成绩
     var s = state[phone.__id];
     var book = s.book, unit = unitWords(phone).name;
     var wset = PROG.words[book] || (PROG.words[book] = {});
@@ -1571,7 +1610,8 @@ body{
   function renderSpeed(phone){
     var z = phone.__quiz, el = q(".vpre-quiz", phone);
     if(!el) return;
-    var list = unitWordList(phone);
+    var list = phone.__arena ? arenaWords() : unitWordList(phone);
+    if(!list.length){ toast(phone, "词库还没加载好"); return; }
     var q1 = buildWordItems(list, 1)[0];
     z.q = q1;
     var prompt = String(q1.prompt || "");
@@ -1636,6 +1676,202 @@ body{
     q("[data-result-again]", el).addEventListener("click", function(){ sfx.play("tap"); openSpeed(phone); });
     q("[data-result-stage]", el).addEventListener("click", function(){ sfx.play("tap"); renderStageMap(phone); setView(phone, "stage"); });
     q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); renderStageMap(phone); setView(phone, "stage"); });
+  }
+  // ===== 闯关（第二页）：独立设置 + 4 款小游戏 + 通关标记 =====
+  var ARENA_BOOKS = ["七上","七下","八上","八下","九上","九下"];
+  var ARENA_GAMES = [
+    ["link",   "🧩", "连连看",   "英中配对 · 10 对"],
+    ["speed",  "⚡", "限时快答", "60 秒 · 看词选义"],
+    ["listen", "🎤", "听音接力", "听发音选单词 · 10 题"],
+    ["build",  "📝", "拼词积木", "字母块拼单词 · 10 题"]
+  ];
+  function arenaSel(){
+    PROG.arenaSel = PROG.arenaSel || {book: state[qa(".vpre-phone")[0].__id].book, unit: 0};
+    return PROG.arenaSel;
+  }
+  function arenaBook(){ return arenaSel().book; }
+  function arenaUnitIdx(){ return arenaSel().unit || 0; }
+  function arenaUnit(){
+    var bd = bookData(arenaBook());
+    return bd.units[arenaUnitIdx()] || {name:"", n:0, words:[]};
+  }
+  function arenaWords(){
+    return (arenaUnit().words || []).map(function(w){ return {en:w[0], zh:w[1]}; });
+  }
+  function arenaGet(gameId){
+    var b = (PROG.arena || {})[arenaBook()] || {};
+    var u = b[arenaUnit().name] || {};
+    return u[gameId] || {};
+  }
+  function arenaSave(gameId, data){
+    PROG.arena = PROG.arena || {};
+    var book = PROG.arena[arenaBook()] || (PROG.arena[arenaBook()] = {});
+    var uName = arenaUnit().name;
+    var u = book[uName] || (book[uName] = {});
+    var r = u[gameId] || (u[gameId] = {plays:0});
+    r.plays = (r.plays || 0) + 1;
+    r.at = todayStr();
+    if(data.stars != null){ r.stars = Math.max(r.stars || 0, data.stars); }
+    if(data.attempts != null){ r.bestAttempts = (r.bestAttempts == null) ? data.attempts : Math.min(r.bestAttempts, data.attempts); }
+    if(data.score != null){ r.bestScore = (r.bestScore == null) ? data.score : Math.max(r.bestScore, data.score); }
+    saveProgress();
+  }
+  function arenaUnitClearedGames(){
+    var n = 0;
+    ARENA_GAMES.forEach(function(g){ if((arenaGet(g[0]).stars || 0) >= 3){ n++; } });
+    return n;
+  }
+  function arenaFinish(phone){
+    var g = phone.__arena, z = phone.__quiz;
+    if(!g || !z){ return; }
+    var data = {stars: starsEarned(z)};
+    if(g === "link"){ data.attempts = z.attempts; }
+    else if(g === "speed"){ data.score = z.score; }
+    else { data.score = (z.items || []).filter(function(it){ return it.correct; }).length; }
+    arenaSave(g, data);
+  }
+  function renderArena(phone){
+    var el = q("[data-arena]", phone);
+    if(!el){ return; }
+    var bd = bookData(arenaBook());
+    if(!bd.units.length){
+      el.innerHTML = '<div class="vpre-unit-loading"><b>正在加载 ' + arenaBook() + ' 词库…</b><span>首次使用需要联网</span></div>';
+      return;
+    }
+    var unit = arenaUnit();
+    var cleared = arenaUnitClearedGames();
+    var booksHtml = ARENA_BOOKS.map(function(b){
+      return '<button type="button" data-arena-book="' + b + '" class="' + (b === arenaBook() ? 'is-active' : '') + '">' + b + '</button>';
+    }).join("");
+    var unitsHtml = bd.units.map(function(u, i){
+      var c = 0;
+      var all = (PROG.arena || {})[arenaBook()] || {};
+      var rec = all[u.name] || {};
+      ARENA_GAMES.forEach(function(g){ if(((rec[g[0]] || {}).stars || 0) >= 3){ c++; } });
+      var done = c >= ARENA_GAMES.length;
+      return '<button type="button" data-arena-unit="' + i + '" class="' + (i === arenaUnitIdx() ? 'is-active' : '') + (done ? ' is-clear' : '') + '">'
+        + u.name + (done ? ' ✓' : '') + '</button>';
+    }).join("");
+    var gamesHtml = ARENA_GAMES.map(function(g){
+      var r = arenaGet(g[0]);
+      var stars = r.stars || 0;
+      var starTxt = stars ? (new Array(stars+1).join("⭐️")) : "未挑战";
+      var bestTxt = "";
+      if(g[0] === "link" && r.bestAttempts != null){ bestTxt = " · 最少 " + r.bestAttempts + " 次"; }
+      else if(r.bestScore != null){ bestTxt = " · 最佳 " + r.bestScore + " 题"; }
+      return '<button class="vpre-arena-game" type="button" data-arena-game="' + g[0] + '">'
+        + '<i>' + g[1] + '</i><span>' + g[2] + '</span><small>' + g[3] + '</small>'
+        + '<em class="vpre-arena-meta">' + starTxt + bestTxt + '</em></button>';
+    }).join("");
+    el.innerHTML =
+      '<div class="vpre-sec-title" style="margin-top:2px;">闯关范围 <span class="vpre-sec-note">分册 + 单元任选</span></div>'
+      + '<div class="vpre-arena-scope">'
+      +   '<div class="vpre-arena-row"><span>分册</span><div class="vpre-arena-chips" data-arena-books>' + booksHtml + '</div></div>'
+      +   '<div class="vpre-arena-row"><span>单元</span><div class="vpre-arena-chips" data-arena-units>' + unitsHtml + '</div></div>'
+      + '</div>'
+      + '<div class="vpre-arena-summary"><b>' + arenaBook() + ' ' + unit.name + '</b> · ' + (unit.words || []).length + ' 词 · 已通关 <b>' + cleared + '/' + ARENA_GAMES.length + '</b> 个游戏'
+      + (cleared >= ARENA_GAMES.length ? ' · 🏆 本单元闯关通关！' : '') + '<br><span style="color:var(--vp-muted)">闯关只用于补充练习：不影响错题本，也不影响第一页的分组进度</span></div>'
+      + '<div class="vpre-arena-grid">' + gamesHtml + '</div>';
+  }
+  function startArenaGame(phone, gameId){
+    var list = arenaWords();
+    if(!list.length){ toast(phone, "词库还没加载好，请稍后再试"); return; }
+    phone.__quizStage = null;
+    phone.__quizGroup = null;
+    phone.__arena = gameId;
+    if(gameId === "link"){
+      var pairs = pickWords(list, Math.min(10, list.length)).map(function(w){ return {en:w.en, zh:w.zh}; });
+      var cards = [];
+      pairs.forEach(function(pr, i){
+        cards.push({pair:i, kind:"en", text:pr.en});
+        cards.push({pair:i, kind:"zh", text:pr.zh});
+      });
+      phone.__quiz = {type:"match", idx:0, score:0, attempts:0, matched:0, total:pairs.length,
+                      pairs:pairs, cards:shuffle(cards), start:Date.now()};
+      renderMatch(phone);
+      setView(phone, "quiz");
+      return;
+    }
+    if(gameId === "speed"){ openSpeed(phone); return; }
+    if(gameId === "listen"){
+      phone.__quiz = {type:"listen", idx:0, score:0, items:buildListenItems(list, Math.min(10, list.length)), start:Date.now()};
+      renderQuiz(phone); setView(phone, "quiz"); return;
+    }
+    if(gameId === "build"){
+      phone.__quiz = {type:"build", idx:0, score:0, items:buildBuilderItems(list, Math.min(10, list.length)), start:Date.now()};
+      renderBuilder(phone); setView(phone, "quiz"); return;
+    }
+  }
+  function buildBuilderItems(list, n){
+    return pickWords(list.filter(function(x){ return x.en.length >= 2 && x.en.length <= 14; }), n).map(function(x){
+      return {prompt:x.zh, answer:x.en, letters:shuffle(x.en.split("")),
+              hint:"首字母 " + x.en.charAt(0).toUpperCase() + " · " + x.en.length + " 个字母"};
+    });
+  }
+  function renderBuilder(phone){
+    var z = phone.__quiz, el = q(".vpre-quiz", phone);
+    if(!z || !el){ return; }
+    if(z.idx >= z.items.length){ renderResult(phone); return; }
+    var it = z.items[z.idx];
+    z.picked = [];
+    z.locked = false;
+    function draw(){
+      var slots = "";
+      for(var i=0;i<it.answer.length;i++){
+        var ch = z.picked[i] ? it.answer[z.picked[i].idx] : "";
+        slots += '<span class="vpre-build-slot' + (ch ? ' is-filled' : '') + '">' + ch + '</span>';
+      }
+      var tiles = it.letters.map(function(ch, i){
+        var used = z.picked.some(function(p){ return p.tile === i; });
+        return '<button class="vpre-build-tile" type="button" data-tile="' + i + '"' + (used || z.locked ? ' disabled' : '') + '>' + ch + '</button>';
+      }).join("");
+      el.innerHTML =
+        '<div class="vpre-quiz-head"><span>拼词积木</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
+        + '<div class="vpre-quiz-progress"><div class="vpre-progress"><div style="width:' + Math.round(z.idx / z.items.length * 100) + '%"></div></div>'
+        + '<span class="vpre-quiz-count">' + (z.idx+1) + ' / ' + z.items.length + '</span></div>'
+        + '<div class="vpre-qcard"><div class="vpre-qword is-long">' + it.prompt + '</div>'
+        +   '<div class="vpre-qipa">' + it.hint + '</div></div>'
+        + '<div class="vpre-build-slots">' + slots + '</div>'
+        + '<div class="vpre-build-tiles">' + tiles + '</div>'
+        + '<div class="vpre-feedback" data-fb="1"></div>'
+        + '<button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-undo="1" style="margin-top:8px;">↩︎ 撤销一个字母</button>'
+        + '<button class="vpre-btn vpre-btn-primary vpre-btn-block vpre-qnext" type="button" style="display:none;">下一题</button>';
+      q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); renderStageMap(phone); setView(phone, "stage"); });
+      q("[data-undo]", el).addEventListener("click", function(){
+        if(z.locked || !z.picked.length){ return; }
+        z.picked.pop(); sfx.play("tap"); draw();
+      });
+      qa("[data-tile]", el).forEach(function(b){
+        b.addEventListener("click", function(){
+          if(z.locked){ return; }
+          var ti = parseInt(b.getAttribute("data-tile"), 10);
+          if(z.picked.some(function(p){ return p.tile === ti; })){ return; }
+          z.picked.push({tile: ti, idx: ti});
+          sfx.play("tap");
+          if(z.picked.length >= it.answer.length){ grade(); return; }
+          draw();
+        });
+      });
+      q(".vpre-qnext", el).addEventListener("click", function(){ sfx.play("tap"); z.idx += 1; renderBuilder(phone); });
+    }
+    function grade(){
+      z.locked = true;
+      var built = z.picked.map(function(p){ return it.letters[p.tile]; }).join("");
+      var ok = built.toLowerCase() === it.answer.toLowerCase();
+      it.correct = ok;
+      it.chosen = built;
+      if(ok){ z.score += 1; sfx.play("right"); } else { sfx.play("wrong"); }
+      draw();
+      var fb = q("[data-fb]", el);
+      if(fb){
+        fb.textContent = ok ? "✅ 拼对了！" : ("❌ 正确拼写：" + it.answer);
+        fb.className = "vpre-feedback " + (ok ? "ok" : "no");
+      }
+      var nx = q(".vpre-qnext", el);
+      nx.style.display = "block";
+      nx.textContent = (z.idx + 1 >= z.items.length) ? "查看成绩" : "下一题";
+    }
+    draw();
   }
   function renderMatch(phone){
     var z = phone.__quiz;
@@ -1733,6 +1969,7 @@ body{
       + '</div></div>';
     q("[data-result-new]", el).addEventListener("click", function(){
       sfx.play("tap");
+      if(phone.__arena){ startArenaGame(phone, phone.__arena); return; }
       if(z.type === "memory"){ openMemory(phone); }
       else if(z.type === "wrongboss"){ openWrongBoss(phone); }
       else { openQuiz(phone, "match"); }
@@ -1983,11 +2220,13 @@ body{
     if(sh){ sh.addEventListener("click", function(){ sfx.play("tap"); shareImage(phone, z); }); }
     q("[data-result-again]", el).addEventListener("click", function(){
       sfx.play("tap");
+      if(phone.__arena){ startArenaGame(phone, phone.__arena); return; }
       if(z.type === "speed"){ openSpeed(phone); return; }
       if(z.type === "memory"){ openMemory(phone); return; }
       if(z.type === "wrongboss"){ openWrongBoss(phone); return; }
       if(z.type === "review"){ openPoolQuiz(phone, reviewPool(phone), "review"); return; }
       if(z.type === "daily"){ openPoolQuiz(phone, unitWordList(phone), "daily"); return; }
+      if(z.type === "build"){ renderBuilder(phone); return; }
       openQuiz(phone, z.type, null, phone.__quizGroup ? phone.__quizGroup.gi : undefined);
     });
     var nxt = q("[data-nextmode]", el);
@@ -2415,12 +2654,7 @@ body{
     var s = state[phone.__id];
     var book = currentBook(phone);
     if(note){ note.textContent = s.book + " · 三关20词 大作战10词"; }
-    renderRgames(phone);
-    renderToday(phone);
-    renderDaily(phone);
-    renderBoard(phone);
-    renderWordlist(phone);
-    if(list){ list.innerHTML = ""; }
+    loadBook(arenaBook(), function(){ renderArena(phone); });
   }
   function renderReport(phone){
     loadAllBooks().then(function(){ renderReportInner(phone); });
@@ -2997,6 +3231,27 @@ var chip = btn.closest(".vpre-stage-chip");
       if(unitCard){
         state[id].unit = parseInt(unitCard.getAttribute("data-unit"),10);
         renderUnitDetail(phone); setView(phone, "unit"); return;
+      }
+      var aBook = btn.closest("[data-arena-book]");
+      if(aBook){
+        arenaSel().book = aBook.getAttribute("data-arena-book");
+        arenaSel().unit = 0;
+        saveProgress();
+        loadBook(arenaBook(), function(){ renderArena(phone); });
+        return;
+      }
+      var aUnit = btn.closest("[data-arena-unit]");
+      if(aUnit){
+        arenaSel().unit = parseInt(aUnit.getAttribute("data-arena-unit"), 10);
+        saveProgress();
+        renderArena(phone);
+        return;
+      }
+      var aGame = btn.closest("[data-arena-game]");
+      if(aGame){
+        var gid = aGame.getAttribute("data-arena-game");
+        loadBook(arenaBook(), function(){ startArenaGame(phone, gid); });
+        return;
       }
       var rgBtn = btn.closest("[data-rgame]");
       if(rgBtn){
