@@ -2242,7 +2242,7 @@ body{
     var uset = (PROG.words[s.book] || {})[unit.name] || {};
     var learned = Object.keys(uset).length;
     var html = '<div class="vpre-report-head"><b>' + s.book + ' · ' + unit.name + '</b>'
-      + '<span class="vpre-report-actions"><button class="vpre-report-back" type="button">← 返回</button></span></div>'
+      + '<span class="vpre-report-actions"><button class="vpre-report-back" type="button" data-unit-back="1">← 返回</button></span></div>'
       + '<button class="vpre-btn vpre-btn-ghost vpre-btn-block vpre-reshuffle" type="button" data-reshuffle="1">🔀 重新随机分组（本轮组进度会重置）</button>'
       + (function(){
           var nt = nextTask(phone);
@@ -2950,6 +2950,7 @@ var chip = btn.closest(".vpre-stage-chip");
         runAction(phone, "quiz-" + typ, ui);
         return;
       }
+      if(btn.closest("[data-unit-back]")){ renderUnits(phone); setView(phone, "home"); return; }
       if(btn.closest(".vpre-report-back")){ setView(phone, "mine"); return; }
       if(btn.closest(".vpre-report-print")){ showExportSheet(phone); return; }
       if(btn.closest(".vpre-report-share")){ sfx.play("tap"); shareImage(phone, null); return; }
