@@ -30,7 +30,7 @@ body{
   color:var(--vp-ink);
 }
 .vpre-h5{color:var(--vp-ink);}
-.vpre-card,.vpre-unit,.vpre-panel,.vpre-wrow,.vpre-bookrow,.vpre-stage-unit,.vpre-stats div{
+.vpre-unit,.vpre-wrow,.vpre-bookrow,.vpre-stats div{
   border-color:var(--vp-line) !important; border-radius:var(--vp-radius) !important; box-shadow:var(--vp-shadow-sm) !important;
 }
 .vpre-hero,.vpre-taskcard{border-radius:22px !important; box-shadow:var(--vp-shadow) !important;}
@@ -197,9 +197,6 @@ body{
 .vpre-unit{font-family:inherit; text-align:left; display:flex; flex-direction:column; align-items:stretch; gap:8px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:16px; padding:16px 12px 12px; box-shadow:var(--vp-shadow-sm); cursor:pointer; min-height:118px; transition:transform .14s, box-shadow .16s, border-color .15s;}
 .vpre-unit:active{transform:scale(.97);}
 .vpre-unit:hover{border-color:#c7cfe4; box-shadow:0 6px 16px rgba(31,41,55,.09);}
-.vpre-ring{width:52px; height:52px; align-self:center; border-radius:50%; background:conic-gradient(var(--vp-blue) var(--p), #e6e9f0 0); display:flex; align-items:center; justify-content:center; flex:none;}
-.vpre-ring i{width:42px; height:42px; border-radius:50%; background:var(--vp-card); font-style:normal; font-size:11px; font-weight:700; color:var(--vp-blue); display:flex; align-items:center; justify-content:center;}
-.vpre-unit-info{flex:1; min-width:0; display:flex; flex-direction:column; justify-content:center;}
 .vpre-unit-title{font-size:13.5px; font-weight:600; text-align:center; line-height:1.35;}
 .vpre-unit-meta{font-size:11px; color:var(--vp-muted); text-align:center; margin-top:2px;}
 .vpre-unit-go{display:block; text-align:center; font-size:11px; font-weight:600; color:var(--vp-blue); margin-top:6px;}
@@ -241,8 +238,6 @@ body{
 .vpre-celebrate-stars{font-size:22px; margin-top:10px; letter-spacing:2px;}
 @keyframes vpre-pop{from{transform:scale(.8); opacity:0} to{transform:scale(1); opacity:1}}
 @keyframes vpre-bounce{from{transform:translateY(0)} to{transform:translateY(-8px)}}
-.vpre-games-note{font-size:11.5px; color:var(--vp-muted); background:#fff; border:1px dashed var(--vp-line); border-radius:12px; padding:8px 12px; margin-bottom:10px;}
-.vpre-games{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
 .vpre-game{border:1px solid #e6e9f0; background:#f7f8fb; border-radius:18px; padding:20px 10px 16px; display:flex; flex-direction:column; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--vp-ink); cursor:pointer; box-shadow:var(--vp-shadow-sm); transition:transform .14s;}
 .vpre-game:active{transform:scale(.97);}
 .vpre-game i{font-style:normal; font-size:30px; line-height:1;}
@@ -250,7 +245,6 @@ body{
 .vpre-game:hover{border-color:#c7cfe4;}
 
 .vpre-placeholder{background:var(--vp-card); border:1.5px dashed #d8dde7; border-radius:15px; padding:24px 14px; text-align:center; font-size:12.5px; color:var(--vp-muted);}
-.vpre-card{background:var(--vp-card); border:1px solid #e6e9f0; border-radius:18px; padding:16px; box-shadow:var(--vp-shadow-sm);}
 
 /* ===== 错词本 ===== */
 .vpre-hero{background:linear-gradient(130deg,#e5484d,#f2708a); border-radius:20px; padding:18px; color:#fff; box-shadow:0 10px 24px rgba(229,72,77,.26);}
@@ -261,43 +255,13 @@ body{
 .vpre-progress-light{background:rgba(255,255,255,.28);}
 .vpre-progress-light div{background:#fff;}
 .vpre-hero-btn{display:block; width:100%; margin-top:14px; border:0; border-radius:12px; padding:12px 0; font-size:14px; font-weight:700; color:#e5484d; background:#fff; cursor:pointer;}
-.vpre-summary{display:flex; align-items:center; gap:12px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:16px; padding:14px 16px; box-shadow:var(--vp-shadow-sm); margin-bottom:14px;}
-.vpre-summary b{display:block; font-size:20px; color:var(--vp-blue);}
-.vpre-summary span{font-size:11px; color:var(--vp-muted);}
-.vpre-summary .vpre-btn{margin-left:auto;}
 .vpre-wrow{display:flex; align-items:center; gap:12px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:15px; padding:12px 14px; margin-bottom:9px; box-shadow:var(--vp-shadow-sm);}
 .vpre-wmain{flex:1; min-width:0;}
 .vpre-wmain b{font-size:14px; display:block; letter-spacing:.2px; color:var(--vp-ink);}
 .vpre-wmain span{font-size:11.5px; color:var(--vp-muted);}
 .vpre-wbadge{font-size:10.5px; color:#e5484d; background:var(--vp-red-soft); border-radius:99px; padding:4px 10px; flex:none; font-weight:600;}
-.vpre-wbadge.is-flat{background:#f2f4f8; color:var(--vp-ink-2);}
 
 /* ===== 闯关地图（简洁同款） ===== */
-.vpre-today{background:linear-gradient(135deg,#eef3ff,#f7f9ff); border:1px solid var(--vp-line); border-radius:18px; padding:14px; margin-bottom:14px; box-shadow:var(--vp-shadow-sm);}
-.vpre-today-title{font-size:15px; font-weight:800; color:var(--vp-ink);}
-.vpre-today-title b{color:var(--vp-blue); font-size:19px;}
-.vpre-today-sub{font-size:12px; color:var(--vp-muted); margin:6px 0 10px;}
-.vpre-today-preview{font-size:11.5px; color:var(--vp-muted); margin-top:10px; line-height:1.8; word-break:break-word;}
-.vpre-daily{background:#fff; border:1px solid var(--vp-line); border-radius:18px; padding:14px; margin-bottom:14px; box-shadow:var(--vp-shadow-sm);}
-.vpre-daily-top{display:flex; justify-content:space-between; align-items:center; font-size:13px; margin-bottom:10px;}
-.vpre-daily-top b{color:var(--vp-blue); font-size:17px;}
-.vpre-daily-sub{font-size:11.5px; color:var(--vp-muted); margin-top:8px; text-align:center;}
-.vpre-board{display:flex; flex-direction:column; gap:8px; margin-bottom:14px;}
-.vpre-board-row{display:grid; grid-template-columns:64px 1fr auto; align-items:center; gap:10px; background:#fff; border:1px solid var(--vp-line); border-radius:14px; padding:10px 12px; cursor:pointer; text-align:left;}
-.vpre-board-row:active{transform:scale(.99);}
-.vpre-board-name{font-size:12.5px; font-weight:700; color:var(--vp-ink);}
-.vpre-board-bar{height:7px; border-radius:99px; background:#eef1f8; overflow:hidden;}
-.vpre-board-bar > i{display:block; height:100%; background:var(--vp-blue); border-radius:99px;}
-.vpre-board-meta{font-size:11px; color:var(--vp-muted); white-space:nowrap;}
-.vpre-wordlist{background:#fff; border:1px solid var(--vp-line); border-radius:18px; padding:12px; box-shadow:var(--vp-shadow-sm);}
-.vpre-wl-head{font-size:12px; color:var(--vp-muted); margin-bottom:8px;}
-.vpre-wl-list{max-height:340px; overflow:auto;}
-.vpre-wl-row{display:grid; grid-template-columns:1fr auto; gap:8px; align-items:center; padding:8px 4px; border-bottom:1px dashed #eef1f8;}
-.vpre-wl-row:last-child{border-bottom:0;}
-.vpre-wl-row b{font-size:13.5px; color:var(--vp-ink); word-break:break-word;}
-.vpre-wl-row span{display:block; font-size:11.5px; color:var(--vp-muted); grid-column:1;}
-.vpre-wl-row button{grid-row:1 / span 2; border:0; background:#f2f5ff; color:var(--vp-blue); width:34px; height:34px; border-radius:50%; font-size:14px; cursor:pointer;}
-.vpre-wl-row.is-done b::after{content:" ✓"; color:var(--vp-green); font-size:12px;}
 .vpre-arena-scope{background:#fff; border:1px solid var(--vp-line); border-radius:18px; padding:12px; margin-bottom:12px; box-shadow:var(--vp-shadow-sm);}
 .vpre-arena-row{display:flex; align-items:flex-start; gap:10px; margin-bottom:8px;}
 .vpre-arena-row:last-child{margin-bottom:0;}
@@ -340,55 +304,12 @@ body{
 .vpre-build-tile{width:38px; height:42px; border:1px solid var(--vp-line); background:#fafbff; border-radius:10px; font-size:18px; font-weight:700; cursor:pointer; color:var(--vp-ink);}
 .vpre-build-tile:disabled{opacity:.35; cursor:default;}
 .vpre-build-tile:active{transform:scale(.94);}
-.vpre-rgames{background:#fff; border:1px solid var(--vp-line); border-radius:18px; padding:12px; margin-bottom:14px; box-shadow:var(--vp-shadow-sm);}
-.vpre-rgames-scope{font-size:12px; color:var(--vp-muted); margin-bottom:8px;}
-.vpre-rgames-chips{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;}
-.vpre-rgames-chips button{border:1px solid var(--vp-line); background:#f8faff; color:var(--vp-ink-2); border-radius:10px; padding:6px 10px; font-size:11.5px; font-weight:600; cursor:pointer;}
-.vpre-rgames-chips button.is-active{background:var(--vp-blue); color:#fff; border-color:var(--vp-blue);}
-.vpre-rgames-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;}
-.vpre-rgame{border:1px solid var(--vp-line); background:#fafbff; border-radius:14px; padding:12px 6px; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; color:var(--vp-ink);}
-.vpre-rgame:active{transform:scale(.97);}
-.vpre-rgame i{font-style:normal; font-size:24px; line-height:1;}
-.vpre-rgame span{font-size:12px; font-weight:700;}
-.vpre-rgame small{font-size:10px; color:var(--vp-muted); text-align:center; line-height:1.4;}
-.vpre-mgrid{display:grid; gap:8px;}
-.vpre-mgrid.is-memory{grid-template-columns:repeat(4,1fr);}
-.vpre-mcard-flip{aspect-ratio:1/1.15; border-radius:14px; border:1px solid var(--vp-line); background:#fff; font-size:13px; font-weight:600; color:var(--vp-ink); display:flex; align-items:center; justify-content:center; text-align:center; padding:4px; word-break:break-word; cursor:pointer; transition:transform .12s;}
-.vpre-mcard-flip.is-back{background:linear-gradient(135deg,#eef2ff,#e6ecff); color:transparent; position:relative;}
-.vpre-mcard-flip.is-back::after{content:"?"; position:absolute; color:#9aa8d8; font-size:20px; font-weight:800;}
-.vpre-mcard-flip.is-matched{background:#e9f8f2; border-color:#9fd9c3; color:#0f7a5c; opacity:.75; cursor:default;}
-.vpre-mcard-flip.is-open{transform:scale(.97); border-color:var(--vp-blue);}
 .vpre-speedbar{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
 .vpre-speedbar .vpre-progress{flex:1; height:8px; border-radius:99px; background:#eef1f8;}
 .vpre-speedbar .vpre-progress > div{height:100%; background:linear-gradient(90deg,#3b82f6,#7c5cff); border-radius:99px; transition:width .3s linear;}
 .vpre-speedbar b{font-size:13px; font-variant-numeric:tabular-nums; white-space:nowrap;}
 .vpre-speedstat{display:flex; gap:14px; justify-content:center; font-size:12.5px; color:var(--vp-muted); margin-top:10px;}
 .vpre-speedstat b{color:var(--vp-ink); font-size:15px;}
-.vpre-stage-rules{font-size:11px; color:var(--vp-muted); background:#f8f9fb; border:1px dashed #d8dde7; border-radius:11px; padding:10px 12px; line-height:1.7; margin-bottom:12px;}
-.vpre-stage{display:flex; align-items:center; gap:12px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:16px; padding:14px; margin-bottom:10px; box-shadow:var(--vp-shadow-sm);}
-.vpre-stage.is-playable{font-family:inherit; width:100%; cursor:pointer; text-align:left; transition:transform .12s, border-color .15s;}
-.vpre-stage.is-playable:active{transform:scale(.98);}
-.vpre-stage.is-playable:hover{border-color:#c7cfe4;}
-.vpre-stage-num{width:42px; height:42px; border-radius:13px; background:var(--vp-blue); color:#fff; font-weight:700; font-size:12.5px; display:flex; align-items:center; justify-content:center; flex:none; box-shadow:0 4px 10px rgba(59,91,219,.28);}
-.vpre-stage-info{flex:1; min-width:0;}
-.vpre-stage-info b{font-size:13.5px; display:block; color:var(--vp-ink);}
-.vpre-stage-info span{font-size:11px; color:var(--vp-muted);}
-.vpre-stars{font-size:11.5px; letter-spacing:1.5px; color:var(--vp-orange); flex:none;}
-.vpre-stage-done{width:22px; height:22px; border-radius:50%; background:var(--vp-green); color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none;}
-.vpre-stage.is-locked{opacity:.55;}
-.vpre-stage.is-locked .vpre-stage-num{background:#eceef4; color:var(--vp-muted); box-shadow:none;}
-.vpre-stage-go{font-size:11.5px; font-weight:600; color:var(--vp-blue); flex:none;}
-.vpre-stage-list{display:flex; flex-direction:column; gap:10px;}
-.vpre-stage-unit{background:var(--vp-card); border:1px solid #e6e9f0; border-radius:16px; padding:14px; box-shadow:var(--vp-shadow-sm);}
-.vpre-stage-unit-head{display:flex; justify-content:space-between; align-items:center; font-size:13.5px; font-weight:700; margin-bottom:10px;}
-.vpre-stage-unit-clear{font-size:11px; color:var(--vp-green); font-weight:600;}
-.vpre-stage-chips{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
-.vpre-stage-chip{border:1px solid #dfe3ea; background:#f7f8fb; border-radius:11px; padding:9px 6px; display:flex; flex-direction:column; align-items:center; gap:3px; font-size:12px; font-weight:600; color:var(--vp-ink); cursor:pointer; transition:border-color .15s, transform .1s;}
-.vpre-stage-chip:active{transform:scale(.97);}
-.vpre-stage-chip:disabled{opacity:.5; cursor:default;}
-.vpre-stage-chip:hover{border-color:#c7cfe4;}
-.vpre-stage-chip[data-type="match"]{color:var(--vp-blue);}
-.vpre-chipstars{font-size:10px; letter-spacing:1px; color:var(--vp-orange);}
 
 /* ===== 我的 ===== */
 .vpre-profile{display:flex; align-items:center; gap:14px; margin-bottom:16px;}
@@ -706,7 +627,7 @@ body{
   function loadAllBooks(){
     return Promise.all(BOOK_LIST.map(function(b){ return loadBook(b); }));
   }
-  var TYPE_NAME = {word:"看词选义", listen:"听音选词", spell:"拼写闯关", read:"跟读打卡", dictate:"默写闯关", wrong:"错词复习", match:"连连看", memory:"翻牌记忆", speed:"限时快答", wrongboss:"错词大作战", review:"今日复习", daily:"每日打卡"};
+  var TYPE_NAME = {word:"看词选义", listen:"听音选词", spell:"拼写闯关", read:"跟读打卡", dictate:"默写闯关", wrong:"错词复习", match:"连连看", speed:"限时快答"};
   var GRADE_NAME = {g7:"初一", g8:"初二", g9:"初三"};
   var GRADE_BOOK = {g7:"七上", g8:"八上", g9:"九上"};
   var state = {};
@@ -777,78 +698,6 @@ body{
     }catch(e){}
   }
   var STUDENT = loadStudent();
-  var ROSTER = {mode:"plain", plain:[], hashes:[], salt:""};
-  function applyRosterData(data){
-    if(!data) return false;
-    if(!Array.isArray(data) && data.items){
-      var hs = [];
-      data.items.forEach(function(x){
-        var v = String(x || "").trim().toLowerCase();
-        if(v.length === 64){ hs.push(v); }
-      });
-      if(hs.length){
-        ROSTER = {mode:"hash", plain:[], hashes:hs, salt:String(data.salt || "")};
-        return true;
-      }
-      return false;
-    }
-    var norm = normalizeRoster(data);
-    if(norm.length){
-      ROSTER = {mode:"plain", plain:norm, hashes:[], salt:""};
-      return true;
-    }
-    return false;
-  }
-  function sha256Hex(str){
-    if(!(window.crypto && window.crypto.subtle && window.crypto.subtle.digest)){
-      return Promise.reject(new Error("unsupported"));
-    }
-    var data = new TextEncoder().encode(str);
-    return window.crypto.subtle.digest("SHA-256", data).then(function(buf){
-      var arr = new Uint8Array(buf), hex = "";
-      for(var i=0;i<arr.length;i++){ hex += ("0" + arr[i].toString(16)).slice(-2); }
-      return hex;
-    });
-  }
-  function normalizeRoster(list){
-    var out = [];
-    (list || []).forEach(function(r){
-      if(!r) return;
-      var ph = String(r.phone || r["手机号"] || "").replace(/\D/g, "");
-      var nm = String(r.name || r["姓名"] || "").trim();
-      if(ph.length === 11 && nm){ out.push({phone:ph, name:nm}); }
-    });
-    return out;
-  }
-  function parseRosterCsv(text){
-    var out = [];
-    String(text || "").split(/\r?\n/).forEach(function(line){
-      var li = line.trim();
-      if(!li || /^(手机号|phone)/i.test(li)) return;
-      var parts = li.split(/[,\t，]/).map(function(x){ return x.trim(); });
-      if(parts.length >= 2 && /^\d{11}$/.test(parts[0]) && parts[1]){ out.push({phone:parts[0], name:parts[1]}); }
-    });
-    return out;
-  }
-  function loadRoster(cb){
-    var done = false;
-    function finish(list){
-      if(list){ applyRosterData(list); }
-      if(!done){ done = true; if(cb){ cb(); } }
-    }
-    function tryCsv(){
-      try{
-        fetch("roster.csv", {cache:"no-store"}).then(function(r){ return r.ok ? r.text() : null; }).then(function(txt){
-          finish(txt ? parseRosterCsv(txt) : null);
-        }).catch(function(){ finish(null); });
-      }catch(e){ finish(null); }
-    }
-    try{
-      fetch("roster.json", {cache:"no-store"}).then(function(r){ return r.ok ? r.json() : null; }).then(function(list){
-        if(applyRosterData(list)){ finish(null); } else { tryCsv(); }
-      }).catch(tryCsv);
-    }catch(e){ tryCsv(); }
-  }
   function maskPhone(p){
     p = String(p || "");
     return p.length >= 11 ? p.slice(0,3) + "****" + p.slice(7) : p;
@@ -994,7 +843,7 @@ body{
     return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
   }
   function loadProgress(){
-    var d = {stageStars:{}, words:{}, wrong:{}, stats:{answers:0, correct:0, learned:0, day:"", dayWords:0, streak:1, byType:{}}};
+    var d = {words:{}, wrong:{}, stats:{answers:0, correct:0, learned:0, day:"", dayWords:0, streak:1, byType:{}}};
     try{
       var raw = localStorage.getItem(progressKey());
       if(raw){ var p = JSON.parse(raw); if(p && p.stats) return p; }
@@ -1087,13 +936,13 @@ body{
   function buildReport(phone, z){
     var s = state[phone.__id];
     var details = [];
-    if(z.type === "match" || z.type === "memory" || z.type === "wrongboss"){
+    if(z.type === "match"){
       (z.pairs || []).forEach(function(pr){
         details.push({word:pr.en, meaning:pr.zh, chosen:"", ok:1, module:"连连看"});
       });
     } else {
       (z.items || []).forEach(function(it){
-        var word = (z.type === "word" || z.type === "wrong" || z.type === "speed" || z.type === "review" || z.type === "daily") ? it.prompt : it.answer;
+        var word = (z.type === "word" || z.type === "wrong" || z.type === "speed") ? it.prompt : it.answer;
         if(z.type === "speed" && it.dir === "zh2en"){ word = it.answer; }   // 汉译英：题面是中文，词条记英文
         details.push({
           word:word,
@@ -1118,12 +967,12 @@ body{
       total: total,
       correct: correct,
       duration: duration,
-      stars: phone.__quizStage ? starsEarned(z) : 0,
+      stars: starsEarned(z),
       details: details
     };
   }
   function starsEarned(z){
-    if(z.type === "match" || z.type === "memory" || z.type === "wrongboss"){
+    if(z.type === "match"){
       return z.attempts <= z.total+4 ? 3 : (z.attempts <= z.total*2+4 ? 2 : 1);
     }
     // 限时快答：按"答对题数"计星，门槛以 18 题为基准（与闯关说明一致），
@@ -1142,7 +991,7 @@ body{
     var wset = PROG.words[book] || (PROG.words[book] = {});
     var uset = wset[unit] || (wset[unit] = {});
     var wb = PROG.wrong[book] || (PROG.wrong[book] = {});
-    if(z.type === "match" || z.type === "memory" || z.type === "wrongboss"){
+    if(z.type === "match"){
       z.pairs.forEach(function(p){
         var k = p.en.toLowerCase();
         if(!uset[k]){ uset[k] = 1; PROG.stats.learned++; }
@@ -1164,46 +1013,23 @@ body{
     PROG.stats.dayWords += (z.type === "match" ? z.total : z.items.length);
     PROG.stats.byType = PROG.stats.byType || {};
     PROG.stats.byType[z.type] = (PROG.stats.byType[z.type] || 0) + (z.type === "match" ? z.total : z.items.length);
-    var st = phone.__quizStage;
-    if(st){
-      var sk = st.book + "|" + st.unit + "|" + st.num;
-      var cur = PROG.stageStars[sk] || 0;
-      var got = starsEarned(z);
-      if(got > cur){ PROG.stageStars[sk] = got; }
-      phone.__quizStage = null;
-    }
-    if(z.type === "daily"){
-      PROG.daily = PROG.daily || {};
-      PROG.daily.date = todayStr();
-      PROG.daily.done = true;
-      PROG.daily.score = z.score;
-      PROG.daily.total = z.items.length;
-    }
-    if(z.type === "review"){
-      PROG.daily = PROG.daily || {};
-      PROG.daily.reviewDate = todayStr();
-      PROG.daily.reviewDone = true;
-    }
     saveProgress();
-    if(!phone.__quizStage){ try{ markGroupDone(phone, z.type); }catch(e){} }
+    try{ markGroupDone(phone, z.type); }catch(e){}
     if(STUDENT){
       try{ submitReport(buildReport(phone, z)); }catch(e){}
     }
   }
-  function stageStars(phone, ui, num){
-    var s = state[phone.__id];
-    var u = currentBook(phone).units[ui];
-    return PROG.stageStars[s.book+"|"+u.name+"|"+num] || 0;
-  }
-  function starsStr(n){
-    return n >= 3 ? "★★★" : (n === 2 ? "★★☆" : (n === 1 ? "★☆☆" : "☆☆☆"));
-  }
-  function unitCleared(phone, ui){
-    return stageStars(phone, ui, "boss") > 0;
-  }
   function totalStars(){
-    var n = 0;
-    for(var k in PROG.stageStars){ n += PROG.stageStars[k]; }
+    // 闯关星星：统计 PROG.arena 里所有关卡已拿到的星（每关最多 3 颗）
+    var n = 0, a = PROG.arena || {};
+    for(var b in a){
+      for(var u in a[b]){
+        for(var g in a[b][u]){
+          var lv = (a[b][u][g] || {}).levels || {};
+          for(var k in lv){ n += Math.min(3, lv[k].stars || 0); }
+        }
+      }
+    }
     return n;
   }
   function unitWords(phone){
@@ -1264,15 +1090,6 @@ body{
     });
   }
   // 限时快答：汉译英（给中文，选英文单词）；干扰项用英文单词，且避开同义项
-  function buildEnItems(list, n, distractPool){
-    var dsrc = (distractPool && distractPool.length >= 4) ? distractPool : list;
-    return pickWords(list, n).map(function(x){
-      var others = dsrc.filter(function(y){ return y.en !== x.en && y.zh !== x.zh; });
-      var d = pickWords(others, 3).map(function(y){ return y.en; });
-      while(d.length < 3 && d.length){ d.push(d[0]); }
-      return { prompt:x.zh, sub:null, opts:shuffle([x.en].concat(d)), answer:x.en, speak:null, optsAreWords:true, dir:"zh2en" };
-    });
-  }
   function buildSpellItems(list, n){
     return pickWords(list.filter(function(x){ return x.en.length>=2; }), n).map(function(x){
       var tip = / /.test(x.en) ? ("首字母 " + x.en.charAt(0).toUpperCase() + " · " + x.en.split(" ").length + " 个单词")
@@ -1324,17 +1141,16 @@ body{
   }
   function openQuiz(phone, type, unitIdx, groupIdx){
     if(typeof unitIdx === "number"){ state[phone.__id].unit = unitIdx; }
-    var stageMode = !!phone.__quizStage;
     var unitNow = unitWords(phone);
     var list;
-    if(typeof groupIdx === "number" && !stageMode){
+    if(typeof groupIdx === "number"){
       list = groupWords(phone, groupIdx);
       phone.__quizGroup = {gi: groupIdx, total: list.length};
     } else {
       list = unitWordList(phone);
       phone.__quizGroup = null;
     }
-    var n = phone.__quizGroup ? list.length : (stageMode ? 20 : 10);
+    var n = phone.__quizGroup ? list.length : 10;
     var items;
     if(type === "word"){ items = buildWordItems(list, n); }
     else if(type === "listen"){ items = buildListenItems(list, n); }
@@ -1416,141 +1232,9 @@ body{
     z.cards = shuffle(cards);
   }
   // ===== 复习小游戏（闯关页独立区）=====
-  function reviewPool(phone){
-    var s = state[phone.__id];
-    var out = [], seen = {};
-    var wb = PROG.wrong[s.book] || {};
-    Object.keys(wb).sort(function(a, b){ return wb[b] - wb[a]; }).forEach(function(k){
-      var kk = String(k).toLowerCase();
-      if(seen[kk]){ return; }
-      seen[kk] = 1;
-      out.push({en:k, zh: zhOf(k) || ""});
-    });
-    var u = unitWords(phone);
-    var uset = (PROG.words[s.book] || {})[u.name] || {};
-    (u.words || []).forEach(function(w){
-      var kk = String(w[0]).toLowerCase();
-      if(!seen[kk] && !uset[kk]){ seen[kk] = 1; out.push({en:w[0], zh:w[1]}); }
-    });
-    return out;
-  }
-  function openPoolQuiz(phone, pool, type){
-    if(!pool || !pool.length){ toast(phone, "暂时没有可练习的词"); return; }
-    var list = pool.map(function(w){ return {en:w.en, zh:w.zh}; });
-    var n = Math.min(type === "review" || type === "daily" ? 10 : 20, list.length);
-    var items;
-    if(type === "listen"){ items = buildListenItems(list, n); }
-    else if(type === "spell"){ items = buildSpellItems(list, n); }
-    else { items = buildWordItems(list, n); }
-    phone.__quizStage = null;
-    phone.__quizGroup = null;
-    phone.__quiz = {type:type, idx:0, score:0, items:items, start:Date.now()};
-    renderQuiz(phone);
-    setView(phone, "quiz");
-  }
-  function openReviewMatch(phone){
-    var list = unitWordList(phone);
-    if(list.length < 4){ toast(phone, "本单元单词太少"); return; }
-    var pairs = pickWords(list, Math.min(10, list.length)).map(function(w){ return {en:w.en, zh:w.zh}; });
-    var cards = [];
-    pairs.forEach(function(pr, i){
-      cards.push({pair:i, kind:"en", text:pr.en});
-      cards.push({pair:i, kind:"zh", text:pr.zh});
-    });
-    phone.__quizStage = null;
-    phone.__quizGroup = null;
-    phone.__quiz = {type:"match", idx:0, score:0, attempts:0, matched:0, total:pairs.length,
-                    pairs:pairs, cards:shuffle(cards), start:Date.now()};
-    renderMatch(phone);
-    setView(phone, "quiz");
-  }
-  function openMemory(phone){
-    var list = unitWordList(phone);
-    if(list.length < 5){ toast(phone, "本单元单词太少，换一个单元试试"); return; }
-    var pairs = pickWords(list, Math.min(10, list.length)).map(function(w){ return {en:w.en, zh:w.zh}; });
-    var cards = [];
-    pairs.forEach(function(pr, i){
-      cards.push({pair:i, kind:"en", text:pr.en});
-      cards.push({pair:i, kind:"zh", text:pr.zh});
-    });
-    phone.__quizStage = null;
-    phone.__quizGroup = null;
-    phone.__quiz = {type:"memory", idx:0, score:0, matched:0, attempts:0, total:pairs.length,
-                    pairs:pairs, cards:shuffle(cards), open:[], lock:false, start:Date.now()};
-    renderMemory(phone);
-    setView(phone, "quiz");
-  }
-  function renderMemory(phone){
-    var z = phone.__quiz, el = q(".vpre-quiz", phone);
-    if(!el) return;
-    el.innerHTML =
-      '<div class="vpre-quiz-head"><span>翻牌记忆 · 已配对 ' + z.matched + ' / ' + z.total + ' · 尝试 ' + z.attempts + ' 次</span>'
-      + '<button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
-      + '<div class="vpre-quiz-progress"><div class="vpre-progress"><div style="width:' + Math.round(z.matched / z.total * 100) + '%"></div></div>'
-      + '<span class="vpre-quiz-count">' + z.matched + ' / ' + z.total + ' 对</span></div>'
-      + '<div class="vpre-qipa" style="text-align:left; margin:0 0 10px;">点两张卡片，把英文和中文配成一对</div>'
-      + '<div class="vpre-mgrid is-memory">'
-      + z.cards.map(function(c, i){
-          var cls = c.done ? " is-matched" : ((z.open.indexOf(i) >= 0) ? " is-open" : " is-back");
-          return '<button class="vpre-mcard-flip' + cls + '" type="button" data-mi="' + i + '"' + (c.done ? ' disabled' : '') + '>' + c.text + '</button>';
-        }).join("")
-      + '</div>';
-    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); renderStageMap(phone); setView(phone, "stage"); });
-    qa("[data-mi]", el).forEach(function(b){
-      b.addEventListener("click", function(){
-        var i = parseInt(b.getAttribute("data-mi"), 10);
-        var c = z.cards[i];
-        if(!c || c.done || z.lock || z.open.indexOf(i) >= 0){ return; }
-        sfx.play("flip");
-        z.open.push(i);
-        if(z.open.length < 2){ renderMemory(phone); return; }
-        var i1 = z.open[0], i2 = z.open[1];
-        var a = z.cards[i1], b2 = z.cards[i2];
-        z.attempts += 1;
-        if(a.pair === b2.pair && a.kind !== b2.kind){
-          a.done = true; b2.done = true; z.matched += 1;
-          sfx.play("match");
-          z.open = [];
-          if(z.matched >= z.total){ renderResult(phone); return; }
-          renderMemory(phone);
-        } else {
-          sfx.play("wrong");
-          z.lock = true;
-          renderMemory(phone);
-          setTimeout(function(){ z.open = []; z.lock = false; renderMemory(phone); }, 750);
-        }
-      });
-    });
-  }
-  function openWrongBoss(phone){
-    var s = state[phone.__id];
-    var wb = PROG.wrong[s.book] || {};
-    var book = currentBook(phone);
-    var pool = Object.keys(wb).map(function(k){
-      var zh = zhOf(k);
-      if(!zh){
-        book.units.forEach(function(u){ u.words.forEach(function(w){ if(String(w[0]).toLowerCase() === k){ zh = w[1]; } }); });
-      }
-      return {en:k, zh: zh || ""};
-    });
-    if(pool.length < 4){ toast(phone, "错词还不够 4 个，先去练几组积累错词吧"); return; }
-    var pairs = shuffle(pool).slice(0, Math.min(10, pool.length));
-    var cards = [];
-    pairs.forEach(function(pr, i){
-      cards.push({pair:i, kind:"en", text:pr.en});
-      cards.push({pair:i, kind:"zh", text:pr.zh || "（无释义）"});
-    });
-    phone.__quizStage = null;
-    phone.__quizGroup = null;
-    phone.__quiz = {type:"wrongboss", idx:0, score:0, attempts:0, matched:0, total:pairs.length,
-                    pairs:pairs, cards:shuffle(cards), start:Date.now()};
-    renderMatch(phone);
-    setView(phone, "quiz");
-  }
   function openSpeed(phone){
     var list = unitWordList(phone);
     if(list.length < 4){ toast(phone, "本单元单词太少"); return; }
-    phone.__quizStage = null;
     phone.__quizGroup = null;
     phone.__quiz = {type:"speed", idx:0, score:0, wrong:0, total:0, items:[], start:Date.now(), endAt: Date.now() + 60000, q:null,
                     queue:[], dirs:{en2zh:{total:0, score:0}, zh2en:{total:0, score:0}}};
@@ -1746,11 +1430,6 @@ body{
     var gs = arenaGroups();
     return "第 " + (ph.__arenaLvl+1) + "/" + gs.length + " 关 · ";
   }
-  function arenaGet(gameId){
-    var b = (PROG.arena || {})[arenaBook()] || {};
-    var u = b[arenaUnit().name] || {};
-    return u[gameId] || {};
-  }
   function arenaSave(gameId, data){
     PROG.arena = PROG.arena || {};
     var book = PROG.arena[arenaBook()] || (PROG.arena[arenaBook()] = {});
@@ -1909,7 +1588,6 @@ body{
     phone.__arenaLvl = levelIdx;
     if(!list.length){ list = arenaWords(); }
     if(!list.length){ toast(phone, "词库还没加载好，请稍后再试"); return; }
-    phone.__quizStage = null;
     phone.__quizGroup = null;
     phone.__arena = gameId;
     if(gameId === "link"){
@@ -2010,7 +1688,7 @@ body{
     if(!el) return;
     el.innerHTML =
       '<div class="vpre-quiz-head"><span class="vpre-mtitle">' + matchHeadText(z) + '</span><span class="vpre-mhead-actions">'
-      + (z.type === "wrongboss" ? '' : '<button class="vpre-btn vpre-btn-mini" type="button" data-mnew="1">换一组</button>')
+      + '<button class="vpre-btn vpre-btn-mini" type="button" data-mnew="1">换一组</button>'
       + '<button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></span></div>'
       + '<div class="vpre-progress" style="margin-bottom:14px;"><div style="width:' + Math.round(z.matched/z.total*100) + '%"></div></div>'
       + '<div class="vpre-mgrid">' + z.cards.map(function(c, i){
@@ -2126,9 +1804,7 @@ body{
     q("[data-result-new]", el).addEventListener("click", function(){
       sfx.play("tap");
       if(phone.__arena){ startArenaGame(phone, phone.__arena, phone.__arenaLvl); return; }
-      if(z.type === "memory"){ openMemory(phone); }
-      else if(z.type === "wrongboss"){ openWrongBoss(phone); }
-      else { openQuiz(phone, "match"); }
+      openQuiz(phone, "match");
     });
     q("[data-result-again]", el).addEventListener("click", function(){
       sfx.play("tap");
@@ -2353,7 +2029,7 @@ body{
   function renderResult(phone){
     var z = phone.__quiz;
     recordQuizResult(phone);
-    if(z.type === "match" || z.type === "memory" || z.type === "wrongboss"){ renderMatchResult(phone); return; }
+    if(z.type === "match"){ renderMatchResult(phone); return; }
     if(z.type === "speed"){ renderSpeedResult(phone); return; }
     sfx.play("win");
     var n = z.items.length;
@@ -2395,10 +2071,6 @@ body{
       sfx.play("tap");
       if(phone.__arena){ startArenaGame(phone, phone.__arena, phone.__arenaLvl); return; }
       if(z.type === "speed"){ openSpeed(phone); return; }
-      if(z.type === "memory"){ openMemory(phone); return; }
-      if(z.type === "wrongboss"){ openWrongBoss(phone); return; }
-      if(z.type === "review"){ openPoolQuiz(phone, reviewPool(phone), "review"); return; }
-      if(z.type === "daily"){ openPoolQuiz(phone, unitWordList(phone), "daily"); return; }
       if(z.type === "build"){ renderBuilder(phone); return; }
       openQuiz(phone, z.type, null, phone.__quizGroup ? phone.__quizGroup.gi : undefined);
     });
@@ -2515,12 +2187,6 @@ body{
     openQuiz(phone, act.replace("quiz-", ""), unitIdx);
   }
   var GRADE_BOOKS = {g7:["七上","七下"], g8:["八上","八下"], g9:["九上","九下"]};
-  function markLenClass(el, text, longAt, xlongAt){
-    if(!el) return;
-    var L = String(text || "").length;
-    el.classList.toggle("is-long", L > longAt && L <= (xlongAt || 999));
-    el.classList.toggle("is-xlong", !!(xlongAt && L > xlongAt));
-  }
   var GROUP_SIZE = 20;
   var GROUP_MODES = [["word","📖 看词选义"],["spell","✏️ 拼写闯关"],["read","🎤 跟读打卡"],["dictate","📝 默写闯关"]];
   function groupSeed(book, unitName){
@@ -2780,12 +2446,6 @@ body{
     if(hi){ hi.textContent = greetName(); }
     var stkEl = q(".vpre-welcome .vpre-streak", phone);
     if(stkEl){ stkEl.textContent = "🔥 连续 " + (PROG.stats.streak || 1) + " 天"; }
-    var noteEl = q("[data-games-note]", phone);
-    if(noteEl){
-      var cu = currentBook(phone).units.length ? currentBook(phone).units[Math.min(s.unit, currentBook(phone).units.length-1)] : null;
-      noteEl.textContent = '练习范围：' + s.book + ' ' + (cu ? cu.name : '')
-        + ' · 每组随机抽 10 词' + (cu ? ('（共 ' + cu.words.length + ' 词）') : '');
-    }
     var taskUnit = q(".vpre-task-unit", phone);
     if(taskUnit){ taskUnit.textContent = unitLabel(phone); }
     var uw = unitWords(phone);
@@ -2828,11 +2488,6 @@ body{
     loadAllBooks().then(function(){ renderStageMapInner(phone); });
   }
   function renderStageMapInner(phone){
-    var list = q(".vpre-stage-list", phone);
-    var note = q(".vpre-stage-note", phone);
-    var s = state[phone.__id];
-    var book = currentBook(phone);
-    if(note){ note.textContent = s.book + " · 三关20词 大作战10词"; }
     loadBook(arenaBook(), function(){ renderArena(phone); });
   }
   function renderReport(phone){
@@ -2874,7 +2529,7 @@ body{
       + rows.map(function(r){
           return '<div class="vpre-bookrow"><b>'+r.book+'</b><div class="vpre-progress"><div style="width:'+r.pct+'%"></div></div><span>'+r.lw+'/'+r.total+'</span></div>';
         }).join("")
-      + '<div class="vpre-sec-title">闯关星星 <span>累计 '+totalStars()+' 颗</span></div>'
+      + '<div class="vpre-sec-title">闯关星星 <span>累计 '+totalStars()+' 颗 · 已通关 '+clearedUnits()+' 个单元</span></div>'
       + '<div class="vpre-sec-title">错词榜</div>'
       + (topWrong.length ? topWrong.map(function(w){
           return '<div class="vpre-wrow"><div class="vpre-wmain"><b>'+w.en+'</b><span>'+(zhMap[w.en]||w.book)+'</span></div><span class="vpre-wbadge">错 '+w.c+' 次</span></div>';
@@ -3270,10 +2925,20 @@ body{
     }
   }
   function clearedUnits(){
+    // 已通关的单元：4 个小游戏的每一关都拿到 3★
     var n = 0;
     BOOK_LIST.forEach(function(b){
       bookData(b).units.forEach(function(u){
-        if((PROG.stageStars[b+"|"+u.name+"|boss"]||0) > 0){ n++; }
+        var groups = unitGroups(u, groupSeed(b, u.name));
+        var rec = ((PROG.arena || {})[b] || {})[u.name] || {};
+        var ok = groups.length > 0;
+        ARENA_GAMES.forEach(function(g){
+          var lv = (rec[g[0]] || {}).levels || {};
+          for(var k=0;k<groups.length;k++){
+            if(((lv[k] || {}).stars || 0) < 3){ ok = false; break; }
+          }
+        });
+        if(ok){ n++; }
       });
     });
     return n;
@@ -3391,15 +3056,6 @@ body{
       var qzEl = q(".vpre-quiz", phone);
       if(qzEl && qzEl.contains(btn)) return;
       sfx.play("tap");
-var chip = btn.closest(".vpre-stage-chip");
-      if(chip){
-        var ui = parseInt(chip.getAttribute("data-unit"),10);
-        var num = chip.getAttribute("data-num");
-        var typ = chip.getAttribute("data-type");
-        phone.__quizStage = {book: state[id].book, unit: currentBook(phone).units[ui].name, num: num};
-        runAction(phone, "quiz-" + typ, ui);
-        return;
-      }
       if(btn.closest("[data-unit-back]")){ renderUnits(phone); setView(phone, "home"); return; }
       if(btn.closest(".vpre-report-back")){ setView(phone, "mine"); return; }
       if(btn.closest(".vpre-report-print")){ showExportSheet(phone); return; }
@@ -3487,10 +3143,9 @@ var chip = btn.closest(".vpre-stage-chip");
       var act = btn.getAttribute("data-action");
       if(act){ runAction(phone, act); return; }
       if(btn.closest(".vpre-game")){ runAction(phone, ["quiz-word","quiz-spell","quiz-read","quiz-dictate"][qa(".vpre-game", phone).indexOf(btn)]); return; }
-      if(btn.closest(".vpre-wrow") || btn.closest(".vpre-summary")){ runAction(phone, "quiz-wrong"); return; }
+      if(btn.closest(".vpre-wrow")){ runAction(phone, "quiz-wrong"); return; }
       if(btn.closest(".vpre-hero-btn")){ runAction(phone, /复习/.test(btn.textContent) ? "quiz-wrong" : "quiz-word"); return; }
       if(btn.closest(".vpre-task")){ runAction(phone, "quiz-word"); return; }
-      if(btn.closest(".vpre-stage")){ runAction(phone, "quiz-spell"); return; }
       if(btn.closest(".vpre-view[data-view=mine]")){ runAction(phone, "toast"); return; }
     });
     renderUnits(phone);
@@ -3500,12 +3155,10 @@ var chip = btn.closest(".vpre-stage-chip");
   if(STUDENT){ hideLogin(); }
   flushQueue();
   flushRegQueue();
-  loadRoster(function(){
-    if(STUDENT){ hideLogin(); } else { showLogin(); }
-    loadBook(currentBookName(), function(){
-      if(initDemo()){ return; }
-      refreshStudents();
-    });
+  if(STUDENT){ hideLogin(); } else { showLogin(); }
+  loadBook(currentBookName(), function(){
+    if(initDemo()){ return; }
+    refreshStudents();
   });
   function demoMode(){
     var m = /[?&]demo=([a-z-]+)/i.exec(location.search);
@@ -3517,7 +3170,6 @@ var chip = btn.closest(".vpre-stage-chip");
   }
   function mockProgress(){
     return {
-      stageStars:{"九上|Unit 1|1":3, "九上|Unit 1|2":3, "九上|Unit 1|3":2},
       words:{"九上":{"Unit 1":{"puppet":1,"perform":1,"viewer":1,"friendly":1,"audience":1,"puppeteer":1}}},
       wrong:{"九上":{"puppeteer":2, "friendly":1, "electric":1}},
       stats:{answers:120, correct:106, learned:68, day:todayStr(), dayWords:24, streak:5,
