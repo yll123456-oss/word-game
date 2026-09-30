@@ -249,9 +249,6 @@ body{
 .vpre-game small{display:block; font-size:10.5px; color:var(--vp-muted); font-weight:400; margin-top:2px;}
 .vpre-game:hover{border-color:#c7cfe4;}
 
-.vpre-review{display:flex; align-items:center; gap:12px; background:var(--vp-orange-soft); border:1px solid rgba(245,158,11,.32); border-radius:15px; padding:13px 14px; font-size:12.5px; color:var(--vp-ink);}
-.vpre-review b{color:var(--vp-orange);}
-.vpre-review .vpre-btn{background:#fff; color:#b45309; padding:7px 12px; font-size:11.5px; margin-left:auto; border-radius:10px; box-shadow:0 2px 8px rgba(245,158,11,.18);}
 .vpre-placeholder{background:var(--vp-card); border:1.5px dashed #d8dde7; border-radius:15px; padding:24px 14px; text-align:center; font-size:12.5px; color:var(--vp-muted);}
 .vpre-card{background:var(--vp-card); border:1px solid #e6e9f0; border-radius:18px; padding:16px; box-shadow:var(--vp-shadow-sm);}
 
@@ -443,8 +440,10 @@ body{
 .vpre-mcard.is-zh{background:#f7faf8; border-color:#dce8e2;}
 .vpre-mcard:active{transform:scale(.96);}
 .vpre-mcard.is-sel{border-color:var(--vp-blue); background:#eef1fb; color:var(--vp-blue); box-shadow:0 0 0 2px rgba(59,91,219,.2); transform:scale(1.03);}
-.vpre-mcard.is-matched{border-color:var(--vp-green); background:var(--vp-green-soft); color:#0a7a52; cursor:default; opacity:.9;}
+.vpre-mcard.is-matched{border-color:var(--vp-green); background:var(--vp-green-soft); color:#0a7a52; cursor:default; animation:vpre-pop .28s ease-out;}
 .vpre-mcard.is-matched::after{content:"✓"; position:absolute; top:4px; right:7px; font-size:12px; font-weight:700; color:#0a7a52;}
+.vpre-mcard.is-gone{visibility:hidden; pointer-events:none; opacity:0; box-shadow:none;}
+@keyframes vpre-pop{0%{transform:scale(1.06)}60%{transform:scale(.94)}100%{transform:scale(1)}}
 .vpre-mcard.is-wrong{border-color:var(--vp-red); background:var(--vp-red-soft); color:#d02f35; animation:vpre-shake .3s;}
 @keyframes vpre-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 .vpre-mtip{font-size:11px; color:var(--vp-muted); text-align:center; margin-top:14px;}
@@ -591,11 +590,6 @@ body{
             <div class="vpre-bookseg" role="group" aria-label="选择上下册"></div>
             <div class="vpre-sec-title">单元列表 <span class="vpre-sec-note">九上</span></div>
             <div class="vpre-unit-list"></div>
-            <div class="vpre-sec-title">今日复习</div>
-            <div class="vpre-review">
-              <span class="vpre-review-txt">📌 今天没有错词，继续保持！</span>
-              <button class="vpre-btn" type="button">去复习</button>
-            </div>
           </div>
           <div class="vpre-view" data-view="stage">
             <div class="vpre-arena" data-arena></div>
@@ -1345,6 +1339,8 @@ body{
       return;
     }
     else {
+      // 错词复习：只出"错词本里的词"（最多 10 个，随机顺序），不掺别的词；
+      // 干扰项从本册非错词里取，保证仍是 4 选 1。
       var s = state[phone.__id];
       var book = currentBook(phone);
       var all = [];
@@ -1356,11 +1352,19 @@ body{
           if(all[i].en.toLowerCase() === k){ pool.push(all[i]); break; }
         }
       });
-      if(pool.length < 4){
-        var demo = [list[Math.min(2,list.length-1)], list[Math.min(5,list.length-1)], list[Math.min(8,list.length-1)], list[Math.min(11,list.length-1)]].filter(Boolean);
-        pool = pool.concat(demo).slice(0,4);
+      pool = shuffle(pool).slice(0, 10);
+      if(!pool.length){
+        toast(phone, "错词本还是空的，先去第一页练习吧");
+        return;
       }
-      items = buildWordItems(pool, Math.min(4, pool.length));
+      var distract = all.filter(function(w){ return !wb[w.en.toLowerCase()]; });
+      if(distract.length < 4){ distract = all; }
+      items = pool.map(function(x){
+        var others = distract.filter(function(y){ return y.zh !== x.zh; });
+        var d = pickWords(others, 3).map(function(y){ return y.zh; });
+        while(d.length < 3 && d.length){ d.push(d[0]); }
+        return { prompt:x.en, sub:null, opts:shuffle([x.zh].concat(d)), answer:x.zh, speak:x.en, optsAreWords:true };
+      });
     }
     phone.__quiz = { type:type, idx:0, score:0, items:items, start:Date.now() };
     renderQuiz(phone);
@@ -1913,6 +1917,7 @@ body{
       + '<button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></span></div>'
       + '<div class="vpre-progress" style="margin-bottom:14px;"><div style="width:' + Math.round(z.matched/z.total*100) + '%"></div></div>'
       + '<div class="vpre-mgrid">' + z.cards.map(function(c, i){
+          if(c.done){ return '<button class="vpre-mcard is-gone" type="button" disabled aria-hidden="true"></button>'; }
           return '<button class="vpre-mcard ' + (c.kind === "en" ? "is-en" : "is-zh") + '" type="button" data-i="' + i + '">' + c.text + '</button>';
         }).join("") + '</div>'
       + '<div class="vpre-mtip">点两张卡片：英文 ↔ 中文，配对成功即消除</div>';
@@ -1939,7 +1944,16 @@ body{
           sfx.play("match");
           qa(".vpre-mcard", el).forEach(function(b){
             var k = parseInt(b.getAttribute("data-i"), 10);
-            if(k === i || k === j){ b.classList.remove("is-sel"); b.classList.add("is-matched"); b.disabled = true; }
+            if(k === i || k === j){
+              b.classList.remove("is-sel");
+              b.classList.add("is-matched");
+              b.disabled = true;
+              setTimeout(function(){
+                b.classList.remove("is-matched");
+                b.classList.add("is-gone");
+                b.innerHTML = "&nbsp;";
+              }, 300);
+            }
           });
           var head = q(".vpre-mtitle", el);
           if(head){ head.textContent = matchHeadText(z); }
@@ -2655,6 +2669,8 @@ body{
     }).join("");
     var hi = q(".vpre-hi-text", phone);
     if(hi){ hi.textContent = greetName(); }
+    var stkEl = q(".vpre-welcome .vpre-streak", phone);
+    if(stkEl){ stkEl.textContent = "🔥 连续 " + (PROG.stats.streak || 1) + " 天"; }
     var noteEl = q("[data-games-note]", phone);
     if(noteEl){
       var cu = currentBook(phone).units.length ? currentBook(phone).units[Math.min(s.unit, currentBook(phone).units.length-1)] : null;
@@ -2683,12 +2699,6 @@ body{
     }
     var ctaEl = q(".vpre-task-cta", phone);
     if(ctaEl){ ctaEl.textContent = "继续学习 → " + s.book + " " + uw.name + " · 第 " + (giNow+1) + " 组"; }
-    var wb = PROG.wrong[s.book] || {};
-    var wc = Object.keys(wb).length;
-    var reviewTxt = q(".vpre-review-txt", phone);
-    if(reviewTxt){ reviewTxt.textContent = wc > 0 ? "📌 " + wc + " 个错词待复习，重练才能记住" : "📌 今天没有错词，继续保持！"; }
-    var reviewBtn = q(".vpre-review .vpre-btn", phone);
-    if(reviewBtn){ reviewBtn.style.display = wc > 0 ? "" : "none"; }
     var secNote = q(".vpre-sec-note", phone);
     if(secNote){ secNote.textContent = s.book + " · " + book.units.reduce(function(a,u){ return a+u.n; },0) + " 词"; }
     var taskCta = q(".vpre-task-cta", phone);
@@ -3207,7 +3217,7 @@ body{
     if(bar){ bar.style.width = rate + "%"; }
     var arr = shuffle(Object.keys(wb).map(function(k){ return {en:k, c:wb[k]}; })).slice(0, 8);   // 顺序随机，每次打开可能不同
     if(!arr.length){
-      list.innerHTML = '<div class="vpre-placeholder">还没有错词，去闯关练一练吧</div>';
+      list.innerHTML = '<div class="vpre-placeholder">还没有错词。第一页练习中答错的词会自动进来</div>';
       return;
     }
     var book = currentBook(phone);
@@ -3313,26 +3323,9 @@ var chip = btn.closest(".vpre-stage-chip");
         loadBook(arenaBook(), function(){ showArenaLevels(phone, gid); });
         return;
       }
-      var rgBtn = btn.closest("[data-rgame]");
-      if(rgBtn){
-        var gname = rgBtn.getAttribute("data-rgame");
-        if(gname === "match"){ openReviewMatch(phone); }
-        else if(gname === "memory"){ openMemory(phone); }
-        else if(gname === "speed"){ openSpeed(phone); }
-        else { openWrongBoss(phone); }
-        return;
-      }
       if(btn.closest("[data-install]")){
         sfx.play("tap");
         doInstall(phone);
-        return;
-      }
-      if(btn.closest("[data-review]")){
-        openPoolQuiz(phone, reviewPool(phone), "review");
-        return;
-      }
-      if(btn.closest("[data-daily-start]")){
-        openPoolQuiz(phone, unitWordList(phone), "daily");
         return;
       }
       var boardBtn = btn.closest("[data-board-unit]");
@@ -3385,7 +3378,7 @@ var chip = btn.closest(".vpre-stage-chip");
       var act = btn.getAttribute("data-action");
       if(act){ runAction(phone, act); return; }
       if(btn.closest(".vpre-game")){ runAction(phone, ["quiz-word","quiz-spell","quiz-read","quiz-dictate"][qa(".vpre-game", phone).indexOf(btn)]); return; }
-      if(btn.closest(".vpre-wrow") || btn.closest(".vpre-review") || btn.closest(".vpre-summary")){ runAction(phone, "quiz-wrong"); return; }
+      if(btn.closest(".vpre-wrow") || btn.closest(".vpre-summary")){ runAction(phone, "quiz-wrong"); return; }
       if(btn.closest(".vpre-hero-btn")){ runAction(phone, /复习/.test(btn.textContent) ? "quiz-wrong" : "quiz-word"); return; }
       if(btn.closest(".vpre-task")){ runAction(phone, "quiz-word"); return; }
       if(btn.closest(".vpre-stage")){ runAction(phone, "quiz-spell"); return; }
