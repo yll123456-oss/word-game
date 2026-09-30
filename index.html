@@ -1387,16 +1387,26 @@ body{
   }
   function matchHeadText(z){
     var batch = "";
-    if((z.pairs || []).length > 10 && z.dealt){ batch = " · 第 " + Math.ceil(z.dealt / 10) + " 批"; }
+    // 只有真的分了多批时才显示批号
+    if((z.pairs || []).length > MATCH_BATCH && z.batchNo && (z.batchNo > 1 || z.dealt < (z.pairs || []).length)){
+      batch = " · 第 " + z.batchNo + " 批";
+    }
     return arenaLevelTag() + (TYPE_NAME[z.type] || "连连看") + " · 已配对 " + z.matched + " / " + z.total + " · 尝试 " + z.attempts + " 次" + batch;
   }
-  // 连连看发牌：从 z.pairs 里取下一批（最多 10 对）铺到棋盘上
+  // 连连看发牌：从 z.pairs 里取下一批（最多 10 对）铺到棋盘上；
+  // 尾批太小时（≤3 对）不再单独开一批，直接并进上一批一起显示
+  var MATCH_BATCH = 10, MATCH_TAIL_MIN = 3;
   function matchDealNext(phone){
     var z = phone.__quiz;
     if(!z || !z.pairs){ return; }
     var startIdx = (z.dealt == null) ? 0 : z.dealt;
-    var batch = z.pairs.slice(startIdx, startIdx + 10);
+    var remain = z.pairs.length - startIdx;
+    var take = Math.min(MATCH_BATCH, remain);
+    var tail = remain - take;
+    if(tail > 0 && tail <= MATCH_TAIL_MIN){ take = remain; }   // 尾批并进这一批
+    var batch = z.pairs.slice(startIdx, startIdx + take);
     z.dealt = startIdx + batch.length;
+    z.batchNo = (z.batchNo || 0) + 1;
     var cards = [];
     batch.forEach(function(pr, k){
       var gi = startIdx + k;
@@ -2008,7 +2018,7 @@ body{
           return '<button class="vpre-mcard ' + (c.kind === "en" ? "is-en" : "is-zh") + '" type="button" data-i="' + i + '">' + c.text + '</button>';
         }).join("") + '</div>'
       + '<div class="vpre-mtip">点两张卡片：英文 ↔ 中文，配对成功即消除'
-      + (((z.pairs || []).length > 10) ? '；一批 10 对消完自动补下一批，直到把这组练完' : '') + '</div>';
+      + (((z.pairs || []).length > 10) ? '；一批最多 10 对，消完自动补下一批（不足 ' + MATCH_TAIL_MIN + ' 对的尾批会并进上一批），直到把这组练完' : '') + '</div>';
     var sel = null, lock = false;
     qa(".vpre-mcard", el).forEach(function(card){
       card.addEventListener("click", function(){
@@ -2098,7 +2108,7 @@ body{
   function renderMatchResult(phone){
     var z = phone.__quiz;
     sfx.play("win");
-    var lit = z.attempts <= z.total + 2 ? 3 : (z.attempts <= z.total * 2 + 2 ? 2 : 1);
+    var lit = starsEarned(z);   // 与闯关地图/计星规则保持一致（原来这里是 total+2，比实际记录的门槛严，会出现"显示 2★ 却记成 3★"）
     var stars = "";
     for(var st=0;st<3;st++){ stars += '<span class="'+(st<lit ? "" : "dim")+'">★</span>'; }
     var msg = lit === 3 ? "太棒了，全部配对！" : (lit === 2 ? "很好，再快一点就满分！" : "不错，多练几遍更熟练！");
