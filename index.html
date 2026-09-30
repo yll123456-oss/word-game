@@ -318,7 +318,24 @@ body{
 .vpre-arena-game i{font-style:normal; font-size:28px; line-height:1;}
 .vpre-arena-game span{font-size:13.5px; font-weight:800;}
 .vpre-arena-game small{font-size:10.5px; color:var(--vp-muted); text-align:center; line-height:1.5;}
-.vpre-arena-meta{font-style:normal; font-size:10.5px; color:var(--vp-blue); margin-top:2px; font-weight:700;}
+.vpre-arena-meta{font-style:normal; font-size:10.5px; color:var(--vp-blue); margin-top:2px; font-weight:700; text-align:center;}
+.vpre-arena-bar{display:block; width:100%; height:5px; background:#eef1f8; border-radius:99px; overflow:hidden; margin-top:6px;}
+.vpre-arena-bar > i{display:block; height:100%; background:var(--vp-blue); border-radius:99px;}
+.vpre-arena-game.is-clear{border-color:#9fd9c3; background:linear-gradient(180deg,#f3fdf9,#ffffff);}
+.vpre-arena-game.is-clear .vpre-arena-bar > i{background:#0f9d76;}
+.vpre-arena-dots{display:flex; gap:6px; flex-wrap:wrap; margin:8px 0 6px;}
+.vpre-arena-dot{font-size:10.5px; padding:3px 8px; border-radius:99px; background:#f0f2f8; color:var(--vp-muted); font-weight:700;}
+.vpre-arena-dot.is-on{background:#e9f8f2; color:#0f7a5c;}
+.vpre-levels-card{max-width:330px;}
+.vpre-levels-list{display:flex; flex-direction:column; gap:8px; margin:10px 0 4px;}
+.vpre-level-row{display:grid; grid-template-columns:56px 1fr auto; align-items:center; gap:8px; background:#f8faff; border:1px solid var(--vp-line); border-radius:13px; padding:10px 12px; cursor:pointer; text-align:left;}
+.vpre-level-row:disabled{opacity:.55; cursor:default;}
+.vpre-level-row.is-clear{background:#f0fbf6; border-color:#9fd9c3;}
+.vpre-level-no{font-size:12.5px; font-weight:800; color:var(--vp-ink);}
+.vpre-level-meta{font-size:11px; color:var(--vp-muted);}
+.vpre-level-go{font-size:11.5px; font-weight:700; color:var(--vp-blue); white-space:nowrap;}
+.vpre-level-row.is-clear .vpre-level-go{color:#0f7a5c;}
+.vpre-levels-tip{font-size:11px; color:var(--vp-muted); line-height:1.7; text-align:left;}
 .vpre-build-slots{display:flex; gap:6px; flex-wrap:wrap; justify-content:center; min-height:44px; margin:12px 0 6px; align-items:center;}
 .vpre-build-slot{width:30px; height:38px; border-bottom:2px solid var(--vp-line); display:flex; align-items:center; justify-content:center; font-size:19px; font-weight:700; color:var(--vp-ink);}
 .vpre-build-slot.is-filled{border-bottom-color:var(--vp-blue);}
@@ -1350,7 +1367,7 @@ body{
     setView(phone, "quiz");
   }
   function matchHeadText(z){
-    return (TYPE_NAME[z.type] || "连连看") + " · 已配对 " + z.matched + " / " + z.total + " · 尝试 " + z.attempts + " 次";
+    return arenaLevelTag() + (TYPE_NAME[z.type] || "连连看") + " · 已配对 " + z.matched + " / " + z.total + " · 尝试 " + z.attempts + " 次";
   }
   // ===== 复习小游戏（闯关页独立区）=====
   function reviewPool(phone){
@@ -1520,7 +1537,7 @@ body{
     }).join("");
     var left = Math.max(0, Math.ceil((z.endAt - Date.now()) / 1000));
     el.innerHTML =
-      '<div class="vpre-quiz-head"><span>限时快答 · 60 秒</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
+      '<div class="vpre-quiz-head"><span>' + arenaLevelTag() + '限时快答 · 60 秒</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
       + '<div class="vpre-speedbar"><div class="vpre-progress"><div style="width:' + Math.round(Math.max(0, (z.endAt - Date.now()) / 60000) * 100) + '%"></div></div><b>' + left + ' 秒</b></div>'
       + '<div class="vpre-qcard"><div class="vpre-qword' + pcls + '">' + prompt + '</div>'
       + (q1.speak ? '<button class="vpre-speak" type="button">🔊 播放发音</button>' : '')
@@ -1595,6 +1612,37 @@ body{
   function arenaWords(){
     return (arenaUnit().words || []).map(function(w){ return {en:w[0], zh:w[1]}; });
   }
+  function arenaGroups(){
+    return unitGroups(arenaUnit(), groupSeed(arenaBook(), arenaUnit().name));
+  }
+  function arenaLevelRec(gameId, lvl){
+    var b = (PROG.arena || {})[arenaBook()] || {};
+    var u = b[arenaUnit().name] || {};
+    var g = u[gameId] || {};
+    var lv = g.levels || {};
+    return lv[lvl] || {};
+  }
+  function arenaLevelCleared(gameId, lvl){ return (arenaLevelRec(gameId, lvl).stars || 0) >= 3; }
+  function arenaLevelUnlocked(gameId, lvl){
+    if(lvl <= 0){ return true; }
+    return arenaLevelCleared(gameId, lvl - 1);
+  }
+  function arenaGameCleared(gameId){
+    var gs = arenaGroups();
+    for(var i=0;i<gs.length;i++){ if(!arenaLevelCleared(gameId, i)){ return false; } }
+    return gs.length > 0;
+  }
+  function arenaGameStars(gameId){
+    var gs = arenaGroups(), n = 0;
+    for(var i=0;i<gs.length;i++){ n += Math.min(3, arenaLevelRec(gameId, i).stars || 0); }
+    return {got: n, max: gs.length * 3};
+  }
+  function arenaLevelTag(){
+    var ph = qa(".vpre-phone")[0];
+    if(!ph || ph.__arenaLvl == null){ return ""; }
+    var gs = arenaGroups();
+    return "第 " + (ph.__arenaLvl+1) + "/" + gs.length + " 关 · ";
+  }
   function arenaGet(gameId){
     var b = (PROG.arena || {})[arenaBook()] || {};
     var u = b[arenaUnit().name] || {};
@@ -1605,23 +1653,39 @@ body{
     var book = PROG.arena[arenaBook()] || (PROG.arena[arenaBook()] = {});
     var uName = arenaUnit().name;
     var u = book[uName] || (book[uName] = {});
-    var r = u[gameId] || (u[gameId] = {plays:0});
+    var r = u[gameId] || (u[gameId] = {plays:0, levels:{}});
+    r.levels = r.levels || {};
+    var lvl = (data.level == null) ? 0 : data.level;
+    var lr = r.levels[lvl] || (r.levels[lvl] = {plays:0});
     r.plays = (r.plays || 0) + 1;
+    lr.plays = (lr.plays || 0) + 1;
     r.at = todayStr();
-    if(data.stars != null){ r.stars = Math.max(r.stars || 0, data.stars); }
-    if(data.attempts != null){ r.bestAttempts = (r.bestAttempts == null) ? data.attempts : Math.min(r.bestAttempts, data.attempts); }
-    if(data.score != null){ r.bestScore = (r.bestScore == null) ? data.score : Math.max(r.bestScore, data.score); }
+    lr.at = todayStr();
+    if(data.stars != null){
+      r.stars = Math.max(r.stars || 0, data.stars);
+      lr.stars = Math.max(lr.stars || 0, data.stars);
+    }
+    if(data.attempts != null){ lr.bestAttempts = (lr.bestAttempts == null) ? data.attempts : Math.min(lr.bestAttempts, data.attempts); }
+    if(data.score != null){ lr.bestScore = (lr.bestScore == null) ? data.score : Math.max(lr.bestScore, data.score); }
+    var bestA = null, bestS = null;
+    Object.keys(r.levels).forEach(function(k){
+      var x = r.levels[k];
+      if(x.bestAttempts != null){ bestA = (bestA == null) ? x.bestAttempts : Math.min(bestA, x.bestAttempts); }
+      if(x.bestScore != null){ bestS = (bestS == null) ? x.bestScore : Math.max(bestS, x.bestScore); }
+    });
+    r.bestAttempts = bestA;
+    r.bestScore = bestS;
     saveProgress();
   }
   function arenaUnitClearedGames(){
     var n = 0;
-    ARENA_GAMES.forEach(function(g){ if((arenaGet(g[0]).stars || 0) >= 3){ n++; } });
+    ARENA_GAMES.forEach(function(g){ if(arenaGameCleared(g[0])){ n++; } });
     return n;
   }
   function arenaFinish(phone){
     var g = phone.__arena, z = phone.__quiz;
     if(!g || !z){ return; }
-    var data = {stars: starsEarned(z)};
+    var data = {stars: starsEarned(z), level: (phone.__arenaLvl == null ? 0 : phone.__arenaLvl)};
     if(g === "link"){ data.attempts = z.attempts; }
     else if(g === "speed"){ data.score = z.score; }
     else { data.score = (z.items || []).filter(function(it){ return it.correct; }).length; }
@@ -1644,21 +1708,33 @@ body{
       var c = 0;
       var all = (PROG.arena || {})[arenaBook()] || {};
       var rec = all[u.name] || {};
-      ARENA_GAMES.forEach(function(g){ if(((rec[g[0]] || {}).stars || 0) >= 3){ c++; } });
+      var groupsOfUnit = unitGroups(u, groupSeed(arenaBook(), u.name));
+      ARENA_GAMES.forEach(function(g){
+        var lv = ((rec[g[0]] || {}).levels) || {};
+        var ok = groupsOfUnit.length > 0;
+        for(var k=0;k<groupsOfUnit.length;k++){ if(((lv[k] || {}).stars || 0) < 3){ ok = false; break; } }
+        if(ok){ c++; }
+      });
       var done = c >= ARENA_GAMES.length;
       return '<button type="button" data-arena-unit="' + i + '" class="' + (i === arenaUnitIdx() ? 'is-active' : '') + (done ? ' is-clear' : '') + '">'
         + u.name + (done ? ' ✓' : '') + '</button>';
     }).join("");
     var gamesHtml = ARENA_GAMES.map(function(g){
-      var r = arenaGet(g[0]);
-      var stars = r.stars || 0;
-      var starTxt = stars ? (new Array(stars+1).join("⭐️")) : "未挑战";
+      var gl = arenaGroups();
+      var doneLv = 0;
+      gl.forEach(function(grp, i){ if(arenaLevelCleared(g[0], i)){ doneLv++; } });
+      var cleared = gl.length > 0 && doneLv >= gl.length;
+      var curLv = Math.min(doneLv + 1, gl.length);
+      var lr = arenaLevelRec(g[0], Math.min(doneLv, gl.length - 1));
       var bestTxt = "";
-      if(g[0] === "link" && r.bestAttempts != null){ bestTxt = " · 最少 " + r.bestAttempts + " 次"; }
-      else if(r.bestScore != null){ bestTxt = " · 最佳 " + r.bestScore + " 题"; }
-      return '<button class="vpre-arena-game" type="button" data-arena-game="' + g[0] + '">'
+      if(g[0] === "link" && lr.bestAttempts != null){ bestTxt = " · 最少 " + lr.bestAttempts + " 次"; }
+      else if(lr.bestScore != null){ bestTxt = " · 最佳 " + lr.bestScore + " 题"; }
+      var metaTxt = cleared ? ('🏆 满星通关') : ('关卡 ' + curLv + '/' + gl.length + bestTxt);
+      var pct = gl.length ? Math.round(doneLv / gl.length * 100) : 0;
+      return '<button class="vpre-arena-game' + (cleared ? ' is-clear' : '') + '" type="button" data-arena-game="' + g[0] + '">'
         + '<i>' + g[1] + '</i><span>' + g[2] + '</span><small>' + g[3] + '</small>'
-        + '<em class="vpre-arena-meta">' + starTxt + bestTxt + '</em></button>';
+        + '<em class="vpre-arena-meta">' + metaTxt + '</em>'
+        + '<span class="vpre-arena-bar"><i style="width:' + pct + '%"></i></span></button>';
     }).join("");
     el.innerHTML =
       '<div class="vpre-sec-title" style="margin-top:2px;">闯关范围 <span class="vpre-sec-note">分册 + 单元任选</span></div>'
@@ -1667,11 +1743,67 @@ body{
       +   '<div class="vpre-arena-row"><span>单元</span><div class="vpre-arena-chips" data-arena-units>' + unitsHtml + '</div></div>'
       + '</div>'
       + '<div class="vpre-arena-summary"><b>' + arenaBook() + ' ' + unit.name + '</b> · ' + (unit.words || []).length + ' 词 · 已通关 <b>' + cleared + '/' + ARENA_GAMES.length + '</b> 个游戏'
-      + (cleared >= ARENA_GAMES.length ? ' · 🏆 本单元闯关通关！' : '') + '<br><span style="color:var(--vp-muted)">闯关只用于补充练习：不影响错题本，也不影响第一页的分组进度</span></div>'
+      + (cleared >= ARENA_GAMES.length ? ' · 🏆 本单元闯关通关！' : '')
+      + '<div class="vpre-arena-dots">' + ARENA_GAMES.map(function(g){
+          var ok = arenaGameCleared(g[0]);
+          var st = arenaGameStars(g[0]);
+          return '<span class="vpre-arena-dot' + (ok ? ' is-on' : '') + '">' + g[1] + ' ' + st.got + '/' + st.max + '</span>';
+        }).join("") + '</div>'
+      + '<span style="color:var(--vp-muted)">闯关只用于补充练习：不影响错题本，也不影响第一页的分组进度</span></div>'
       + '<div class="vpre-arena-grid">' + gamesHtml + '</div>';
   }
-  function startArenaGame(phone, gameId){
-    var list = arenaWords();
+  function showArenaLevels(phone, gameId){
+    var gs = arenaGroups();
+    var gmeta = null;
+    ARENA_GAMES.forEach(function(g){ if(g[0] === gameId){ gmeta = g; } });
+    var rows = gs.map(function(grp, i){
+      var lr = arenaLevelRec(gameId, i);
+      var stars = lr.stars || 0;
+      var unlocked = arenaLevelUnlocked(gameId, i);
+      var starTxt = stars ? (new Array(stars+1).join("⭐️")) : "未挑战";
+      var bestTxt = "";
+      if(gameId === "link" && lr.bestAttempts != null){ bestTxt = " · 最少 " + lr.bestAttempts + " 次"; }
+      else if(lr.bestScore != null){ bestTxt = " · 最佳 " + lr.bestScore + " 题"; }
+      var label = stars >= 3 ? "已满星 ✓" : (unlocked ? "开始" : "🔒 未解锁");
+      return '<button class="vpre-level-row' + (unlocked ? '' : ' is-locked') + (stars >= 3 ? ' is-clear' : '') + '"'
+        + ' type="button" data-arena-level="' + i + '" data-arena-game-level="' + gameId + '"' + (unlocked ? '' : ' disabled') + '>'
+        + '<span class="vpre-level-no">第 ' + (i+1) + ' 关</span>'
+        + '<span class="vpre-level-meta">' + grp.length + ' 词 · ' + starTxt + bestTxt + '</span>'
+        + '<span class="vpre-level-go">' + label + '</span></button>';
+    }).join("");
+    var mask = document.createElement("div");
+    mask.className = "vpre-confirm-mask";
+    mask.innerHTML = '<div class="vpre-confirm-card vpre-levels-card">'
+      + '<div class="vpre-confirm-icon">' + (gmeta ? gmeta[1] : "🎮") + '</div>'
+      + '<div class="vpre-confirm-title">' + (gmeta ? gmeta[2] : "小游戏") + ' · 闯关</div>'
+      + '<div class="vpre-confirm-sub">' + arenaBook() + ' ' + arenaUnit().name + ' · 共 ' + gs.length + ' 关（每关约 20 词）</div>'
+      + '<div class="vpre-levels-list">' + rows + '</div>'
+      + '<div class="vpre-levels-tip">每关拿到 3★ 解锁下一关；全部关卡 3★ = 这个游戏满星</div>'
+      + '<button class="vpre-sheet-cancel" type="button" data-level-close="1" style="margin-top:12px;">关闭</button>'
+      + '</div>';
+    document.body.appendChild(mask);
+    mask.classList.add("is-show");
+    function close(){
+      mask.classList.remove("is-show");
+      setTimeout(function(){ if(mask.parentNode){ mask.parentNode.removeChild(mask); } }, 220);
+    }
+    mask.addEventListener("click", function(ev){
+      if(ev.target === mask || ev.target.closest("[data-level-close]")){ sfx.play("tap"); close(); return; }
+      var b = ev.target.closest("[data-arena-level]");
+      if(b){
+        sfx.play("tap");
+        var lv = parseInt(b.getAttribute("data-arena-level"), 10);
+        close();
+        startArenaGame(phone, b.getAttribute("data-arena-game-level"), lv);
+      }
+    });
+  }
+  function startArenaGame(phone, gameId, lvl){
+    var gs = arenaGroups();
+    var levelIdx = (lvl == null) ? 0 : lvl;
+    var list = (gs[levelIdx] || []).map(function(w){ return {en:w[0], zh:w[1]}; });
+    phone.__arenaLvl = levelIdx;
+    if(!list.length){ list = arenaWords(); }
     if(!list.length){ toast(phone, "词库还没加载好，请稍后再试"); return; }
     phone.__quizStage = null;
     phone.__quizGroup = null;
@@ -1724,7 +1856,7 @@ body{
         return '<button class="vpre-build-tile" type="button" data-tile="' + i + '"' + (used || z.locked ? ' disabled' : '') + '>' + ch + '</button>';
       }).join("");
       el.innerHTML =
-        '<div class="vpre-quiz-head"><span>拼词积木</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
+        '<div class="vpre-quiz-head"><span>' + arenaLevelTag() + '拼词积木</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
         + '<div class="vpre-quiz-progress"><div class="vpre-progress"><div style="width:' + Math.round(z.idx / z.items.length * 100) + '%"></div></div>'
         + '<span class="vpre-quiz-count">' + (z.idx+1) + ' / ' + z.items.length + '</span></div>'
         + '<div class="vpre-qcard"><div class="vpre-qword is-long">' + it.prompt + '</div>'
@@ -1870,14 +2002,14 @@ body{
       + '</div></div>';
     q("[data-result-new]", el).addEventListener("click", function(){
       sfx.play("tap");
-      if(phone.__arena){ startArenaGame(phone, phone.__arena); return; }
+      if(phone.__arena){ startArenaGame(phone, phone.__arena, phone.__arenaLvl); return; }
       if(z.type === "memory"){ openMemory(phone); }
       else if(z.type === "wrongboss"){ openWrongBoss(phone); }
       else { openQuiz(phone, "match"); }
     });
     q("[data-result-again]", el).addEventListener("click", function(){
       sfx.play("tap");
-      if(phone.__arena){ startArenaGame(phone, phone.__arena); return; }
+      if(phone.__arena){ startArenaGame(phone, phone.__arena, phone.__arenaLvl); return; }
       replayMatch(phone);
     });
     var homeBtn = q("[data-result-home]", el);
@@ -2043,7 +2175,7 @@ body{
     var prompt = String(it.prompt || "");
     var pcls = prompt.length > 24 ? " is-xlong" : (prompt.length > 16 ? " is-long" : "");
     el.innerHTML =
-      '<div class="vpre-quiz-head"><span>'+TYPE_NAME[z.type]+'</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
+      '<div class="vpre-quiz-head"><span>'+arenaLevelTag()+TYPE_NAME[z.type]+'</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
       +'<div class="vpre-quiz-progress"><div class="vpre-progress"><div style="width:'+Math.round(z.idx/z.items.length*100)+'%"></div></div>'
       +'<span class="vpre-quiz-count">'+(z.idx+1)+' / '+z.items.length+'</span></div>'
       +'<div class="vpre-qcard"><div class="vpre-qword'+pcls+'">'+prompt+'</div>'
@@ -2138,7 +2270,7 @@ body{
     if(sh){ sh.addEventListener("click", function(){ sfx.play("tap"); shareImage(phone, z); }); }
     q("[data-result-again]", el).addEventListener("click", function(){
       sfx.play("tap");
-      if(phone.__arena){ startArenaGame(phone, phone.__arena); return; }
+      if(phone.__arena){ startArenaGame(phone, phone.__arena, phone.__arenaLvl); return; }
       if(z.type === "speed"){ openSpeed(phone); return; }
       if(z.type === "memory"){ openMemory(phone); return; }
       if(z.type === "wrongboss"){ openWrongBoss(phone); return; }
@@ -3178,7 +3310,7 @@ var chip = btn.closest(".vpre-stage-chip");
       var aGame = btn.closest("[data-arena-game]");
       if(aGame){
         var gid = aGame.getAttribute("data-arena-game");
-        loadBook(arenaBook(), function(){ startArenaGame(phone, gid); });
+        loadBook(arenaBook(), function(){ showArenaLevels(phone, gid); });
         return;
       }
       var rgBtn = btn.closest("[data-rgame]");
