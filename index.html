@@ -423,7 +423,16 @@ body{
 .vpre-sheet-opt:active{transform:scale(.98);}
 .vpre-sheet-opt .vpre-opt-title{display:block; font-size:13.5px; font-weight:700;}
 .vpre-sheet-opt .vpre-opt-tip{display:block; font-size:10.5px; color:var(--vp-muted); font-weight:400; margin-top:2px; line-height:1.5;}
-.vpre-confirm-text{font-size:13px; color:var(--vp-ink-2); line-height:2; text-align:left; background:#f7f9ff; border:1px solid var(--vp-line); border-radius:14px; padding:12px 14px;}
+.vpre-confirm-mask{position:fixed; inset:0; z-index:95; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(23,29,45,.28); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);}
+.vpre-confirm-mask.is-show{display:flex;}
+.vpre-confirm-card{width:100%; max-width:308px; background:#fff; border-radius:20px; padding:20px 18px 16px; box-shadow:0 18px 44px rgba(23,29,45,.22); text-align:center; animation:vpre-pop .22s cubic-bezier(.2,1.2,.5,1);}
+.vpre-confirm-icon{font-size:28px; line-height:1;}
+.vpre-confirm-title{font-size:16px; font-weight:800; color:var(--vp-ink); margin:8px 0 4px;}
+.vpre-confirm-sub{font-size:12px; color:var(--vp-muted); margin-bottom:12px;}
+.vpre-confirm-text{font-size:12.5px; color:var(--vp-ink-2); line-height:1.95; text-align:left; background:#f7f9ff; border:1px solid var(--vp-line); border-radius:13px; padding:10px 12px; margin-bottom:14px;}
+.vpre-confirm-actions{display:flex; gap:10px;}
+.vpre-confirm-actions .vpre-btn{flex:1; padding:11px 0; font-size:13.5px;}
+@media (max-width:360px){ .vpre-confirm-mask{padding:18px;} .vpre-confirm-card{max-width:100%; padding:18px 14px 14px;} }
 .vpre-sheet-cancel{width:100%; border:0; background:#eef1fb; color:var(--vp-blue); border-radius:14px; padding:12px; font-size:13.5px; font-weight:700; cursor:pointer;}
 .vpre-img-mask{position:fixed; inset:0; background:rgba(23,29,45,.6); z-index:70; display:none; align-items:center; justify-content:center; padding:22px;}
 .vpre-img-mask.is-show{display:flex;}
@@ -2100,12 +2109,13 @@ body{
   }
   function showConfirmSheet(phone, opts){
     var mask = document.createElement("div");
-    mask.className = "vpre-sheet-mask";
-    mask.innerHTML = '<div class="vpre-sheet">'
-      + '<div class="vpre-sheet-title">' + (opts.title || "确认操作") + '</div>'
-      + (opts.sub ? '<div class="vpre-sheet-sub">' + opts.sub + '</div>' : '')
+    mask.className = "vpre-confirm-mask";
+    mask.innerHTML = '<div class="vpre-confirm-card">'
+      + '<div class="vpre-confirm-icon">' + (opts.icon || "⚠️") + '</div>'
+      + '<div class="vpre-confirm-title">' + (opts.title || "确认操作") + '</div>'
+      + (opts.sub ? '<div class="vpre-confirm-sub">' + opts.sub + '</div>' : '')
       + '<div class="vpre-confirm-text">' + (opts.body || "") + '</div>'
-      + '<div class="vpre-btn-row" style="margin-top:14px;">'
+      + '<div class="vpre-confirm-actions">'
       +   '<button class="vpre-btn" type="button" data-confirm-cancel="1">取消</button>'
       +   '<button class="vpre-btn vpre-btn-primary" type="button" data-confirm-ok="1">' + (opts.okText || "确认") + '</button>'
       + '</div></div>';
@@ -3031,6 +3041,7 @@ var chip = btn.closest(".vpre-stage-chip");
       }
       if(btn.closest("[data-reshuffle]")){
         showConfirmSheet(phone, {
+          icon: "🔀",
           title: "重新随机分组？",
           sub: "本单元会换一套全新的分组",
           body: "• 把本单元的词重新打乱，生成一套<b>新分组</b><br>"
