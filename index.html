@@ -2119,11 +2119,17 @@ body{
       var t = idx[j]; idx[j] = idx[k]; idx[k] = t;
     }
     var sizes = [];
-    for(var a=0;a<n;a+=GROUP_SIZE){ sizes.push(Math.min(GROUP_SIZE, n - a)); }
-    if(sizes.length > 1 && sizes[sizes.length-1] < GROUP_SIZE/2){
-      var last = sizes.pop(), prev = sizes.pop();
-      var total2 = last + prev, half = Math.ceil(total2/2);
-      sizes.push(half); sizes.push(total2 - half);
+    if(n > 40 && n <= 45){
+      // 41–45 词：分 2 组，尽量平均（如 41→21/20，45→23/22）
+      var first = Math.ceil(n / 2);
+      sizes.push(first); sizes.push(n - first);
+    } else {
+      for(var a=0;a<n;a+=GROUP_SIZE){ sizes.push(Math.min(GROUP_SIZE, n - a)); }
+      if(sizes.length > 1 && sizes[sizes.length-1] < GROUP_SIZE/2){
+        var last = sizes.pop(), prev = sizes.pop();
+        var total2 = last + prev, half = Math.ceil(total2 / 2);
+        sizes.push(half); sizes.push(total2 - half);
+      }
     }
     var groups = [], cur = 0;
     sizes.forEach(function(sz){
