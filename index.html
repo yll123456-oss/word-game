@@ -1700,7 +1700,8 @@ body{
     }
   }
   function buildBuilderItems(list, n){
-    return pickWords(list.filter(function(x){ return x.en.length >= 2 && x.en.length <= 14; }), n).map(function(x){
+    // 只取单个单词（排除短语，避免出现"空格块"）、长度 2–12，手机上字母块一行放得下
+    return pickWords(list.filter(function(x){ return x.en.indexOf(" ") < 0 && x.en.length >= 2 && x.en.length <= 12; }), n).map(function(x){
       return {prompt:x.zh, answer:x.en, letters:shuffle(x.en.split("")),
               hint:"首字母 " + x.en.charAt(0).toUpperCase() + " · " + x.en.length + " 个字母"};
     });
@@ -1715,7 +1716,7 @@ body{
     function draw(){
       var slots = "";
       for(var i=0;i<it.answer.length;i++){
-        var ch = z.picked[i] ? it.answer[z.picked[i].idx] : "";
+        var ch = z.picked[i] ? it.letters[z.picked[i].tile] : "";
         slots += '<span class="vpre-build-slot' + (ch ? ' is-filled' : '') + '">' + ch + '</span>';
       }
       var tiles = it.letters.map(function(ch, i){
@@ -1743,7 +1744,7 @@ body{
           if(z.locked){ return; }
           var ti = parseInt(b.getAttribute("data-tile"), 10);
           if(z.picked.some(function(p){ return p.tile === ti; })){ return; }
-          z.picked.push({tile: ti, idx: ti});
+          z.picked.push({tile: ti});
           sfx.play("tap");
           if(z.picked.length >= it.answer.length){ grade(); return; }
           draw();
