@@ -411,6 +411,8 @@ body{
 .vpre-quiz-head{display:flex; justify-content:space-between; align-items:center; font-size:12.5px; font-weight:600; margin:2px 0 12px; color:var(--vp-ink);}
 .vpre-quiz-close{border:0; background:#eef1fb; color:var(--vp-blue); width:30px; height:30px; border-radius:50%; font-size:13px; cursor:pointer; line-height:1;}
 .vpre-qcard{background:var(--vp-card); border:1px solid #e6e9f0; border-radius:20px; padding:28px 16px 24px; text-align:center; box-shadow:var(--vp-shadow);}
+.vpre-qdir{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.4px; padding:4px 11px; border-radius:99px; margin-bottom:9px; background:#eef1fb; color:#3b5bdb;}
+.vpre-qdir.is-zh2en{background:#fdf1e3; color:#b45309;}
 .vpre-qword{font-size:28px; font-weight:700; letter-spacing:.5px; color:var(--vp-ink);}
 .vpre-qipa{font-size:12.5px; color:var(--vp-muted); margin-top:6px;}
 .vpre-speak{margin-top:16px; border:0; background:var(--vp-blue); color:#fff; font-size:13px; font-weight:700; padding:11px 26px; border-radius:99px; cursor:pointer; box-shadow:0 5px 14px rgba(59,91,219,.3);}
@@ -1092,6 +1094,7 @@ body{
     } else {
       (z.items || []).forEach(function(it){
         var word = (z.type === "word" || z.type === "wrong" || z.type === "speed" || z.type === "review" || z.type === "daily") ? it.prompt : it.answer;
+        if(z.type === "speed" && it.dir === "zh2en"){ word = it.answer; }   // 汉译英：题面是中文，词条记英文
         details.push({
           word:word,
           meaning:zhOf(word) || (z.type === "wrong" ? "" : ""),
@@ -1123,7 +1126,9 @@ body{
     if(z.type === "match" || z.type === "memory" || z.type === "wrongboss"){
       return z.attempts <= z.total+4 ? 3 : (z.attempts <= z.total*2+4 ? 2 : 1);
     }
-    if(z.type === "speed"){ var t = z.total || 1; return z.score >= t ? 3 : (z.score >= t*0.8 ? 2 : (z.score >= t*0.6 ? 1 : 0)); }
+    // 限时快答：按"答对题数"计星，门槛以 18 题为基准（与闯关说明一致），
+    // 避免只答两三题就收手也能拿 3★
+    if(z.type === "speed"){ var t = Math.max(z.total || 0, 18); return z.score >= t ? 3 : (z.score >= t*0.8 ? 2 : (z.score >= t*0.6 ? 1 : 0)); }
     var n = z.items.length;
     if(n >= 15){ return z.score >= n-2 ? 3 : (z.score >= n-5 ? 2 : (z.score >= n-8 ? 1 : 0)); }
     return z.score >= n ? 3 : (z.score >= n-1 ? 2 : (z.score >= n-2 ? 1 : 0));
@@ -1256,6 +1261,16 @@ body{
       var d = pickWords(others, 3).map(function(y){ return y.zh; });
       while(d.length < 3){ d.push(d[0]); }
       return { prompt:x.en, sub:null, opts:shuffle([x.zh].concat(d)), answer:x.zh, speak:x.en, optsAreWords:true };
+    });
+  }
+  // 限时快答：汉译英（给中文，选英文单词）；干扰项用英文单词，且避开同义项
+  function buildEnItems(list, n, distractPool){
+    var dsrc = (distractPool && distractPool.length >= 4) ? distractPool : list;
+    return pickWords(list, n).map(function(x){
+      var others = dsrc.filter(function(y){ return y.en !== x.en && y.zh !== x.zh; });
+      var d = pickWords(others, 3).map(function(y){ return y.en; });
+      while(d.length < 3 && d.length){ d.push(d[0]); }
+      return { prompt:x.zh, sub:null, opts:shuffle([x.en].concat(d)), answer:x.en, speak:null, optsAreWords:true, dir:"zh2en" };
     });
   }
   function buildSpellItems(list, n){
@@ -1510,7 +1525,8 @@ body{
     if(list.length < 4){ toast(phone, "本单元单词太少"); return; }
     phone.__quizStage = null;
     phone.__quizGroup = null;
-    phone.__quiz = {type:"speed", idx:0, score:0, wrong:0, total:0, items:[], start:Date.now(), endAt: Date.now() + 60000, q:null};
+    phone.__quiz = {type:"speed", idx:0, score:0, wrong:0, total:0, items:[], start:Date.now(), endAt: Date.now() + 60000, q:null,
+                    dirs:{en2zh:{total:0, score:0}, zh2en:{total:0, score:0}}};
     clearInterval(phone.__speedTimer);
     phone.__speedTimer = setInterval(function(){
       var z = phone.__quiz;
@@ -1525,13 +1541,27 @@ body{
     renderSpeed(phone);
     setView(phone, "quiz");
   }
+  // 汉译英的干扰项从整册里抽（词多、更像考试；同义项会被排除，不会出现两个都对）
+  function speedWidePool(phone){
+    var bk = phone.__arena ? arenaBook() : state[phone.__id].book;
+    var bd = bookData(bk);
+    var out = [];
+    (bd.units || []).forEach(function(u){ u.words.forEach(function(w){ out.push({en:w[0], zh:w[1]}); }); });
+    return out;
+  }
   function renderSpeed(phone){
     var z = phone.__quiz, el = q(".vpre-quiz", phone);
     if(!el) return;
     var list = phone.__arena ? arenaWords() : unitWordList(phone);
     if(!list.length){ toast(phone, "词库还没加载好"); return; }
-    var q1 = buildWordItems(list, 1)[0];
+    // 英译汉 / 汉译英 混合出题（约各占一半）
+    var dir = (Math.random() < 0.5) ? "en2zh" : "zh2en";
+    var wide = speedWidePool(phone);
+    var q1 = (dir === "zh2en") ? buildEnItems(list, 1, wide)[0] : buildWordItems(list, 1)[0];
+    q1.dir = dir;
     z.q = q1;
+    var dirTxt = (dir === "zh2en") ? "中 → 英" : "英 → 中";
+    var dirSub = (dir === "zh2en") ? "看中文，选对应的英文单词" : "看单词，选正确的中文意思";
     var prompt = String(q1.prompt || "");
     var pcls = prompt.length > 24 ? " is-xlong" : (prompt.length > 16 ? " is-long" : "");
     var opts = q1.opts.map(function(o){
@@ -1543,7 +1573,9 @@ body{
     el.innerHTML =
       '<div class="vpre-quiz-head"><span>' + arenaLevelTag() + '限时快答 · 60 秒</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
       + '<div class="vpre-speedbar"><div class="vpre-progress"><div style="width:' + Math.round(Math.max(0, (z.endAt - Date.now()) / 60000) * 100) + '%"></div></div><b>' + left + ' 秒</b></div>'
-      + '<div class="vpre-qcard"><div class="vpre-qword' + pcls + '">' + prompt + '</div>'
+      + '<div class="vpre-qcard"><div class="vpre-qdir' + (dir === "zh2en" ? " is-zh2en" : "") + '">' + dirTxt + '</div>'
+      + '<div class="vpre-qword' + pcls + '">' + prompt + '</div>'
+      + '<div class="vpre-qipa">' + dirSub + '</div>'
       + (q1.speak ? '<button class="vpre-speak" type="button">🔊 播放发音</button>' : '')
       + '</div>'
       + '<div class="vpre-qopts">' + opts + '</div>'
@@ -1559,6 +1591,10 @@ body{
         q1.chosen = b.textContent;
         z.items.push(q1);
         z.total += 1;
+        z.dirs = z.dirs || {en2zh:{total:0, score:0}, zh2en:{total:0, score:0}};
+        var dCur = z.dirs[(q1.dir === "zh2en") ? "zh2en" : "en2zh"];
+        dCur.total += 1;
+        if(isRight){ dCur.score += 1; }
         if(isRight){ z.score += 1; sfx.play("right"); b.classList.add("is-right"); }
         else { z.wrong += 1; sfx.play("wrong"); b.classList.add("is-wrong");
                qa(".vpre-qopt", el).forEach(function(x){ if(x.textContent === q1.answer){ x.classList.add("is-right"); } }); }
@@ -1569,6 +1605,17 @@ body{
         }, isRight ? 320 : 620);
       });
     });
+  }
+  function dirStatHtml(z){
+    var d = z.dirs || {};
+    var a = d.en2zh || {total:0, score:0};
+    var b = d.zh2en || {total:0, score:0};
+    if(!a.total && !b.total){ return ""; }
+    function one(label, o){
+      if(!o.total){ return '<span>' + label + ' <b>—</b></span>'; }
+      return '<span>' + label + ' <b>' + o.score + '/' + o.total + '</b></span>';
+    }
+    return '<div class="vpre-speedstat">' + one("英译汉", a) + one("汉译英", b) + '</div>';
   }
   function renderSpeedResult(phone){
     var z = phone.__quiz;
@@ -1588,6 +1635,7 @@ body{
       + '<div class="vpre-result-stars">' + stars + '</div>'
       + '<div class="vpre-result-msg">' + msg + '</div>'
       + '<div class="vpre-speedstat"><span>答对 <b>' + z.score + '</b></span><span>答错 <b>' + z.wrong + '</b></span><span>正确率 <b>' + acc + '%</b></span></div>'
+      + dirStatHtml(z)
       + '<button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-result-again="1" style="margin-top:12px;">再来一局</button>'
       + '<button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-result-stage="1">返回闯关</button>'
       + '</div></div>';
@@ -1599,7 +1647,7 @@ body{
   var ARENA_BOOKS = ["七上","七下","八上","八下","九上","九下"];
   var ARENA_GAMES = [
     ["link",   "🧩", "连连看",   "英中配对 · 10 对"],
-    ["speed",  "⚡", "限时快答", "60 秒 · 看词选义"],
+    ["speed",  "⚡", "限时快答", "60 秒 · 英译汉 + 汉译英"],
     ["listen", "🎤", "听音接力", "听发音选单词 · 10 题"],
     ["build",  "📝", "拼词积木", "字母块拼单词 · 10 题"]
   ];
@@ -1764,7 +1812,8 @@ body{
       var lr = arenaLevelRec(gameId, i);
       var stars = lr.stars || 0;
       var unlocked = arenaLevelUnlocked(gameId, i);
-      var starTxt = stars ? (new Array(stars+1).join("⭐️")) : "未挑战";
+      var played = (lr.plays || 0) > 0 || lr.bestScore != null || lr.bestAttempts != null;
+      var starTxt = stars ? (new Array(stars+1).join("⭐️")) : (played ? "☆☆☆" : "未挑战");
       var bestTxt = "";
       if(gameId === "link" && lr.bestAttempts != null){ bestTxt = " · 最少 " + lr.bestAttempts + " 次"; }
       else if(lr.bestScore != null){ bestTxt = " · 最佳 " + lr.bestScore + " 题"; }
