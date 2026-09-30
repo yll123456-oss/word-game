@@ -1832,7 +1832,10 @@ body{
         }
       });
     });
-    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
+    q(".vpre-quiz-close", el).addEventListener("click", function(){
+      sfx.play("tap");
+      if(phone.__arena){ renderStageMap(phone); setView(phone, "stage"); } else { setView(phone, "home"); }
+    });
     var mnew = q("[data-mnew]", el);
     if(mnew){ mnew.addEventListener("click", function(){ sfx.play("tap"); openQuiz(phone, "match"); }); }
   }
@@ -1872,9 +1875,23 @@ body{
       else if(z.type === "wrongboss"){ openWrongBoss(phone); }
       else { openQuiz(phone, "match"); }
     });
-    q("[data-result-again]", el).addEventListener("click", function(){ sfx.play("tap"); replayMatch(phone); });
-    q("[data-result-home]", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
-    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
+    q("[data-result-again]", el).addEventListener("click", function(){
+      sfx.play("tap");
+      if(phone.__arena){ startArenaGame(phone, phone.__arena); return; }
+      replayMatch(phone);
+    });
+    var homeBtn = q("[data-result-home]", el);
+    if(homeBtn){
+      homeBtn.textContent = phone.__arena ? "返回闯关" : "返回首页";
+      homeBtn.addEventListener("click", function(){
+        sfx.play("tap");
+        if(phone.__arena){ renderStageMap(phone); setView(phone, "stage"); } else { setView(phone, "home"); }
+      });
+    }
+    q(".vpre-quiz-close", el).addEventListener("click", function(){
+      sfx.play("tap");
+      if(phone.__arena){ renderStageMap(phone); setView(phone, "stage"); } else { setView(phone, "home"); }
+    });
   }
   var REC = {rec:null, chunks:[], stream:null};
   function stopRec(cb){
@@ -2062,7 +2079,10 @@ body{
       });
     });
     q(".vpre-qnext", el).addEventListener("click", function(){ sfx.play("tap"); z.idx += 1; renderQuiz(phone); });
-    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
+    q(".vpre-quiz-close", el).addEventListener("click", function(){
+      sfx.play("tap");
+      if(phone.__arena){ renderStageMap(phone); setView(phone, "stage"); } else { setView(phone, "home"); }
+    });
     clearTimeout(phone.__speakTimer);
     clearTimeout(phone.__speechFallback);
     if(phone.__audio){ try{ phone.__audio.pause(); }catch(e2){} }
@@ -2131,8 +2151,18 @@ body{
     if(nxt){ nxt.addEventListener("click", function(){ sfx.play("tap"); openQuiz(phone, nextMode, null, phone.__quizGroup.gi); }); }
     var ru = q("[data-result-unit]", el);
     if(ru){ ru.addEventListener("click", function(){ sfx.play("tap"); renderUnitDetail(phone); setView(phone, "unit"); }); }
-    q("[data-result-home]", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
-    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
+    var rHome = q("[data-result-home]", el);
+    if(rHome){
+      rHome.textContent = phone.__arena ? "返回闯关" : "返回首页";
+      rHome.addEventListener("click", function(){
+        sfx.play("tap");
+        if(phone.__arena){ renderStageMap(phone); setView(phone, "stage"); } else { setView(phone, "home"); }
+      });
+    }
+    q(".vpre-quiz-close", el).addEventListener("click", function(){
+      sfx.play("tap");
+      if(phone.__arena){ renderStageMap(phone); setView(phone, "stage"); } else { setView(phone, "home"); }
+    });
   }
   function pickVoice(ss){
     var vs = ss.getVoices();
