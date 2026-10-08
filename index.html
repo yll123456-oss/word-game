@@ -2044,6 +2044,7 @@ body{
     var stars = "";
     for(var s=0;s<3;s++){ stars += '<span class="'+(s<lit ? "" : "dim")+'">★</span>'; }
     var msg = z.score>=n ? "太棒了，全对！" : (z.score>=n-1 ? "很好，差一点全对！" : (z.score>=n-2 ? "不错，继续加油！" : "别灰心，多练几次就记住了"));
+    if(z.singleWord){ msg = z.score >= 1 ? "答对了 ✅ 这个词已从错词本移除" : "答错了，这个词留在错词本里，稍后再练"; }
     var groupBox = "";
     var nextMode = null;
     if(phone.__quizGroup){
@@ -2077,6 +2078,7 @@ body{
     q("[data-result-again]", el).addEventListener("click", function(){
       sfx.play("tap");
       if(phone.__arena){ startArenaGame(phone, phone.__arena, phone.__arenaLvl); return; }
+      if(z.singleWord){ openWrongWordQuiz(phone, z.singleWord); return; }
       if(z.type === "speed"){ openSpeed(phone); return; }
       if(z.type === "build"){ renderBuilder(phone); return; }
       openQuiz(phone, z.type, null, phone.__quizGroup ? phone.__quizGroup.gi : undefined);
@@ -3004,9 +3006,37 @@ body{
     var book = currentBook(phone);
     var zhMap = {};
     book.units.forEach(function(u){ u.words.forEach(function(w){ zhMap[w[0].toLowerCase()] = w[1]; }); });
-    list.innerHTML = arr.map(function(w){
-      return '<div class="vpre-wrow"><div class="vpre-wmain"><b>'+w.en+'</b><span>'+(zhMap[w.en]||"")+'</span></div><span class="vpre-wbadge">错 '+w.c+' 次</span><button class="vpre-btn vpre-btn-mini" type="button">再练一次</button></div>';
+    phone.__wrongRows = arr;   // 行内「再练一次」按行号取词
+    list.innerHTML = arr.map(function(w, i){
+      return '<div class="vpre-wrow"><div class="vpre-wmain"><b>'+w.en+'</b><span>'+(zhMap[w.en]||"")+'</span></div><span class="vpre-wbadge">错 '+w.c+' 次</span><button class="vpre-btn vpre-btn-mini" type="button" data-wi="'+i+'">再练一次</button></div>';
     }).join("");
+  }
+  // 错词本 · 只练某一个词：1 题 4 选 1，答对即从错词本移除
+  function wrongWordItem(phone, word){
+    var bk = state[phone.__id].book;
+    var bd = bookData(bk);
+    var all = [], me = null;
+    (bd.units || []).forEach(function(u){
+      (u.words || []).forEach(function(w){
+        var e = {en:w[0], zh:w[1]};
+        all.push(e);
+        if(String(w[0]).toLowerCase() === String(word).toLowerCase()){ me = e; }
+      });
+    });
+    if(!me){ me = {en:String(word), zh: zhOf(word) || ""}; }   // 该词不在当前册里时兜底
+    var wb = PROG.wrong[bk] || {};
+    var dsrc = all.filter(function(y){ return !wb[String(y.en).toLowerCase()] && y.zh !== me.zh; });
+    if(dsrc.length < 3){ dsrc = all.filter(function(y){ return y.zh !== me.zh; }); }
+    var d = pickWords(dsrc, 3).map(function(y){ return y.zh; });
+    while(d.length < 3 && d.length){ d.push(d[0]); }
+    return { prompt:me.en, sub:null, opts:shuffle([me.zh].concat(d)), answer:me.zh, speak:me.en, optsAreWords:true };
+  }
+  function openWrongWordQuiz(phone, word){
+    phone.__arena = null; phone.__arenaLvl = null;
+    phone.__quizGroup = null;
+    phone.__quiz = {type:"wrong", idx:0, score:0, items:[wrongWordItem(phone, word)], start:Date.now(), singleWord:String(word)};
+    renderQuiz(phone);
+    setView(phone, "quiz");
   }
   function initPhone(phone){
     var id = "p" + qa(".vpre-phone").indexOf(phone);
@@ -3150,6 +3180,12 @@ body{
       var act = btn.getAttribute("data-action");
       if(act){ runAction(phone, act); return; }
       if(btn.closest(".vpre-game")){ runAction(phone, ["quiz-word","quiz-spell","quiz-read","quiz-dictate"][qa(".vpre-game", phone).indexOf(btn)]); return; }
+      var wiBtn = btn.closest("[data-wi]");
+      if(wiBtn){
+        var wiIdx = parseInt(wiBtn.getAttribute("data-wi"), 10);
+        var wiRow = (phone.__wrongRows || [])[wiIdx];
+        if(wiRow){ openWrongWordQuiz(phone, wiRow.en); return; }
+      }
       if(btn.closest(".vpre-wrow")){ runAction(phone, "quiz-wrong"); return; }
       if(btn.closest(".vpre-hero-btn")){ runAction(phone, /复习/.test(btn.textContent) ? "quiz-wrong" : "quiz-word"); return; }
       if(btn.closest(".vpre-task")){ runAction(phone, "quiz-word"); return; }
