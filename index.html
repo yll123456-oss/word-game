@@ -982,6 +982,21 @@ body{
     if(n >= 15){ return z.score >= n-2 ? 3 : (z.score >= n-5 ? 2 : (z.score >= n-8 ? 1 : 0)); }
     return z.score >= n ? 3 : (z.score >= n-1 ? 2 : (z.score >= n-2 ? 1 : 0));
   }
+  // 每题答完立刻写错题本：学生答对后直接关掉（没点"查看成绩"）也能马上消除；
+  // 结算时对已写入的题不再重复处理（见 recordQuizResult）
+  var WRONG_SETTLE_TYPES = {word:1, spell:1, read:1, dictate:1, wrong:1};
+  function settleWrongBookNow(phone, it){
+    if(!it || it.settled) return;
+    var z = phone.__quiz;
+    if(!z || !WRONG_SETTLE_TYPES[z.type]) return;
+    it.settled = true;
+    var book = state[phone.__id].book;
+    var wb = PROG.wrong[book] || (PROG.wrong[book] = {});
+    var k = String((z.type === "word" || z.type === "wrong") ? it.prompt : it.answer).toLowerCase();
+    if(it.correct){ if(wb[k]){ delete wb[k]; } }
+    else { wb[k] = (wb[k] || 0) + 1; }
+    saveProgress();
+  }
   function recordQuizResult(phone){
     tickDay();
     var z = phone.__quiz; if(!z) return;
@@ -1008,9 +1023,9 @@ body{
         if(it.correct){
           PROG.stats.correct++;
           if(!uset[k]){ uset[k] = 1; PROG.stats.learned++; }
-          if(wb[k]){ delete wb[k]; }
+          if(!it.settled && wb[k]){ delete wb[k]; }      // 答题时已写过的不再重复处理
         } else {
-          wb[k] = (wb[k] || 0) + 1;
+          if(!it.settled){ wb[k] = (wb[k] || 0) + 1; }
         }
       });
     }
@@ -1903,6 +1918,7 @@ body{
         sfx.play("tap");
         var ok = b.getAttribute("data-ok") === "1";
         it.correct = ok; it.chosen = ok ? "跟读通过" : "需再练";
+        settleWrongBookNow(phone, it);
         if(ok){ z.score += 1; }
         var fb = q("[data-fb]", el);
         fb.textContent = ok ? "✅ 很棒！这个词算掌握了" : "🔁 记下了，稍后会再出现";
@@ -1946,6 +1962,7 @@ body{
       var norm = function(t){ return String(t || "").toLowerCase().replace(/\s+/g, " ").trim(); };
       var ok = norm(val) === norm(it.answer);
       it.correct = ok; it.chosen = val;
+      settleWrongBookNow(phone, it);
       if(ok){ z.score += 1; sfx.play("right"); } else { sfx.play("wrong"); }
       input.disabled = true;
       input.classList.add(ok ? "is-right" : "is-wrong");
@@ -2000,6 +2017,7 @@ body{
         if(isRight){ z.score += 1; }
         it.correct = isRight;
         it.chosen = btn.textContent;
+        settleWrongBookNow(phone, it);
         sfx.play(isRight ? "right" : "wrong");
         qa(".vpre-qopt", el).forEach(function(b){
           b.disabled = true;
@@ -2043,7 +2061,9 @@ body{
     var lit = starsEarned(z);   // 与闯关地图、计星规则保持一致
     var stars = "";
     for(var s=0;s<3;s++){ stars += '<span class="'+(s<lit ? "" : "dim")+'">★</span>'; }
-    var msg = z.score>=n ? "太棒了，全对！" : (z.score>=n-1 ? "很好，差一点全对！" : (z.score>=n-2 ? "不错，继续加油！" : "别灰心，多练几次就记住了"));
+    var msg = z.score>=n ? "太棒了，全对！"
+            : (z.score>0 && z.score>=n-1 ? "很好，差一点全对！"
+            : (z.score>0 && z.score>=n-2 ? "不错，继续加油！" : "别灰心，多练几次就记住了"));
     if(z.singleWord){ msg = z.score >= 1 ? "答对了 ✅ 这个词已从错词本移除" : "答错了，这个词留在错词本里，稍后再练"; }
     var groupBox = "";
     var nextMode = null;
