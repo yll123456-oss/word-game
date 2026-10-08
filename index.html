@@ -254,6 +254,7 @@ body{
 .vpre-hero-title b{font-size:16px;}
 .vpre-progress-light{background:rgba(255,255,255,.28);}
 .vpre-progress-light div{background:#fff;}
+.vpre-wrong-list{max-height:56vh; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-right:2px;}
 .vpre-hero-btn{display:block; width:100%; margin-top:14px; border:0; border-radius:12px; padding:12px 0; font-size:14px; font-weight:700; color:#e5484d; background:#fff; cursor:pointer;}
 .vpre-wrow{display:flex; align-items:center; gap:12px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:15px; padding:12px 14px; margin-bottom:9px; box-shadow:var(--vp-shadow-sm);}
 .vpre-wmain{flex:1; min-width:0;}
@@ -1206,7 +1207,7 @@ body{
           if(all[i].en.toLowerCase() === k){ pool.push(all[i]); break; }
         }
       });
-      pool = shuffle(pool).slice(0, 10);
+      pool = shuffle(pool);   // 一键复习 = 练完整本错词（不再限制 10 个）
       if(!pool.length){
         toast(phone, "错词本还是空的，先去第一页练习吧");
         return;
@@ -3032,11 +3033,13 @@ body{
     var rate = PROG.stats.answers ? Math.round(PROG.stats.correct / PROG.stats.answers * 100) : 0;
     var cnt = q(".vpre-wrong-count", phone);
     if(cnt){ cnt.textContent = wc + " 个词"; }
+    var heroBtn = q(".vpre-hero-btn", phone);
+    if(heroBtn){ heroBtn.textContent = wc > 0 ? ("一键复习 · 全部 " + wc + " 词") : "一键复习"; }
     var rt = q(".vpre-wrong-rate", phone);
     if(rt){ rt.textContent = rate + "%"; }
     var bar = q(".vpre-wrong-bar", phone);
     if(bar){ bar.style.width = rate + "%"; }
-    var arr = shuffle(Object.keys(wb).map(function(k){ return {en:k, c:wb[k]}; })).slice(0, 8);   // 顺序随机，每次打开可能不同
+    var arr = shuffle(Object.keys(wb).map(function(k){ return {en:k, c:wb[k]}; }));   // 整本错词全部列出（顺序随机，每次打开可能不同）
     if(!arr.length){
       list.innerHTML = '<div class="vpre-placeholder">还没有错词。第一页练习中答错的词会自动进来</div>';
       return;
