@@ -247,29 +247,30 @@ body{
 .vpre-placeholder{background:var(--vp-card); border:1.5px dashed #d8dde7; border-radius:15px; padding:24px 14px; text-align:center; font-size:12.5px; color:var(--vp-muted);}
 
 /* ===== 错词本 ===== */
-.vpre-hero{background:linear-gradient(130deg,#e5484d,#f2708a); border-radius:20px; padding:18px; color:#fff; box-shadow:0 10px 24px rgba(229,72,77,.26);}
-.vpre-hero-top{display:flex; justify-content:space-between; align-items:center; font-size:13.5px; font-weight:600; margin-bottom:10px;}
-.vpre-hero .vpre-streak{background:rgba(255,255,255,.2); border-color:rgba(255,255,255,.3); color:#fff;}
-.vpre-progress-light{background:rgba(255,255,255,.28);}
-.vpre-progress-light div{background:#fff;}
-/* 错词本顶部：当前册 + 范围 + 单元筛选 */
-.vpre-wrong-scope{background:var(--vp-card); border:1px solid var(--vp-line); border-radius:18px; padding:12px; margin-bottom:12px; box-shadow:var(--vp-shadow-sm);}
-.vpre-scope-head{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px;}
-.vpre-scope-book{display:inline-flex; align-items:center; gap:3px; font-size:12.5px; font-weight:700; color:#fff; background:var(--vp-blue); border-radius:99px; padding:5px 12px; box-shadow:0 3px 9px rgba(31,41,55,.14);}
+.vpre-wrong-scope{background:var(--vp-card); border:1px solid var(--vp-line); border-radius:20px; padding:15px 14px 13px; margin-bottom:12px; box-shadow:var(--vp-shadow-sm);}
+.vpre-scope-head{display:flex; align-items:baseline; justify-content:space-between; gap:8px;}
+.vpre-scope-title{font-size:15px; font-weight:800; color:var(--vp-ink); letter-spacing:.2px;}
 .vpre-scope-count{font-size:11.5px; color:var(--vp-muted);}
-.vpre-scope-count b{color:var(--vp-red); font-size:16px; font-weight:800; margin:0 2px;}
+.vpre-scope-count b{font-size:21px; font-weight:800; color:var(--vp-red); margin-right:3px; vertical-align:-2px;}
+.vpre-scope-sub{display:flex; align-items:center; justify-content:space-between; gap:8px; margin:9px 0 8px; font-size:12px; color:var(--vp-muted);}
+.vpre-scope-book{font-weight:700; color:var(--vp-blue);}
+.vpre-scope-rate b{color:var(--vp-ink); font-size:13.5px; font-weight:800;}
+.vpre-scope-bar{height:6px; border-radius:99px; background:#f0f2f7; overflow:hidden; margin-bottom:13px;}
+.vpre-scope-bar > div{height:100%; border-radius:99px; background:linear-gradient(90deg,var(--vp-blue),#8b7bff); transition:width .3s;}
 .vpre-wrong-chips{display:flex; gap:6px; flex-wrap:wrap;}
-.vpre-wrong-chips button{border:1px solid var(--vp-line); background:#f8faff; color:var(--vp-ink-2); border-radius:10px; padding:6px 10px; font-size:11.5px; font-weight:600; cursor:pointer; transition:border-color .15s, transform .1s;}
+.vpre-wrong-chips button{border:1px solid var(--vp-line); background:#f8faff; color:var(--vp-ink-2); border-radius:99px; padding:6px 11px; font-size:11.5px; font-weight:600; cursor:pointer; transition:border-color .15s, transform .1s, background .15s;}
 .vpre-wrong-chips button:active{transform:scale(.97);}
-.vpre-wrong-chips button.is-active{background:var(--vp-blue); color:#fff; border-color:var(--vp-blue);}
-.vpre-wrong-chips button i{font-style:normal; opacity:.7; font-size:10.5px; margin-left:3px;}
-.vpre-wrong-list{max-height:56vh; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-right:2px;}
-.vpre-hero-btn{display:block; width:100%; margin-top:14px; border:0; border-radius:12px; padding:12px 0; font-size:14px; font-weight:700; color:#e5484d; background:#fff; cursor:pointer;}
-.vpre-wrow{display:flex; align-items:center; gap:12px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:15px; padding:12px 14px; margin-bottom:9px; box-shadow:var(--vp-shadow-sm);}
+.vpre-wrong-chips button.is-active{background:var(--vp-blue); color:#fff; border-color:var(--vp-blue); box-shadow:0 4px 10px rgba(31,41,55,.14);}
+.vpre-wrong-chips button i{font-style:normal; opacity:.72; font-size:10.5px; margin-left:4px;}
+.vpre-wrong-list{max-height:52vh; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-right:2px;}
+.vpre-hero-btn{display:block; width:100%; margin:0 0 16px; border:0; border-radius:15px; padding:14px 0; font-size:14.5px; font-weight:700; color:#fff; background:var(--vp-blue); box-shadow:0 8px 18px rgba(31,41,55,.18); cursor:pointer; transition:transform .12s;}
+.vpre-hero-btn:active{transform:scale(.985);}
+.vpre-wrow{display:grid; grid-template-columns:1fr auto; align-items:center; gap:10px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:15px; padding:12px 14px; margin-bottom:9px; box-shadow:var(--vp-shadow-sm);}
 .vpre-wmain{flex:1; min-width:0;}
-.vpre-wmain b{font-size:14px; display:block; letter-spacing:.2px; color:var(--vp-ink);}
+.vpre-wmain b{font-size:14.5px; display:block; letter-spacing:.2px; color:var(--vp-ink);}
 .vpre-wmain span{font-size:11.5px; color:var(--vp-muted);}
-.vpre-wbadge{font-size:10.5px; color:#e5484d; background:var(--vp-red-soft); border-radius:99px; padding:4px 10px; flex:none; font-weight:600;}
+.vpre-wside{display:flex; flex-direction:column; align-items:flex-end; gap:7px;}
+.vpre-wbadge{font-size:10.5px; color:#e5484d; background:var(--vp-red-soft); border-radius:99px; padding:3px 9px; flex:none; font-weight:600;}
 
 /* ===== 闯关地图（简洁同款） ===== */
 .vpre-arena-scope{background:#fff; border:1px solid var(--vp-line); border-radius:18px; padding:12px; margin-bottom:12px; box-shadow:var(--vp-shadow-sm);}
@@ -529,12 +530,8 @@ body{
           </div>
           <div class="vpre-view" data-view="wrong">
             <div class="vpre-wrong-scope" data-wrong-filter></div>
-            <div class="vpre-hero" style="background:linear-gradient(120deg,#ff8b5c,#ff5d6c); box-shadow:0 8px 20px rgba(255,93,108,.25);">
-              <div class="vpre-hero-top"><span>错词本掌握率</span><span class="vpre-streak vpre-wrong-rate">0%</span></div>
-              <div class="vpre-progress vpre-progress-light"><div class="vpre-wrong-bar" style="width:0%"></div></div>
-              <button class="vpre-hero-btn" type="button" style="color:var(--vp-red);">一键复习</button>
-            </div>
-            <div class="vpre-sec-title">错词列表 <span class="vpre-sec-note">每次随机排列</span></div>
+            <button class="vpre-hero-btn" type="button">一键复习</button>
+            <div class="vpre-sec-title">错词列表 <span class="vpre-sec-note">顺序随机</span></div>
             <div class="vpre-wrong-list"></div>
           </div>
           <div class="vpre-view" data-view="mine">
@@ -3089,10 +3086,18 @@ body{
       chips.push('<button type="button" data-wrong-unit="' + ui + '" class="' + (ui === sel ? "is-active" : "") + '">'
         + u.name + '<i>' + (counts[ui] || 0) + '</i></button>');
     });
-    box.innerHTML = '<div class="vpre-scope-head">'
-      +   '<span class="vpre-scope-book">📕 当前册 · ' + state[phone.__id].book + '</span>'
-      +   '<span class="vpre-scope-count">共 <b>' + entries.length + '</b> 个错词</span>'
+    var rate = PROG.stats.answers ? Math.round(PROG.stats.correct / PROG.stats.answers * 100) : 0;
+    var selName = (sel >= 0 && book.units[sel]) ? book.units[sel].name : "全部单元";
+    box.innerHTML =
+        '<div class="vpre-scope-head">'
+      +   '<span class="vpre-scope-title">错词本</span>'
+      +   '<span class="vpre-scope-count"><b>' + entries.length + '</b> 个待复习</span>'
       + '</div>'
+      + '<div class="vpre-scope-sub">'
+      +   '<span class="vpre-scope-book">📕 ' + state[phone.__id].book + ' · ' + selName + '</span>'
+      +   '<span class="vpre-scope-rate">掌握率 <b>' + rate + '%</b></span>'
+      + '</div>'
+      + '<div class="vpre-scope-bar"><div style="width:' + rate + '%"></div></div>'
       + '<div class="vpre-wrong-chips">' + chips.join("") + '</div>';
   }
   function renderWrong(phone){
@@ -3105,13 +3110,8 @@ body{
     var wc = all.length;
     var sel = wrongUnitSel(phone);
     var selName = (sel >= 0 && book.units[sel]) ? (book.units[sel].name + " ") : "";
-    var rate = PROG.stats.answers ? Math.round(PROG.stats.correct / PROG.stats.answers * 100) : 0;
     var heroBtn = q(".vpre-hero-btn", phone);
     if(heroBtn){ heroBtn.textContent = wc > 0 ? ("一键复习 · " + (selName ? selName : "全部 ") + wc + " 词") : "一键复习"; }
-    var rt = q(".vpre-wrong-rate", phone);
-    if(rt){ rt.textContent = rate + "%"; }
-    var bar = q(".vpre-wrong-bar", phone);
-    if(bar){ bar.style.width = rate + "%"; }
     renderWrongFilter(phone, wrongEntriesAll(phone), all, book);
     var arr = shuffle(all);                         // 顺序随机，每次打开可能不同
     if(!arr.length){
@@ -3125,7 +3125,9 @@ body{
     book.units.forEach(function(u){ u.words.forEach(function(w){ zhMap[w[0].toLowerCase()] = w[1]; }); });
     phone.__wrongRows = arr;   // 行内「再练一次」按行号取词
     list.innerHTML = arr.map(function(w, i){
-      return '<div class="vpre-wrow"><div class="vpre-wmain"><b>'+w.en+'</b><span>'+(zhMap[w.en]||"")+'</span></div><span class="vpre-wbadge">错 '+w.c+' 次</span><button class="vpre-btn vpre-btn-mini" type="button" data-wi="'+i+'">再练一次</button></div>';
+      return '<div class="vpre-wrow"><div class="vpre-wmain"><b>'+w.en+'</b><span>'+(zhMap[w.en]||"")+'</span></div>'
+        + '<div class="vpre-wside"><span class="vpre-wbadge">错 '+w.c+' 次</span>'
+        + '<button class="vpre-btn vpre-btn-mini" type="button" data-wi="'+i+'">再练一次</button></div></div>';
     }).join("");
   }
   // 错词本 · 只练某一个词：1 题 4 选 1，答对即从错词本移除
