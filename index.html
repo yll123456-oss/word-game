@@ -325,20 +325,38 @@ body{
 /* ===== 我的 ===== */
 .vpre-profile{display:flex; align-items:center; gap:14px; margin-bottom:16px;}
 .vpre-profile-txt{flex:1; min-width:0;}
-.vpre-logout{border:1px solid #dfe3ea; background:#fff; color:var(--vp-muted); font-size:11.5px; padding:6px 10px; border-radius:10px; cursor:pointer; flex:none;}
+.vpre-profile-txt b{font-size:16px; font-weight:800; color:var(--vp-ink); display:block;}
+.vpre-profile-txt span{font-size:11.5px; color:var(--vp-muted); display:block; margin-top:2px;}
+.vpre-mine-sub{margin-top:4px !important;}
+.vpre-logout{border:1px solid #dfe3ea; background:#fff; color:var(--vp-muted); font-size:11.5px; padding:7px 11px; border-radius:10px; cursor:pointer; flex:none;}
 .vpre-logout:active{transform:scale(.98);}
-.vpre-avatar{width:56px; height:56px; border-radius:50%; background:var(--vp-blue); color:#fff; font-size:20px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none; box-shadow:0 6px 16px rgba(59,91,219,.3);}
-.vpre-profile b{font-size:16px; display:block; color:var(--vp-ink);}
-.vpre-profile span{font-size:12px; color:var(--vp-muted);}
+.vpre-avatar{width:56px; height:56px; border-radius:50%; background:var(--vp-blue); color:#fff; font-size:20px; font-weight:800; display:flex; align-items:center; justify-content:center; flex:none;}
 .vpre-stats{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px;}
 .vpre-stats div{background:var(--vp-card); border:1px solid #e6e9f0; border-radius:15px; padding:14px 4px; text-align:center; box-shadow:var(--vp-shadow-sm);}
 .vpre-stats b{display:block; font-size:19px; color:var(--vp-blue);}
 .vpre-stats span{font-size:10.5px; color:var(--vp-muted);}
-.vpre-badges{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:16px;}
-.vpre-badge{background:var(--vp-card); border:1px solid #e6e9f0; border-radius:99px; padding:7px 13px; font-size:11.5px; color:var(--vp-muted); opacity:.75;}
-.vpre-badge.is-earned{background:var(--vp-orange-soft); border-color:rgba(245,158,11,.4); color:#b45309; font-weight:600; opacity:1;}
-.vpre-note{font-size:11px; color:var(--vp-muted); text-align:center; margin-top:10px;}
-
+.vpre-mine-rows{display:flex; flex-direction:column; gap:10px; margin-bottom:18px;}
+.vpre-mrow{display:grid; grid-template-columns:34px 1fr; align-items:center; gap:12px; background:var(--vp-card); border:1px solid var(--vp-line); border-radius:16px; padding:12px 14px; text-align:left; cursor:pointer; box-shadow:var(--vp-shadow-sm); transition:transform .12s, border-color .15s;}
+.vpre-mrow:active{transform:scale(.99);}
+.vpre-mrow:hover{border-color:#c7cfe4;}
+.vpre-mrow-ico{font-size:22px; line-height:1; text-align:center;}
+.vpre-mrow-body{min-width:0; display:block;}
+.vpre-mrow-top{display:flex; align-items:baseline; gap:5px;}
+.vpre-mrow-top b{font-size:19px; font-weight:800; color:var(--vp-ink); line-height:1.1;}
+.vpre-mrow-top em{font-style:normal; font-size:11.5px; color:var(--vp-muted);}
+.vpre-mrow-top i{font-style:normal; margin-left:auto; font-size:11.5px; font-weight:700; color:var(--vp-blue);}
+.vpre-mrow-bar{display:block; height:5px; border-radius:99px; background:#f0f2f7; overflow:hidden; margin:7px 0 6px;}
+.vpre-mrow-bar > i{display:block; height:100%; border-radius:99px; background:var(--vp-blue); transition:width .3s;}
+.vpre-mrow-sub{display:block; font-size:11px; color:var(--vp-muted); line-height:1.5;}
+.vpre-mine-units{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:18px;}
+.vpre-munit{display:flex; align-items:center; justify-content:space-between; gap:6px; background:var(--vp-card); border:1px solid var(--vp-line); border-radius:12px; padding:9px 11px; font-size:12px; font-weight:700; color:var(--vp-ink); cursor:pointer;}
+.vpre-munit span{font-size:10.5px; color:var(--vp-muted); font-weight:500;}
+.vpre-munit.is-done{border-color:#9fd9c3; background:#eefaf5; color:#0f7a5c;}
+.vpre-munit.is-done span{color:#0f7a5c;}
+.vpre-badges{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px;}
+.vpre-badge{font-size:11.5px; font-weight:600; color:var(--vp-muted); background:#f4f6fa; border:1px solid var(--vp-line); border-radius:99px; padding:7px 12px;}
+.vpre-badge.is-earned{color:#b45309; background:var(--vp-orange-soft); border-color:rgba(245,158,11,.35);}
+.vpre-note{font-size:11px; color:var(--vp-muted); text-align:center; line-height:1.7; margin-top:6px;}
 /* ===== 答题页 ===== */
 .vpre-quiz-head{display:flex; justify-content:space-between; align-items:center; font-size:12.5px; font-weight:600; margin:2px 0 12px; color:var(--vp-ink);}
 .vpre-quiz-close{border:0; background:#eef1fb; color:var(--vp-blue); width:30px; height:30px; border-radius:50%; font-size:13px; cursor:pointer; line-height:1;}
@@ -537,19 +555,51 @@ body{
           <div class="vpre-view" data-view="mine">
             <div class="vpre-profile">
               <div class="vpre-avatar vpre-mine-avatar">同</div>
-              <div class="vpre-profile-txt"><b class="vpre-mine-name">同学</b><span class="vpre-mine-profile">初三 · 连续打卡 1 天</span></div>
+              <div class="vpre-profile-txt">
+                <b class="vpre-mine-name">同学</b>
+                <span class="vpre-mine-profile">初三 · 138****0000</span>
+                <span class="vpre-mine-sub">🔥 连续打卡 1 天 · 累计答题 0 题</span>
+              </div>
               <button class="vpre-logout" type="button">切换账号</button>
             </div>
-            <div class="vpre-stats">
-              <div><b class="vpre-mine-learned">0</b><span>已掌握</span></div>
-              <div><b class="vpre-mine-streak">1</b><span>连续天数</span></div>
-              <div><b class="vpre-mine-badges">0</b><span>星星(颗)</span></div>
+
+            <div class="vpre-sec-title">我的进度 <span class="vpre-sec-note">点一行进入对应页面</span></div>
+            <div class="vpre-mine-rows">
+              <button class="vpre-mrow" type="button" data-mine-go="home">
+                <span class="vpre-mrow-ico">📚</span>
+                <span class="vpre-mrow-body">
+                  <span class="vpre-mrow-top"><b class="vpre-mine-learned">0</b><em class="vpre-mine-learn-unit">词已掌握</em><i class="vpre-mine-learn-pct">0%</i></span>
+                  <span class="vpre-mrow-bar"><i class="vpre-mine-learn-bar" style="width:0%"></i></span>
+                  <span class="vpre-mrow-sub vpre-mine-learn-sub">进行中：—</span>
+                </span>
+              </button>
+              <button class="vpre-mrow" type="button" data-mine-go="stage">
+                <span class="vpre-mrow-ico">🗺️</span>
+                <span class="vpre-mrow-body">
+                  <span class="vpre-mrow-top"><b class="vpre-mine-stars">0</b><em>颗闯关星星</em><i class="vpre-mine-stars-pct">0%</i></span>
+                  <span class="vpre-mrow-bar"><i class="vpre-mine-stars-bar" style="width:0%"></i></span>
+                  <span class="vpre-mrow-sub vpre-mine-stars-sub">已通关 0 个单元 · 4 个小游戏按组闯关</span>
+                </span>
+              </button>
+              <button class="vpre-mrow" type="button" data-mine-go="wrong">
+                <span class="vpre-mrow-ico">📕</span>
+                <span class="vpre-mrow-body">
+                  <span class="vpre-mrow-top"><b class="vpre-mine-wrong">0</b><em>个错词待复习</em><i class="vpre-mine-wrong-pct">掌握率 0%</i></span>
+                  <span class="vpre-mrow-bar"><i class="vpre-mine-wrong-bar" style="width:0%"></i></span>
+                  <span class="vpre-mrow-sub vpre-mine-wrong-sub">掌握率 0%</span>
+                </span>
+              </button>
             </div>
+
+            <div class="vpre-sec-title">本册单元进度 <span class="vpre-sec-note vpre-mine-booknote">九上</span></div>
+            <div class="vpre-mine-units"></div>
+
             <div class="vpre-sec-title">我的徽章</div>
             <div class="vpre-badges vpre-badge-dynamic"></div>
+
             <button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-install="1">📲 安装到手机 / 电脑桌面</button>
-            <button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-action="open-report">查看家长学习报告</button>
-            <div class="vpre-note">数据保存在本机浏览器，家长可查看学习报告</div>
+            <button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-action="open-report">📊 查看学习报告</button>
+            <div class="vpre-note">进度保存在本机浏览器，换设备/换浏览器不通用；家长可查看学习报告</div>
           </div>
           <div class="vpre-view" data-view="report">
             <div class="vpre-report"></div>
@@ -3002,21 +3052,81 @@ body{
   }
   function renderMine(phone){
     tickDay();
-    var learned = q(".vpre-mine-learned", phone);
-    if(learned) learned.textContent = PROG.stats.learned || 0;
-    var streak = q(".vpre-mine-streak", phone);
-    if(streak) streak.textContent = PROG.stats.streak || 1;
-    var stars = q(".vpre-mine-badges", phone);
-    if(stars) stars.textContent = totalStars();
+    var s = state[phone.__id];
+    var book = currentBook(phone);
+    var wb = PROG.words[s.book] || {};
+    // ① 本册已掌握
+    var learned = 0;
+    for(var un in wb){ learned += Object.keys(wb[un]).length; }
+    var bookTotal = (book.units || []).reduce(function(a, x){ return a + (x.n || 0); }, 0);
+    var learnedPct = bookTotal ? Math.round(learned / bookTotal * 100) : 0;
+    var el = q(".vpre-mine-learned", phone); if(el){ el.textContent = learned; }
+    el = q(".vpre-mine-learn-unit", phone); if(el){ el.textContent = "词已掌握 / 共 " + (bookTotal || 0) + " 词"; }
+    el = q(".vpre-mine-learn-pct", phone); if(el){ el.textContent = learnedPct + "%"; }
+    el = q(".vpre-mine-learn-bar", phone); if(el){ el.style.width = learnedPct + "%"; }
+    el = q(".vpre-mine-learn-sub", phone);
+    if(el){ el.textContent = "进行中：" + unitLabel(phone) + " · 第 " + (firstOpenGroup(phone) + 1) + " 组"; }
+
+    // ② 本册闯关星星（与闯关页同一套关卡）
+    var arenaBook = (PROG.arena || {})[s.book] || {};
+    var starGot = 0, starMax = 0, clearedInBook = 0;
+    (book.units || []).forEach(function(u){
+      var groups = unitGroups(u, groupSeed(s.book, u.name));
+      var rec = arenaBook[u.name] || {};
+      var allDone = groups.length > 0;
+      ARENA_GAMES.forEach(function(g){
+        var lv = (rec[g[0]] || {}).levels || {};
+        for(var k = 0; k < groups.length; k++){
+          var st = (lv[k] || {}).stars || 0;
+          starGot += Math.min(3, st);
+          starMax += 3;
+          if(st < 3){ allDone = false; }
+        }
+      });
+      if(allDone){ clearedInBook++; }
+    });
+    var starPct = starMax ? Math.round(starGot / starMax * 100) : 0;
+    el = q(".vpre-mine-stars", phone); if(el){ el.textContent = starGot; }
+    el = q(".vpre-mine-stars-pct", phone); if(el){ el.textContent = starPct + "%"; }
+    el = q(".vpre-mine-stars-bar", phone); if(el){ el.style.width = starPct + "%"; }
+    el = q(".vpre-mine-stars-sub", phone);
+    if(el){ el.textContent = "已通关 " + clearedInBook + "/" + (book.units || []).length + " 个单元 · 共 " + ARENA_GAMES.length + " 个小游戏"; }
+
+    // ③ 本册错词本
+    var wrongN = Object.keys(PROG.wrong[s.book] || {}).length;
+    var rate = PROG.stats.answers ? Math.round(PROG.stats.correct / PROG.stats.answers * 100) : 0;
+    el = q(".vpre-mine-wrong", phone); if(el){ el.textContent = wrongN; }
+    el = q(".vpre-mine-wrong-pct", phone); if(el){ el.textContent = "掌握率 " + rate + "%"; }
+    el = q(".vpre-mine-wrong-bar", phone); if(el){ el.style.width = rate + "%"; }
+    el = q(".vpre-mine-wrong-sub", phone);
+    if(el){ el.textContent = wrongN ? "答对即移出 · 答错次数 +1 · 可整组或单练" : "还没有错词，第一页答错的词会自动进来"; }
+
+    // ④ 身份信息
     var prof = q(".vpre-mine-profile", phone);
-    if(prof){
-      prof.textContent = GRADE_NAME[state[phone.__id].grade] + " · 连续打卡 " + (PROG.stats.streak||1) + " 天"
-        + (STUDENT ? (" · " + maskPhone(STUDENT.phone)) : "");
-    }
+    if(prof){ prof.textContent = GRADE_NAME[s.grade] + (STUDENT ? (" · " + maskPhone(STUDENT.phone)) : ""); }
+    var sub = q(".vpre-mine-sub", phone);
+    if(sub){ sub.textContent = "🔥 连续打卡 " + (PROG.stats.streak || 1) + " 天 · 累计答题 " + (PROG.stats.answers || 0) + " 题"; }
     var nmShow = q(".vpre-mine-name", phone);
     if(nmShow){ nmShow.textContent = STUDENT ? STUDENT.name : "同学"; }
     var avShow = q(".vpre-mine-avatar", phone);
     if(avShow){ avShow.textContent = STUDENT && STUDENT.name ? STUDENT.name.charAt(0) : "同"; }
+
+    // ⑤ 本册单元进度（与第一页的分组进度一致）
+    var unitBox = q(".vpre-mine-units", phone);
+    var bookNote = q(".vpre-mine-booknote", phone);
+    if(bookNote){ bookNote.textContent = s.book; }
+    if(unitBox){
+      unitBox.innerHTML = (book.units || []).map(function(u, ui){
+        var groups = unitGroups(u, groupSeed(s.book, u.name));
+        var doneG = 0;
+        groups.forEach(function(g, gi){ if(isGroupComplete(s.book, u.name, gi)){ doneG++; } });
+        var done = groups.length > 0 && doneG >= groups.length;
+        return '<button class="vpre-munit' + (done ? ' is-done' : '') + '" type="button" data-mine-unit="' + ui + '">'
+          + u.name + '<span>' + doneG + "/" + groups.length + ' 组</span></button>';
+      }).join("");
+    }
+
+    // ⑥ 徽章
     var bt = PROG.stats.byType || {};
     var defs = [
       {icon:"🔥", name:"坚持 7 天", ok: (PROG.stats.streak||1) >= 7},
@@ -3311,6 +3421,22 @@ body{
       if(btn.closest(".vpre-wrow")){ runAction(phone, "quiz-wrong"); return; }
       if(btn.closest(".vpre-hero-btn")){ runAction(phone, /复习/.test(btn.textContent) ? "quiz-wrong" : "quiz-word"); return; }
       if(btn.closest(".vpre-task")){ runAction(phone, "quiz-word"); return; }
+      var mgo = btn.closest("[data-mine-go]");
+      if(mgo){
+        var target = mgo.getAttribute("data-mine-go");
+        if(target === "home"){ renderUnits(phone); }
+        else if(target === "stage"){ renderStageMap(phone); }
+        else if(target === "wrong"){ renderWrong(phone); }
+        setView(phone, target);
+        return;
+      }
+      var munit = btn.closest("[data-mine-unit]");
+      if(munit){
+        state[id].unit = parseInt(munit.getAttribute("data-mine-unit"), 10);
+        renderUnitDetail(phone);
+        setView(phone, "unit");
+        return;
+      }
       if(btn.closest(".vpre-view[data-view=mine]")){ runAction(phone, "toast"); return; }
     });
     renderUnits(phone);
