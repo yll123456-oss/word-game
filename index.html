@@ -1296,7 +1296,8 @@ body{
     // 第一页练习 / 错词复习：清掉闯关标记（否则会被当成闯关成绩：不进错词本、不计分组进度、不上报）
     phone.__arena = null;
     phone.__arenaLvl = null;
-    phone.__quizFrom = (type === "wrong") ? "wrong" : null;   // 错词本发起的，结束后回错词本
+    // 记住"从哪进":错词本→回错词本；单元页里某一组→回单元页；其余→首页
+    phone.__quizFrom = (type === "wrong") ? "wrong" : ((typeof groupIdx === "number") ? "unit" : null);
     if(typeof unitIdx === "number"){ state[phone.__id].unit = unitIdx; }
     var unitNow = unitWords(phone);
     var list;
@@ -1974,10 +1975,10 @@ body{
     });
     var homeBtn = q("[data-result-home]", el);
     if(homeBtn){
-      homeBtn.textContent = quizBackLabel(phone);
+      homeBtn.textContent = quizResultBackLabel(phone);
       homeBtn.addEventListener("click", function(){
         sfx.play("tap");
-        goQuizBack(phone);
+        goResultBack(phone);
       });
     }
     q(".vpre-quiz-close", el).addEventListener("click", function(){
@@ -2298,10 +2299,10 @@ body{
     if(ru){ ru.addEventListener("click", function(){ sfx.play("tap"); renderUnitDetail(phone); setView(phone, "unit"); }); }
     var rHome = q("[data-result-home]", el);
     if(rHome){
-      rHome.textContent = quizBackLabel(phone);
+      rHome.textContent = quizResultBackLabel(phone);
       rHome.addEventListener("click", function(){
         sfx.play("tap");
-        goQuizBack(phone);
+        goResultBack(phone);
       });
     }
     q(".vpre-quiz-close", el).addEventListener("click", function(){
@@ -2389,16 +2390,34 @@ body{
   }
   // 练习结束后"从哪来回哪去"：闯关发起→闯关页；错词本发起→错词本；第一页练习→首页
   function quizBackTarget(phone){
-    if(phone.__arena){ return "stage"; }
-    if(phone.__quizFrom === "wrong"){ return "wrong"; }
+    if(phone.__arena){ return "stage"; }              // 闯关发起 → 回闯关页
+    if(phone.__quizFrom === "wrong"){ return "wrong"; } // 错词本发起 → 回错词本
+    if(phone.__quizFrom === "unit"){ return "unit"; }   // 单元页里某一组 → 回单元页
     return "home";
   }
   function quizBackLabel(phone){
     var t = quizBackTarget(phone);
-    return t === "stage" ? "返回闯关" : (t === "wrong" ? "返回错词本" : "返回首页");
+    return t === "stage" ? "返回闯关" : (t === "wrong" ? "返回错词本" : (t === "unit" ? "返回本单元" : "返回首页"));
   }
   function goQuizBack(phone){
     var t = quizBackTarget(phone);
+    if(t === "stage"){ renderStageMap(phone); }
+    else if(t === "wrong"){ renderWrong(phone); }
+    else if(t === "unit"){ renderUnitDetail(phone); }
+    setView(phone, t);
+  }
+  // 成绩页上那个带标签的返回按钮：闯关→闯关页；错词本→错词本；其它→首页（单元页另有「返回本单元」按钮）
+  function quizResultBackTarget(phone){
+    if(phone.__arena){ return "stage"; }
+    if(phone.__quizFrom === "wrong"){ return "wrong"; }
+    return "home";
+  }
+  function quizResultBackLabel(phone){
+    var t = quizResultBackTarget(phone);
+    return t === "stage" ? "返回闯关" : (t === "wrong" ? "返回错词本" : "返回首页");
+  }
+  function goResultBack(phone){
+    var t = quizResultBackTarget(phone);
     if(t === "stage"){ renderStageMap(phone); }
     else if(t === "wrong"){ renderWrong(phone); }
     setView(phone, t);
