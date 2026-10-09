@@ -1192,7 +1192,7 @@ body{
     return pickWords(list.filter(function(x){ return x.en.length>=2; }), n).map(function(x){
       var tip = / /.test(x.en) ? ("首字母 " + x.en.charAt(0).toUpperCase() + " · " + x.en.split(" ").length + " 个单词")
                                : ("首字母 " + x.en.charAt(0).toUpperCase());
-      return { prompt:x.zh, sub:tip, opts:spellOpts(x.en), answer:x.en, speak:null };
+      return { prompt:x.zh, sub:tip, opts:spellOpts(x.en), answer:x.en, speak:x.en };   // 与默写闯关一致：可点"听发音提示"
     });
   }
   function buildListenItems(list, n){
@@ -2193,7 +2193,7 @@ body{
       +'<span class="vpre-quiz-count">'+(z.idx+1)+' / '+z.items.length+'</span></div>'
       +'<div class="vpre-qcard"><div class="vpre-qword'+pcls+'">'+prompt+'</div>'
       +(it.sub ? '<div class="vpre-qipa">'+it.sub+'</div>' : '')
-      +(it.speak ? '<button class="vpre-speak" type="button">🔊 播放发音</button>' : '')
+      +(it.speak ? '<button class="vpre-speak" type="button">🔊 ' + (z.type === "spell" ? "听发音提示" : "播放发音") + '</button>' : '')
       +'</div>'
       +'<div class="vpre-qopts">'+optsHtml+'</div>'
       +'<div class="vpre-feedback" data-fb="1"></div>'
