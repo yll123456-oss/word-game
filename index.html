@@ -101,6 +101,23 @@ body{
 .vpre-btn-row{display:flex; gap:10px; width:100%;}
 .vpre-btn-row .vpre-btn{flex:1;}
 .vpre-speak{margin-top:14px;}
+.vpre-read-sounds{display:flex; gap:8px; justify-content:center; flex-wrap:wrap;}
+.vpre-read-sounds .vpre-speak{margin-top:12px; padding:10px 18px; font-size:12.5px;}
+.vpre-read-sounds .vpre-speak.is-slow{background:#fff; color:var(--vp-blue); border:1.5px solid var(--vp-blue); box-shadow:none;}
+.vpre-syl-wrap{margin:14px 0 0;}
+.vpre-letters-wrap{margin:12px 0 0;}
+.vpre-read-hint{font-size:11px; color:var(--vp-muted); text-align:center; line-height:1.6; margin-bottom:8px;}
+.vpre-letters-wrap + .vpre-read-wrap{margin-top:18px;}
+.vpre-syls{display:flex; flex-wrap:wrap; gap:5px; align-items:center; justify-content:center;}
+.vpre-syl{border:1px solid var(--vp-line); background:#f8faff; border-radius:10px; padding:8px 12px; font-size:15px; font-weight:700; color:var(--vp-ink); cursor:pointer; transition:background .15s, border-color .15s, color .15s, transform .1s;}
+.vpre-syl:active{transform:scale(.97);}
+.vpre-syl.is-on{background:var(--vp-blue); border-color:var(--vp-blue); color:#fff;}
+.vpre-syl-dot{color:var(--vp-muted); font-weight:700;}
+.vpre-syl-space{width:14px;}
+.vpre-letters{display:flex; flex-wrap:wrap; gap:6px; justify-content:center;}
+.vpre-letter{min-width:29px; height:34px; padding:0 6px; border:1px solid var(--vp-line); background:#fff; border-radius:9px; font-size:15px; font-weight:700; color:var(--vp-ink); cursor:pointer; transition:background .15s, color .15s, border-color .15s;}
+.vpre-letter.is-gray{background:#eef1f5; border-color:#dfe3ea; color:#9aa2ae;}
+.vpre-letter.is-gap{border:0; background:none; min-width:12px; width:12px;}
 .vpre-read-wrap{display:flex; flex-direction:column; gap:12px; align-items:center;}
 .vpre-read-btn{width:100%; border:0; background:var(--vp-blue); color:#fff; font-size:15px; font-weight:800; padding:16px; border-radius:16px; cursor:pointer; box-shadow:0 10px 22px rgba(75,99,230,.22);}
 .vpre-read-btn.rec{background:#e5484d; animation:vpre-pulse 1s infinite;}
@@ -425,7 +442,12 @@ body{
 .vpre-confirm-text{font-size:12.5px; color:var(--vp-ink-2); line-height:1.95; text-align:left; background:#f7f9ff; border:1px solid var(--vp-line); border-radius:13px; padding:10px 12px; margin-bottom:14px;}
 .vpre-confirm-actions{display:flex; gap:10px;}
 .vpre-confirm-actions .vpre-btn{flex:1; padding:11px 0; font-size:13.5px;}
-@media (max-width:360px){ .vpre-confirm-mask{padding:18px;} .vpre-confirm-card{max-width:100%; padding:18px 14px 14px;} }
+@media (max-width:360px){
+  .vpre-syl{padding:6px 9px; font-size:13.5px;}
+  .vpre-letter{min-width:25px; height:31px; font-size:13.5px; padding:0 4px;}
+  .vpre-letters{gap:5px;}
+  .vpre-letters-wrap + .vpre-read-wrap{margin-top:14px;}
+  .vpre-read-hint{font-size:10.5px;} .vpre-confirm-mask{padding:18px;} .vpre-confirm-card{max-width:100%; padding:18px 14px 14px;} }
 .vpre-sheet-cancel{width:100%; border:0; background:#eef1fb; color:var(--vp-blue); border-radius:14px; padding:12px; font-size:13.5px; font-weight:700; cursor:pointer;}
 .vpre-img-mask{position:fixed; inset:0; background:rgba(23,29,45,.6); z-index:70; display:none; align-items:center; justify-content:center; padding:22px;}
 .vpre-img-mask.is-show{display:flex;}
@@ -1178,6 +1200,61 @@ body{
       return { prompt:"🔊", sub:"听发音，选单词 · "+x.en.length+" 个字母", opts:spellOpts(x.en), answer:x.en, speak:x.en, autoSpeak:true };
     });
   }
+  // 英文音节切分（规则版，用于跟读时"分块定位"；属于近似，不追求 100% 正确）
+  function syllablesOfWord(w){
+    var raw = String(w || "");
+    var m = raw.match(/^([^A-Za-z]*)([A-Za-z][A-Za-z'’-]*)([^A-Za-z]*)$/);
+    if(!m){ return raw ? [raw] : []; }
+    var pre = m[1], core = m[2], post = m[3];
+    var low = core.toLowerCase().split("");
+    var n = low.length;
+    var isV = function(ch){ return "aeiou".indexOf(ch) >= 0; };
+    // 元音组（y 在非词首、且不是相邻元音时按元音处理）
+    var groups = [];
+    for(var i = 0; i < n; i++){
+      var c = low[i];
+      var v = isV(c) || (c === "y" && i > 0 && !isV(low[i-1]) && !(i+1 < n && isV(low[i+1])));
+      if(v){
+        if(groups.length && groups[groups.length-1].end === i-1){ groups[groups.length-1].end = i; }
+        else { groups.push({start:i, end:i}); }
+      }
+    }
+    if(groups.length <= 1){ return [pre + core + post]; }
+    // 末尾不发音的 e（magic e）：前面只有 1 个辅音 → 并进上一节
+    if(groups.length >= 2){
+      var last = groups[groups.length-1];
+      if(last.start === last.end && low[last.start] === "e" && last.end === n - 1){
+        var prev = groups[groups.length-2];
+        if(last.start - prev.end === 2){ groups.pop(); }        // 例：make / nice / here
+      }
+    }
+    if(groups.length <= 1){ return [pre + core + post]; }
+    // 切分点
+    var cuts = [];
+    for(var g = 0; g < groups.length - 1; g++){
+      var a = groups[g], b2 = groups[g+1];
+      var cc = b2.start - a.end - 1;                            // 两个元音组之间的辅音个数
+      var cut;
+      var prevCh = low[b2.start-1], two = low[b2.start-2] || "";
+      var dig = ["ch","sh","th","ph","wh","gh","ck","ng","qu"];
+      if(cc <= 0){ cut = b2.start; }                             // V-V
+      else if(cc === 1){ cut = a.end + 1; }                      // V-CV
+      else if(b2.start === n-1 && low[b2.start] === "e" && prevCh === "l"){
+        cut = b2.start - 2;                                      // -Cle：ta·ble / peo·ple / lit·tle
+      } else if(cc >= 3 && dig.indexOf(low[a.end+1] + low[a.end+2]) >= 0){
+        cut = a.end + 3;                                         // tech·no：双字母音（ch/sh/th…）留在上一节
+      } else { cut = a.end + 2; }                                // VCC-CV / VCCC-CV…（前 1 个辅音留给上一节）
+      cuts.push(cut);
+    }
+    var out = [], from = 0;
+    cuts.forEach(function(cut){ out.push(core.slice(from, cut)); from = cut; });
+    out.push(core.slice(from));
+    out = out.filter(function(x){ return x.length > 0; });
+    if(!out.length){ return [pre + core + post]; }
+    out[0] = pre + out[0];
+    out[out.length-1] = out[out.length-1] + post;
+    return out;
+  }
   function buildReadItems(list, n){
     return pickWords(list, n).map(function(x){
       return {word:x.en, meaning:x.zh, prompt:x.en, sub:x.zh, answer:x.en, speak:x.en, correct:null, chosen:""};
@@ -1920,17 +1997,44 @@ body{
     if(!el) return;
     if(z.idx >= z.items.length){ renderResult(phone); return; }
     var it = z.items[z.idx];
-    var wcls = String(it.word).length > 16 ? " is-long" : "";
+    var word = String(it.word);
+    var wcls = word.length > 16 ? " is-long" : "";
+    // 音节分块（便于分块跟读定位；近似切分）
+    var syll = [];
+    word.split(/\s+/).forEach(function(w, wi){
+      if(wi){ syll.push('<span class="vpre-syl-space"></span>'); }
+      syllablesOfWord(w).forEach(function(sy, si){
+        if(si){ syll.push('<span class="vpre-syl-dot">·</span>'); }
+        syll.push('<button class="vpre-syl" type="button" data-syl="1">' + sy + '</button>');
+      });
+    });
+    // 字母块（学生自己标记读不准的字母）
+    var letters = [];
+    Array.prototype.forEach.call(word, function(ch, i){
+      if(/\s/.test(ch)){ letters.push('<span class="vpre-letter is-gap"></span>'); return; }
+      letters.push('<button class="vpre-letter" type="button" data-li="' + i + '">' + ch + '</button>');
+    });
     el.innerHTML =
       '<div class="vpre-quiz-head"><span>跟读打卡</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
       + '<div class="vpre-quiz-progress"><div class="vpre-progress"><div style="width:'+Math.round(z.idx/z.items.length*100)+'%"></div></div>'
       + '<span class="vpre-quiz-count">'+(z.idx+1)+' / '+z.items.length+'</span></div>'
-      + '<div class="vpre-qcard"><div class="vpre-qword'+wcls+'">'+it.word+'</div>'
+      + '<div class="vpre-qcard"><div class="vpre-qword'+wcls+'">'+word+'</div>'
       +   '<div class="vpre-qipa">'+it.meaning+'</div>'
-      +   '<button class="vpre-speak" type="button" data-play="1">🔊 听标准发音</button></div>'
+      +   '<div class="vpre-read-sounds">'
+      +     '<button class="vpre-speak" type="button" data-play="1">🔊 听标准音</button>'
+      +     '<button class="vpre-speak is-slow" type="button" data-play-slow="1">🐢 慢速再听</button>'
+      +   '</div></div>'
+      + '<div class="vpre-syl-wrap">'
+      +   '<div class="vpre-read-hint">按音节分块 · 点一块会重播整词并高亮这一块</div>'
+      +   '<div class="vpre-syls">' + syll.join("") + '</div>'
+      + '</div>'
+      + '<div class="vpre-letters-wrap">'
+      +   '<div class="vpre-read-hint vpre-letter-hint" data-letterhint="1">自己核对：读不准的字母点一下变灰（自评标记，本机不做发音识别）</div>'
+      +   '<div class="vpre-letters">' + letters.join("") + '</div>'
+      + '</div>'
       + '<div class="vpre-read-wrap">'
       +   '<button class="vpre-read-btn" type="button" data-rec="1">🎤 开始跟读</button>'
-      +   '<div class="vpre-read-tip" data-readtip="1">点"开始跟读"后读出这个单词，读完自动回放你的声音，对比一下像不像。</div>'
+      +   '<div class="vpre-read-tip" data-readtip="1">点"开始跟读"后读出这个单词，读完自动回放你的声音，和标准音对比一下。</div>'
       +   '<div class="vpre-btn-row" data-judge="1" style="display:none;">'
       +     '<button class="vpre-btn" type="button" data-ok="0">🔁 再练一次</button>'
       +     '<button class="vpre-btn vpre-btn-primary" type="button" data-ok="1">✅ 读对了</button>'
@@ -1938,7 +2042,30 @@ body{
       + '</div>'
       + '<div class="vpre-feedback" data-fb="1"></div>'
       + '<button class="vpre-btn vpre-btn-primary vpre-btn-block vpre-qnext" type="button" style="display:none;">下一题</button>';
-    q("[data-play]", el).addEventListener("click", function(){ sfx.play("tap"); speak(it.word, phone); });
+    q("[data-play]", el).addEventListener("click", function(){ sfx.play("tap"); speak(word, phone); });
+    q("[data-play-slow]", el).addEventListener("click", function(){ sfx.play("tap"); speak(word, phone, 0.55); });
+    qa("[data-syl]", el).forEach(function(b){
+      b.addEventListener("click", function(){
+        sfx.play("tap");
+        speak(word, phone);                                  // 逐音节音频不可靠，改为"重播整词 + 高亮这一块"
+        qa(".vpre-syl", el).forEach(function(x){ x.classList.remove("is-on"); });
+        b.classList.add("is-on");
+        clearTimeout(phone.__sylTimer);
+        phone.__sylTimer = setTimeout(function(){ b.classList.remove("is-on"); }, 1100);
+      });
+    });
+    var letterHint = q("[data-letterhint]", el);
+    var LETTER_HINT = "自己核对：读不准的字母点一下变灰（自评标记，本机不做发音识别）";
+    qa("[data-li]", el).forEach(function(b){
+      b.addEventListener("click", function(){
+        sfx.play("tap");
+        b.classList.toggle("is-gray");                      // 自评：这个词我读不准的字母
+        if(letterHint){
+          var n = qa(".vpre-letter.is-gray", el).length;
+          letterHint.textContent = LETTER_HINT + (n ? ("　已标记 " + n + " 个") : "");
+        }
+      });
+    });
     var recBtn = q("[data-rec]", el), tip = q("[data-readtip]", el), judge = q("[data-judge]", el);
     recBtn.addEventListener("click", function(){
       sfx.play("tap");
@@ -1993,7 +2120,7 @@ body{
       });
     });
     q(".vpre-qnext", el).addEventListener("click", function(){ sfx.play("tap"); z.idx += 1; renderQuiz(phone); });
-    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
+    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); goQuizBack(phone); });
     clearTimeout(phone.__speakTimer);
     clearTimeout(phone.__speechFallback);
     if(phone.__audio){ try{ phone.__audio.pause(); }catch(e2){} }
@@ -2201,7 +2328,7 @@ body{
     }
     return best;
   }
-  function speak(text, phone){
+  function speak(text, phone, rate){
     try{
       if(phone.__speechDead || IS_WECHAT || !("speechSynthesis" in window)){ playAudio(text, phone); return; }
       var ss = window.speechSynthesis;
@@ -2213,7 +2340,7 @@ body{
       if(!hasVoice){ playAudio(text, phone); return; }
       ss.cancel();
       var u = new SpeechSynthesisUtterance(text);
-      u.lang = "en-US"; u.rate = 0.8; u.pitch = 1; u.volume = 1;
+      u.lang = "en-US"; u.rate = rate || 0.8; u.pitch = 1; u.volume = 1;
       var v = pickVoice(ss);
       if(v){ u.voice = v; }
       var started = false;
