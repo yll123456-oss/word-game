@@ -2169,7 +2169,7 @@ body{
     q("[data-submit]", el).addEventListener("click", submit);
     input.addEventListener("keydown", function(ev){ if(ev.key === "Enter"){ submit(); } });
     q(".vpre-qnext", el).addEventListener("click", function(){ sfx.play("tap"); z.idx += 1; renderQuiz(phone); });
-    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); setView(phone, "home"); });
+    q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); goQuizBack(phone); });
     setTimeout(function(){ input.focus(); }, 200);
   }
   function renderQuiz(phone){
