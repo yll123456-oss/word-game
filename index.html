@@ -370,9 +370,6 @@ body{
 .vpre-munit span{font-size:10.5px; color:var(--vp-muted); font-weight:500;}
 .vpre-munit.is-done{border-color:#9fd9c3; background:#eefaf5; color:#0f7a5c;}
 .vpre-munit.is-done span{color:#0f7a5c;}
-.vpre-badges{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px;}
-.vpre-badge{font-size:11.5px; font-weight:600; color:var(--vp-muted); background:#f4f6fa; border:1px solid var(--vp-line); border-radius:99px; padding:7px 12px;}
-.vpre-badge.is-earned{color:#b45309; background:var(--vp-orange-soft); border-color:rgba(245,158,11,.35);}
 .vpre-note{font-size:11px; color:var(--vp-muted); text-align:center; line-height:1.7; margin-top:6px;}
 /* ===== 答题页 ===== */
 .vpre-quiz-head{display:flex; justify-content:space-between; align-items:center; font-size:12.5px; font-weight:600; margin:2px 0 12px; color:var(--vp-ink);}
@@ -615,9 +612,6 @@ body{
 
             <div class="vpre-sec-title">本册单元进度 <span class="vpre-sec-note vpre-mine-booknote">九上</span></div>
             <div class="vpre-mine-units"></div>
-
-            <div class="vpre-sec-title">我的徽章</div>
-            <div class="vpre-badges vpre-badge-dynamic"></div>
 
             <button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-install="1">📲 安装到手机 / 电脑桌面</button>
             <button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-action="open-report">📊 查看学习报告</button>
@@ -3272,22 +3266,6 @@ body{
       }).join("");
     }
 
-    // ⑥ 徽章
-    var bt = PROG.stats.byType || {};
-    var defs = [
-      {icon:"🔥", name:"坚持 7 天", ok: (PROG.stats.streak||1) >= 7},
-      {icon:"✏️", name:"拼写新星", ok: (bt.spell||0) >= 10},
-      {icon:"🎧", name:"听力入门", ok: (bt.listen||0) >= 10},
-      {icon:"📚", name:"百词达人", ok: (PROG.stats.learned||0) >= 100},
-      {icon:"🌟", name:"星星收藏家", ok: totalStars() >= 10},
-      {icon:"🏆", name:"闯关先锋", ok: clearedUnits() >= 1}
-    ];
-    var wrap = q(".vpre-badge-dynamic", phone);
-    if(wrap){
-      wrap.innerHTML = defs.map(function(d){
-        return '<span class="vpre-badge'+(d.ok?" is-earned":"")+'">'+d.icon+' '+d.name+(d.ok?"":" · 未解锁")+'</span>';
-      }).join("");
-    }
   }
   // ===== 错词本：当前册 + 按单元筛选 =====
   function wrongUnitMap(phone){          // 单词(小写) → 所属单元下标
