@@ -30,7 +30,7 @@ body{
   color:var(--vp-ink);
 }
 .vpre-h5{color:var(--vp-ink);}
-.vpre-unit,.vpre-wrow,.vpre-bookrow,.vpre-stats div{
+.vpre-unit,.vpre-wrow,.vpre-stats div{
   border-color:var(--vp-line) !important; border-radius:var(--vp-radius) !important; box-shadow:var(--vp-shadow-sm) !important;
 }
 .vpre-hero,.vpre-taskcard{border-radius:22px !important; box-shadow:var(--vp-shadow) !important;}
@@ -474,18 +474,15 @@ body{
   .vpre-print-report .vpre-sec-title{color:#111;}
   .vpre-print-report .vpre-stats{grid-template-columns:repeat(4,1fr);}
   .vpre-print-report .vpre-stats div{box-shadow:none;}
-  .vpre-print-report .vpre-bookrow,
   .vpre-print-report .vpre-wrow,
   .vpre-print-report .vpre-stats div{break-inside:avoid; box-shadow:none;}
   .vpre-print-report .vpre-progress{background:#eef0f5;}
   .vpre-print-report .vpre-progress div{background:#3b5bdb !important;}
 }
-.vpre-bookrow{display:flex; align-items:center; gap:10px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:14px; padding:10px 12px; margin-bottom:8px; box-shadow:var(--vp-shadow-sm);}
-.vpre-bookrow b{width:34px; font-size:12.5px; flex:none; color:var(--vp-ink);}
-.vpre-bookrow .vpre-progress{flex:1;}
-.vpre-bookrow .vpre-progress div{background:var(--vp-blue);}
-.vpre-bookrow span{font-size:11px; color:var(--vp-muted); width:56px; text-align:right; flex:none;}
 .vpre-report-stats{grid-template-columns:1fr 1fr;}
+.vpre-chart{background:var(--vp-card); border:1px solid var(--vp-line); border-radius:16px; padding:10px 6px 6px; box-shadow:var(--vp-shadow-sm);}
+.vpre-chart canvas{display:block; width:100%;}
+.vpre-chart-hint{font-size:11px; color:var(--vp-muted); text-align:center; padding:4px 0 6px;}
 
 .vpre-login{position:fixed; inset:0; z-index:80; background:linear-gradient(160deg,#eef2ff,#f7f8fb 60%,#fff); display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box;}
 .vpre-login.is-hidden{display:none;}
@@ -922,7 +919,7 @@ body{
     return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
   }
   function loadProgress(){
-    var d = {words:{}, wrong:{}, stats:{answers:0, correct:0, learned:0, day:"", dayWords:0, streak:1, byType:{}}};
+    var d = {words:{}, wrong:{}, hist:{}, stats:{answers:0, correct:0, learned:0, day:"", dayWords:0, streak:1, byType:{}}};
     try{
       var raw = localStorage.getItem(progressKey());
       if(raw){ var p = JSON.parse(raw); if(p && p.stats) return p; }
@@ -1111,6 +1108,18 @@ body{
     PROG.stats.dayWords += (z.type === "match" ? z.total : z.items.length);
     PROG.stats.byType = PROG.stats.byType || {};
     PROG.stats.byType[z.type] = (PROG.stats.byType[z.type] || 0) + (z.type === "match" ? z.total : z.items.length);
+    // 每天练习量（报告页趋势图用）
+    PROG.hist = PROG.hist || {};
+    var hk = todayStr();
+    var he = PROG.hist[hk] || (PROG.hist[hk] = {words:0, ok:0});
+    var hWords = (z.type === "match") ? (z.total || 0) : (z.items || []).length;
+    var hOk = (z.type === "match") ? (z.matched || 0) : (z.score || 0);
+    he.words += hWords; he.ok += hOk;
+    var hKeys = Object.keys(PROG.hist);
+    if(hKeys.length > 60){                                   // 只保留最近 60 天
+      hKeys.sort();
+      hKeys.slice(0, hKeys.length - 60).forEach(function(k){ delete PROG.hist[k]; });
+    }
     saveProgress();
     try{ markGroupDone(phone, z.type); }catch(e){}
     if(STUDENT){
@@ -2746,6 +2755,136 @@ body{
   function renderReport(phone){
     loadAllBooks().then(function(){ renderReportInner(phone); });
   }
+  // 颜色转 rgba（十六进制 → 带透明度）
+  function hexA(hex, a){
+    var h = String(hex || "#4b63e6").replace("#", "");
+    if(h.length === 3){ h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2]; }
+    var n = parseInt(h, 16);
+    return "rgba(" + ((n>>16)&255) + "," + ((n>>8)&255) + "," + (n&255) + "," + a + ")";
+  }
+  function chartColor(){
+    try{ return (getComputedStyle(document.body).getPropertyValue("--vp-blue") || "").trim() || "#4b63e6"; }
+    catch(e){ return "#4b63e6"; }
+  }
+  function chartCanvas(box, W, H){
+    var cv = document.createElement("canvas");
+    var dpr = window.devicePixelRatio || 1;
+    cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
+    cv.style.width = "100%"; cv.style.height = H + "px";
+    var ctx = cv.getContext("2d");
+    ctx.scale(dpr, dpr);
+    box.appendChild(cv);
+    return ctx;
+  }
+  // 蛛网图：六册掌握度（每轴 = 该册已掌握占比）
+  function drawRadarChart(box, rows){
+    if(!box || !rows || !rows.length){ return; }
+    var W = Math.max(280, Math.min(420, box.clientWidth || 320)), H = 300;
+    var ctx = chartCanvas(box, W, H);
+    var accent = chartColor();
+    var n = rows.length, cx = W/2, cy = H/2 + 8;
+    var R = Math.min(W, H)/2 - 48;
+    function pt(i, v){
+      var ang = -Math.PI/2 + i*2*Math.PI/n;
+      return [cx + Math.cos(ang)*R*v, cy + Math.sin(ang)*R*v];
+    }
+    [0.25, 0.5, 0.75, 1].forEach(function(k){
+      ctx.beginPath();
+      for(var i=0;i<n;i++){
+        var p = pt(i, k);
+        if(i){ ctx.lineTo(p[0], p[1]); } else { ctx.moveTo(p[0], p[1]); }
+      }
+      ctx.closePath();
+      ctx.strokeStyle = (k === 1) ? "#dde3ee" : "#eef1f7";
+      ctx.lineWidth = 1; ctx.stroke();
+    });
+    for(var i2=0;i2<n;i2++){
+      var pe = pt(i2, 1);
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(pe[0], pe[1]);
+      ctx.strokeStyle = "#eef1f7"; ctx.lineWidth = 1; ctx.stroke();
+    }
+    ctx.beginPath();
+    rows.forEach(function(r, i){
+      var p = pt(i, Math.max(0.02, (r.pct || 0)/100));
+      if(i){ ctx.lineTo(p[0], p[1]); } else { ctx.moveTo(p[0], p[1]); }
+    });
+    ctx.closePath();
+    ctx.fillStyle = hexA(accent, .16); ctx.fill();
+    ctx.strokeStyle = accent; ctx.lineWidth = 2; ctx.stroke();
+    rows.forEach(function(r, i){
+      var p = pt(i, Math.max(0.02, (r.pct || 0)/100));
+      ctx.beginPath(); ctx.arc(p[0], p[1], 3.2, 0, Math.PI*2);
+      ctx.fillStyle = accent; ctx.fill();
+      var lp = pt(i, 1.2);
+      ctx.textBaseline = "middle";
+      ctx.textAlign = Math.abs(lp[0]-cx) < 6 ? "center" : (lp[0] > cx ? "left" : "right");
+      ctx.font = "12px 'PingFang SC','Microsoft YaHei',sans-serif";
+      ctx.fillStyle = "#4b5563";
+      ctx.fillText(r.book, lp[0], lp[1] - 7);
+      ctx.font = "bold 12px 'PingFang SC','Microsoft YaHei',sans-serif";
+      ctx.fillStyle = accent;
+      ctx.fillText((r.pct || 0) + "%", lp[0], lp[1] + 8);
+    });
+    ctx.textAlign = "left"; ctx.textBaseline = "top";
+  }
+  // 折线图：近 7 天每天练习词数
+  function drawTrendChart(box){
+    if(!box){ return; }
+    var hist = PROG.hist || {};
+    var days = [], now = new Date();
+    for(var i=6;i>=0;i--){
+      var d = new Date(now.getTime() - i*86400000);
+      var key = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+      days.push({key:key, label:(d.getMonth()+1) + "/" + d.getDate(), v:(hist[key] && hist[key].words) || 0});
+    }
+    var maxV = Math.max(10, Math.max.apply(null, days.map(function(d){ return d.v; })));
+    var W = Math.max(280, Math.min(420, box.clientWidth || 320)), H = 200;
+    var ctx = chartCanvas(box, W, H);
+    var accent = chartColor();
+    var L = 34, Rr = 12, T = 24, B = 30;
+    var pw = W - L - Rr, ph = H - T - B;
+    var xOf = function(i){ return L + (days.length > 1 ? pw * i / (days.length - 1) : pw/2); };
+    var yOf = function(v){ return T + ph - ph * (v / maxV); };
+    ctx.strokeStyle = "#eef1f7"; ctx.lineWidth = 1;
+    ctx.font = "11px 'PingFang SC','Microsoft YaHei',sans-serif";
+    ctx.fillStyle = "#9aa3b2"; ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    [0, 0.5, 1].forEach(function(k){
+      var yy = T + ph * (1 - k);
+      ctx.beginPath(); ctx.moveTo(L, yy); ctx.lineTo(L + pw, yy); ctx.stroke();
+      ctx.fillText(String(Math.round(maxV * k)), L - 6, yy);
+    });
+    var g = ctx.createLinearGradient(0, T, 0, T + ph);
+    g.addColorStop(0, hexA(accent, .28)); g.addColorStop(1, hexA(accent, 0));
+    ctx.beginPath();
+    days.forEach(function(d, i){ var x = xOf(i), y = yOf(d.v); if(i){ ctx.lineTo(x, y); } else { ctx.moveTo(x, y); } });
+    ctx.lineTo(xOf(days.length-1), T + ph); ctx.lineTo(xOf(0), T + ph); ctx.closePath();
+    ctx.fillStyle = g; ctx.fill();
+    ctx.beginPath();
+    days.forEach(function(d, i){ var x = xOf(i), y = yOf(d.v); if(i){ ctx.lineTo(x, y); } else { ctx.moveTo(x, y); } });
+    ctx.strokeStyle = accent; ctx.lineWidth = 2; ctx.stroke();
+    ctx.textAlign = "center";
+    days.forEach(function(d, i){
+      var x = xOf(i), y = yOf(d.v);
+      ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI*2); ctx.fillStyle = accent; ctx.fill();
+      if(d.v > 0){
+        ctx.fillStyle = "#4b5563";
+        ctx.font = "bold 11px 'PingFang SC','Microsoft YaHei',sans-serif";
+        ctx.fillText(String(d.v), x, y - 12);
+      }
+      ctx.fillStyle = "#9aa3b2";
+      ctx.font = "11px 'PingFang SC','Microsoft YaHei',sans-serif";
+      ctx.textBaseline = "top";
+      ctx.fillText(d.label, x, T + ph + 8);
+    });
+    ctx.textAlign = "left";
+    var withData = days.filter(function(d){ return d.v > 0; }).length;
+    if(withData < 2){
+      var hint = document.createElement("div");
+      hint.className = "vpre-chart-hint";
+      hint.textContent = "再练几天就能看到趋势（今天 " + days[days.length-1].v + " 词）";
+      box.appendChild(hint);
+    }
+  }
   function renderReportInner(phone){
     var el = q(".vpre-report", phone);
     if(!el) return;
@@ -2766,11 +2905,7 @@ body{
       var w = PROG.wrong[bk];
       for(var en in w){ wrongAll.push({en:en, c:w[en], book:bk}); }
     }
-    wrongAll.sort(function(a,b){ return b.c - a.c; });
-    var topWrong = wrongAll.slice(0,5);
     var totalWords = rows.reduce(function(a,r){ return a + r.total; }, 0);
-    var zhMap = {};
-    BOOK_LIST.forEach(function(b){ bookData(b).units.forEach(function(u){ u.words.forEach(function(w){ zhMap[w[0].toLowerCase()] = w[1]; }); }); });
     el.innerHTML =
       '<div class="vpre-report-head"><b>学习报告</b><span class="vpre-report-actions"><button class="vpre-report-share" type="button">📸 晒一晒</button><button class="vpre-report-print" type="button">🖨 打印</button><button class="vpre-report-back" type="button">← 返回</button></span></div>'
       + '<div class="vpre-stats vpre-report-stats">'
@@ -2779,14 +2914,13 @@ body{
       + '<div><b>'+PROG.stats.streak+'</b><span>连续天数</span></div>'
       + '<div><b>'+wrongAll.length+'</b><span>错词待复习</span></div>'
       + '</div>'
-      + '<div class="vpre-sec-title">各册进度 <span>已学 '+learned+' / '+totalWords+' 词</span></div>'
-      + rows.map(function(r){
-          return '<div class="vpre-bookrow"><b>'+r.book+'</b><div class="vpre-progress"><div style="width:'+r.pct+'%"></div></div><span>'+r.lw+'/'+r.total+'</span></div>';
-        }).join("")
-      + '<div class="vpre-sec-title">错词榜 <span>'+(wrongAll.length ? ('按错误次数 · 共 '+wrongAll.length+' 个') : '')+'</span></div>'
-      + (topWrong.length ? topWrong.map(function(w){
-          return '<div class="vpre-wrow"><div class="vpre-wmain"><b>'+w.en+'</b><span>'+(zhMap[w.en]||w.book)+'</span></div><span class="vpre-wbadge">错 '+w.c+' 次</span></div>';
-        }).join("") : '<div class="vpre-placeholder">没有错词，继续保持！</div>');
+      + '<div class="vpre-sec-title">六册掌握度 <span>共 6 册 '+totalWords+' 词</span></div>'
+      + '<div class="vpre-chart" data-chart="radar"></div>'
+      + '<div class="vpre-sec-title">近 7 天练习 <span>每天练习的词数</span></div>'
+      + '<div class="vpre-chart" data-chart="trend"></div>';
+    // 画图（雷达图=六册掌握度；折线图=近 7 天练习量）
+    drawRadarChart(q('[data-chart="radar"]', el), rows);
+    drawTrendChart(q('[data-chart="trend"]', el));
   }
   function fmtDate(){
     var d = new Date();
@@ -2804,6 +2938,16 @@ body{
     if(head){
       head.innerHTML = "<b>单词大冒险 · 学习报告</b><span class=\"vpre-print-date\">生成时间：" + fmtDate() + "</span>";
     }
+    var srcCharts = qa("canvas", src), dstCharts = qa("canvas", box);
+    srcCharts.forEach(function(sc, i){
+      var dc = dstCharts[i];
+      if(!dc){ return; }
+      try{
+        dc.width = sc.width; dc.height = sc.height;
+        dc.style.width = sc.style.width; dc.style.height = sc.style.height;
+        dc.getContext("2d").drawImage(sc, 0, 0);
+      }catch(e){}
+    });
     root.innerHTML = "";
     root.appendChild(box);
     try{ window.print(); }catch(e){}
@@ -2989,6 +3133,11 @@ body{
     }
     mask.classList.add("is-show");
   }
+  function cvh(cv){
+    try{ var h = parseFloat(cv.style.height); if(h){ return h; } }catch(e){}
+    var dpr = window.devicePixelRatio || 1;
+    return cv.height / dpr;
+  }
   function exportReportImage(phone){
     var el = q(".vpre-report", phone);
     if(!el) return;
@@ -3056,62 +3205,15 @@ body{
         ctx.fillText(s.k, bx + boxW/2, by + boxH - 22);
         ctx.textAlign = "left";
       }
-      y += 2 * boxH + 14 + 12;
-      secTitle("各册进度");
-      var rows = qa(".vpre-bookrow", el).map(function(r){
-        var sp = t(q("span", r));
-        var m = sp.match(/(\d+)\s*\/\s*(\d+)/);
-        var pct = 0;
-        if(m && +m[2]){ pct = Math.round(+m[1]/+m[2]*100); }
-        return {name:t(q("b",r)), txt:sp, pct:Math.min(100,Math.max(0,pct))};
-      });
-      rows.forEach(function(r){
-        ctx.fillStyle = "#1f2430";
-        ctx.font = "bold 17px 'PingFang SC','Microsoft YaHei',sans-serif";
-        ctx.fillText(r.name, X, y + 6);
-        ctx.fillStyle = "#eceef4";
-        rr(X + 86, y + 12, RIGHT - X - 86 - 96, 12, 6);
-        ctx.fill();
-        if(r.pct > 0){
-          ctx.fillStyle = "#3b5bdb";
-          rr(X + 86, y + 12, Math.max(12, (RIGHT - X - 86 - 96) * r.pct / 100), 12, 6);
-          ctx.fill();
-        }
-        ctx.fillStyle = "#6b7280";
-        ctx.font = "15px 'PingFang SC','Microsoft YaHei',sans-serif";
-        ctx.textAlign = "right";
-        ctx.fillText(r.txt, RIGHT, y + 8);
-        ctx.textAlign = "left";
-        y += 46;
-      });
-      secTitle("错词榜");
-      var wrongs = qa(".vpre-wrow", el).map(function(w){
-        return {word:t(q("b",w)), mean:t(q(".vpre-wmain span",w)), badge:t(q(".vpre-wbadge",w))};
-      });
-      var noWrong = !!q(".vpre-placeholder", el);
-      if(noWrong){
-        ctx.font = "16px 'PingFang SC','Microsoft YaHei',sans-serif";
-        ctx.fillStyle = "#8a91a5";
-        ctx.fillText("没有错词，继续保持！", X, y);
-        y += 40;
-      }
-      wrongs.forEach(function(w){
-        ctx.fillStyle = "#1f2430";
-        ctx.font = "bold 19px 'PingFang SC','Microsoft YaHei',sans-serif";
-        ctx.fillText(w.word, X, y + 2);
-        ctx.fillStyle = "#b45309";
-        ctx.font = "bold 13px 'PingFang SC','Microsoft YaHei',sans-serif";
-        var bw = ctx.measureText(w.badge).width;
-        ctx.textAlign = "right";
-        ctx.fillText(w.badge, RIGHT, y + 7);
-        ctx.textAlign = "left";
-        ctx.fillStyle = "#6b7280";
-        ctx.font = "13.5px 'PingFang SC','Microsoft YaHei',sans-serif";
-        var words = wrapText(w.mean, RIGHT - X - bw - 20);
-        words.forEach(function(ln, li){
-          ctx.fillText(ln, X, y + 32 + li * 20);
-        });
-        y += 34 + (words.length - 1) * 20 + 10;
+      y += 2 * boxH + 6;
+      // 报告里的两张图表（雷达图 / 折线图）直接贴到导出图上
+      var pageCharts = qa(".vpre-chart canvas", el);
+      pageCharts.forEach(function(cv, ci){
+        secTitle(ci === 0 ? "六册掌握度" : "近 7 天练习");
+        var cw = RIGHT - X;
+        var ch = Math.round(cvh(cv) * cw / cv.width);
+        ctx.drawImage(cv, X, y, cw, ch);
+        y += ch + 18;
       });
       y += 8;
       ctx.strokeStyle = "#e6e9f0";
