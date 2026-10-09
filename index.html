@@ -2762,22 +2762,22 @@ body{
     }
     wrongAll.sort(function(a,b){ return b.c - a.c; });
     var topWrong = wrongAll.slice(0,5);
+    var totalWords = rows.reduce(function(a,r){ return a + r.total; }, 0);
     var zhMap = {};
     BOOK_LIST.forEach(function(b){ bookData(b).units.forEach(function(u){ u.words.forEach(function(w){ zhMap[w[0].toLowerCase()] = w[1]; }); }); });
     el.innerHTML =
       '<div class="vpre-report-head"><b>学习报告</b><span class="vpre-report-actions"><button class="vpre-report-share" type="button">📸 晒一晒</button><button class="vpre-report-print" type="button">🖨 打印</button><button class="vpre-report-back" type="button">← 返回</button></span></div>'
       + '<div class="vpre-stats vpre-report-stats">'
-      + '<div><b>'+learned+'</b><span>已学词</span></div>'
       + '<div><b>'+rate+'%</b><span>掌握率</span></div>'
-      + '<div><b>'+PROG.stats.streak+'</b><span>连续天数</span></div>'
       + '<div><b>'+(PROG.stats.dayWords||0)+'</b><span>今日学词</span></div>'
+      + '<div><b>'+PROG.stats.streak+'</b><span>连续天数</span></div>'
+      + '<div><b>'+wrongAll.length+'</b><span>错词待复习</span></div>'
       + '</div>'
-      + '<div class="vpre-sec-title">各册进度</div>'
+      + '<div class="vpre-sec-title">各册进度 <span>已学 '+learned+' / '+totalWords+' 词</span></div>'
       + rows.map(function(r){
           return '<div class="vpre-bookrow"><b>'+r.book+'</b><div class="vpre-progress"><div style="width:'+r.pct+'%"></div></div><span>'+r.lw+'/'+r.total+'</span></div>';
         }).join("")
-      + '<div class="vpre-sec-title">闯关星星 <span>累计 '+totalStars()+' 颗 · 已通关 '+clearedUnits()+' 个单元</span></div>'
-      + '<div class="vpre-sec-title">错词榜</div>'
+      + '<div class="vpre-sec-title">错词榜 <span>'+(wrongAll.length ? ('按错误次数 · 共 '+wrongAll.length+' 个') : '')+'</span></div>'
       + (topWrong.length ? topWrong.map(function(w){
           return '<div class="vpre-wrow"><div class="vpre-wmain"><b>'+w.en+'</b><span>'+(zhMap[w.en]||w.book)+'</span></div><span class="vpre-wbadge">错 '+w.c+' 次</span></div>';
         }).join("") : '<div class="vpre-placeholder">没有错词，继续保持！</div>');
@@ -3078,11 +3078,6 @@ body{
         ctx.textAlign = "left";
         y += 46;
       });
-      var starText = "";
-      qa(".vpre-sec-title", el).forEach(function(s){
-        if(t(s).indexOf("闯关星星") === 0){ starText = t(s).replace(/\s+/g," "); }
-      });
-      secTitle(starText || "闯关星星");
       secTitle("错词榜");
       var wrongs = qa(".vpre-wrow", el).map(function(w){
         return {word:t(q("b",w)), mean:t(q(".vpre-wmain span",w)), badge:t(q(".vpre-wbadge",w))};
