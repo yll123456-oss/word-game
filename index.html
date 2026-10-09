@@ -2876,7 +2876,8 @@ body{
       var rate = PROG.stats.answers ? Math.round(PROG.stats.correct / PROG.stats.answers * 100) : 0;
       var s = state[phone.__id];
       var accent = ({"七上":"#12b886","七下":"#3b82f6","八上":"#7c5cff","八下":"#ef8a17","九上":"#e5484d","九下":"#12a4a4"})[s.book] || "#4b63e6";
-      var W = 720, H = 1000;
+      // 高度按内容算：没有徽章板块后不留大片空白（有"刚才这一局"时高一点）
+      var W = 720, H = quiz ? 780 : 690;
       var c = document.createElement("canvas");
       c.width = W; c.height = H;
       var ctx = c.getContext("2d");
@@ -2937,28 +2938,8 @@ body{
         ctx.fillText(v, 44, y);
         y += 52;
       }
-      var badges = [];
-      if((PROG.stats.streak||1) >= 7) badges.push("🔥 坚持7天");
-      if((PROG.stats.learned||0) >= 100) badges.push("📚 百词达人");
-      if(totalStars() >= 10) badges.push("🌟 星星收藏家");
-      if(clearedUnits() >= 1) badges.push("🏆 闯关先锋");
-      if(!badges.length) badges.push("🌱 新手起步");
-      ctx.fillStyle = "#1b2434";
-      ctx.font = "bold 22px 'PingFang SC','Microsoft YaHei',sans-serif";
-      ctx.fillText("我的徽章", 44, y);
-      y += 40;
-      ctx.font = "20px 'PingFang SC','Microsoft YaHei',sans-serif";
-      badges.slice(0, 4).forEach(function(b, i){
-        var bx = 44 + (i % 2) * (bw + 20), by = y + Math.floor(i / 2) * 52;
-        ctx.fillStyle = "#eef2ff";
-        ctx.beginPath();
-        var rr2 = 14, w2 = bw, h2 = 42;
-        ctx.moveTo(bx+rr2, by); ctx.arcTo(bx+w2, by, bx+w2, by+h2, rr2); ctx.arcTo(bx+w2, by+h2, bx, by+h2, rr2);
-        ctx.arcTo(bx, by+h2, bx, by, rr2); ctx.arcTo(bx, by, bx+w2, by, rr2); ctx.closePath(); ctx.fill();
-        ctx.fillStyle = "#3c4760";
-        ctx.fillText(b, bx + 18, by + 11);
-      });
-      y += Math.ceil(Math.min(badges.length,4) / 2) * 52 + 18;
+      // （已去掉成绩图里的"我的徽章"板块）
+      y += 10;
       ctx.strokeStyle = "#e3e8f4"; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(44, y); ctx.lineTo(W - 44, y); ctx.stroke();
       y += 22;
