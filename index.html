@@ -365,11 +365,17 @@ body{
 .vpre-mrow-bar{display:block; height:5px; border-radius:99px; background:#f0f2f7; overflow:hidden; margin:7px 0 6px;}
 .vpre-mrow-bar > i{display:block; height:100%; border-radius:99px; background:var(--vp-blue); transition:width .3s;}
 .vpre-mrow-sub{display:block; font-size:11px; color:var(--vp-muted); line-height:1.5;}
-.vpre-mine-units{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:18px;}
-.vpre-munit{display:flex; align-items:center; justify-content:space-between; gap:6px; background:var(--vp-card); border:1px solid var(--vp-line); border-radius:12px; padding:9px 11px; font-size:12px; font-weight:700; color:var(--vp-ink); cursor:pointer;}
-.vpre-munit span{font-size:10.5px; color:var(--vp-muted); font-weight:500;}
-.vpre-munit.is-done{border-color:#9fd9c3; background:#eefaf5; color:#0f7a5c;}
-.vpre-munit.is-done span{color:#0f7a5c;}
+.vpre-mine-books{display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:18px;}
+.vpre-bk{background:var(--vp-card); border:1px solid var(--vp-line); border-radius:14px; padding:10px 11px; text-align:left; cursor:pointer; box-shadow:var(--vp-shadow-sm); transition:transform .12s, border-color .15s;}
+.vpre-bk:active{transform:scale(.98);}
+.vpre-bk-top{display:flex; align-items:baseline; justify-content:space-between; gap:6px;}
+.vpre-bk-top b{font-size:13px; font-weight:800; color:var(--vp-ink);}
+.vpre-bk-top i{font-style:normal; font-size:11px; font-weight:700; color:var(--vp-blue);}
+.vpre-bk-num{display:block; font-size:10.5px; color:var(--vp-muted); margin:3px 0 6px;}
+.vpre-bk-bar{display:block; height:4px; border-radius:99px; background:#f0f2f7; overflow:hidden;}
+.vpre-bk-bar > i{display:block; height:100%; border-radius:99px; background:var(--vp-blue);}
+.vpre-bk.is-cur{border-color:var(--vp-blue); box-shadow:0 0 0 2px var(--vp-blue-soft);}
+.vpre-bk.is-done .vpre-bk-top i{color:#0f7a5c;}
 .vpre-note{font-size:11px; color:var(--vp-muted); text-align:center; line-height:1.7; margin-top:6px;}
 /* ===== 答题页 ===== */
 .vpre-quiz-head{display:flex; justify-content:space-between; align-items:center; font-size:12.5px; font-weight:600; margin:2px 0 12px; color:var(--vp-ink);}
@@ -587,7 +593,7 @@ body{
               <button class="vpre-mrow" type="button" data-mine-go="home">
                 <span class="vpre-mrow-ico">📚</span>
                 <span class="vpre-mrow-body">
-                  <span class="vpre-mrow-top"><b class="vpre-mine-learned">0</b><em class="vpre-mine-learn-unit">词已掌握</em><i class="vpre-mine-learn-pct">0%</i></span>
+                  <span class="vpre-mrow-top"><b class="vpre-mine-learned">0</b><em class="vpre-mine-learn-unit">词已掌握（6 册）</em><i class="vpre-mine-learn-pct">0%</i></span>
                   <span class="vpre-mrow-bar"><i class="vpre-mine-learn-bar" style="width:0%"></i></span>
                   <span class="vpre-mrow-sub vpre-mine-learn-sub">进行中：—</span>
                 </span>
@@ -595,7 +601,7 @@ body{
               <button class="vpre-mrow" type="button" data-mine-go="stage">
                 <span class="vpre-mrow-ico">🗺️</span>
                 <span class="vpre-mrow-body">
-                  <span class="vpre-mrow-top"><b class="vpre-mine-stars">0</b><em>颗闯关星星</em><i class="vpre-mine-stars-pct">0%</i></span>
+                  <span class="vpre-mrow-top"><b class="vpre-mine-stars">0</b><em>颗闯关星星（6 册）</em><i class="vpre-mine-stars-pct">0%</i></span>
                   <span class="vpre-mrow-bar"><i class="vpre-mine-stars-bar" style="width:0%"></i></span>
                   <span class="vpre-mrow-sub vpre-mine-stars-sub">已通关 0 个单元 · 4 个小游戏按组闯关</span>
                 </span>
@@ -603,15 +609,15 @@ body{
               <button class="vpre-mrow" type="button" data-mine-go="wrong">
                 <span class="vpre-mrow-ico">📕</span>
                 <span class="vpre-mrow-body">
-                  <span class="vpre-mrow-top"><b class="vpre-mine-wrong">0</b><em>个错词待复习</em><i class="vpre-mine-wrong-pct">掌握率 0%</i></span>
+                  <span class="vpre-mrow-top"><b class="vpre-mine-wrong">0</b><em>个错词待复习（6 册）</em><i class="vpre-mine-wrong-pct">掌握率 0%</i></span>
                   <span class="vpre-mrow-bar"><i class="vpre-mine-wrong-bar" style="width:0%"></i></span>
                   <span class="vpre-mrow-sub vpre-mine-wrong-sub">掌握率 0%</span>
                 </span>
               </button>
             </div>
 
-            <div class="vpre-sec-title">本册单元进度 <span class="vpre-sec-note vpre-mine-booknote">九上</span></div>
-            <div class="vpre-mine-units"></div>
+            <div class="vpre-sec-title">六册进度 <span class="vpre-sec-note">点一册切到该册</span></div>
+            <div class="vpre-mine-books"></div>
 
             <button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-install="1">📲 安装到手机 / 电脑桌面</button>
             <button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-action="open-report">📊 查看学习报告</button>
@@ -3166,56 +3172,81 @@ body{
     });
     return n;
   }
+  function allBooksLoaded(){
+    for(var i=0;i<BOOK_LIST.length;i++){ if(!bookData(BOOK_LIST[i]).units.length){ return false; } }
+    return true;
+  }
   function renderMine(phone){
     tickDay();
+    renderMineInner(phone);
+    // 六册进度需要各册词库；没加载完就先显示已有的，加载完再刷新一次
+    if(!allBooksLoaded()){ loadAllBooks().then(function(){ renderMineInner(phone); }); }
+  }
+  // 「我的」= 6 册整体口径
+  function renderMineInner(phone){
     var s = state[phone.__id];
-    var book = currentBook(phone);
-    var wb = PROG.words[s.book] || {};
-    // ① 本册已掌握
-    var learned = 0;
-    for(var un in wb){ learned += Object.keys(wb[un]).length; }
-    var bookTotal = (book.units || []).reduce(function(a, x){ return a + (x.n || 0); }, 0);
-    var learnedPct = bookTotal ? Math.round(learned / bookTotal * 100) : 0;
-    var el = q(".vpre-mine-learned", phone); if(el){ el.textContent = learned; }
-    el = q(".vpre-mine-learn-unit", phone); if(el){ el.textContent = "词已掌握 / 共 " + (bookTotal || 0) + " 词"; }
+
+    // ① 六册合计：已掌握 / 总词数
+    var learnedAll = 0, totalAll = 0, unitsAll = 0, starMax = 0, bookRows = [];
+    var arena = PROG.arena || {};
+    BOOK_LIST.forEach(function(b){
+      var bd = bookData(b);
+      var total = bd.units.reduce(function(a, x){ return a + (x.n || 0); }, 0);
+      var w = PROG.words[b] || {}, lw = 0;
+      for(var un in w){ lw += Object.keys(w[un]).length; }
+      var rec = arena[b] || {};
+      var doneUnits = 0;
+      bd.units.forEach(function(u){
+        var groups = unitGroups(u, groupSeed(b, u.name));
+        unitsAll += 1;
+        starMax += groups.length * ARENA_GAMES.length * 3;
+        var allDone = groups.length > 0;
+        ARENA_GAMES.forEach(function(g){
+          var lv = ((rec[u.name] || {})[g[0]] || {}).levels || {};
+          for(var k=0;k<groups.length;k++){ if(((lv[k] || {}).stars || 0) < 3){ allDone = false; } }
+        });
+        if(allDone){ doneUnits += 1; }
+      });
+      learnedAll += lw; totalAll += total;
+      bookRows.push({book:b, learned:lw, total:total, pct: total ? Math.round(lw/total*100) : 0, done: doneUnits, units: bd.units.length});
+    });
+    var learnedPct = totalAll ? Math.round(learnedAll / totalAll * 100) : 0;
+    var el = q(".vpre-mine-learned", phone); if(el){ el.textContent = learnedAll; }
+    el = q(".vpre-mine-learn-unit", phone); if(el){ el.textContent = "词已掌握 / 共 " + (totalAll || 0) + " 词"; }
     el = q(".vpre-mine-learn-pct", phone); if(el){ el.textContent = learnedPct + "%"; }
     el = q(".vpre-mine-learn-bar", phone); if(el){ el.style.width = learnedPct + "%"; }
     el = q(".vpre-mine-learn-sub", phone);
     if(el){ el.textContent = "进行中：" + unitLabel(phone) + " · 第 " + (firstOpenGroup(phone) + 1) + " 组"; }
 
-    // ② 本册闯关星星（与闯关页同一套关卡）
-    var arenaBook = (PROG.arena || {})[s.book] || {};
-    var starGot = 0, starMax = 0, clearedInBook = 0;
-    (book.units || []).forEach(function(u){
-      var groups = unitGroups(u, groupSeed(s.book, u.name));
-      var rec = arenaBook[u.name] || {};
-      var allDone = groups.length > 0;
-      ARENA_GAMES.forEach(function(g){
-        var lv = (rec[g[0]] || {}).levels || {};
-        for(var k = 0; k < groups.length; k++){
-          var st = (lv[k] || {}).stars || 0;
-          starGot += Math.min(3, st);
-          starMax += 3;
-          if(st < 3){ allDone = false; }
+    // ② 六册闯关星星
+    var starGot = 0;
+    BOOK_LIST.forEach(function(b){
+      var rec = arena[b] || {};
+      for(var un2 in rec){
+        var games = rec[un2] || {};
+        for(var gid in games){
+          var lv2 = (games[gid] || {}).levels || {};
+          for(var k2 in lv2){ starGot += Math.min(3, lv2[k2].stars || 0); }
         }
-      });
-      if(allDone){ clearedInBook++; }
+      }
     });
     var starPct = starMax ? Math.round(starGot / starMax * 100) : 0;
+    var clearedAll = bookRows.reduce(function(a, r){ return a + r.done; }, 0);
     el = q(".vpre-mine-stars", phone); if(el){ el.textContent = starGot; }
     el = q(".vpre-mine-stars-pct", phone); if(el){ el.textContent = starPct + "%"; }
     el = q(".vpre-mine-stars-bar", phone); if(el){ el.style.width = starPct + "%"; }
     el = q(".vpre-mine-stars-sub", phone);
-    if(el){ el.textContent = "已通关 " + clearedInBook + "/" + (book.units || []).length + " 个单元 · 共 " + ARENA_GAMES.length + " 个小游戏"; }
+    if(el){ el.textContent = "已通关 " + clearedAll + "/" + unitsAll + " 个单元 · 4 个小游戏按组闯关"; }
 
-    // ③ 本册错词本
-    var wrongN = Object.keys(PROG.wrong[s.book] || {}).length;
+    // ③ 六册错词
+    var wrongAll = 0;
+    for(var bk in PROG.wrong){ wrongAll += Object.keys(PROG.wrong[bk] || {}).length; }
     var rate = PROG.stats.answers ? Math.round(PROG.stats.correct / PROG.stats.answers * 100) : 0;
-    el = q(".vpre-mine-wrong", phone); if(el){ el.textContent = wrongN; }
+    el = q(".vpre-mine-wrong", phone); if(el){ el.textContent = wrongAll; }
     el = q(".vpre-mine-wrong-pct", phone); if(el){ el.textContent = "掌握率 " + rate + "%"; }
     el = q(".vpre-mine-wrong-bar", phone); if(el){ el.style.width = rate + "%"; }
     el = q(".vpre-mine-wrong-sub", phone);
-    if(el){ el.textContent = wrongN ? "答对即移出 · 答错次数 +1 · 可整组或单练" : "还没有错词，第一页答错的词会自动进来"; }
+    if(el){ el.textContent = wrongAll ? "答对即移出 · 答错次数 +1 · 可整组或单练" : "还没有错词，第一页答错的词会自动进来"; }
 
     // ④ 身份信息
     var prof = q(".vpre-mine-profile", phone);
@@ -3227,21 +3258,17 @@ body{
     var avShow = q(".vpre-mine-avatar", phone);
     if(avShow){ avShow.textContent = STUDENT && STUDENT.name ? STUDENT.name.charAt(0) : "同"; }
 
-    // ⑤ 本册单元进度（与第一页的分组进度一致）
-    var unitBox = q(".vpre-mine-units", phone);
-    var bookNote = q(".vpre-mine-booknote", phone);
-    if(bookNote){ bookNote.textContent = s.book; }
-    if(unitBox){
-      unitBox.innerHTML = (book.units || []).map(function(u, ui){
-        var groups = unitGroups(u, groupSeed(s.book, u.name));
-        var doneG = 0;
-        groups.forEach(function(g, gi){ if(isGroupComplete(s.book, u.name, gi)){ doneG++; } });
-        var done = groups.length > 0 && doneG >= groups.length;
-        return '<button class="vpre-munit' + (done ? ' is-done' : '') + '" type="button" data-mine-unit="' + ui + '">'
-          + u.name + '<span>' + doneG + "/" + groups.length + ' 组</span></button>';
+    // ⑤ 六册进度（点一册切到该册）
+    var bookBox = q(".vpre-mine-books", phone);
+    if(bookBox){
+      bookBox.innerHTML = bookRows.map(function(r){
+        var done = r.total > 0 && r.learned >= r.total;
+        return '<button class="vpre-bk' + (r.book === s.book ? ' is-cur' : '') + (done ? ' is-done' : '') + '" type="button" data-mine-book="' + r.book + '">'
+          + '<span class="vpre-bk-top"><b>' + r.book + '</b><i>' + r.pct + '%</i></span>'
+          + '<span class="vpre-bk-num">已掌握 ' + r.learned + ' / ' + r.total + ' 词</span>'
+          + '<span class="vpre-bk-bar"><i style="width:' + r.pct + '%"></i></span></button>';
       }).join("");
     }
-
   }
   // ===== 错词本：当前册 + 按单元筛选 =====
   function wrongUnitMap(phone){          // 单词(小写) → 所属单元下标
@@ -3530,11 +3557,13 @@ body{
         setView(phone, target);
         return;
       }
-      var munit = btn.closest("[data-mine-unit]");
-      if(munit){
-        state[id].unit = parseInt(munit.getAttribute("data-mine-unit"), 10);
-        renderUnitDetail(phone);
-        setView(phone, "unit");
+      var mbook = btn.closest("[data-mine-book]");
+      if(mbook){
+        var bk = mbook.getAttribute("data-mine-book");
+        state[id].book = bk;
+        state[id].unit = 0;
+        loadBook(bk).then(function(){ renderUnits(phone); });
+        setView(phone, "home");
         return;
       }
       if(btn.closest(".vpre-view[data-view=mine]")){ runAction(phone, "toast"); return; }
