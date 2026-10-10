@@ -289,7 +289,7 @@ body{
 .vpre-wside{display:flex; flex-direction:column; align-items:flex-end; gap:7px;}
 .vpre-wbadge{font-size:10.5px; color:#e5484d; background:var(--vp-red-soft); border-radius:99px; padding:3px 9px; flex:none; font-weight:600;}
 
-/* ===== 闯关地图（简洁同款） ===== */
+/* ===== 闯关页（第二页） ===== */
 .vpre-arena-scope{background:#fff; border:1px solid var(--vp-line); border-radius:18px; padding:12px; margin-bottom:12px; box-shadow:var(--vp-shadow-sm);}
 .vpre-arena-row{display:flex; align-items:flex-start; gap:10px; margin-bottom:8px;}
 .vpre-arena-row:last-child{margin-bottom:0;}
@@ -1242,8 +1242,9 @@ body{
   // 限时快答：汉译英（给中文，选英文单词）；干扰项用英文单词，且避开同义项
   function buildSpellItems(list, n){
     return pickWords(list.filter(function(x){ return x.en.length>=2; }), n).map(function(x){
-      var tip = / /.test(x.en) ? ("首字母 " + x.en.charAt(0).toUpperCase() + " · " + x.en.split(" ").length + " 个单词")
-                               : ("首字母 " + x.en.charAt(0).toUpperCase());
+      var ws = enWords(x.en);
+      var tip = (ws.length > 1) ? ("首字母 " + x.en.charAt(0).toUpperCase() + " · " + ws.length + " 个单词")
+                                : ("首字母 " + x.en.charAt(0).toUpperCase());
       return { prompt:x.zh, sub:tip, opts:spellOpts(x.en), answer:x.en, speak:x.en };   // 与默写闯关一致：可点"听发音提示"
     });
   }
@@ -1255,6 +1256,15 @@ body{
   // 英文音节切分（规则版，用于跟读时"分块定位"；属于近似，不追求 100% 正确）
   function syllablesOfWord(w){
     var raw = String(w || "");
+    // 含省略号（… / ...）的词：按省略号切开分别切分音节，显示成 take · apart
+    if(/[…]+|\.{2,}/.test(raw)){
+      var parts = raw.split(/[…]+|\.{2,}/).map(function(x){ return x.trim(); }).filter(function(x){ return !!x; });
+      if(parts.length > 1){
+        var all = [];
+        parts.forEach(function(pt){ syllablesOfWord(pt).forEach(function(sy){ all.push(sy); }); });
+        if(all.length){ return all; }
+      }
+    }
     var m = raw.match(/^([^A-Za-z]*)([A-Za-z][A-Za-z'’-]*)([^A-Za-z]*)$/);
     if(!m){ return raw ? [raw] : []; }
     var pre = m[1], core = m[2], post = m[3];
@@ -1319,29 +1329,69 @@ body{
     for(var i=1;i<letters.length;i++){ tail += "_"; }
     return letters[0].toUpperCase() + tail;
   }
+  // 默写判定：忽略大小写/多余空格/中英标点差异；括号内容学生可省略；省略号（…/...）视为占位符可替换
+  function normAnswer(str){
+    return String(str == null ? "" : str)
+      .replace(/[’‘`´]/g, "'")
+      .replace(/[“”"]/g, "")
+      .replace(/…/g, "...")
+      .replace(/[，、]/g, ",")
+      .replace(/[；;]/g, ";")
+      .replace(/[：:]/g, ":")
+      .replace(/。/g, ".")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+  }
+  function matchAnswer(input, answer){
+    var a = normAnswer(answer), b = normAnswer(input);
+    if(!b){ return false; }
+    if(a === b){ return true; }
+    // 括号内容可选：lend (sb) a hand → 接受 "lend a hand" / "lend sb a hand"
+    var variants = [
+      a.replace(/\(([^)]*)\)/g, "$1").replace(/\s+/g, " ").trim(),
+      a.replace(/\([^)]*\)/g, "").replace(/\s+/g, " ").trim()
+    ];
+    for(var i=0;i<variants.length;i++){
+      if(variants[i] && variants[i] !== a && variants[i] === b){ return true; }
+    }
+    // 省略号占位：take……apart → 接受 "take ... apart" / "take it apart" / "take sth apart"
+    if(a.indexOf("...") >= 0){
+      var esc = function(t){ return t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ +/g, "\\s+"); };
+      var parts = a.split("...").map(esc);
+      try{
+        var re = new RegExp("^" + parts.join(".{0,20}?") + "$");
+        if(re.test(b)){ return true; }
+      }catch(e){}
+    }
+    return false;
+  }
+  // 英文分词（把省略号 … / ... 也当作分隔，用于"几个单词/首字母模式"的提示）
+  function enWords(en){
+    return String(en == null ? "" : en).replace(/[…]+/g, " ").replace(/\.{2,}/g, " ").split(/\s+/).filter(function(x){ return !!x; });
+  }
   function isLongPhrase(en){
-    var t = String(en).trim();
-    if(t.indexOf(" ") < 0){ return false; }
-    var words = t.split(/\s+/).length;
-    var letters = t.replace(/[^A-Za-z]/g, "").length;
-    return words >= 3 || letters >= 12;
+    var ws = enWords(en);
+    if(ws.length < 2){ return false; }
+    var letters = ws.join("").replace(/[^A-Za-z]/g, "").length;
+    return ws.length >= 3 || letters >= 12;
   }
   function buildDictateItems(list, n){
     return pickWords(list.filter(function(x){ return x.en.length>=2; }), n).map(function(x){
-      var isPhrase = / /.test(x.en);
-      var nWords = x.en.split(/\s+/).length;
-      var nLetters = x.en.replace(/[^A-Za-z]/g, "").length;
+      var nWords = enWords(x.en).length;
+      var isPhrase = nWords > 1;
+      var nLetters = String(x.en).replace(/[^A-Za-z]/g, "").length;
       var longPhrase = isLongPhrase(x.en);
       var hint;
       if(longPhrase){
-        var pat = x.en.split(/\s+/).map(wordPattern).join("  ");
+        var pat = enWords(x.en).map(wordPattern).join("  ");
         hint = "首字母提示：" + pat + "\n" + nWords + " 个单词 · 共 " + nLetters + " 个字母";
       } else if(isPhrase){
         hint = "首字母 " + x.en.charAt(0).toUpperCase() + " · " + nWords + " 个单词 · 共 " + nLetters + " 个字母";
       } else {
         hint = "首字母 " + x.en.charAt(0).toUpperCase() + " · 共 " + nLetters + " 个字母";
       }
-      return {prompt:x.zh, hint:hint, answer:x.en, speak:x.en, longHint: longPhrase, pattern: longPhrase ? x.en.split(/\s+/).map(wordPattern) : null};
+      return {prompt:x.zh, hint:hint, answer:x.en, speak:x.en, longHint: longPhrase, pattern: longPhrase ? enWords(x.en).map(wordPattern) : null};
     });
   }
   function openQuiz(phone, type, unitIdx, groupIdx){
@@ -2006,7 +2056,7 @@ body{
   function renderMatchResult(phone){
     var z = phone.__quiz;
     sfx.play("win");
-    var lit = starsEarned(z);   // 与闯关地图/计星规则保持一致（原来这里是 total+2，比实际记录的门槛严，会出现"显示 2★ 却记成 3★"）
+    var lit = starsEarned(z);   // 与闯关页的计星规则保持一致（原来这里是 total+2，比实际记录的门槛严，会出现"显示 2★ 却记成 3★"）
     var stars = "";
     for(var st=0;st<3;st++){ stars += '<span class="'+(st<lit ? "" : "dim")+'">★</span>'; }
     var msg = lit === 3 ? "太棒了，全部配对！" : (lit === 2 ? "很好，再快一点就满分！" : "不错，多练几遍更熟练！");
@@ -2208,7 +2258,7 @@ body{
       var val = String(input.value || "").trim();
       if(!val){ input.focus(); return; }
       var norm = function(t){ return String(t || "").toLowerCase().replace(/\s+/g, " ").trim(); };
-      var ok = norm(val) === norm(it.answer);
+      var ok = matchAnswer(val, it.answer);
       it.correct = ok; it.chosen = val;
       settleWrongBookNow(phone, it);
       if(ok){ z.score += 1; sfx.play("right"); } else { sfx.play("wrong"); }
@@ -2306,7 +2356,7 @@ body{
     if(z.type === "speed"){ renderSpeedResult(phone); return; }
     sfx.play("win");
     var n = z.items.length;
-    var lit = starsEarned(z);   // 与闯关地图、计星规则保持一致
+    var lit = starsEarned(z);   // 与闯关页、计星规则保持一致
     var stars = "";
     for(var s=0;s<3;s++){ stars += '<span class="'+(s<lit ? "" : "dim")+'">★</span>'; }
     var msg = z.score>=n ? "太棒了，全对！"
@@ -2452,10 +2502,6 @@ body{
     if(phone.__quizFrom === "wrong"){ return "wrong"; } // 错词本发起 → 回错词本
     if(phone.__quizFrom === "unit"){ return "unit"; }   // 单元页里某一组 → 回单元页
     return "home";
-  }
-  function quizBackLabel(phone){
-    var t = quizBackTarget(phone);
-    return t === "stage" ? "返回闯关" : (t === "wrong" ? "返回错词本" : (t === "unit" ? "返回本单元" : "返回首页"));
   }
   function goQuizBack(phone){
     var t = quizBackTarget(phone);
@@ -3137,7 +3183,6 @@ body{
         ctx.fillText(v, 44, y);
         y += 52;
       }
-      // （已去掉成绩图里的"我的徽章"板块）
       y += 10;
       ctx.strokeStyle = "#e3e8f4"; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(44, y); ctx.lineTo(W - 44, y); ctx.stroke();
