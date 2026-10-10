@@ -588,7 +588,7 @@ body{
               <button class="vpre-logout" type="button">切换账号</button>
             </div>
 
-            <div class="vpre-sec-title">我的进度 <span class="vpre-sec-note">点一行进入对应页面</span></div>
+            <div class="vpre-sec-title">我的进度 <span class="vpre-sec-note">点一行直接进到对应位置</span></div>
             <div class="vpre-mine-rows">
               <button class="vpre-mrow" type="button" data-mine-go="home">
                 <span class="vpre-mrow-ico">📚</span>
@@ -619,7 +619,7 @@ body{
               </button>
             </div>
 
-            <div class="vpre-sec-title">六册进度 <span class="vpre-sec-note">点一册切到该册</span></div>
+            <div class="vpre-sec-title">六册进度 <span class="vpre-sec-note">点一册进入该册进行中的单元</span></div>
             <div class="vpre-mine-books"></div>
 
             <button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-install="1">📲 安装到手机 / 电脑桌面</button>
@@ -3281,19 +3281,63 @@ body{
     return n;
   }
   // 我的页跳转（委托与直接绑定共用）
+  // 「学习」行：直接进入"进行中"的那一组、那个玩法
+  function mineGoStudy(phone){
+    var nt = nextTask(phone);
+    openQuiz(phone, nt.mode || "word", null, nt.gi || 0);
+  }
+  // 「闯关」行：进入闯关页（当前册+单元）并弹出"下一个要练的游戏"的关卡列表
+  function arenaNextTarget(phone){
+    var gs = arenaGroups();
+    var rec = ((PROG.arena || {})[arenaBook()] || {})[arenaUnit().name] || {};
+    for(var i=0;i<ARENA_GAMES.length;i++){
+      var gid = ARENA_GAMES[i][0];
+      var lv = ((rec[gid] || {}).levels) || {};
+      for(var k=0;k<gs.length;k++){
+        if(((lv[k] || {}).stars || 0) < 3){ return {game:gid, lvl:k, allDone:false}; }
+      }
+    }
+    return {game:ARENA_GAMES[0][0], lvl:0, allDone:true};
+  }
+  function mineGoStage(phone){
+    var s = state[phone.__id];
+    var sel = arenaSel();
+    sel.book = s.book;
+    sel.unit = Math.min(s.unit, Math.max(0, (bookData(s.book).units || []).length - 1));
+    loadBook(sel.book, function(){
+      renderStageMap(phone);
+      setView(phone, "stage");
+      var t = arenaNextTarget(phone);
+      showArenaLevels(phone, t.game);
+    });
+  }
   function mineGo(phone, target){
-    if(target === "home"){ renderUnits(phone); }
-    else if(target === "stage"){ renderStageMap(phone); }
-    else if(target === "wrong"){ renderWrong(phone); }
-    else if(target === "mine"){ renderMine(phone); }
-    if(target === "home" || target === "stage" || target === "wrong" || target === "mine"){ setView(phone, target); }
+    if(target === "home"){ mineGoStudy(phone); return; }        // 直接进当前组当前玩法
+    if(target === "stage"){ mineGoStage(phone); return; }       // 进闯关页并弹出下一关
+    if(target === "wrong"){ renderWrong(phone); setView(phone, "wrong"); return; }
+    if(target === "mine"){ renderMine(phone); setView(phone, "mine"); return; }
   }
   function mineGoBook(phone, book){
     if(!book){ return; }
-    state[phone.__id].book = book;
-    state[phone.__id].unit = 0;
-    loadBook(book).then(function(){ renderUnits(phone); });
-    setView(phone, "home");
+    var st = state[phone.__id];
+    st.book = book;
+    st.unit = 0;
+    loadBook(book).then(function(){
+      var bd = bookData(book);
+      var idx = 0;                                   // 该册第一个没做完的单元
+      for(var i=0;i<(bd.units || []).length;i++){
+        var u = bd.units[i];
+        var gs = unitGroups(u, groupSeed(book, u.name));
+        var done = gs.length > 0;
+        for(var k=0;k<gs.length;k++){ if(!isGroupComplete(book, u.name, k)){ done = false; break; } }
+        if(!done){ idx = i; break; }
+        idx = i;
+      }
+      st.unit = idx;
+      renderUnits(phone);                            // 让主题/首页跟着切册
+      renderUnitDetail(phone);
+      setView(phone, "unit");
+    });
   }
   function allBooksLoaded(){
     for(var i=0;i<BOOK_LIST.length;i++){ if(!bookData(BOOK_LIST[i]).units.length){ return false; } }
@@ -3338,8 +3382,13 @@ body{
     el = q(".vpre-mine-learn-unit", phone); if(el){ el.textContent = "词已掌握 / 共 " + (totalAll || 0) + " 词"; }
     el = q(".vpre-mine-learn-pct", phone); if(el){ el.textContent = learnedPct + "%"; }
     el = q(".vpre-mine-learn-bar", phone); if(el){ el.style.width = learnedPct + "%"; }
+    var nt = nextTask(phone);
     el = q(".vpre-mine-learn-sub", phone);
-    if(el){ el.textContent = "进行中：" + unitLabel(phone) + " · 第 " + (firstOpenGroup(phone) + 1) + " 组"; }
+    if(el){
+      el.textContent = nt.allDone
+        ? ("本单元已完成 🎉 点这里复盘：" + unitLabel(phone) + " · 第 1 组")
+        : ("点这里继续：" + unitLabel(phone) + " · 第 " + (nt.gi + 1) + " 组 · " + (modeLabel(nt.mode) || "看词选义"));
+    }
 
     // ② 六册闯关星星
     var starGot = 0;
@@ -3358,8 +3407,23 @@ body{
     el = q(".vpre-mine-stars", phone); if(el){ el.textContent = starGot; }
     el = q(".vpre-mine-stars-pct", phone); if(el){ el.textContent = starPct + "%"; }
     el = q(".vpre-mine-stars-bar", phone); if(el){ el.style.width = starPct + "%"; }
+    var curUnitName = unitWords(phone).name;
+    var recCur = (arena[s.book] || {})[curUnitName] || {};
+    var curGs = unitGroupsOf(phone);
+    var nextG = null;
+    ARENA_GAMES.forEach(function(g){
+      if(nextG){ return; }
+      var lv = ((recCur[g[0]] || {}).levels) || {};
+      for(var k=0;k<curGs.length;k++){
+        if(((lv[k] || {}).stars || 0) < 3){ nextG = {g:g, lvl:k}; break; }
+      }
+    });
     el = q(".vpre-mine-stars-sub", phone);
-    if(el){ el.textContent = "已通关 " + clearedAll + "/" + unitsAll + " 个单元 · 4 个小游戏按组闯关"; }
+    if(el){
+      el.textContent = nextG
+        ? ("下一个：" + nextG.g[1] + nextG.g[2] + " · 第 " + (nextG.lvl + 1) + " 关（" + unitLabel(phone) + "）")
+        : ("本单元 4 个小游戏已满星 🏆 · 已通关 " + clearedAll + "/" + unitsAll + " 个单元");
+    }
 
     // ③ 六册错词
     var wrongAll = 0;
