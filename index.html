@@ -1023,7 +1023,35 @@ body{
       saveProgress();
     }
   }
+  // ===== 后端配置 =====
+  // 留空 = 用本机的 server.py（相对路径 /api/*，只有这台电脑上的练习收得到）
+  // 填上下面三项 = 走 Supabase 云端，线上学生（GitHub Pages）也能上报
+  //   url   ：Supabase 项目地址，形如 https://xxxxxxxx.supabase.co
+  //   key   ：项目设置里的 anon public key（可以公开，它读不到任何数据）
+  //   token ：你在 supabase/schema.sql 里设置的那个上报口令
+  var SUPABASE = { url:"", key:"", token:"" };
   var API_BASE = "";
+  function cloudOn(){ return !!(SUPABASE.url && SUPABASE.key); }
+  function postBackend(kind, payload){
+    if(!cloudOn()){
+      var localPath = (kind === "register") ? "/api/register" : "/api/report";
+      return fetch(apiUrl(localPath), {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(payload)
+      });
+    }
+    var rpc = (kind === "register") ? "register_student" : "report_practice";
+    return fetch(SUPABASE.url.replace(/\/+$/, "") + "/rest/v1/rpc/" + rpc, {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE.key,
+        "Authorization":"Bearer " + SUPABASE.key
+      },
+      body:JSON.stringify({p:payload, p_token:SUPABASE.token})
+    });
+  }
   var ZH_MAP = null;
   function zhOf(en){
     if(!ZH_MAP){
@@ -1050,11 +1078,7 @@ body{
   }
   function submitReport(payload){
     try{
-      return fetch(apiUrl("/api/report"), {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify(payload)
-      }).then(function(r){
+      return postBackend("report", payload).then(function(r){
         if(!r.ok){ throw new Error("bad status"); }
         return true;
       }).catch(function(){ queueReport(payload); return false; });
@@ -1067,9 +1091,9 @@ body{
     if(!student || !student.phone){ return; }
     var payload = {phone:student.phone, name:student.name, ts:new Date().toISOString()};
     try{
-      fetch(apiUrl("/api/register"), {
-        method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)
-      }).then(function(r){ if(!r.ok){ throw new Error("bad"); } }).catch(function(){ queueRegister(payload); });
+      postBackend("register", payload).then(function(r){
+        if(!r.ok){ throw new Error("bad"); }
+      }).catch(function(){ queueRegister(payload); });
     }catch(e){ queueRegister(payload); }
   }
   function queueRegister(payload){
