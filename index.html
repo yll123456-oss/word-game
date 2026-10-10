@@ -1917,7 +1917,13 @@ body{
         if(lock) return;
         var i = parseInt(card.getAttribute("data-i"), 10);
         var c = z.cards[i];
-        if(c.done || card.classList.contains("is-sel")) return;
+        if(c.done) return;
+        if(sel === i){                       // 再点一次同一张 → 取消选择
+          card.classList.remove("is-sel");
+          sel = null;
+          sfx.play("tap");
+          return;
+        }
         if(sel === null){
           sel = i;
           card.classList.add("is-sel");
