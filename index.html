@@ -844,8 +844,14 @@ body{
       var raw = localStorage.getItem(STUDENT_KEY);
       if(raw){
         var st = JSON.parse(raw);
-        // 兼容老版本存在本机的"手机号"登录信息：把手机号当作学号读进来
-        if(st && !st.sid && st.phone){ st.sid = st.phone; }
+        // 老版本是用手机号登录的（只有 phone 没有 sid）。登录方式已改成学号，
+        // 继续留着会让人"莫名其妙还是上次那个人"，所以直接作废，让他用学号+姓名重新登录。
+        if(st && !st.sid && st.phone){
+          localStorage.removeItem(STUDENT_KEY);
+          localStorage.removeItem("vpreUploadQueue");   // 老队列里带的是手机号，重试也不会成功
+          localStorage.removeItem("vpreRegQueue");
+          return null;
+        }
         if(st && st.sid && st.name){ return {sid:String(st.sid), name:String(st.name)}; }
       }
     }catch(e){}
