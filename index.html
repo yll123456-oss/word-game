@@ -333,6 +333,43 @@ body{
 .vpre-build-tile{width:38px; height:42px; border:1px solid var(--vp-line); background:#fafbff; border-radius:10px; font-size:18px; font-weight:700; cursor:pointer; color:var(--vp-ink);}
 .vpre-build-tile:disabled{opacity:.35; cursor:default;}
 .vpre-build-tile:active{transform:scale(.94);}
+/* ===== 单词打地鼠（闯关小游戏） ===== */
+.vpre-mole-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;}
+.vpre-mole-hearts{font-size:14px; letter-spacing:2px; line-height:1; color:#e5484d;}
+.vpre-mole-hearts .dim{color:#e3e6ee;}
+.vpre-mole-combo{font-size:11.5px; font-weight:700; color:#ef8a17;}
+.vpre-mole-card{background:var(--vp-card); border:1px solid #e6e9f0; border-radius:18px; padding:13px 12px; text-align:center; box-shadow:var(--vp-shadow);}
+.vpre-mole-zh{font-size:21px; font-weight:800; color:var(--vp-ink); line-height:1.3; word-break:break-word;}
+.vpre-mole-hint{font-size:11.5px; color:var(--vp-muted); margin-top:6px;}
+.vpre-mole-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-top:10px;}
+.vpre-mole-hole{position:relative; border:0; padding:0; background:transparent; min-height:56px; aspect-ratio:1/0.78; cursor:pointer; -webkit-tap-highlight-color:transparent;}
+.vpre-mole-hole:disabled{cursor:default;}
+.vpre-mole-hole::after{content:""; position:absolute; left:12%; right:12%; bottom:3%; height:27%; border-radius:50%; background:radial-gradient(ellipse at 50% 25%, #cbb69d, #a08869); box-shadow:inset 0 3px 7px rgba(0,0,0,.24);}
+.vpre-mole{position:absolute; left:8%; right:8%; bottom:21%; top:0; border-radius:14px 14px 12px 12px; border:1px solid #e3c9a8; background:linear-gradient(180deg,#ffeacd,#ffd6a0); color:#7a4a12; font-weight:800; font-size:12.5px; display:flex; align-items:center; justify-content:center; padding:3px; text-align:center; word-break:break-word; box-shadow:0 3px 8px rgba(122,74,18,.16); animation:vpre-mole-up .18s ease-out;}
+.vpre-mole.is-long{font-size:11px;}
+.vpre-mole.is-xlong{font-size:9.5px;}
+.vpre-mole.is-hint{box-shadow:0 0 0 3px rgba(75,99,230,.35), 0 4px 10px rgba(122,74,18,.16);}
+.vpre-mole.is-right{background:linear-gradient(180deg,#c9f6e0,#9ce7c6); border-color:#7fd3b0; color:#0a7a52;}
+.vpre-mole.is-wrong{background:linear-gradient(180deg,#ffdadb,#ffbcbe); border-color:#f2a2a5; color:#b3242a;}
+.vpre-mole.is-hit{animation:vpre-mole-hit .22s ease-in;}
+@keyframes vpre-mole-up{from{transform:translateY(40%); opacity:.15;} to{transform:translateY(0); opacity:1;}}
+@keyframes vpre-mole-hit{0%{transform:scale(1);} 60%{transform:scale(.85) rotate(-5deg);} 100%{transform:scale(.95);}}
+/* 矮屏（比如 568 高的小屏手机）再压缩一点，保证 3 排地鼠都露在底部导航之上 */
+@media (max-height:660px){
+  .vpre-mole-card{padding:10px 12px;}
+  .vpre-mole-zh{font-size:19px;}
+  .vpre-mole-hint{display:none;}
+  .vpre-mole-grid{gap:6px; margin-top:8px;}
+  .vpre-mole-hole{min-height:48px;}
+  .vpre-mole{font-size:11.5px;}
+}
+/* 大屏手机把地鼠做大一点，点击更轻松、也不留下大片空白 */
+@media (min-height:720px){
+  .vpre-mole-zh{font-size:23px;}
+  .vpre-mole-hole{min-height:76px;}
+  .vpre-mole{font-size:13.5px;}
+  .vpre-mole-grid{gap:9px; margin-top:14px;}
+}
 .vpre-speedbar{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
 .vpre-speedbar .vpre-progress{flex:1; height:8px; border-radius:99px; background:#eef1f8;}
 .vpre-speedbar .vpre-progress > div{height:100%; background:linear-gradient(90deg,#3b82f6,#7c5cff); border-radius:99px; transition:width .3s linear;}
@@ -708,7 +745,7 @@ body{
   function loadAllBooks(){
     return Promise.all(BOOK_LIST.map(function(b){ return loadBook(b); }));
   }
-  var TYPE_NAME = {word:"看词选义", listen:"听音选词", spell:"拼写闯关", fill:"缺字母补全", dictate:"默写闯关", wrong:"错词复习", match:"连连看", speed:"限时快答"};
+  var TYPE_NAME = {word:"看词选义", spell:"拼写闯关", fill:"缺字母补全", dictate:"默写闯关", wrong:"错词复习", match:"连连看", speed:"限时快答", mole:"打地鼠"};
   var GRADE_NAME = {g7:"初一", g8:"初二", g9:"初三"};
   var GRADE_BOOK = {g7:"七上", g8:"八上", g9:"九上"};
   var state = {};
@@ -970,7 +1007,7 @@ body{
     var d = {words:{}, wrong:{}, hist:{}, stats:{answers:0, correct:0, learned:0, day:"", dayWords:0, streak:1, byType:{}}};
     try{
       var raw = localStorage.getItem(progressKey());
-      if(raw){ var p = JSON.parse(raw); if(p && p.stats){ migrateGroupModes(p); return p; } }
+      if(raw){ var p = JSON.parse(raw); if(p && p.stats){ migrateGroupModes(p); migrateArenaGames(p); return p; } }
     }catch(e){}
     return d;
   }
@@ -1105,7 +1142,18 @@ body{
       var need = 18;                                   // 与闯关说明一致：答对 ≥18 题 3★（绝对值，答几题都按这个算）
       return z.score >= need ? 3 : (z.score >= Math.round(need*0.8) ? 2 : (z.score >= Math.round(need*0.6) ? 1 : 0));
     }
-    // 题目类玩法（看词选义/拼写闯关/缺字母补全/默写闯关/听音接力/拼词积木）
+    // 打地鼠：0 次点错 3★、点错 1 次 2★（≥3 词）、点错 2 次 1★（≥5 词）；
+    // 三颗心用完（点错 ≥3 次）本关提前结束 → 0★。漏看（地鼠自己缩回去）不罚。
+    if(z.type === "mole"){
+      var mn = (z.items || []).length;
+      if(mn <= 0){ return 0; }
+      var mh = z.wrongHits || 0;
+      if(mh <= 0){ return 3; }
+      if(mn >= 3 && mh === 1){ return 2; }
+      if(mn >= 5 && mh === 2){ return 1; }
+      return 0;
+    }
+    // 题目类玩法（看词选义/拼写闯关/缺字母补全/默写闯关/拼词积木）
     // 统一"严格"标准：全对 3★；错 1 题 2★（题量≥3）；错 2 题 1★（题量≥5）；其余 0★
     var n = (z.items || []).length;
     if(n <= 0){ return 0; }
@@ -1134,7 +1182,7 @@ body{
     tickDay();
     var z = phone.__quiz; if(!z) return;
     // 闯关只写闯关成绩；要求"标记 + 题型"同时成立，避免残留标记把第一页练习也当成闯关
-    if(phone.__arena && /^(match|speed|listen|build)$/.test(String(z.type || ""))){
+    if(phone.__arena && /^(match|speed|mole|build)$/.test(String(z.type || ""))){
       try{ arenaFinish(phone); }catch(e){}
       return;
     }
@@ -1262,11 +1310,6 @@ body{
       return { prompt:x.zh, sub:tip, opts:spellOpts(x.en), answer:x.en, speak:x.en };   // 与默写闯关一致：可点"听发音提示"
     });
   }
-  function buildListenItems(list, n){
-    return pickWords(list.filter(function(x){ return !/ /.test(x.en) && x.en.length>=2; }), n).map(function(x){
-      return { prompt:"🔊", sub:"听发音，选单词 · "+x.en.length+" 个字母", opts:spellOpts(x.en), answer:x.en, speak:x.en, autoSpeak:true };
-    });
-  }
   function buildFillItems(list, n){
     var pool = {};
     list.forEach(function(w){ String(w.en).toLowerCase().split("").forEach(function(c){ if(/[a-z]/.test(c)){ pool[c] = 1; } }); });
@@ -1384,7 +1427,6 @@ body{
     var n = phone.__quizGroup ? list.length : 10;
     var items;
     if(type === "word"){ items = buildWordItems(list, n); }
-    else if(type === "listen"){ items = buildListenItems(list, n); }
     else if(type === "spell"){ items = buildSpellItems(list, n); }
     else if(type === "fill"){ items = buildFillItems(list, n); }
     else if(type === "dictate"){ items = buildDictateItems(list, n); }
@@ -1609,7 +1651,7 @@ body{
   var ARENA_GAMES = [
     ["link",   "🧩", "连连看",   "英中配对 · 一批 10 对 · 练完整组"],
     ["speed",  "⚡", "限时快答", "60 秒 · 英译汉 + 汉译英"],
-    ["listen", "🎤", "听音接力", "听发音选单词 · 整组全出"],
+    ["mole",   "🪓", "单词打地鼠", "9 个洞 · 敲中对的 · 整组全出"],
     ["build",  "📝", "拼词积木", "字母块拼单词 · 整组全出"]
   ];
   function arenaSel(){
@@ -1664,6 +1706,21 @@ body{
     var gs = arenaGroups();
     return "第 " + (ph.__arenaLvl+1) + "/" + gs.length + " 关 · ";
   }
+  // 每个小游戏的最好成绩文案 / 规则小字
+  function arenaBestTxt(gameId, lr){
+    lr = lr || {};
+    if(gameId === "link" && lr.bestAttempts != null){ return " · 最少 " + lr.bestAttempts + " 次"; }
+    if(gameId === "mole" && lr.bestAttempts != null){ return " · 最少 " + lr.bestAttempts + " 次打错"; }
+    if(lr.bestScore != null){ return " · 最佳 " + lr.bestScore + " 题"; }
+    return "";
+  }
+  function arenaGameTip(gameId){
+    if(gameId === "link"){ return "玩法：一次铺 10 对，点一个英文再点它的中文，选对即消除；消完自动补下一批，直到练完整组。"; }
+    if(gameId === "speed"){ return "玩法：60 秒里英译汉 + 汉译英连答，答得越多星越多。"; }
+    if(gameId === "mole"){ return "玩法：顶部给中文意思，9 个洞里冒出的地鼠只有一只写对了，敲它。点错扣一颗心（共 3 颗，用完本关结束）；地鼠溜走不算错，会重冒一批。"; }
+    if(gameId === "build"){ return "玩法：看中文意思，用字母块拼出这个单词。"; }
+    return "";
+  }
   function arenaSave(gameId, data){
     PROG.arena = PROG.arena || {};
     var book = PROG.arena[arenaBook()] || (PROG.arena[arenaBook()] = {});
@@ -1704,6 +1761,7 @@ body{
     var data = {stars: starsEarned(z), level: (phone.__arenaLvl == null ? 0 : phone.__arenaLvl)};
     if(g === "link"){ data.attempts = z.attempts; }
     else if(g === "speed"){ data.score = z.score; }
+    else if(g === "mole"){ data.score = z.found || 0; data.attempts = z.wrongHits || 0; }   // 打错次数越少越好
     else { data.score = (z.items || []).filter(function(it){ return it.correct; }).length; }
     arenaSave(g, data);
   }
@@ -1742,9 +1800,7 @@ body{
       var cleared = gl.length > 0 && doneLv >= gl.length;
       var curLv = Math.min(doneLv + 1, gl.length);
       var lr = arenaLevelRec(g[0], Math.min(doneLv, gl.length - 1));
-      var bestTxt = "";
-      if(g[0] === "link" && lr.bestAttempts != null){ bestTxt = " · 最少 " + lr.bestAttempts + " 次"; }
-      else if(lr.bestScore != null){ bestTxt = " · 最佳 " + lr.bestScore + " 题"; }
+      var bestTxt = arenaBestTxt(g[0], lr);
       var metaTxt = cleared ? ('🏆 满星通关') : ('关卡 ' + curLv + '/' + gl.length + bestTxt);
       var pct = gl.length ? Math.round(doneLv / gl.length * 100) : 0;
       return '<button class="vpre-arena-game' + (cleared ? ' is-clear' : '') + '" type="button" data-arena-game="' + g[0] + '">'
@@ -1778,9 +1834,7 @@ body{
       var unlocked = arenaLevelUnlocked(gameId, i);
       var played = (lr.plays || 0) > 0 || lr.bestScore != null || lr.bestAttempts != null;
       var starTxt = stars ? (new Array(stars+1).join("⭐️")) : (played ? "☆☆☆" : "未挑战");
-      var bestTxt = "";
-      if(gameId === "link" && lr.bestAttempts != null){ bestTxt = " · 最少 " + lr.bestAttempts + " 次"; }
-      else if(lr.bestScore != null){ bestTxt = " · 最佳 " + lr.bestScore + " 题"; }
+      var bestTxt = arenaBestTxt(gameId, lr);
       var label = stars >= 3 ? "已满星 ✓" : (unlocked ? "开始" : "🔒 未解锁");
       return '<button class="vpre-level-row' + (unlocked ? '' : ' is-locked') + (stars >= 3 ? ' is-clear' : '') + '"'
         + ' type="button" data-arena-level="' + i + '" data-arena-game-level="' + gameId + '"' + (unlocked ? '' : ' disabled') + '>'
@@ -1795,7 +1849,7 @@ body{
       + '<div class="vpre-confirm-title">' + (gmeta ? gmeta[2] : "小游戏") + ' · 闯关</div>'
       + '<div class="vpre-confirm-sub">' + arenaBook() + ' ' + arenaUnit().name + ' · 共 ' + gs.length + ' 关（每关约 20 词）</div>'
       + '<div class="vpre-levels-list">' + rows + '</div>'
-      + '<div class="vpre-levels-tip">每关拿到 3★ 解锁下一关；全部关卡 3★ = 这个游戏满星</div>'
+      + '<div class="vpre-levels-tip">' + arenaGameTip(gameId) + '<br>每关拿到 3★ 解锁下一关；全部关卡 3★ = 这个游戏满星</div>'
       + '<button class="vpre-sheet-cancel" type="button" data-level-close="1" style="margin-top:12px;">关闭</button>'
       + '</div>';
     document.body.appendChild(mask);
@@ -1836,10 +1890,7 @@ body{
       return;
     }
     if(gameId === "speed"){ openSpeed(phone); return; }
-    if(gameId === "listen"){
-      phone.__quiz = {type:"listen", idx:0, score:0, items:buildListenItems(list, list.length), start:Date.now()};
-      renderQuiz(phone); setView(phone, "quiz"); return;
-    }
+    if(gameId === "mole"){ startMole(phone, list); return; }
     if(gameId === "build"){
       phone.__quiz = {type:"build", idx:0, score:0, items:buildBuilderItems(list, list.length), start:Date.now()};
       renderBuilder(phone); setView(phone, "quiz"); return;
@@ -1916,6 +1967,146 @@ body{
       nx.textContent = (z.idx + 1 >= z.items.length) ? "查看成绩" : "下一题";
     }
     draw();
+  }
+  // ===== 单词打地鼠（闯关小游戏，取代原来的"听音接力"）=====
+  // 玩法：顶部给中文意思，9 个洞里同时冒 4 只地鼠（1 只写正确的英文 + 3 只干扰），点对的那只算敲中。
+  // 点错扣 1 颗心（共 3 颗），心用完这一关提前结束；地鼠自己缩回去不算错，会立刻重冒一批（连续漏 2 次后正确地鼠会加蓝框提示）。
+  // 计星（与其它玩法同一套"严格"标准）：整组都找到且 0 次点错 = 3★；点错 1 次 = 2★（≥3 词）；点错 2 次 = 1★（≥5 词）；其余 0★。
+  var MOLE_HOLES = 9, MOLE_MOLES = 4, MOLE_HEARTS = 3, MOLE_WRONGS = 3;
+  function buildMoleItems(list){
+    var all = list.slice();
+    return shuffle(all).map(function(x){
+      var others = all.filter(function(y){ return y.zh !== x.zh && y.en !== x.en; });
+      // 干扰项优先取长度接近的（更像真的），不够再用其它词补
+      var near = others.filter(function(y){ return Math.abs(y.en.length - x.en.length) <= 2; });
+      var cands = shuffle(near).concat(shuffle(others));
+      var out = [];
+      for(var i=0;i<cands.length && out.length<MOLE_WRONGS;i++){
+        if(out.indexOf(cands[i].en) < 0){ out.push(cands[i].en); }
+      }
+      while(out.length < MOLE_WRONGS){ out.push(x.en + "-" + (out.length + 1)); }
+      return { prompt:x.zh, answer:x.en, wrongs:out.slice(0, MOLE_WRONGS) };
+    });
+  }
+  function stopMole(phone){
+    if(!phone){ return; }
+    if(phone.__moleTimer){ clearTimeout(phone.__moleTimer); phone.__moleTimer = null; }
+    if(phone.__moleNext){ clearTimeout(phone.__moleNext); phone.__moleNext = null; }
+  }
+  function startMole(phone, list){
+    stopMole(phone);
+    var items = buildMoleItems(list);
+    phone.__quiz = {type:"mole", idx:0, score:0, found:0, wrongHits:0, misses:0, missStreak:0,
+                    combo:0, bestCombo:0, hearts:MOLE_HEARTS, items:items, start:Date.now(), done:false};
+    renderMole(phone);
+    setView(phone, "quiz");
+  }
+  function renderMole(phone){
+    var z = phone.__quiz, el = q(".vpre-quiz", phone);
+    if(!z || !el){ return; }
+    stopMole(phone);
+    if(z.idx >= z.items.length){ renderResult(phone); return; }
+    var it = z.items[z.idx];
+    var dwell = Math.max(1500, 2700 - z.found * 55);   // 越往后地鼠缩得越快（2.7 秒 → 1.5 秒）
+    z.lock = false; z.reveal = null; z.missStreak = z.missStreak || 0;
+    function deal(){
+      var texts = shuffle([it.answer].concat(it.wrongs));
+      z.moles = shuffle([0,1,2,3,4,5,6,7,8]).slice(0, MOLE_MOLES).map(function(h, i){
+        return {hole:h, text:texts[i], right:(texts[i] === it.answer)};
+      });
+    }
+    function clsOf(m){
+      var c = "vpre-mole", l = String(m.text).length;
+      if(l > 16){ c += " is-xlong"; } else if(l > 11){ c += " is-long"; }
+      if(z.reveal){
+        if(m.right){ c += " is-right" + (z.reveal.ok ? " is-hit" : ""); }
+        else if(m.hole === z.reveal.wrongHole){ c += " is-wrong"; }
+      } else if(m.right && z.missStreak >= 2){
+        c += " is-hint";
+      }
+      return c;
+    }
+    function fb(text, kind){
+      var f = q("[data-fb]", el);
+      if(f){ f.textContent = text; f.className = "vpre-feedback " + (kind || ""); }
+    }
+    function draw(){
+      var hearts = "", cells = "";
+      for(var i=0;i<MOLE_HEARTS;i++){ hearts += '<span class="' + (i < z.hearts ? "" : "dim") + '">❤️</span>'; }
+      for(var h=0;h<MOLE_HOLES;h++){
+        var m = null;
+        for(var k=0;k<z.moles.length;k++){ if(z.moles[k].hole === h){ m = z.moles[k]; break; } }
+        cells += '<button class="vpre-mole-hole" type="button"' + (m ? (' data-mole="' + h + '"') : ' disabled') + '>'
+               + (m ? ('<span class="' + clsOf(m) + '">' + m.text + '</span>') : '')
+               + '</button>';
+      }
+      el.innerHTML =
+        '<div class="vpre-quiz-head"><span>' + arenaLevelTag() + '单词打地鼠</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
+        + '<div class="vpre-quiz-progress"><div class="vpre-progress"><div style="width:' + Math.round(z.idx / z.items.length * 100) + '%"></div></div>'
+        + '<span class="vpre-quiz-count">' + (z.idx+1) + ' / ' + z.items.length + '</span></div>'
+        + '<div class="vpre-mole-top"><span class="vpre-mole-hearts">' + hearts + '</span>'
+        +   '<span class="vpre-mole-combo">' + (z.combo >= 2 ? ('🔥 连击 ' + z.combo) : ('已敲中 ' + z.found)) + '</span></div>'
+        + '<div class="vpre-mole-card"><div class="vpre-mole-zh">' + it.prompt + '</div>'
+        +   '<div class="vpre-mole-hint">敲中意思对的英文地鼠 · 点错扣一颗心</div></div>'
+        + '<div class="vpre-mole-grid">' + cells + '</div>'
+        + '<div class="vpre-feedback" data-fb="1"></div>';
+      q(".vpre-quiz-close", el).addEventListener("click", function(){
+        sfx.play("tap"); z.done = true; stopMole(phone); goQuizBack(phone);
+      });
+      qa("[data-mole]", el).forEach(function(b){
+        b.addEventListener("click", function(){
+          if(z.lock){ return; }
+          var h = parseInt(b.getAttribute("data-mole"), 10), m = null;
+          for(var k2=0;k2<z.moles.length;k2++){ if(z.moles[k2].hole === h){ m = z.moles[k2]; break; } }
+          if(m){ hit(m); }
+        });
+      });
+    }
+    function arm(){
+      z.lock = false;
+      if(phone.__moleTimer){ clearTimeout(phone.__moleTimer); }
+      phone.__moleTimer = setTimeout(popAway, dwell);
+    }
+    function popAway(){
+      if(phone.__quiz !== z || z.done || z.lock){ return; }
+      if(document.hidden){ phone.__moleTimer = setTimeout(popAway, dwell); return; }   // 切到别的 App 时先不扣时间
+      z.misses++; z.missStreak++; z.combo = 0;
+      deal(); draw(); arm();
+      fb(z.missStreak >= 2 ? "👀 带蓝框的那只就是答案，敲它！" : "⏱ 地鼠溜了，再来一批", "no");
+    }
+    function hit(m){
+      z.lock = true;
+      stopMole(phone);
+      if(m.right){
+        it.correct = true; it.chosen = it.answer;
+        z.score++; z.found++; z.combo++;
+        if(z.combo > z.bestCombo){ z.bestCombo = z.combo; }
+        z.missStreak = 0; z.reveal = {ok:true, wrongHole:null};
+        sfx.play("match");
+        draw();
+        fb("✅ 敲中了！" + (z.combo >= 2 ? (" 连击 " + z.combo) : ""), "ok");
+        z.idx += 1;
+        phone.__moleNext = setTimeout(function(){ renderMole(phone); }, 430);
+        return;
+      }
+      z.wrongHits++; z.combo = 0; z.hearts -= 1; z.missStreak = 0;
+      it.correct = false; it.chosen = m.text;
+      z.reveal = {ok:false, wrongHole:m.hole};
+      sfx.play("wrong");
+      draw();
+      if(z.hearts <= 0){
+        fb("❌ 三颗心用完了 · 正确答案：" + it.answer, "no");
+        z.idx = z.items.length;                                  // 心用完 → 直接结算
+        phone.__moleNext = setTimeout(function(){ renderMole(phone); }, 1200);
+        return;
+      }
+      fb("❌ 敲错了 · 绿色那只才是：" + it.answer, "no");
+      z.idx += 1;
+      phone.__moleNext = setTimeout(function(){ renderMole(phone); }, 1200);
+    }
+    deal();
+    draw();
+    arm();
   }
   function renderMatch(phone){
     var z = phone.__quiz;
@@ -2265,10 +2456,6 @@ body{
     var sp = q(".vpre-speak", el);
     if(sp){
       sp.addEventListener("click", function(){ sfx.play("tap"); speak(it.speak, phone); });
-      if(it.speak && it.autoSpeak){
-        speak(it.speak, phone);
-        phone.__speakTimer = setTimeout(function(){ speak(it.speak, phone); }, 1500);
-      }
     }
   }
   function renderResult(phone){
@@ -2285,6 +2472,11 @@ body{
             : (z.score>0 && z.score>=n-1 ? "很好，差一点全对！"
             : (z.score>0 && z.score>=n-2 ? "不错，继续加油！" : "别灰心，多练几次就记住了"));
     if(z.singleWord){ msg = z.score >= 1 ? "答对了 ✅ 这个词已从错词本移除" : "答错了，这个词留在错词本里，稍后再练"; }
+    if(z.type === "mole"){
+      msg = (z.hearts > 0 ? "整组都过了一遍！" : "三颗心用完了，这组没敲完")
+          + " 敲中 " + z.found + " / " + n + " 词 · 点错 " + (z.wrongHits || 0) + " 次"
+          + (z.misses ? (" · 漏看 " + z.misses + " 次") : "");
+    }
     var groupBox = "";
     var nextMode = null;
     if(phone.__quizGroup){
@@ -2449,6 +2641,10 @@ body{
     setView(phone, t);
   }
   function setView(phone, name){
+    if(name !== "quiz"){                     // 离开答题页：停掉打地鼠的定时器，别在后台空转
+      try{ stopMole(phone); }catch(e){}
+      if(phone.__quiz){ phone.__quiz.done = true; }
+    }
     qa(".vpre-view", phone).forEach(function(v){
       v.classList.toggle("is-active", v.getAttribute("data-view")===name);
     });
@@ -2565,6 +2761,22 @@ body{
           for(var k in g[b][u]){
             var gp = g[b][u][k];
             if(gp && gp.read && !gp.fill){ gp.fill = 1; }
+          }
+        }
+      }
+    }catch(e){}
+  }
+  // 老数据里"听音接力(listen)"的闯关星星搬到新的"单词打地鼠(mole)"，
+  // 免得总数里既留着一份旧记录、又算一份新记录（重复计星）
+  function migrateArenaGames(prog){
+    try{
+      var a = (prog || {}).arena || {};
+      for(var b in a){
+        for(var u in a[b]){
+          var games = a[b][u] || {};
+          if(games.listen){
+            if(!games.mole){ games.mole = games.listen; }
+            delete games.listen;
           }
         }
       }
@@ -3807,7 +4019,7 @@ body{
       words:{"九上":{"Unit 1":{"puppet":1,"perform":1,"viewer":1,"friendly":1,"audience":1,"puppeteer":1}}},
       wrong:{"九上":{"puppeteer":2, "friendly":1, "electric":1}},
       stats:{answers:120, correct:106, learned:68, day:todayStr(), dayWords:24, streak:5,
-             byType:{word:40, listen:30, spell:20, read:20, dictate:10}}
+             byType:{word:40, spell:30, fill:20, dictate:10}}
     };
   }
   function initDemo(){
