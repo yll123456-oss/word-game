@@ -353,10 +353,11 @@ body{
 .vpre-stats b{display:block; font-size:19px; color:var(--vp-blue);}
 .vpre-stats span{font-size:10.5px; color:var(--vp-muted);}
 .vpre-mine-rows{display:flex; flex-direction:column; gap:10px; margin-bottom:18px;}
-.vpre-mrow{display:grid; grid-template-columns:34px 1fr; align-items:center; gap:12px; background:var(--vp-card); border:1px solid var(--vp-line); border-radius:16px; padding:12px 14px; text-align:left; cursor:pointer; box-shadow:var(--vp-shadow-sm); transition:transform .12s, border-color .15s;}
+.vpre-mrow{display:grid; grid-template-columns:34px 1fr auto; align-items:center; gap:12px; background:var(--vp-card); border:1px solid var(--vp-line); border-radius:16px; padding:12px 14px; text-align:left; cursor:pointer; box-shadow:var(--vp-shadow-sm); transition:transform .12s, border-color .15s;}
 .vpre-mrow:active{transform:scale(.99);}
 .vpre-mrow:hover{border-color:#c7cfe4;}
 .vpre-mrow-ico{font-size:22px; line-height:1; text-align:center;}
+.vpre-mrow-go{font-size:20px; line-height:1; color:#c3cad8; padding-left:2px;}
 .vpre-mrow-body{min-width:0; display:block;}
 .vpre-mrow-top{display:flex; align-items:baseline; gap:5px;}
 .vpre-mrow-top b{font-size:19px; font-weight:800; color:var(--vp-ink); line-height:1.1;}
@@ -370,7 +371,9 @@ body{
 .vpre-bk:active{transform:scale(.98);}
 .vpre-bk-top{display:flex; align-items:baseline; justify-content:space-between; gap:6px;}
 .vpre-bk-top b{font-size:13px; font-weight:800; color:var(--vp-ink);}
+.vpre-bk-right{display:flex; align-items:baseline; gap:4px;}
 .vpre-bk-top i{font-style:normal; font-size:11px; font-weight:700; color:var(--vp-blue);}
+.vpre-bk-right em{font-style:normal; font-size:16px; line-height:1; color:#c3cad8;}
 .vpre-bk-num{display:block; font-size:10.5px; color:var(--vp-muted); margin:3px 0 6px;}
 .vpre-bk-bar{display:block; height:4px; border-radius:99px; background:#f0f2f7; overflow:hidden;}
 .vpre-bk-bar > i{display:block; height:100%; border-radius:99px; background:var(--vp-blue);}
@@ -594,6 +597,7 @@ body{
                   <span class="vpre-mrow-bar"><i class="vpre-mine-learn-bar" style="width:0%"></i></span>
                   <span class="vpre-mrow-sub vpre-mine-learn-sub">进行中：—</span>
                 </span>
+                <span class="vpre-mrow-go">›</span>
               </button>
               <button class="vpre-mrow" type="button" data-mine-go="stage">
                 <span class="vpre-mrow-ico">🗺️</span>
@@ -602,6 +606,7 @@ body{
                   <span class="vpre-mrow-bar"><i class="vpre-mine-stars-bar" style="width:0%"></i></span>
                   <span class="vpre-mrow-sub vpre-mine-stars-sub">已通关 0 个单元 · 4 个小游戏按组闯关</span>
                 </span>
+                <span class="vpre-mrow-go">›</span>
               </button>
               <button class="vpre-mrow" type="button" data-mine-go="wrong">
                 <span class="vpre-mrow-ico">📕</span>
@@ -610,6 +615,7 @@ body{
                   <span class="vpre-mrow-bar"><i class="vpre-mine-wrong-bar" style="width:0%"></i></span>
                   <span class="vpre-mrow-sub vpre-mine-wrong-sub">掌握率 0%</span>
                 </span>
+                <span class="vpre-mrow-go">›</span>
               </button>
             </div>
 
@@ -3274,6 +3280,21 @@ body{
     });
     return n;
   }
+  // 我的页跳转（委托与直接绑定共用）
+  function mineGo(phone, target){
+    if(target === "home"){ renderUnits(phone); }
+    else if(target === "stage"){ renderStageMap(phone); }
+    else if(target === "wrong"){ renderWrong(phone); }
+    else if(target === "mine"){ renderMine(phone); }
+    if(target === "home" || target === "stage" || target === "wrong" || target === "mine"){ setView(phone, target); }
+  }
+  function mineGoBook(phone, book){
+    if(!book){ return; }
+    state[phone.__id].book = book;
+    state[phone.__id].unit = 0;
+    loadBook(book).then(function(){ renderUnits(phone); });
+    setView(phone, "home");
+  }
   function allBooksLoaded(){
     for(var i=0;i<BOOK_LIST.length;i++){ if(!bookData(BOOK_LIST[i]).units.length){ return false; } }
     return true;
@@ -3366,10 +3387,18 @@ body{
       bookBox.innerHTML = bookRows.map(function(r){
         var done = r.total > 0 && r.learned >= r.total;
         return '<button class="vpre-bk' + (r.book === s.book ? ' is-cur' : '') + (done ? ' is-done' : '') + '" type="button" data-mine-book="' + r.book + '">'
-          + '<span class="vpre-bk-top"><b>' + r.book + '</b><i>' + r.pct + '%</i></span>'
+          + '<span class="vpre-bk-top"><b>' + r.book + '</b><span class="vpre-bk-right"><i>' + r.pct + '%</i><em>›</em></span></span>'
           + '<span class="vpre-bk-num">已掌握 ' + r.learned + ' / ' + r.total + ' 词</span>'
           + '<span class="vpre-bk-bar"><i style="width:' + r.pct + '%"></i></span></button>';
       }).join("");
+      // 六册块：每次重新渲染后直接绑定（双保险）
+      qa("[data-mine-book]", bookBox).forEach(function(b){
+        b.addEventListener("click", function(ev){
+          ev.stopPropagation();
+          sfx.play("tap");
+          mineGoBook(phone, b.getAttribute("data-mine-book"));
+        });
+      });
     }
   }
   // ===== 错词本：当前册 + 按单元筛选 =====
@@ -3522,6 +3551,14 @@ body{
         setView(phone, t);
       });
     });
+    // 「我的进度」三行：直接绑定，双保险
+    qa("[data-mine-go]", phone).forEach(function(b){
+      b.addEventListener("click", function(ev){
+        ev.stopPropagation();
+        sfx.play("tap");
+        mineGo(phone, b.getAttribute("data-mine-go"));
+      });
+    });
     var lo = q(".vpre-logout", phone);
     if(lo){ lo.addEventListener("click", function(){ sfx.play("tap"); logout(); }); }
     var sbtn = q(".vpre-sfxbtn", phone);
@@ -3651,23 +3688,9 @@ body{
       if(btn.closest(".vpre-hero-btn")){ runAction(phone, /复习/.test(btn.textContent) ? "quiz-wrong" : "quiz-word"); return; }
       if(btn.closest(".vpre-task")){ runAction(phone, "quiz-word"); return; }
       var mgo = btn.closest("[data-mine-go]");
-      if(mgo){
-        var target = mgo.getAttribute("data-mine-go");
-        if(target === "home"){ renderUnits(phone); }
-        else if(target === "stage"){ renderStageMap(phone); }
-        else if(target === "wrong"){ renderWrong(phone); }
-        setView(phone, target);
-        return;
-      }
+      if(mgo){ mineGo(phone, mgo.getAttribute("data-mine-go")); return; }
       var mbook = btn.closest("[data-mine-book]");
-      if(mbook){
-        var bk = mbook.getAttribute("data-mine-book");
-        state[id].book = bk;
-        state[id].unit = 0;
-        loadBook(bk).then(function(){ renderUnits(phone); });
-        setView(phone, "home");
-        return;
-      }
+      if(mbook){ mineGoBook(phone, mbook.getAttribute("data-mine-book")); return; }
       if(btn.closest(".vpre-view[data-view=mine]")){ runAction(phone, "toast"); return; }
     });
     renderUnits(phone);

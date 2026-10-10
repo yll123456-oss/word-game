@@ -1,5 +1,5 @@
 // 单词大冒险 · Service Worker
-const CACHE = "wordgame-v2";
+const CACHE = "wordgame-v3";
 const PRECACHE = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png"];
 
 self.addEventListener("install", function(e){
