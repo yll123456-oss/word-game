@@ -4,7 +4,7 @@
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="单词大冒险">
-<meta name="viewport" content="width=device-width, initial-scale=1"><title>单词速记 · 初中英语词汇闯关</title><style id="theme">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>单词速记 · 初中英语词汇闯关</title><style id="theme">
 /* ===== 主题升级：配色 / 底纹 / 长词条 / 小屏适配 ===== */
 :root{
   --vp-ink:#1b2434; --vp-ink-2:#3c4760; --vp-muted:#78839c;
@@ -160,22 +160,26 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
   color:var(--vp-ink);
   background:var(--vp-bg);
+  min-height:100vh;
   min-height:100dvh;
 }
 #vocab-game-preview *, #vocab-game-preview *::before, #vocab-game-preview *::after{box-sizing:border-box;}
-#vocab-game-preview button{font-family:inherit;}
+#vocab-game-preview button{font-family:inherit; -webkit-tap-highlight-color:transparent;}
+#vocab-game-preview{-webkit-text-size-adjust:100%;}
 .vpre-phone,.vpre-screen{width:100%; max-width:520px;}
-.vpre-screen{min-height:100dvh; margin:0 auto; background:linear-gradient(180deg,#f8f9fb 0%,#f3f5f9 100%); display:flex; flex-direction:column;}
-.vpre-header{position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:13px 18px 10px; background:rgba(255,255,255,.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid #eef0f5;}
+.vpre-stack{display:flex; justify-content:center;}
+.vpre-phone{margin:0 auto;}
+.vpre-screen{min-height:100vh; min-height:100dvh; margin:0 auto; background:linear-gradient(180deg,#f8f9fb 0%,#f3f5f9 100%); display:flex; flex-direction:column;}
+.vpre-header{position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:calc(13px + env(safe-area-inset-top,0px)) 18px 10px; background:rgba(255,255,255,.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid #eef0f5;}
 .vpre-brand{display:flex; align-items:center; gap:10px; font-size:17px; font-weight:700; letter-spacing:.3px; color:var(--vp-ink);}
 .vpre-logo{width:34px; height:34px; border-radius:11px; background:var(--vp-blue); display:flex; align-items:center; justify-content:center; font-size:17px; box-shadow:0 4px 12px rgba(59,91,219,.3);}
 .vpre-header-right{display:flex; align-items:center; gap:8px;}
 .vpre-sfxbtn{background:#eef1fb; border:0; border-radius:11px; width:34px; height:34px; font-size:15px; color:var(--vp-blue); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; transition:transform .12s;}
 .vpre-sfxbtn:active{transform:scale(.92);}
-.vpre-body{flex:1; overflow:visible; padding:16px 16px 128px;}
+.vpre-body{flex:1; overflow:visible; padding:16px 16px calc(128px + env(safe-area-inset-bottom,0px));}
 .vpre-view{display:none;}
 .vpre-view.is-active{display:block;}
-.vpre-tabs{position:sticky; bottom:10px; z-index:18; display:flex; margin:0 14px 12px; background:rgba(255,255,255,.96); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-radius:22px; padding:6px; box-shadow:0 10px 26px rgba(31,41,55,.12); border:1px solid #eef0f5;}
+.vpre-tabs{position:sticky; bottom:calc(10px + env(safe-area-inset-bottom,0px)); z-index:18; display:flex; margin:0 14px 12px; background:rgba(255,255,255,.96); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-radius:22px; padding:6px; box-shadow:0 10px 26px rgba(31,41,55,.12); border:1px solid #eef0f5;}
 .vpre-tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; border:0; background:none; font-size:10.5px; color:var(--vp-muted); cursor:pointer; padding:8px 0 7px; border-radius:16px; transition:background .18s, color .18s;}
 .vpre-tab i{font-style:normal; font-size:19px; line-height:1;}
 .vpre-tab.is-active{background:var(--vp-blue); color:#fff; font-weight:600; box-shadow:0 4px 12px rgba(59,91,219,.35);}
@@ -210,7 +214,7 @@ body{
 .vpre-bchip{flex:1; border:1px solid #dfe3ea; background:#fff; color:var(--vp-ink-2); border-radius:11px; padding:10px 0; font-size:13px; font-weight:600; cursor:pointer; transition:all .15s;}
 .vpre-bchip.is-active{background:var(--vp-blue); color:#fff; border-color:var(--vp-blue); box-shadow:0 4px 12px rgba(59,91,219,.3);}
 
-.vpre-unit-list{display:grid; grid-template-columns:1fr 1fr; gap:11px;}
+.vpre-unit-list{display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:11px;}
 .vpre-unit{font-family:inherit; text-align:left; display:flex; flex-direction:column; align-items:stretch; gap:8px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:16px; padding:16px 12px 12px; box-shadow:var(--vp-shadow-sm); cursor:pointer; min-height:118px; transition:transform .14s, box-shadow .16s, border-color .15s;}
 .vpre-unit:active{transform:scale(.97);}
 .vpre-unit:hover{border-color:#c7cfe4; box-shadow:0 6px 16px rgba(31,41,55,.09);}
@@ -263,6 +267,15 @@ body{
 
 .vpre-placeholder{background:var(--vp-card); border:1.5px dashed #d8dde7; border-radius:15px; padding:24px 14px; text-align:center; font-size:12.5px; color:var(--vp-muted);}
 
+/* ===== 触摸设备：点击目标放大（手指比鼠标粗） ===== */
+@media (pointer:coarse){
+  .vpre-syl{min-height:42px; padding:10px 14px;}
+  .vpre-letter{height:40px; min-width:34px;}
+  .vpre-qopt{min-height:56px;}
+  .vpre-tab{padding:10px 0 9px;}
+  .vpre-wrong-chips button{min-height:38px;}
+  .vpre-bk{padding:12px 12px;}
+}
 /* ===== 错词本 ===== */
 .vpre-wrong-scope{background:var(--vp-card); border:1px solid var(--vp-line); border-radius:20px; padding:15px 14px 13px; margin-bottom:12px; box-shadow:var(--vp-shadow-sm);}
 .vpre-scope-head{display:flex; align-items:baseline; justify-content:space-between; gap:8px;}
@@ -279,7 +292,7 @@ body{
 .vpre-wrong-chips button:active{transform:scale(.97);}
 .vpre-wrong-chips button.is-active{background:var(--vp-blue); color:#fff; border-color:var(--vp-blue); box-shadow:0 4px 10px rgba(31,41,55,.14);}
 .vpre-wrong-chips button i{font-style:normal; opacity:.72; font-size:10.5px; margin-left:4px;}
-.vpre-wrong-list{max-height:52vh; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-right:2px;}
+.vpre-wrong-list{max-height:52vh; max-height:52dvh; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-right:2px;}
 .vpre-hero-btn{display:block; width:100%; margin:0 0 16px; border:0; border-radius:15px; padding:14px 0; font-size:14.5px; font-weight:700; color:#fff; background:var(--vp-blue); box-shadow:0 8px 18px rgba(31,41,55,.18); cursor:pointer; transition:transform .12s;}
 .vpre-hero-btn:active{transform:scale(.985);}
 .vpre-wrow{display:grid; grid-template-columns:1fr auto; align-items:center; gap:10px; background:var(--vp-card); border:1px solid #e6e9f0; border-radius:15px; padding:12px 14px; margin-bottom:9px; box-shadow:var(--vp-shadow-sm);}
@@ -431,7 +444,7 @@ body{
 .vpre-report-share{border:0; background:#fff0e6; color:#d97706; border-radius:10px; padding:7px 12px; font-size:12px; cursor:pointer; font-weight:700;}
 .vpre-sheet-mask{position:fixed; inset:0; background:rgba(23,29,45,.45); z-index:60; display:none; align-items:flex-end; justify-content:center;}
 .vpre-sheet-mask.is-show{display:flex;}
-.vpre-sheet{width:100%; max-width:520px; background:#fff; border-radius:20px 20px 0 0; padding:18px 18px calc(20px + env(safe-area-inset-bottom,0px)); box-shadow:0 -8px 30px rgba(23,29,45,.18);}
+.vpre-sheet{padding-left:calc(18px + env(safe-area-inset-left,0px)); padding-right:calc(18px + env(safe-area-inset-right,0px)); width:100%; max-width:520px; background:#fff; border-radius:20px 20px 0 0; padding:18px 18px calc(20px + env(safe-area-inset-bottom,0px)); box-shadow:0 -8px 30px rgba(23,29,45,.18);}
 .vpre-sheet-title{font-size:15.5px; font-weight:700; text-align:center; color:var(--vp-ink);}
 .vpre-sheet-sub{font-size:11px; color:var(--vp-muted); text-align:center; margin:4px 0 16px;}
 .vpre-sheet-opt{display:flex; align-items:center; gap:12px; width:100%; border:1px solid #e6e9f0; background:#f8f9fb; border-radius:14px; padding:12px 14px; cursor:pointer; margin-bottom:10px; text-align:left; color:var(--vp-ink);}
@@ -439,7 +452,7 @@ body{
 .vpre-sheet-opt:active{transform:scale(.98);}
 .vpre-sheet-opt .vpre-opt-title{display:block; font-size:13.5px; font-weight:700;}
 .vpre-sheet-opt .vpre-opt-tip{display:block; font-size:10.5px; color:var(--vp-muted); font-weight:400; margin-top:2px; line-height:1.5;}
-.vpre-confirm-mask{position:fixed; inset:0; z-index:95; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(23,29,45,.28); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);}
+.vpre-confirm-mask{position:fixed; inset:0; z-index:95; display:none; align-items:center; justify-content:center; padding:calc(24px + env(safe-area-inset-top,0px)) calc(24px + env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) calc(24px + env(safe-area-inset-left,0px)); background:rgba(23,29,45,.28); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);}
 .vpre-confirm-mask.is-show{display:flex;}
 .vpre-confirm-card{width:100%; max-width:308px; background:#fff; border-radius:20px; padding:20px 18px 16px; box-shadow:0 18px 44px rgba(23,29,45,.22); text-align:center; animation:vpre-pop .22s cubic-bezier(.2,1.2,.5,1);}
 .vpre-confirm-icon{font-size:28px; line-height:1;}
@@ -455,9 +468,9 @@ body{
   .vpre-letters-wrap + .vpre-read-wrap{margin-top:14px;}
   .vpre-read-hint{font-size:10.5px;} .vpre-confirm-mask{padding:18px;} .vpre-confirm-card{max-width:100%; padding:18px 14px 14px;} }
 .vpre-sheet-cancel{width:100%; border:0; background:#eef1fb; color:var(--vp-blue); border-radius:14px; padding:12px; font-size:13.5px; font-weight:700; cursor:pointer;}
-.vpre-img-mask{position:fixed; inset:0; background:rgba(23,29,45,.6); z-index:70; display:none; align-items:center; justify-content:center; padding:22px;}
+.vpre-img-mask{position:fixed; inset:0; background:rgba(23,29,45,.6); z-index:70; display:none; align-items:center; justify-content:center; padding:calc(22px + env(safe-area-inset-top,0px)) calc(22px + env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) calc(22px + env(safe-area-inset-left,0px));}
 .vpre-img-mask.is-show{display:flex;}
-.vpre-img-panel{background:#fff; border-radius:16px; padding:16px; width:100%; max-width:400px; max-height:92vh; overflow:auto; text-align:center;}
+.vpre-img-panel{background:#fff; border-radius:16px; padding:16px; width:100%; max-width:400px; max-height:92vh; max-height:92dvh; overflow:auto; text-align:center;}
 .vpre-img-panel img{width:100%; border-radius:8px; background:#fff; display:block;}
 .vpre-img-tip{font-size:12px; color:#555; margin:12px 2px; line-height:1.7; text-align:left;}
 .vpre-img-actions{display:flex; gap:10px; justify-content:center;}
@@ -487,7 +500,7 @@ body{
 .vpre-chart canvas{display:block; width:100%;}
 .vpre-chart-hint{font-size:11px; color:var(--vp-muted); text-align:center; padding:4px 0 6px;}
 
-.vpre-login{position:fixed; inset:0; z-index:80; background:linear-gradient(160deg,#eef2ff,#f7f8fb 60%,#fff); display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box;}
+.vpre-login{position:fixed; inset:0; z-index:80; background:linear-gradient(160deg,#eef2ff,#f7f8fb 60%,#fff); display:flex; align-items:center; justify-content:center; padding:calc(24px + env(safe-area-inset-top,0px)) calc(24px + env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) calc(24px + env(safe-area-inset-left,0px)); overflow-y:auto; box-sizing:border-box;}
 .vpre-login.is-hidden{display:none;}
 .vpre-login-card{width:100%; max-width:380px; background:#fff; border:1px solid #e6e9f0; border-radius:22px; padding:26px 22px 20px; box-shadow:0 16px 40px rgba(31,41,55,.10); text-align:center;}
 .vpre-login-logo{font-size:34px; line-height:1;}
@@ -525,9 +538,9 @@ body{
             <div class="vpre-login-title">单词大冒险</div>
             <div class="vpre-login-sub">输入手机号和姓名，开始今天的单词闯关<br>第一次填写会自动创建账号，用于记录学习情况</div>
             <label class="vpre-login-label" for="vpre-login-phone">手机号</label>
-            <input class="vpre-login-input" id="vpre-login-phone" type="tel" inputmode="numeric" maxlength="11" placeholder="11 位手机号" autocomplete="off">
+            <input class="vpre-login-input" id="vpre-login-phone" type="tel" inputmode="numeric" maxlength="11" placeholder="11 位手机号" autocomplete="off" enterkeyhint="next">
             <label class="vpre-login-label" for="vpre-login-name">姓名</label>
-            <input class="vpre-login-input" id="vpre-login-name" type="text" placeholder="填写你的姓名" autocomplete="off">
+            <input class="vpre-login-input" id="vpre-login-name" type="text" placeholder="填写你的姓名" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done">
             <div class="vpre-login-err" id="vpre-login-err"></div>
             <button class="vpre-login-btn" id="vpre-login-btn" type="button">注册 / 进入练习</button>
             <div class="vpre-login-hint"><b>提示</b><span>登录状态会保存在本机，下次打开直接进入；换同学使用请点"我的 → 切换账号"。</span></div>
@@ -954,7 +967,13 @@ body{
     if(btn){ btn.addEventListener("click", function(){ sfx.play("tap"); doLogin(); }); }
     ["vpre-login-phone","vpre-login-name"].forEach(function(id){
       var el = document.getElementById(id);
-      if(el){ el.addEventListener("keydown", function(ev){ if(ev.key === "Enter"){ doLogin(); } }); }
+      if(el){
+        el.addEventListener("keydown", function(ev){
+          if(ev.key !== "Enter"){ return; }
+          if(ev.isComposing || ev.keyCode === 229){ return; }   // 中文输入法拼字过程中回车是"选字"，不提交
+          doLogin();
+        });
+      }
     });
   }
   function todayStr(){
@@ -2256,7 +2275,7 @@ body{
       + '<div class="vpre-qcard"><div class="vpre-qword is-long">'+it.prompt+'</div>'
       +   '<div class="vpre-qipa'+(it.longHint ? ' is-pattern' : '')+'">'+String(it.hint).replace(/\n/g, '<br>')+'</div>'
       +   '<button class="vpre-speak" type="button" data-play="1">🔊 听发音提示</button></div>'
-      + '<input class="vpre-write-input" data-input="1" type="text" placeholder="在这里拼写单词" autocomplete="off" autocapitalize="off" spellcheck="false">'
+      + '<input class="vpre-write-input" data-input="1" type="text" placeholder="在这里拼写单词" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done">'
       + '<div class="vpre-answer-reveal" data-reveal="1" style="display:none"></div>'
       + '<div class="vpre-feedback" data-fb="1"></div>'
       + '<button class="vpre-btn vpre-btn-primary vpre-btn-block" data-submit="1" type="button" style="margin-top:12px;">提交答案</button>'
@@ -2284,10 +2303,20 @@ body{
       next.textContent = (z.idx+1 >= z.items.length) ? "查看成绩" : "下一题";
     }
     q("[data-submit]", el).addEventListener("click", submit);
-    input.addEventListener("keydown", function(ev){ if(ev.key === "Enter"){ submit(); } });
+    input.addEventListener("keydown", function(ev){
+      if(ev.key !== "Enter"){ return; }
+      if(ev.isComposing || ev.keyCode === 229){ return; }     // 输入法拼字中的回车不当作提交
+      submit();
+    });
     q(".vpre-qnext", el).addEventListener("click", function(){ sfx.play("tap"); z.idx += 1; renderQuiz(phone); });
     q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); goQuizBack(phone); });
-    setTimeout(function(){ input.focus(); }, 200);
+    setTimeout(function(){
+      try{ input.focus({ preventScroll: true }); }catch(e){ input.focus(); }
+      // 手机键盘弹出后会顶起视口，把输入框滚到中间，避免被键盘挡住
+      setTimeout(function(){
+        try{ input.scrollIntoView({ block: "center", behavior: "smooth" }); }catch(e){}
+      }, 260);
+    }, 200);
   }
   function renderQuiz(phone){
     var z = phone.__quiz;
