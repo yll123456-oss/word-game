@@ -98,31 +98,19 @@ body{
 .vpre-qopt.is-right{background:#e9f8f2 !important; border-color:#8fd8bf !important;}
 .vpre-qopt.is-wrong{background:#fdeded !important; border-color:#f0a6a8 !important;}
 .vpre-qnext{margin-top:14px;}
-.vpre-btn-row{display:flex; gap:10px; width:100%;}
-.vpre-btn-row .vpre-btn{flex:1;}
 .vpre-speak{margin-top:14px;}
-.vpre-read-sounds{display:flex; gap:8px; justify-content:center; flex-wrap:wrap;}
-.vpre-read-sounds .vpre-speak{margin-top:12px; padding:10px 18px; font-size:12.5px;}
-.vpre-read-sounds .vpre-speak.is-slow{background:#fff; color:var(--vp-blue); border:1.5px solid var(--vp-blue); box-shadow:none;}
-.vpre-syl-wrap{margin:14px 0 0;}
-.vpre-letters-wrap{margin:12px 0 0;}
-.vpre-read-hint{font-size:11px; color:var(--vp-muted); text-align:center; line-height:1.6; margin-bottom:8px;}
-.vpre-letters-wrap + .vpre-read-wrap{margin-top:18px;}
-.vpre-syls{display:flex; flex-wrap:wrap; gap:5px; align-items:center; justify-content:center;}
-.vpre-syl{border:1px solid var(--vp-line); background:#f8faff; border-radius:10px; padding:8px 12px; font-size:15px; font-weight:700; color:var(--vp-ink); cursor:pointer; transition:background .15s, border-color .15s, color .15s, transform .1s;}
-.vpre-syl:active{transform:scale(.97);}
-.vpre-syl.is-on{background:var(--vp-blue); border-color:var(--vp-blue); color:#fff;}
-.vpre-syl-dot{color:var(--vp-muted); font-weight:700;}
-.vpre-syl-space{width:14px;}
-.vpre-letters{display:flex; flex-wrap:wrap; gap:6px; justify-content:center;}
-.vpre-letter{min-width:29px; height:34px; padding:0 6px; border:1px solid var(--vp-line); background:#fff; border-radius:9px; font-size:15px; font-weight:700; color:var(--vp-ink); cursor:pointer; transition:background .15s, color .15s, border-color .15s;}
-.vpre-letter.is-gray{background:#eef1f5; border-color:#dfe3ea; color:#9aa2ae;}
-.vpre-letter.is-gap{border:0; background:none; min-width:12px; width:12px;}
-.vpre-read-wrap{display:flex; flex-direction:column; gap:12px; align-items:center;}
-.vpre-read-btn{width:100%; border:0; background:var(--vp-blue); color:#fff; font-size:15px; font-weight:800; padding:16px; border-radius:16px; cursor:pointer; box-shadow:0 10px 22px rgba(75,99,230,.22);}
-.vpre-read-btn.rec{background:#e5484d; animation:vpre-pulse 1s infinite;}
-@keyframes vpre-pulse{0%{opacity:1}50%{opacity:.72}100%{opacity:1}}
-.vpre-read-tip{font-size:12.5px; color:var(--vp-muted); text-align:center; line-height:1.7;}
+/* ===== 缺字母补全 ===== */
+.vpre-fill-word{font-size:30px; font-weight:800; letter-spacing:1px; line-height:1.6; color:var(--vp-ink); word-break:break-word; margin:6px 0 2px;}
+.vpre-fill-word em{font-style:normal;}
+.vpre-fill-word .vpre-fill-sep{color:var(--vp-muted); font-weight:500; margin:0 3px;}
+.vpre-fill-slot{display:inline-block; min-width:26px; height:36px; margin:0 3px; border-bottom:3px solid #c9d1e2; border-radius:4px; color:var(--vp-blue); vertical-align:-5px; font-weight:800;}
+.vpre-fill-slot.is-filled{border-bottom-color:var(--vp-blue); background:var(--vp-blue-soft);}
+.vpre-fill-tiles{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0 4px;}
+.vpre-fill-tile{min-width:46px; height:48px; padding:0 10px; border:1.5px solid var(--vp-line); background:#fafbff; border-radius:12px; font-size:20px; font-weight:800; color:var(--vp-ink); cursor:pointer; transition:transform .12s, border-color .15s;}
+.vpre-fill-tile:active{transform:scale(.94);}
+.vpre-fill-tile.is-used{opacity:.28; cursor:default;}
+.vpre-undo-btn{display:block; margin:10px auto 0; border:1px solid var(--vp-line); background:#fff; color:var(--vp-muted); border-radius:12px; padding:9px 18px; font-size:12.5px; font-weight:600; cursor:pointer;}
+.vpre-btn:disabled{opacity:.45; cursor:default;}
 .vpre-qipa.is-pattern{font-size:13px; line-height:1.9; letter-spacing:.5px; word-break:break-word; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; background:#f7f9ff; border:1px dashed var(--vp-line); border-radius:12px; padding:8px 12px; color:var(--vp-ink-2);}
 .vpre-write-input{width:100%; box-sizing:border-box; font-size:20px; letter-spacing:1px; padding:16px; border:2px solid var(--vp-line); border-radius:16px; text-align:center; background:#fafbff; color:var(--vp-ink); outline:none;}
 .vpre-write-input:focus{border-color:var(--vp-blue); background:#fff;}
@@ -269,8 +257,8 @@ body{
 
 /* ===== 触摸设备：点击目标放大（手指比鼠标粗） ===== */
 @media (pointer:coarse){
-  .vpre-syl{min-height:42px; padding:10px 14px;}
-  .vpre-letter{height:40px; min-width:34px;}
+  .vpre-fill-tile{min-width:52px; height:54px;}
+  .vpre-fill-slot{min-width:30px; height:40px;}
   .vpre-qopt{min-height:56px;}
   .vpre-tab{padding:10px 0 9px;}
   .vpre-wrong-chips button{min-height:38px;}
@@ -462,11 +450,9 @@ body{
 .vpre-confirm-actions{display:flex; gap:10px;}
 .vpre-confirm-actions .vpre-btn{flex:1; padding:11px 0; font-size:13.5px;}
 @media (max-width:360px){
-  .vpre-syl{padding:6px 9px; font-size:13.5px;}
-  .vpre-letter{min-width:25px; height:31px; font-size:13.5px; padding:0 4px;}
-  .vpre-letters{gap:5px;}
-  .vpre-letters-wrap + .vpre-read-wrap{margin-top:14px;}
-  .vpre-read-hint{font-size:10.5px;} .vpre-confirm-mask{padding:18px;} .vpre-confirm-card{max-width:100%; padding:18px 14px 14px;} }
+  .vpre-fill-word{font-size:24px;}
+  .vpre-fill-tile{min-width:42px; height:44px; font-size:18px;}
+  .vpre-confirm-mask{padding:18px;} .vpre-confirm-card{max-width:100%; padding:18px 14px 14px;} }
 .vpre-sheet-cancel{width:100%; border:0; background:#eef1fb; color:var(--vp-blue); border-radius:14px; padding:12px; font-size:13.5px; font-weight:700; cursor:pointer;}
 .vpre-img-mask{position:fixed; inset:0; background:rgba(23,29,45,.6); z-index:70; display:none; align-items:center; justify-content:center; padding:calc(22px + env(safe-area-inset-top,0px)) calc(22px + env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) calc(22px + env(safe-area-inset-left,0px));}
 .vpre-img-mask.is-show{display:flex;}
@@ -722,7 +708,7 @@ body{
   function loadAllBooks(){
     return Promise.all(BOOK_LIST.map(function(b){ return loadBook(b); }));
   }
-  var TYPE_NAME = {word:"看词选义", listen:"听音选词", spell:"拼写闯关", read:"跟读打卡", dictate:"默写闯关", wrong:"错词复习", match:"连连看", speed:"限时快答"};
+  var TYPE_NAME = {word:"看词选义", listen:"听音选词", spell:"拼写闯关", fill:"缺字母补全", dictate:"默写闯关", wrong:"错词复习", match:"连连看", speed:"限时快答"};
   var GRADE_NAME = {g7:"初一", g8:"初二", g9:"初三"};
   var GRADE_BOOK = {g7:"七上", g8:"八上", g9:"九上"};
   var state = {};
@@ -984,7 +970,7 @@ body{
     var d = {words:{}, wrong:{}, hist:{}, stats:{answers:0, correct:0, learned:0, day:"", dayWords:0, streak:1, byType:{}}};
     try{
       var raw = localStorage.getItem(progressKey());
-      if(raw){ var p = JSON.parse(raw); if(p && p.stats) return p; }
+      if(raw){ var p = JSON.parse(raw); if(p && p.stats){ migrateGroupModes(p); return p; } }
     }catch(e){}
     return d;
   }
@@ -1119,7 +1105,7 @@ body{
       var need = 18;                                   // 与闯关说明一致：答对 ≥18 题 3★（绝对值，答几题都按这个算）
       return z.score >= need ? 3 : (z.score >= Math.round(need*0.8) ? 2 : (z.score >= Math.round(need*0.6) ? 1 : 0));
     }
-    // 题目类玩法（看词选义/拼写闯关/跟读打卡/默写闯关/听音接力/拼词积木）
+    // 题目类玩法（看词选义/拼写闯关/缺字母补全/默写闯关/听音接力/拼词积木）
     // 统一"严格"标准：全对 3★；错 1 题 2★（题量≥3）；错 2 题 1★（题量≥5）；其余 0★
     var n = (z.items || []).length;
     if(n <= 0){ return 0; }
@@ -1131,7 +1117,7 @@ body{
   }
   // 每题答完立刻写错题本：学生答对后直接关掉（没点"查看成绩"）也能马上消除；
   // 结算时对已写入的题不再重复处理（见 recordQuizResult）
-  var WRONG_SETTLE_TYPES = {word:1, spell:1, read:1, dictate:1, wrong:1};
+  var WRONG_SETTLE_TYPES = {word:1, spell:1, fill:1, dictate:1, wrong:1};
   function settleWrongBookNow(phone, it){
     if(!it || it.settled) return;
     var z = phone.__quiz;
@@ -1281,74 +1267,31 @@ body{
       return { prompt:"🔊", sub:"听发音，选单词 · "+x.en.length+" 个字母", opts:spellOpts(x.en), answer:x.en, speak:x.en, autoSpeak:true };
     });
   }
-  // 英文音节切分（规则版，用于跟读时"分块定位"；属于近似，不追求 100% 正确）
-  function syllablesOfWord(w){
-    var raw = String(w || "");
-    // 含省略号（… / ...）的词：按省略号切开分别切分音节，显示成 take · apart
-    if(/[…]+|\.{2,}/.test(raw)){
-      var parts = raw.split(/[…]+|\.{2,}/).map(function(x){ return x.trim(); }).filter(function(x){ return !!x; });
-      if(parts.length > 1){
-        var all = [];
-        parts.forEach(function(pt){ syllablesOfWord(pt).forEach(function(sy){ all.push(sy); }); });
-        if(all.length){ return all; }
-      }
-    }
-    var m = raw.match(/^([^A-Za-z]*)([A-Za-z][A-Za-z'’-]*)([^A-Za-z]*)$/);
-    if(!m){ return raw ? [raw] : []; }
-    var pre = m[1], core = m[2], post = m[3];
-    var low = core.toLowerCase().split("");
-    var n = low.length;
-    var isV = function(ch){ return "aeiou".indexOf(ch) >= 0; };
-    // 元音组（y 在非词首、且不是相邻元音时按元音处理）
-    var groups = [];
-    for(var i = 0; i < n; i++){
-      var c = low[i];
-      var v = isV(c) || (c === "y" && i > 0 && !isV(low[i-1]) && !(i+1 < n && isV(low[i+1])));
-      if(v){
-        if(groups.length && groups[groups.length-1].end === i-1){ groups[groups.length-1].end = i; }
-        else { groups.push({start:i, end:i}); }
-      }
-    }
-    if(groups.length <= 1){ return [pre + core + post]; }
-    // 末尾不发音的 e（magic e）：前面只有 1 个辅音 → 并进上一节
-    if(groups.length >= 2){
-      var last = groups[groups.length-1];
-      if(last.start === last.end && low[last.start] === "e" && last.end === n - 1){
-        var prev = groups[groups.length-2];
-        if(last.start - prev.end === 2){ groups.pop(); }        // 例：make / nice / here
-      }
-    }
-    if(groups.length <= 1){ return [pre + core + post]; }
-    // 切分点
-    var cuts = [];
-    for(var g = 0; g < groups.length - 1; g++){
-      var a = groups[g], b2 = groups[g+1];
-      var cc = b2.start - a.end - 1;                            // 两个元音组之间的辅音个数
-      var cut;
-      var prevCh = low[b2.start-1], two = low[b2.start-2] || "";
-      var dig = ["ch","sh","th","ph","wh","gh","ck","ng","qu"];
-      if(cc <= 0){ cut = b2.start; }                             // V-V
-      else if(cc === 1){ cut = a.end + 1; }                      // V-CV
-      else if(b2.start === n-1 && low[b2.start] === "e" && prevCh === "l"){
-        cut = b2.start - 2;                                      // -Cle：ta·ble / peo·ple / lit·tle
-      } else if(cc >= 3 && dig.indexOf(low[a.end+1] + low[a.end+2]) >= 0){
-        cut = a.end + 3;                                         // tech·no：双字母音（ch/sh/th…）留在上一节
-      } else { cut = a.end + 2; }                                // VCC-CV / VCCC-CV…（前 1 个辅音留给上一节）
-      cuts.push(cut);
-    }
-    var out = [], from = 0;
-    cuts.forEach(function(cut){ out.push(core.slice(from, cut)); from = cut; });
-    out.push(core.slice(from));
-    out = out.filter(function(x){ return x.length > 0; });
-    if(!out.length){ return [pre + core + post]; }
-    out[0] = pre + out[0];
-    out[out.length-1] = out[out.length-1] + post;
-    return out;
-  }
-  function buildReadItems(list, n){
+  function buildFillItems(list, n){
+    var pool = {};
+    list.forEach(function(w){ String(w.en).toLowerCase().split("").forEach(function(c){ if(/[a-z]/.test(c)){ pool[c] = 1; } }); });
     return pickWords(list, n).map(function(x){
-      return {word:x.en, meaning:x.zh, prompt:x.en, sub:x.zh, answer:x.en, speak:x.en, correct:null, chosen:""};
-    });
+      var en = String(x.en);
+      var chars = en.split("");
+      var idxs = [];
+      for(var i=0;i<chars.length;i++){ if(/[A-Za-z]/.test(chars[i])){ idxs.push(i); } }
+      var nLetters = idxs.length;
+      if(nLetters < 2){ return null; }
+      var holes = nLetters <= 3 ? 1 : (nLetters <= 6 ? 2 : (nLetters <= 10 ? 3 : 4));
+      holes = Math.min(holes, nLetters - 1);
+      var picked = shuffle(idxs.slice(1)).slice(0, holes).sort(function(a,b){ return a - b; });   // 首字母永远保留
+      var answers = picked.map(function(i){ return chars[i].toLowerCase(); });
+      var dsrc = {};
+      for(var k in pool){ dsrc[k] = 1; }
+      answers.forEach(function(c){ delete dsrc[c]; });
+      var distract = shuffle(Object.keys(dsrc)).slice(0, 5);
+      return {
+        prompt: en, meaning: x.zh, answer: en, speak: en,
+        chars: chars, holes: picked, fills: answers,
+        tiles: shuffle(answers.concat(distract)),
+        hint: "首字母 " + en.charAt(0).toUpperCase() + " · 共 " + nLetters + " 个字母 · 缺 " + holes + " 个"
+      };
+    }).filter(function(x){ return !!x; });
   }
   function wordPattern(w){
     var letters = (String(w).match(/[A-Za-z]/g) || []);
@@ -1443,7 +1386,7 @@ body{
     if(type === "word"){ items = buildWordItems(list, n); }
     else if(type === "listen"){ items = buildListenItems(list, n); }
     else if(type === "spell"){ items = buildSpellItems(list, n); }
-    else if(type === "read"){ items = buildReadItems(list, n); }
+    else if(type === "fill"){ items = buildFillItems(list, n); }
     else if(type === "dictate"){ items = buildDictateItems(list, n); }
     else if(type === "match"){
       var pairs = pickWords(list, 10).map(function(x){ return {en:x.en, zh:x.zh}; });
@@ -2122,146 +2065,87 @@ body{
       goQuizBack(phone);
     });
   }
-  var REC = {rec:null, chunks:[], stream:null};
-  function stopRec(cb){
-    try{
-      if(REC.rec && REC.rec.state !== "inactive"){ REC.rec.onstop = function(){ cb(); }; REC.rec.stop(); return true; }
-    }catch(e){}
-    cb(); return false;
-  }
-  function renderRead(phone){
+  function renderFill(phone){
     var z = phone.__quiz, el = q(".vpre-quiz", phone);
     if(!el) return;
     if(z.idx >= z.items.length){ renderResult(phone); return; }
     var it = z.items[z.idx];
-    var word = String(it.word);
-    var wcls = word.length > 16 ? " is-long" : "";
-    // 音节分块（便于分块跟读定位；近似切分）
-    var syll = [];
-    word.split(/\s+/).forEach(function(w, wi){
-      if(wi){ syll.push('<span class="vpre-syl-space"></span>'); }
-      syllablesOfWord(w).forEach(function(sy, si){
-        if(si){ syll.push('<span class="vpre-syl-dot">·</span>'); }
-        syll.push('<button class="vpre-syl" type="button" data-syl="1">' + sy + '</button>');
+    z.picked = []; z.locked = false;
+    function draw(){
+      var wordHtml = it.chars.map(function(c, i){
+        var h = it.holes.indexOf(i);
+        if(h >= 0){
+          var t = z.picked[h];
+          return '<i class="vpre-fill-slot' + (t === undefined ? '' : ' is-filled') + '">' + (t === undefined ? '' : it.tiles[t]) + '</i>';
+        }
+        return /[A-Za-z]/.test(c) ? '<em>' + c + '</em>' : '<span class="vpre-fill-sep">' + c + '</span>';
+      }).join("");
+      var tilesHtml = it.tiles.map(function(t, i){
+        var used = z.picked.indexOf(i) >= 0;
+        return '<button class="vpre-fill-tile' + (used ? ' is-used' : '') + '" type="button" data-tile="' + i + '"' + (used || z.locked ? ' disabled' : '') + '>' + t + '</button>';
+      }).join("");
+      var wEl = q(".vpre-fill-word", el); if(wEl){ wEl.innerHTML = wordHtml; }
+      var tEl = q(".vpre-fill-tiles", el); if(tEl){ tEl.innerHTML = tilesHtml; }
+      var sub = q("[data-submit]", el);
+      if(sub && !z.locked){ sub.disabled = z.picked.length < it.holes.length; }
+      var undo = q("[data-undo]", el);
+      if(undo){ undo.style.display = (!z.locked && z.picked.length) ? "block" : "none"; }
+      qa("[data-tile]", el).forEach(function(b){
+        b.addEventListener("click", function(){
+          if(z.locked || z.picked.length >= it.holes.length){ return; }
+          sfx.play("flip");
+          z.picked.push(parseInt(b.getAttribute("data-tile"), 10));
+          draw();
+        });
       });
-    });
-    // 字母块（学生自己标记读不准的字母）
-    var letters = [];
-    Array.prototype.forEach.call(word, function(ch, i){
-      if(/\s/.test(ch)){ letters.push('<span class="vpre-letter is-gap"></span>'); return; }
-      letters.push('<button class="vpre-letter" type="button" data-li="' + i + '">' + ch + '</button>');
-    });
+    }
     el.innerHTML =
-      '<div class="vpre-quiz-head"><span>跟读打卡</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
-      + '<div class="vpre-quiz-progress"><div class="vpre-progress"><div style="width:'+Math.round(z.idx/z.items.length*100)+'%"></div></div>'
-      + '<span class="vpre-quiz-count">'+(z.idx+1)+' / '+z.items.length+'</span></div>'
-      + '<div class="vpre-qcard"><div class="vpre-qword'+wcls+'">'+word+'</div>'
-      +   '<div class="vpre-qipa">'+it.meaning+'</div>'
-      +   '<div class="vpre-read-sounds">'
-      +     '<button class="vpre-speak" type="button" data-play="1">🔊 听标准音</button>'
-      +     '<button class="vpre-speak is-slow" type="button" data-play-slow="1">🐢 慢速再听</button>'
-      +   '</div></div>'
-      + '<div class="vpre-syl-wrap">'
-      +   '<div class="vpre-read-hint">按音节分块 · 点一块会重播整词并高亮这一块</div>'
-      +   '<div class="vpre-syls">' + syll.join("") + '</div>'
+      '<div class="vpre-quiz-head"><span>缺字母补全</span><button class="vpre-quiz-close" type="button" aria-label="返回">✕</button></div>'
+      + '<div class="vpre-quiz-progress"><div class="vpre-progress"><div style="width:' + Math.round(z.idx/z.items.length*100) + '%"></div></div>'
+      + '<span class="vpre-quiz-count">' + (z.idx+1) + ' / ' + z.items.length + '</span></div>'
+      + '<div class="vpre-qcard">'
+      +   '<div class="vpre-qipa">' + it.meaning + '</div>'
+      +   '<div class="vpre-fill-word"></div>'
+      +   '<div class="vpre-qipa">' + it.hint + '</div>'
+      +   '<button class="vpre-speak" type="button" data-play="1">🔊 听发音提示</button>'
       + '</div>'
-      + '<div class="vpre-letters-wrap">'
-      +   '<div class="vpre-read-hint vpre-letter-hint" data-letterhint="1">自己核对：读不准的字母点一下变灰（自评标记，本机不做发音识别）</div>'
-      +   '<div class="vpre-letters">' + letters.join("") + '</div>'
-      + '</div>'
-      + '<div class="vpre-read-wrap">'
-      +   '<button class="vpre-read-btn" type="button" data-rec="1">🎤 开始跟读</button>'
-      +   '<div class="vpre-read-tip" data-readtip="1">点"开始跟读"后读出这个单词，读完自动回放你的声音，和标准音对比一下。</div>'
-      +   '<div class="vpre-btn-row" data-judge="1" style="display:none;">'
-      +     '<button class="vpre-btn" type="button" data-ok="0">🔁 再练一次</button>'
-      +     '<button class="vpre-btn vpre-btn-primary" type="button" data-ok="1">✅ 读对了</button>'
-      +   '</div>'
-      + '</div>'
+      + '<div class="vpre-fill-tiles"></div>'
+      + '<div class="vpre-answer-reveal" data-reveal="1" style="display:none"></div>'
       + '<div class="vpre-feedback" data-fb="1"></div>'
+      + '<button class="vpre-btn vpre-btn-primary vpre-btn-block" data-submit="1" type="button" style="margin-top:12px;" disabled>提交答案</button>'
+      + '<button class="vpre-undo-btn" data-undo="1" type="button" style="display:none;">↩ 撤回一个</button>'
       + '<button class="vpre-btn vpre-btn-primary vpre-btn-block vpre-qnext" type="button" style="display:none;">下一题</button>';
-    q("[data-play]", el).addEventListener("click", function(){ sfx.play("tap"); speak(word, phone); });
-    q("[data-play-slow]", el).addEventListener("click", function(){ sfx.play("tap"); speak(word, phone, 0.55); });
-    qa("[data-syl]", el).forEach(function(b){
-      b.addEventListener("click", function(){
-        sfx.play("tap");
-        speak(word, phone);                                  // 逐音节音频不可靠，改为"重播整词 + 高亮这一块"
-        qa(".vpre-syl", el).forEach(function(x){ x.classList.remove("is-on"); });
-        b.classList.add("is-on");
-        clearTimeout(phone.__sylTimer);
-        phone.__sylTimer = setTimeout(function(){ b.classList.remove("is-on"); }, 1100);
-      });
-    });
-    var letterHint = q("[data-letterhint]", el);
-    var LETTER_HINT = "自己核对：读不准的字母点一下变灰（自评标记，本机不做发音识别）";
-    qa("[data-li]", el).forEach(function(b){
-      b.addEventListener("click", function(){
-        sfx.play("tap");
-        b.classList.toggle("is-gray");                      // 自评：这个词我读不准的字母
-        if(letterHint){
-          var n = qa(".vpre-letter.is-gray", el).length;
-          letterHint.textContent = LETTER_HINT + (n ? ("　已标记 " + n + " 个") : "");
-        }
-      });
-    });
-    var recBtn = q("[data-rec]", el), tip = q("[data-readtip]", el), judge = q("[data-judge]", el);
-    recBtn.addEventListener("click", function(){
+    q("[data-play]", el).addEventListener("click", function(){ sfx.play("tap"); speak(it.speak || it.answer, phone); });
+    q("[data-undo]", el).addEventListener("click", function(){
+      if(z.locked || !z.picked.length){ return; }
       sfx.play("tap");
-      if(!navigator.mediaDevices || !window.MediaRecorder){
-        tip.textContent = "这台设备不支持录音，请跟着标准音多读几遍，然后自己判断。";
-        judge.style.display = "flex"; recBtn.textContent = "🎤 听不清？再听一次标准音";
-        recBtn.setAttribute("data-mode","play");
-        return;
-      }
-      if(REC.rec && REC.rec.state === "recording"){ stopRec(finishRec); return; }
-      navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
-        REC.stream = stream; REC.chunks = [];
-        var rec = new MediaRecorder(stream);
-        REC.rec = rec;
-        rec.ondataavailable = function(e){ if(e.data && e.data.size) REC.chunks.push(e.data); };
-        rec.start();
-        recBtn.textContent = "⏹ 读完了（停止）";
-        recBtn.classList.add("rec");
-        tip.textContent = "正在录音…请清晰读出这个单词";
-        function finishRec(){
-          recBtn.classList.remove("rec"); recBtn.textContent = "🎤 再录一次";
-          tip.textContent = "已录音，回放对比一下像不像。";
-          judge.style.display = "flex";
-          try{
-            var blob = new Blob(REC.chunks, {type: REC.chunks[0] && REC.chunks[0].type || "audio/webm"});
-            var audio = new Audio(URL.createObjectURL(blob));
-            audio.play();
-          }catch(e){}
-          try{ stream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){}
-        }
-        rec.onstop = finishRec;
-      }).catch(function(){
-        tip.textContent = "没有拿到麦克风权限，请跟着标准音多读几遍，然后自己判断。";
-        judge.style.display = "flex";
-      });
+      z.picked.pop();
+      draw();
     });
-    qa("[data-ok]", el).forEach(function(b){
-      b.addEventListener("click", function(){
-        sfx.play("tap");
-        var ok = b.getAttribute("data-ok") === "1";
-        it.correct = ok; it.chosen = ok ? "跟读通过" : "需再练";
-        settleWrongBookNow(phone, it);
-        if(ok){ z.score += 1; }
-        var fb = q("[data-fb]", el);
-        fb.textContent = ok ? "✅ 很棒！这个词算掌握了" : "🔁 记下了，稍后会再出现";
-        fb.className = "vpre-feedback " + (ok ? "ok" : "no");
-        judge.style.display = "none";
-        recBtn.style.display = "none";
-        var next = q(".vpre-qnext", el);
-        next.style.display = "block";
-        next.textContent = (z.idx+1 >= z.items.length) ? "查看成绩" : "下一题";
-      });
+    q("[data-submit]", el).addEventListener("click", function(){
+      if(z.locked || z.picked.length < it.holes.length){ return; }
+      z.locked = true;
+      var typed = z.picked.map(function(t){ return it.tiles[t]; }).join("").toLowerCase();
+      var ok = typed === it.fills.join("");
+      it.correct = ok; it.chosen = typed;
+      settleWrongBookNow(phone, it);
+      if(ok){ z.score += 1; sfx.play("right"); } else { sfx.play("wrong"); }
+      draw();
+      var reveal = q("[data-reveal]", el);
+      reveal.style.display = "block";
+      reveal.innerHTML = ok ? "补全正确 ✅" : ("正确拼写：<b>" + it.answer + "</b>");
+      var fb = q("[data-fb]", el);
+      fb.textContent = ok ? "✅ 补全正确！" : "❌ 记下来了，稍后再练";
+      fb.className = "vpre-feedback " + (ok ? "ok" : "no");
+      q("[data-submit]", el).style.display = "none";
+      q("[data-undo]", el).style.display = "none";
+      var next = q(".vpre-qnext", el);
+      next.style.display = "block";
+      next.textContent = (z.idx+1 >= z.items.length) ? "查看成绩" : "下一题";
     });
     q(".vpre-qnext", el).addEventListener("click", function(){ sfx.play("tap"); z.idx += 1; renderQuiz(phone); });
     q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); goQuizBack(phone); });
-    clearTimeout(phone.__speakTimer);
-    clearTimeout(phone.__speechFallback);
-    if(phone.__audio){ try{ phone.__audio.pause(); }catch(e2){} }
-    speak(it.word, phone);
+    draw();
   }
   function renderDictate(phone){
     var z = phone.__quiz, el = q(".vpre-quiz", phone);
@@ -2323,7 +2207,7 @@ body{
     var el = q(".vpre-quiz", phone);
     if(!el) return;
     if(z.idx >= z.items.length){ renderResult(phone); return; }
-    if(z.type === "read"){ renderRead(phone); return; }
+    if(z.type === "fill"){ renderFill(phone); return; }
     if(z.type === "dictate"){ renderDictate(phone); return; }
     var it = z.items[z.idx];
     var optsHtml = it.opts.map(function(o){
@@ -2583,7 +2467,7 @@ body{
   }
   var GRADE_BOOKS = {g7:["七上","七下"], g8:["八上","八下"], g9:["九上","九下"]};
   var GROUP_SIZE = 20;
-  var GROUP_MODES = [["word","📖 看词选义"],["spell","✏️ 拼写闯关"],["read","🎤 跟读打卡"],["dictate","📝 默写闯关"]];
+  var GROUP_MODES = [["word","📖 看词选义"],["spell","✏️ 拼写闯关"],["fill","🔤 缺字母补全"],["dictate","📝 默写闯关"]];
   function groupSeed(book, unitName){
     PROG.groupSeed = PROG.groupSeed || {};
     var b = PROG.groupSeed[book] || (PROG.groupSeed[book] = {});
@@ -2670,6 +2554,21 @@ body{
   function groupWords(phone, gi){
     var g = unitGroupsOf(phone)[gi] || [];
     return g.map(function(w){ return {en:w[0], zh:w[1]}; });
+  }
+  // 玩法改版：原「跟读打卡(read)」已替换为「缺字母补全(fill)」
+  // 老进度里做过跟读的组，自动算作补全已完成，避免进度回退
+  function migrateGroupModes(prog){
+    try{
+      var g = (prog || {}).groups || {};
+      for(var b in g){
+        for(var u in g[b]){
+          for(var k in g[b][u]){
+            var gp = g[b][u][k];
+            if(gp && gp.read && !gp.fill){ gp.fill = 1; }
+          }
+        }
+      }
+    }catch(e){}
   }
   function groupProgress(book, unitName, gi){
     PROG.groups = PROG.groups || {};
@@ -2771,7 +2670,7 @@ body{
         })()
       + '<div class="vpre-ud-stat">共 <b>' + unit.words.length + '</b> 词 · 分 <b>' + groups.length + '</b> 组（每组约 20 词）<br>'
       + '已完成 <b>' + doneGroups + '/' + groups.length + '</b> 组 · 已掌握 <b>' + learned + '/' + unit.words.length + '</b><br>'
-      + '<span style="color:var(--vp-muted)">建议每个组内的顺序：① 看词选义 → ② 拼写闯关 → ③ 跟读打卡 → ④ 默写闯关（由易到难）<br>各组之间可以任意顺序练习，每组 4 个玩法都做完即算完成</span></div>';
+      + '<span style="color:var(--vp-muted)">建议每个组内的顺序：① 看词选义 → ② 缺字母补全 → ③ 拼写闯关 → ④ 默写闯关（由易到难）<br>各组之间可以任意顺序练习，每组 4 个玩法都做完即算完成</span></div>';
     groups.forEach(function(g, gi){
       var gp = groupProgress(s.book, unit.name, gi);
       var complete = isGroupComplete(s.book, unit.name, gi);
