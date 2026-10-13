@@ -256,6 +256,25 @@ body{
 .vpre-placeholder{background:var(--vp-card); border:1.5px dashed #d8dde7; border-radius:15px; padding:24px 14px; text-align:center; font-size:12.5px; color:var(--vp-muted);}
 
 /* ===== 触摸设备：点击目标放大（手指比鼠标粗） ===== */
+/* ===== 横屏平板（华为/安卓 Pad、iPad 横着拿）：放宽外框、压缩练习页高度，一屏能练完 ===== */
+@media (orientation: landscape) and (min-width: 760px){
+  .vpre-phone, .vpre-screen{max-width: 980px;}
+  .vpre-body{padding:12px 22px calc(96px + env(safe-area-inset-bottom,0px)) !important;}
+  .vpre-quiz-head{margin:0 0 8px;}
+  .vpre-quiz-progress{margin-bottom:8px;}
+  .vpre-qcard{padding:18px 18px 16px !important;}
+  .vpre-qword{font-size:24px;}
+  .vpre-qopts{gap:9px; margin-top:12px;}
+  .vpre-qopt{padding:11px 12px 11px 42px; font-size:12.5px;}
+  .vpre-qnext{margin-top:10px; padding:11px 0;}
+  .vpre-mole-card{padding:10px 12px !important;}
+  .vpre-mole-zh{font-size:19px;}
+  .vpre-mole-grid{gap:8px; margin-top:8px;}
+  .vpre-mole-hole{min-height:54px;}
+  .vpre-report-stats{grid-template-columns:repeat(4,1fr);}
+  .vpre-fill-word{font-size:26px !important;}
+  .vpre-write-input{font-size:20px !important;}
+}
 @media (pointer:coarse){
   .vpre-fill-tile{min-width:52px; height:54px;}
   .vpre-fill-slot{min-width:30px; height:40px;}
@@ -3061,7 +3080,7 @@ body{
   // 蛛网图：六册掌握度（每轴 = 该册已掌握占比）
   function drawRadarChart(box, rows){
     if(!box || !rows || !rows.length){ return; }
-    var W = Math.max(280, Math.min(420, box.clientWidth || 320)), H = 300;
+    var W = Math.max(280, Math.min(innerWidth >= 900 ? 660 : 420, box.clientWidth || 320)), H = 300;
     var ctx = chartCanvas(box, W, H);
     var accent = chartColor();
     var n = rows.length, cx = W/2, cy = H/2 + 8;
@@ -3120,7 +3139,7 @@ body{
       days.push({key:key, label:(d.getMonth()+1) + "/" + d.getDate(), v:(hist[key] && hist[key].words) || 0});
     }
     var maxV = Math.max(10, Math.max.apply(null, days.map(function(d){ return d.v; })));
-    var W = Math.max(280, Math.min(420, box.clientWidth || 320)), H = 200;
+    var W = Math.max(280, Math.min(innerWidth >= 900 ? 660 : 420, box.clientWidth || 320)), H = 200;
     var ctx = chartCanvas(box, W, H);
     var accent = chartColor();
     var L = 34, Rr = 12, T = 24, B = 30;
