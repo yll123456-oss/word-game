@@ -231,9 +231,18 @@
       method:"POST",
       headers:{"Content-Type":"application/json", "apikey":SUPABASE.key},
       body:JSON.stringify({email:email, password:password})
+    }).catch(function(){
+      throw new Error("连不上 Supabase（网络被拦或断网）。换个网络试试，比如手机热点");
     }).then(function(r){
-      if(!r.ok){ throw new Error(r.status === 400 ? "邮箱或密码不对" : ("登录失败 " + r.status)); }
-      return r.json();
+      return r.json().catch(function(){ return {}; }).then(function(d){
+        if(r.ok){ return d; }
+        var raw = d.msg || d.error_description || d.message || d.error || ("HTTP " + r.status);
+        var msg = raw;
+        if(/confirm/i.test(raw)){ msg = "这个邮箱还没激活 —— 去 Supabase → Authentication → Users，勾上 Auto Confirm User（或删掉重建一个账号）"; }
+        else if(/invalid/i.test(raw)){ msg = "邮箱或密码不对（注意大小写；忘了就在 Supabase → Users 里改密码）"; }
+        else if(/rate|too many/i.test(raw)){ msg = "登录尝试太频繁，等 1 分钟再试"; }
+        throw new Error(msg + "（原始提示：" + raw + "）");
+      });
     }).then(function(d){
       saveSession({access_token:d.access_token, refresh_token:d.refresh_token,
                    exp:Date.now() + (d.expires_in || 3600) * 1000});
