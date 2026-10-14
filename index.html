@@ -1067,15 +1067,16 @@ body{
   var API_BASE = "";
   function cloudOn(){ return !!(SUPABASE.url && SUPABASE.key); }
   function postBackend(kind, payload){
+    // kind: register（注册）/ answer（每题实时上报）/ report（一整组练完上报）
+    var localPath = {register:"/api/register", answer:"/api/answer", report:"/api/report"}[kind] || "/api/report";
     if(!cloudOn()){
-      var localPath = (kind === "register") ? "/api/register" : "/api/report";
       return fetch(apiUrl(localPath), {
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify(payload)
       });
     }
-    var rpc = (kind === "register") ? "register_student" : "report_practice";
+    var rpc = {register:"register_student", answer:"report_answer", report:"report_practice"}[kind] || "report_practice";
     return fetch(SUPABASE.url.replace(/\/+$/, "") + "/rest/v1/rpc/" + rpc, {
       method:"POST",
       headers:{
@@ -1152,6 +1153,33 @@ body{
     try{ localStorage.setItem("vpreUploadQueue", "[]"); }catch(e){}
     q.forEach(function(p){ submitReport(p); });
   }
+  // 逐题实时上报（没网就排队，下次打开自动补传）
+  function queueAnswer(payload){
+    try{
+      var q = JSON.parse(localStorage.getItem("vpreAnswerQueue") || "[]");
+      q.push(payload);
+      if(q.length > 200){ q = q.slice(-200); }
+      localStorage.setItem("vpreAnswerQueue", JSON.stringify(q));
+    }catch(e){}
+  }
+  function submitAnswer(payload){
+    try{
+      return postBackend("answer", payload).then(function(r){
+        // 400/404 = 服务端没这个接口或参数不对（比如还没跑新版 SQL）：不再重试，返回 false，
+        // 这样整组上报时会让服务端兜底更新一次词表，错题本不会丢词
+        if(r.status === 400 || r.status === 404){ return false; }
+        if(!r.ok){ throw new Error("bad status"); }
+        return true;
+      }).catch(function(){ queueAnswer(payload); return false; });
+    }catch(e){ queueAnswer(payload); return Promise.resolve(false); }
+  }
+  function flushAnswerQueue(){
+    var q = [];
+    try{ q = JSON.parse(localStorage.getItem("vpreAnswerQueue") || "[]"); }catch(e){ q = []; }
+    if(!q.length){ return; }
+    try{ localStorage.setItem("vpreAnswerQueue", "[]"); }catch(e){}
+    q.forEach(function(p){ submitAnswer(p); });
+  }
   function buildReport(phone, z){
     var s = state[phone.__id];
     var details = [];
@@ -1178,6 +1206,8 @@ body{
     return {
       sid: STUDENT ? STUDENT.sid : "",
       name: STUDENT ? STUDENT.name : "",
+      // 只有这一组每一题都实时上报成功了，才让服务端跳过词表更新（否则让整组上报兜底补一次，保证错题本不丢词）
+      wordsReported: !!PER_ANSWER_TYPES[z.type] && !z.answerFail,
       mode: TYPE_NAME[z.type] || "",
       book: s.book,
       unit: unitWords(phone).name,
@@ -1236,6 +1266,62 @@ body{
     else { wb[k] = (wb[k] || 0) + 1; }
     saveProgress();
   }
+  // 只有第一页"学习"里的组练习需要逐题上报 + 断点续做（闯关小游戏不参与）
+  var PER_ANSWER_TYPES = {word:1, spell:1, fill:1, dictate:1, wrong:1};
+  function rvText(r){
+    if(!r){ return ""; }
+    var n = (r.items || []).length;
+    return (TYPE_NAME[r.type] || "练习") + " 第 " + Math.min((r.idx||0)+1, n) + "/" + n + " 题";
+  }
+  // 每题答完：记下断点（下次从这题继续）
+  function saveResume(phone, z){
+    try{
+      if(!z || !PER_ANSWER_TYPES[z.type] || !phone.__quizGroup){ return; }
+      var s = state[phone.__id];
+      PROG.resume = {
+        book: s.book, unit: unitWords(phone).name, gi: phone.__quizGroup.gi,
+        type: z.type, idx: z.idx + 1, score: z.score || 0,
+        items: z.items, at: Date.now()
+      };
+      saveProgress();
+    }catch(e){}
+  }
+  function clearResume(){
+    try{ if(PROG.resume){ delete PROG.resume; saveProgress(); } }catch(e){}
+  }
+  // 每题答完：立刻把这一题的结果报到老师端（错题本实时更新）
+  function reportAnswerNow(phone, it, z){
+    saveResume(phone, z);
+    if(!STUDENT || !z || !PER_ANSWER_TYPES[z.type]){ return; }
+    var s = state[phone.__id];
+    var en = (z.type === "word" || z.type === "wrong") ? it.prompt : it.answer;
+    submitAnswer({
+      sid: STUDENT.sid, name: STUDENT.name,
+      word: String(en || ""),
+      meaning: zhOf(en) || "",
+      chosen: String(it.chosen || ""),
+      ok: it.correct ? 1 : 0,
+      module: TYPE_NAME[z.type] || "",
+      book: s.book, unit: unitWords(phone).name,
+      groupNo: phone.__quizGroup ? (phone.__quizGroup.gi + 1) : null
+    }).then(function(ok){ if(!ok){ z.answerFail = (z.answerFail || 0) + 1; } });
+  }
+  // 首页"继续上次练习"：回到那个册/单元/组/玩法，并从断点继续
+  function resumePractice(phone){
+    var r = PROG.resume;
+    if(!r){ return false; }
+    var s = state[phone.__id];
+    if(r.book){ s.book = r.book; }
+    var bd = bookData(s.book);
+    var ui = 0;
+    (bd.units || []).forEach(function(u, i){ if(u.name === r.unit){ ui = i; } });
+    s.unit = ui;
+    if(PER_ANSWER_TYPES[r.type] && typeof r.gi === "number"){
+      openQuiz(phone, r.type, ui, r.gi);   // openQuiz 里会自动按断点恢复
+      return true;
+    }
+    return false;
+  }
   function recordQuizResult(phone){
     tickDay();
     var z = phone.__quiz; if(!z) return;
@@ -1283,6 +1369,7 @@ body{
       hKeys.sort();
       hKeys.slice(0, hKeys.length - 60).forEach(function(k){ delete PROG.hist[k]; });
     }
+    clearResume();
     saveProgress();
     try{ markGroupDone(phone, z.type); }catch(e){}
     if(STUDENT){
@@ -1531,7 +1618,19 @@ body{
         return { prompt:x.en, sub:null, opts:shuffle([x.zh].concat(d)), answer:x.zh, speak:x.en, optsAreWords:true };
       });
     }
-    phone.__quiz = { type:type, idx:0, score:0, items:items, start:Date.now() };
+    // 断点续做：同一册/单元/组/玩法，且上次没练完 → 从上次那题继续
+    var rv = PROG.resume;
+    var startIdx = 0, startScore = 0;
+    if(rv && PER_ANSWER_TYPES[type] && rv.type === type && rv.items && rv.items.length &&
+       typeof groupIdx === "number" && rv.gi === groupIdx &&
+       rv.book === state[phone.__id].book && rv.unit === unitWords(phone).name){
+      items = rv.items;
+      startIdx = Math.min(rv.idx || 0, items.length);
+      startScore = rv.score || 0;
+      if(startIdx > 0){ toast(phone, "从上次停下的地方继续：第 " + (startIdx+1) + " / " + items.length + " 题"); }
+    }
+    phone.__quiz = { type:type, idx:startIdx, score:startScore, items:items, start:Date.now() };
+    if(startIdx > 0){ saveResume(phone, phone.__quiz); }
     renderQuiz(phone);
     setView(phone, "quiz");
   }
@@ -2378,6 +2477,7 @@ body{
       var ok = typed === it.fills.join("");
       it.correct = ok; it.chosen = typed;
       settleWrongBookNow(phone, it);
+      reportAnswerNow(phone, it, z);
       if(ok){ z.score += 1; sfx.play("right"); } else { sfx.play("wrong"); }
       draw();
       var reveal = q("[data-reveal]", el);
@@ -2422,6 +2522,7 @@ body{
       var ok = matchAnswer(val, it.answer);
       it.correct = ok; it.chosen = val;
       settleWrongBookNow(phone, it);
+      reportAnswerNow(phone, it, z);
       if(ok){ z.score += 1; sfx.play("right"); } else { sfx.play("wrong"); }
       input.disabled = true;
       input.classList.add(ok ? "is-right" : "is-wrong");
@@ -2487,6 +2588,7 @@ body{
         it.correct = isRight;
         it.chosen = btn.textContent;
         settleWrongBookNow(phone, it);
+      reportAnswerNow(phone, it, z);
         sfx.play(isRight ? "right" : "wrong");
         qa(".vpre-qopt", el).forEach(function(b){
           b.disabled = true;
@@ -2713,6 +2815,7 @@ body{
     });
   }
   function runAction(phone, act, unitIdx){
+    if(act === "resume"){ if(!resumePractice(phone)){ toast(phone, "没有未完成的练习"); } return; }
     if(act === "open-report"){ renderReport(phone); setView(phone, "report"); return; }
     if(act === "open-unit"){ renderUnitDetail(phone); setView(phone, "unit"); return; }
 
@@ -3031,11 +3134,22 @@ body{
       subEl.textContent = "进行中：第 " + (giNow+1) + " 组 · 本组完成 " + groupDoneCount(gpNow) + "/4 个玩法 · 已掌握 " + learned + "/" + total;
     }
     var ctaEl = q(".vpre-task-cta", phone);
-    if(ctaEl){ ctaEl.textContent = "继续学习 → " + s.book + " " + uw.name + " · 第 " + (giNow+1) + " 组"; }
+    if(ctaEl){
+      if(PROG.resume && PROG.resume.idx > 0 && rvText(PROG.resume)){
+        ctaEl.setAttribute("data-action", "resume");
+        ctaEl.textContent = "▶ 继续上次练习：" + rvText(PROG.resume);
+      } else {
+        ctaEl.setAttribute("data-action", "open-unit");
+        ctaEl.textContent = "继续学习 → " + s.book + " " + uw.name + " · 第 " + (giNow+1) + " 组";
+      }
+    }
     var secNote = q(".vpre-sec-note", phone);
     if(secNote){ secNote.textContent = s.book + " · " + book.units.reduce(function(a,u){ return a+u.n; },0) + " 词"; }
     var taskCta = q(".vpre-task-cta", phone);
-    if(taskCta){ taskCta.textContent = "继续学习 → " + unitLabel(phone) + " · 第 " + (firstOpenGroup(phone)+1) + " 组"; }
+    if(taskCta && !(PROG.resume && PROG.resume.idx > 0)){
+      taskCta.setAttribute("data-action", "open-unit");
+      taskCta.textContent = "继续学习 → " + unitLabel(phone) + " · 第 " + (firstOpenGroup(phone)+1) + " 组";
+    }
     renderWrong(phone);
     renderStageMap(phone);
   }
@@ -4060,6 +4174,7 @@ body{
   if(STUDENT){ hideLogin(); }
   flushQueue();
   flushRegQueue();
+  flushAnswerQueue();
   if(STUDENT){ hideLogin(); } else { showLogin(); }
   loadBook(currentBookName(), function(){
     if(initDemo()){ return; }
