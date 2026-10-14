@@ -680,6 +680,7 @@ body{
 
             <button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-install="1">📲 安装到手机 / 电脑桌面</button>
             <button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-action="open-report">📊 查看学习报告</button>
+            <button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-action="wipe-local" style="color:#e5484d;">🧹 清空本机数据（重新登录）</button>
             <div class="vpre-note">进度保存在本机浏览器，换设备/换浏览器不通用；家长可查看学习报告</div>
           </div>
           <div class="vpre-view" data-view="report">
@@ -823,16 +824,39 @@ body{
   var LEGACY_PROGRESS_KEY = "vpreProgress";
   // 重置本机数据：浏览器打开 http://127.0.0.1:8140/?reset=1 即可（会二次确认）
   // 清空内容：登录状态、学习进度、错题本、闯关星星、统计与练习历史、词库缓存；然后回到登录页
+  // 清空本机所有学习数据（"我的"页的按钮和 ?reset=1 都走这里）
+  function wipeLocalData(skipConfirm){
+    var ok = true;
+    if(!skipConfirm){
+      try{ ok = window.confirm("清空这台设备上的所有学习数据？\n\n会删除：登录状态、学习进度、错题本、闯关星星、统计与练习历史、词库缓存。\n清空后会回到登录页。\n\n（老师端的云端数据不受影响）"); }
+      catch(e){ ok = true; }
+    }
+    if(!ok){ return false; }
+    try{
+      var ks = [];
+      for(var i=0;i<localStorage.length;i++){
+        var k = localStorage.key(i);
+        if(k && k.indexOf("vpre") === 0){ ks.push(k); }
+      }
+      ks.forEach(function(k){ localStorage.removeItem(k); });
+    }catch(e){}
+    try{
+      if(window.caches && caches.keys){ caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
+    }catch(e){}
+    try{
+      if(navigator.serviceWorker && navigator.serviceWorker.getRegistrations){
+        navigator.serviceWorker.getRegistrations().then(function(rs){ rs.forEach(function(r){ r.unregister(); }); });
+      }
+    }catch(e){}
+    try{ window.alert("本机数据已清空，即将回到登录页。"); }catch(e){}
+    try{ location.replace(location.pathname); }catch(e){ location.reload(); }
+    return true;
+  }
   function maybeReset(){
     var on = /[?&]reset=1/i.test(location.search);
     if(!on){ return false; }
-    var ok = true;
-    if(!/[?&]sure=1/i.test(location.search)){          // 加 &sure=1 可跳过确认（自动化用）
-      try{ ok = window.confirm("清空本机所有学习数据？\n\n会删除：登录状态、学习进度、错题本、闯关星星、统计与练习历史、词库缓存。\n清空后会回到登录页。"); }
-      catch(e){ ok = true; }
-    }
     try{ history.replaceState(null, "", location.pathname); }catch(e){}
-    if(!ok){ return false; }
+    return wipeLocalData(/[?&]sure=1/i.test(location.search));
     try{
       var ks = [];
       for(var i=0;i<localStorage.length;i++){
@@ -858,6 +882,28 @@ body{
     return true;
   }
   maybeReset();
+
+  // ===== 数据版本号：值一变，学生下次打开就自动清掉本机的登录/进度/错题本/待传队列 =====
+  // 用途：需要"全体学生从头开始"时（比如换学期、清库），只要改这里的值，学生下次打开就是全新状态。
+  // 注意：不要随手改这个值，改一次等于把所有学生本机数据清空一次。
+  var APP_DATA_VERSION = "2026-10-14-clean";
+  (function enforceDataVersion(){
+    try{
+      if(localStorage.getItem("vpreDataVersion") === APP_DATA_VERSION){ return; }
+      var kill = [];
+      for(var i=0;i<localStorage.length;i++){
+        var k = localStorage.key(i);
+        if(!k){ continue; }
+        if(k.indexOf("vpreProgress") === 0 || k === "vpreStudent" || k === "vpreUploadQueue" ||
+           k === "vpreRegQueue" || k === "vpreAnswerQueue" || k === "vpreLegacyAdopted"){
+          kill.push(k);
+        }
+      }
+      kill.forEach(function(k){ try{ localStorage.removeItem(k); }catch(e){} });
+      localStorage.setItem("vpreDataVersion", APP_DATA_VERSION);
+    }catch(e){}
+  })();
+
   var STUDENT_KEY = "vpreStudent";
   function loadStudent(){
     try{
@@ -2815,6 +2861,7 @@ body{
     });
   }
   function runAction(phone, act, unitIdx){
+    if(act === "wipe-local"){ wipeLocalData(false); return; }
     if(act === "resume"){ if(!resumePractice(phone)){ toast(phone, "没有未完成的练习"); } return; }
     if(act === "open-report"){ renderReport(phone); setView(phone, "report"); return; }
     if(act === "open-unit"){ renderUnitDetail(phone); setView(phone, "unit"); return; }

@@ -72,6 +72,7 @@
       <a class="btn ghost" href="/api/export.csv" id="btn-csv">导出统计(CSV)</a>
       <button id="btn-print-list" type="button">打印学生统计</button>
       <button class="ghost" id="btn-logout" type="button" style="display:none;">退出登录</button>
+      <button class="ghost" id="btn-clear-all" type="button" style="display:none; color:#e5484d;">🧹 清空学生数据</button>
     </div>
   </div>
 
@@ -310,6 +311,30 @@
     a.click();
     setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
   }
+  // 一键清空所有学生数据（云端：调用只有老师能用的 admin_clear_data；本机：/api/clear-all）
+  function clearAllData(){
+    var where = CLOUD ? "云端（Supabase）" : "本机";
+    if(!confirm("确定清空" + where + "的所有学生数据吗？\n\n会删除：学生名单、练习记录、题级明细、错词本（掌握度）。\n不会删除：老师账号、表结构。\n\n删掉后无法恢复。")){ return; }
+    var p = CLOUD ? sbPost("admin_clear_data", {}) : apiPost("/api/clear-all", {});
+    p.then(function(){
+      alert("已清空" + where + "的所有学生数据 ✅");
+      S.summary = null; S.detail = null; S.current = null;
+      q("#detail").innerHTML = "";
+      load();
+    }).catch(function(e){
+      var m = String((e && e.message) || e);
+      if(m === "NO_SESSION"){ needLogin(); return; }
+      if(/404|find the function|not exist/i.test(m)){
+        alert("云端还没有\"一键清空\"函数：请在 Supabase 的 SQL Editor 里重新跑一遍最新的 supabase/schema.sql（幂等，不会丢数据），再点这个按钮。");
+        return;
+      }
+      alert("清空失败：" + m);
+    });
+  }
+  function apiPost(path, body){
+    return fetch(path, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body || {})})
+      .then(function(r){ if(!r.ok){ throw new Error("HTTP " + r.status); } return r.json(); });
+  }
   function needLogin(){
     q("#login").style.display = "block";
     q("#btn-logout").style.display = "none";
@@ -374,6 +399,7 @@
         + "统计日期 " + d.date + " · 今日练习 " + d.totals.records + " 次";
       q("#login").style.display = "none";
       q("#btn-logout").style.display = CLOUD ? "inline-block" : "none";
+      q("#btn-clear-all").style.display = "inline-block";
       renderTable();
     }).catch(function(e){
       if(isNoSession(e)){ needLogin(); return; }
@@ -655,7 +681,8 @@
         .catch(function(e){ q("#li-msg").textContent = (e && e.message) || "登录失败"; });
       return;
     }
-    if(t.id === "btn-logout"){ saveSession(null); S.summary = null; S.detail = null; q("#detail").innerHTML = ""; q("#tbody").innerHTML = ""; needLogin(); return; }
+    if(t.id === "btn-clear-all"){ clearAllData(); return; }
+    if(t.id === "btn-logout"){ saveSession(null); S.summary = null; S.detail = null; q("#detail").innerHTML = ""; q("#tbody").innerHTML = ""; q("#btn-clear-all").style.display = "none"; needLogin(); return; }
     if(t.id === "btn-toggle-phone"){ S.showFull = !S.showFull; t.textContent = S.showFull ? "隐藏学号" : "显示完整学号"; renderTable(); }
     if(t.id === "btn-print-list"){ printList(); }
     if(t.id === "btn-csv"){ if(CLOUD || DEMO){ ev.preventDefault(); exportCsv(); } }
