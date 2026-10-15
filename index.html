@@ -556,10 +556,7 @@ body{
 .vpre-login-btn{width:100%; border:0; background:var(--vp-blue); color:#fff; font-size:15px; font-weight:700; padding:14px; border-radius:14px; cursor:pointer; box-shadow:0 8px 18px rgba(59,91,219,.28);}
 .vpre-login-btn:active{transform:scale(.99);}
 .vpre-login-note{font-size:11px; color:var(--vp-muted); line-height:1.6; margin-top:12px;}
-.vpre-login-last{margin:0 0 12px;}
-.vpre-login-hist{width:100%; border:1.5px solid var(--vp-line); background:#fff; color:var(--vp-ink); font-size:14px; font-weight:600; padding:12px 12px; border-radius:14px; margin-bottom:6px; -webkit-appearance:none; appearance:none; background-image:linear-gradient(45deg,transparent 50%,var(--vp-muted) 50%),linear-gradient(135deg,var(--vp-muted) 50%,transparent 50%); background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%; background-size:5px 5px,5px 5px; background-repeat:no-repeat;}
-.vpre-login-hist:focus{outline:none; border-color:var(--vp-blue);}
-.vpre-login-histsub{display:block; font-size:11px; color:var(--vp-muted); margin:0 0 8px 2px; line-height:1.5;}
+.vpre-login-histtip{font-size:11px; color:var(--vp-muted); line-height:1.5; margin:-2px 0 6px 2px;}
 .vpre-login-lastbtn{width:100%; border:1.5px dashed var(--vp-blue); background:var(--vp-blue-soft); color:var(--vp-blue); font-size:13.5px; font-weight:700; padding:12px 10px; border-radius:14px; cursor:pointer; line-height:1.5;}
 .vpre-login-lastbtn small{display:block; font-weight:400; font-size:11px; color:var(--vp-muted); margin-top:2px;}
 .vpre-login-lastbtn:active{transform:scale(.99);}
@@ -587,11 +584,13 @@ body{
             <div class="vpre-login-logo">🦉</div>
             <div class="vpre-login-title">单词大冒险</div>
             <div class="vpre-login-sub">输入学号和姓名，开始今天的单词闯关<br>第一次填写会自动创建账号，用于记录学习情况</div>
-            <div class="vpre-login-last" id="vpre-login-last" style="display:none;"></div>
             <label class="vpre-login-label" for="vpre-login-sid">学号</label>
-            <input class="vpre-login-input" id="vpre-login-sid" type="text" inputmode="text" maxlength="20" placeholder="例如 20240101" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="next">
+            <input class="vpre-login-input" id="vpre-login-sid" type="text" inputmode="text" maxlength="20" placeholder="老学员点这里选自己的学号" list="vpre-sid-list" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="next">
             <label class="vpre-login-label" for="vpre-login-name">姓名</label>
-            <input class="vpre-login-input" id="vpre-login-name" type="text" placeholder="填写你的姓名" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done">
+            <input class="vpre-login-input" id="vpre-login-name" type="text" placeholder="老学员点这里选自己的姓名" list="vpre-name-list" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done">
+            <datalist id="vpre-sid-list"></datalist>
+            <datalist id="vpre-name-list"></datalist>
+            <div class="vpre-login-histtip" id="vpre-login-histtip" style="display:none;"></div>
             <div class="vpre-login-err" id="vpre-login-err"></div>
             <button class="vpre-login-btn" id="vpre-login-btn" type="button">注册 / 进入练习</button>
             <div class="vpre-login-hint"><b>提示</b><span>登录状态会保存在本机，下次打开直接进入；换同学使用请点"我的 → 切换账号"。</span></div>
@@ -890,8 +889,8 @@ body{
     return true;
   }
   maybeReset();
-  // 登录页渲染时带出"上次登录"入口
-  try{ renderLoginLast(); }catch(e){}
+  // 登录页渲染时把"老学员候选"填进两个输入框的下拉
+  try{ renderLoginHistory(); }catch(e){}
 
   // ===== 数据版本号：值一变，学生下次打开就自动清掉本机的登录/进度/错题本/待传队列 =====
   // 用途：需要"全体学生从头开始"时（比如换学期、清库），只要改这里的值，学生下次打开就是全新状态。
@@ -999,47 +998,59 @@ body{
       localStorage.setItem("vpreLastStudent", JSON.stringify({sid:sid, name:name}));
     }catch(e){}
   }
-  function renderLoginLast(){
-    var box = document.getElementById("vpre-login-last");
-    if(!box){ return; }
+  function renderLoginHistory(){
+    var tip = document.getElementById("vpre-login-histtip");
+    var selSid = document.getElementById("vpre-sid-list");
+    var selName = document.getElementById("vpre-name-list");
+    if(!selSid || !selName){ return; }
     var hist = loadHistory();
-    if(!hist.length){ box.style.display = "none"; box.innerHTML = ""; return; }
-    box.style.display = "block";
-    var opts = '<option value="">选择自己（这台设备记住 ' + hist.length + ' 人）</option>'
-      + hist.map(function(h, i){ return '<option value="' + i + '">' + h.name + ' · ' + maskSid(h.sid) + '</option>'; }).join("");
-    box.innerHTML =
-        '<select class="vpre-login-hist" id="vpre-login-hist">' + opts + '</select>'
-      + '<small class="vpre-login-histsub">点一下选自己，会自动填好学号和姓名；名单里没有你就在下面自己填</small>'
-      + '<button class="vpre-login-lastbtn" type="button" id="vpre-login-lastbtn">'
-      +   '上次是 ' + hist[0].name + '（' + maskSid(hist[0].sid) + '），点这里直接进入'
-      + '</button>';
-    var sel = document.getElementById("vpre-login-hist");
-    if(sel){
-      sel.addEventListener("change", function(){
-        var i = parseInt(sel.value, 10);
-        if(isNaN(i) || !hist[i]){ return; }
-        var sEl = document.getElementById("vpre-login-sid"), nEl = document.getElementById("vpre-login-name"), errEl = document.getElementById("vpre-login-err");
-        if(sEl){ sEl.value = hist[i].sid; }
-        if(nEl){ nEl.value = hist[i].name; }
-        if(errEl){ errEl.textContent = ""; }
-        sfx.play("tap");
-        var go = document.getElementById("vpre-login-btn");
-        if(go){ go.focus(); }
-      });
+    if(!hist.length){
+      if(tip){ tip.style.display = "none"; tip.textContent = ""; }
+      return;
     }
-    var btn = document.getElementById("vpre-login-lastbtn");
-    if(btn){
-      btn.addEventListener("click", function(){
-        sfx.play("tap");
-        var errEl = document.getElementById("vpre-login-err");
-        applyLogin(validateStudent(hist[0].sid, hist[0].name), errEl);
-      });
+    // 学号下拉：值=学号，说明=姓名；姓名下拉反过来
+    selSid.innerHTML = hist.map(function(h){
+      return '<option value="' + String(h.sid).replace(/"/g, '&quot;') + '" label="' + String(h.name).replace(/"/g, '&quot;') + '">' + h.name + '</option>';
+    }).join("");
+    selName.innerHTML = hist.map(function(h){
+      return '<option value="' + String(h.name).replace(/"/g, '&quot;') + '" label="' + String(h.sid).replace(/"/g, '&quot;') + '">' + maskSid(h.sid) + '</option>';
+    }).join("");
+    if(tip){
+      tip.style.display = "block";
+      tip.textContent = "老学员：点学号或姓名框，会列出这台设备用过的同学，选自己就行；新学员直接填。";
+    }
+    // 选了学号自动补姓名 / 选了姓名自动补学号（保证是同一个人）
+    var sidEl = document.getElementById("vpre-login-sid");
+    var nameEl = document.getElementById("vpre-login-name");
+    function pairBySid(){
+      var v = String(sidEl.value || "").trim().toLowerCase();
+      for(var i=0;i<hist.length;i++){
+        if(String(hist[i].sid).toLowerCase() === v){ nameEl.value = hist[i].name; return; }
+      }
+    }
+    function pairByName(){
+      var v = String(nameEl.value || "").trim();
+      for(var i=0;i<hist.length;i++){
+        if(String(hist[i].name) === v){ sidEl.value = hist[i].sid; return; }
+      }
+    }
+    if(sidEl && !sidEl.__histBound){
+      sidEl.__histBound = 1;
+      sidEl.addEventListener("input", pairBySid);
+      sidEl.addEventListener("change", pairBySid);
+      sidEl.addEventListener("blur", pairBySid);
+    }
+    if(nameEl && !nameEl.__histBound){
+      nameEl.__histBound = 1;
+      nameEl.addEventListener("input", pairByName);
+      nameEl.addEventListener("change", pairByName);
+      nameEl.addEventListener("blur", pairByName);
     }
   }
   function showLogin(){
     var el = document.getElementById("vpre-login");
     if(el){ el.classList.remove("is-hidden"); }
-    renderLoginLast();
+    renderLoginHistory();
   }
   function hideLogin(){
     var el = document.getElementById("vpre-login");
