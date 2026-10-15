@@ -557,6 +557,9 @@ body{
 .vpre-login-btn:active{transform:scale(.99);}
 .vpre-login-note{font-size:11px; color:var(--vp-muted); line-height:1.6; margin-top:12px;}
 .vpre-login-last{margin:0 0 12px;}
+.vpre-login-hist{width:100%; border:1.5px solid var(--vp-line); background:#fff; color:var(--vp-ink); font-size:14px; font-weight:600; padding:12px 12px; border-radius:14px; margin-bottom:6px; -webkit-appearance:none; appearance:none; background-image:linear-gradient(45deg,transparent 50%,var(--vp-muted) 50%),linear-gradient(135deg,var(--vp-muted) 50%,transparent 50%); background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%; background-size:5px 5px,5px 5px; background-repeat:no-repeat;}
+.vpre-login-hist:focus{outline:none; border-color:var(--vp-blue);}
+.vpre-login-histsub{display:block; font-size:11px; color:var(--vp-muted); margin:0 0 8px 2px; line-height:1.5;}
 .vpre-login-lastbtn{width:100%; border:1.5px dashed var(--vp-blue); background:var(--vp-blue-soft); color:var(--vp-blue); font-size:13.5px; font-weight:700; padding:12px 10px; border-radius:14px; cursor:pointer; line-height:1.5;}
 .vpre-login-lastbtn small{display:block; font-weight:400; font-size:11px; color:var(--vp-muted); margin-top:2px;}
 .vpre-login-lastbtn:active{transform:scale(.99);}
@@ -972,32 +975,64 @@ body{
       renderWrong(ph);
     });
   }
-  // 记住"上次登录的人"，方便下次一键进入（换同学时仍可改输入框）
-  function saveLastStudent(st){
-    try{ if(st && st.sid && st.name){ localStorage.setItem("vpreLastStudent", JSON.stringify({sid:String(st.sid), name:String(st.name)})); } }catch(e){}
-  }
-  function loadLastStudent(){
+  // 记住这台设备用过的学生（下拉列表选自己）；列表最多 20 人，最近用的排最前
+  var HIST_KEY = "vpreStudentHistory";
+  function loadHistory(){
     try{
-      var raw = localStorage.getItem("vpreLastStudent");
-      if(raw){ var st = JSON.parse(raw); if(st && st.sid && st.name){ return {sid:String(st.sid), name:String(st.name)}; } }
+      var raw = localStorage.getItem(HIST_KEY);
+      var arr = raw ? JSON.parse(raw) : [];
+      if(!arr || !arr.length){                       // 兼容旧版只存"上次一个人"
+        var one = localStorage.getItem("vpreLastStudent");
+        if(one){ var st = JSON.parse(one); if(st && st.sid && st.name){ arr = [{sid:String(st.sid), name:String(st.name), at:Date.now()}]; } }
+      }
+      return (arr || []).filter(function(h){ return h && h.sid && h.name; });
+    }catch(e){ return []; }
+  }
+  function saveStudentHistory(st){
+    try{
+      if(!st || !st.sid || !st.name){ return; }
+      var sid = String(st.sid), name = String(st.name);
+      var arr = loadHistory().filter(function(h){ return String(h.sid) !== sid; });
+      arr.unshift({sid:sid, name:name, at:Date.now()});
+      if(arr.length > 20){ arr = arr.slice(0, 20); }
+      localStorage.setItem(HIST_KEY, JSON.stringify(arr));
+      localStorage.setItem("vpreLastStudent", JSON.stringify({sid:sid, name:name}));
     }catch(e){}
-    return null;
   }
   function renderLoginLast(){
     var box = document.getElementById("vpre-login-last");
     if(!box){ return; }
-    var last = loadLastStudent();
-    if(!last){ box.style.display = "none"; box.innerHTML = ""; return; }
+    var hist = loadHistory();
+    if(!hist.length){ box.style.display = "none"; box.innerHTML = ""; return; }
     box.style.display = "block";
-    box.innerHTML = '<button class="vpre-login-lastbtn" type="button" id="vpre-login-lastbtn">'
-      + '上次是 ' + last.name + '（' + maskSid(last.sid) + '），点这里直接进入'
-      + '<small>换同学：在下面填他自己的学号和姓名</small></button>';
+    var opts = '<option value="">选择自己（这台设备记住 ' + hist.length + ' 人）</option>'
+      + hist.map(function(h, i){ return '<option value="' + i + '">' + h.name + ' · ' + maskSid(h.sid) + '</option>'; }).join("");
+    box.innerHTML =
+        '<select class="vpre-login-hist" id="vpre-login-hist">' + opts + '</select>'
+      + '<small class="vpre-login-histsub">点一下选自己，会自动填好学号和姓名；名单里没有你就在下面自己填</small>'
+      + '<button class="vpre-login-lastbtn" type="button" id="vpre-login-lastbtn">'
+      +   '上次是 ' + hist[0].name + '（' + maskSid(hist[0].sid) + '），点这里直接进入'
+      + '</button>';
+    var sel = document.getElementById("vpre-login-hist");
+    if(sel){
+      sel.addEventListener("change", function(){
+        var i = parseInt(sel.value, 10);
+        if(isNaN(i) || !hist[i]){ return; }
+        var sEl = document.getElementById("vpre-login-sid"), nEl = document.getElementById("vpre-login-name"), errEl = document.getElementById("vpre-login-err");
+        if(sEl){ sEl.value = hist[i].sid; }
+        if(nEl){ nEl.value = hist[i].name; }
+        if(errEl){ errEl.textContent = ""; }
+        sfx.play("tap");
+        var go = document.getElementById("vpre-login-btn");
+        if(go){ go.focus(); }
+      });
+    }
     var btn = document.getElementById("vpre-login-lastbtn");
     if(btn){
       btn.addEventListener("click", function(){
         sfx.play("tap");
         var errEl = document.getElementById("vpre-login-err");
-        applyLogin(validateStudent(last.sid, last.name), errEl);
+        applyLogin(validateStudent(hist[0].sid, hist[0].name), errEl);
       });
     }
   }
@@ -1018,7 +1053,7 @@ body{
     if(errEl){ errEl.textContent = ""; }
     STUDENT = res.student;
     saveStudent(STUDENT);
-    saveLastStudent(STUDENT);
+    saveStudentHistory(STUDENT);
     adoptLegacyProgress(STUDENT.sid);
     PROG = loadProgress();
     hideLogin();
