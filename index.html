@@ -556,6 +556,10 @@ body{
 .vpre-login-btn{width:100%; border:0; background:var(--vp-blue); color:#fff; font-size:15px; font-weight:700; padding:14px; border-radius:14px; cursor:pointer; box-shadow:0 8px 18px rgba(59,91,219,.28);}
 .vpre-login-btn:active{transform:scale(.99);}
 .vpre-login-note{font-size:11px; color:var(--vp-muted); line-height:1.6; margin-top:12px;}
+.vpre-login-last{margin:0 0 12px;}
+.vpre-login-lastbtn{width:100%; border:1.5px dashed var(--vp-blue); background:var(--vp-blue-soft); color:var(--vp-blue); font-size:13.5px; font-weight:700; padding:12px 10px; border-radius:14px; cursor:pointer; line-height:1.5;}
+.vpre-login-lastbtn small{display:block; font-weight:400; font-size:11px; color:var(--vp-muted); margin-top:2px;}
+.vpre-login-lastbtn:active{transform:scale(.99);}
 
 .vpre-toast{position:fixed; left:50%; bottom:96px; transform:translateX(-50%) translateY(8px); background:rgba(31,41,55,.92); color:#fff; font-size:12px; padding:9px 16px; border-radius:99px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; z-index:30; white-space:nowrap;}
 .vpre-toast.is-show{opacity:1; transform:translateX(-50%) translateY(0);}
@@ -580,6 +584,7 @@ body{
             <div class="vpre-login-logo">🦉</div>
             <div class="vpre-login-title">单词大冒险</div>
             <div class="vpre-login-sub">输入学号和姓名，开始今天的单词闯关<br>第一次填写会自动创建账号，用于记录学习情况</div>
+            <div class="vpre-login-last" id="vpre-login-last" style="display:none;"></div>
             <label class="vpre-login-label" for="vpre-login-sid">学号</label>
             <input class="vpre-login-input" id="vpre-login-sid" type="text" inputmode="text" maxlength="20" placeholder="例如 20240101" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="next">
             <label class="vpre-login-label" for="vpre-login-name">姓名</label>
@@ -882,6 +887,8 @@ body{
     return true;
   }
   maybeReset();
+  // 登录页渲染时带出"上次登录"入口
+  try{ renderLoginLast(); }catch(e){}
 
   // ===== 数据版本号：值一变，学生下次打开就自动清掉本机的登录/进度/错题本/待传队列 =====
   // 用途：需要"全体学生从头开始"时（比如换学期、清库），只要改这里的值，学生下次打开就是全新状态。
@@ -965,9 +972,39 @@ body{
       renderWrong(ph);
     });
   }
+  // 记住"上次登录的人"，方便下次一键进入（换同学时仍可改输入框）
+  function saveLastStudent(st){
+    try{ if(st && st.sid && st.name){ localStorage.setItem("vpreLastStudent", JSON.stringify({sid:String(st.sid), name:String(st.name)})); } }catch(e){}
+  }
+  function loadLastStudent(){
+    try{
+      var raw = localStorage.getItem("vpreLastStudent");
+      if(raw){ var st = JSON.parse(raw); if(st && st.sid && st.name){ return {sid:String(st.sid), name:String(st.name)}; } }
+    }catch(e){}
+    return null;
+  }
+  function renderLoginLast(){
+    var box = document.getElementById("vpre-login-last");
+    if(!box){ return; }
+    var last = loadLastStudent();
+    if(!last){ box.style.display = "none"; box.innerHTML = ""; return; }
+    box.style.display = "block";
+    box.innerHTML = '<button class="vpre-login-lastbtn" type="button" id="vpre-login-lastbtn">'
+      + '上次是 ' + last.name + '（' + maskSid(last.sid) + '），点这里直接进入'
+      + '<small>换同学：在下面填他自己的学号和姓名</small></button>';
+    var btn = document.getElementById("vpre-login-lastbtn");
+    if(btn){
+      btn.addEventListener("click", function(){
+        sfx.play("tap");
+        var errEl = document.getElementById("vpre-login-err");
+        applyLogin(validateStudent(last.sid, last.name), errEl);
+      });
+    }
+  }
   function showLogin(){
     var el = document.getElementById("vpre-login");
     if(el){ el.classList.remove("is-hidden"); }
+    renderLoginLast();
   }
   function hideLogin(){
     var el = document.getElementById("vpre-login");
@@ -981,6 +1018,7 @@ body{
     if(errEl){ errEl.textContent = ""; }
     STUDENT = res.student;
     saveStudent(STUDENT);
+    saveLastStudent(STUDENT);
     adoptLegacyProgress(STUDENT.sid);
     PROG = loadProgress();
     hideLogin();
