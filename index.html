@@ -1757,7 +1757,11 @@ body{
       items = rv.items;
       startIdx = Math.min(rv.idx || 0, items.length);
       startScore = rv.score || 0;
-      if(startIdx > 0){ toast(phone, "从上次停下的地方继续：第 " + (startIdx+1) + " / " + items.length + " 题"); }
+      if(startIdx > 0 && startIdx < items.length){
+        toast(phone, "从上次停下的地方继续：第 " + (startIdx+1) + " / " + items.length + " 题");
+      } else if(startIdx >= items.length){
+        toast(phone, "上次这一组已经做完，正在结算成绩…");
+      }
     }
     phone.__quiz = { type:type, idx:startIdx, score:startScore, items:items, start:Date.now() };
     if(startIdx > 0){ saveResume(phone, phone.__quiz); }
