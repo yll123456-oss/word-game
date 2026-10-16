@@ -47,17 +47,26 @@
   .vpre-dayblock > b{font-size:12px; color:var(--ink);}
   .vpre-dayline{font-size:11.5px; color:var(--muted); line-height:1.9; margin-top:6px;}
   .vpre-dayline b{color:var(--ink);}
-  /* 按日期看：日期条 + 点选后显示当天内容 */
-  .daybar{display:flex; gap:8px; flex-wrap:wrap; margin:0 0 12px;}
-  .daychip{background:#fff; border:1px solid var(--line); border-radius:12px; padding:8px 12px; cursor:pointer;
-           text-align:left; line-height:1.35; color:var(--ink); font-weight:700; font-family:inherit;}
-  .daychip b{display:block; font-size:13px;}
-  .daychip span{display:block; font-size:11px; color:var(--muted); font-weight:500; margin-top:2px;}
-  .daychip:hover{border-color:#c9d3ee;}
-  .daychip.is-on{background:var(--blue); border-color:var(--blue);}
-  .daychip.is-on b, .daychip.is-on span{color:#fff;}
-  .dayview{background:#fafbfe; border:1px solid var(--line); border-radius:14px; padding:12px 14px;}
-  .dayview .vpre-dayline{margin-top:8px;}
+  /* 按日期看 / 打印错题本：一行一个日期的列表 */
+  .daylist{background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; margin:0 0 12px;}
+  .dayitem{border-bottom:1px solid var(--line);}
+  .dayitem:last-child{border-bottom:0;}
+  .dayrow{display:flex; align-items:center; gap:10px; width:100%; padding:12px 14px; background:#fff; border:0;
+          cursor:pointer; text-align:left; font-family:inherit; color:var(--ink);}
+  .daylist > .dayrow:last-child{border-bottom:0;}
+  button.dayrow{border-bottom:1px solid var(--line);}
+  .dayrow:hover{background:#f7f9ff;}
+  .dayrow .d-date{font-size:13px; font-weight:700; white-space:nowrap;}
+  .dayrow .d-sum{margin-left:auto; font-size:12px; color:var(--muted); text-align:right;}
+  .dayrow .d-mark{width:14px; text-align:center; font-size:12px; color:var(--blue); visibility:hidden;}
+  .dayrow .d-arrow{width:12px; text-align:center; font-size:11px; color:var(--muted); transition:transform .15s;}
+  .dayitem.is-open > .dayrow{background:#f2f6ff;}
+  .dayitem.is-open > .dayrow .d-arrow{transform:rotate(90deg);}
+  .daybody{display:none; padding:10px 14px 14px; background:#fafbfe;}
+  .dayitem.is-open > .daybody{display:block;}
+  .daybody .vpre-dayline{margin-top:8px;}
+  .dayrow.is-on{background:#eef3ff;}
+  .dayrow.is-on .d-mark{visibility:visible; font-weight:800;}
   /* 使用前后对比：对比条 + 折线 + 成长点/失误点 */
   .gtext{background:#f7f9ff; border:1px solid #e2e8f6; border-radius:12px; padding:10px 12px; font-size:12.5px; line-height:1.95; color:var(--ink); margin:8px 0 10px;}
   .cmp{margin:10px 0 6px;}
@@ -751,22 +760,25 @@
     }
     return inner;
   }
-  // 日期条：每个练习日期一个按钮，点哪个就显示哪天的内容
+  // 按日期看：一行一个日期（左边日期、右边当天的总结果），点某一行才展开当天的详细结果
   function dailyHtml(d){
     var rows = dayList(d);                       // 最近的排在前面
     if(!rows.length){ return ''; }
     var ts = todayStr();
-    var bar = rows.map(function(r, i){
+    var list = rows.map(function(r, i){
       var isToday = (r.day === ts);
-      return '<button type="button" class="daychip' + (i === 0 ? ' is-on' : '') + '" data-day="' + esc(r.day) + '">'
-        + '<b>' + esc(String(r.day).slice(5).replace("-", "/")) + (isToday ? ' 今天' : '') + '</b>'
-        + '<span>答题 ' + (r.questions || 0) + ' 题 · ' + (r.accuracy || 0) + '%'
-        + (r.practices ? (' · ' + r.practices + ' 组') : '') + '</span></button>';
+      return '<div class="dayitem' + (i === 0 ? ' is-open' : '') + '" data-day="' + esc(r.day) + '">'
+        + '<button class="dayrow" type="button">'
+        +   '<span class="d-date">' + esc(r.day) + (isToday ? ' 今天' : '') + '</span>'
+        +   '<span class="d-sum">答题 ' + (r.questions || 0) + ' 题 · 正确率 ' + (r.accuracy || 0) + '%'
+        +     (r.practices ? (' · 练完 ' + r.practices + ' 组') : '') + ' · 用时 ' + fmtDur(r.seconds) + '</span>'
+        +   '<span class="d-arrow">▸</span>'
+        + '</button>'
+        + '<div class="daybody">' + dayInnerHtml(r) + '</div></div>';
     }).join("");
     return '<div class="panel"><h2>按日期看 <span class="muted" style="font-weight:400;font-size:12px;">共 '
-      + rows.length + ' 天 · 点下面某个日期，看当天练了什么（历史一直保留）</span></h2>'
-      + '<div class="daybar" id="daybar">' + bar + '</div>'
-      + '<div class="dayview" id="dayview">' + dayInnerHtml(rows[0]) + '</div></div>';
+      + rows.length + ' 天 · 点日期看当天详细结果（历史一直保留）</span></h2>'
+      + '<div class="daylist" id="daylist">' + list + '</div></div>';
   }
   function renderDetail(){
     var d = S.detail;
@@ -793,13 +805,14 @@
       + growthHtml(d)
       + dailyHtml(d)                                  // 按日期看：点日期 → 显示当天的练习内容
       + '<div class="panel"><h2>打印错题本 <span class="muted" style="font-weight:400;font-size:12px;">按日期勾选要打印的范围，可多选；不勾选=全部累计</span></h2>'
-      + '<div class="daybar" id="wrong-daybar">'
-      +   '<button type="button" class="daychip is-on" data-wday="all"><b>全部（累计）</b><span>共 ' + wrongs.length + ' 个错词</span></button>'
+      + '<div class="daylist" id="wrong-daylist">'
+      +   '<button class="dayrow is-on" type="button" data-wday="all"><span class="d-mark">✓</span>'
+      +     '<span class="d-date">全部（累计）</span><span class="d-sum">共 ' + wrongs.length + ' 个错词</span></button>'
       +   dayList(d).map(function(r){
             var n = dayWrongRows(r.day).length;
-            return '<button type="button" class="daychip" data-wday="' + esc(r.day) + '"><b>'
-              + esc(String(r.day).slice(5).replace("-", "/")) + (r.day === todayStr() ? ' 今天' : '') + '</b>'
-              + '<span>' + n + ' 个错词</span></button>';
+            return '<button class="dayrow" type="button" data-wday="' + esc(r.day) + '"><span class="d-mark">✓</span>'
+              + '<span class="d-date">' + esc(r.day) + (r.day === todayStr() ? ' 今天' : '') + '</span>'
+              + '<span class="d-sum">' + n + ' 个错词</span></button>';
           }).join("")
       + '</div>'
       + '<div class="btns">'
@@ -812,7 +825,7 @@
       + '</div>';
     // ---- 错题本打印范围：日期多选 ----
     var pickedDays = [];
-    var wbar = q("#wrong-daybar"), wsum = q("#wrong-sum");
+    var wbar = q("#wrong-daylist"), wsum = q("#wrong-sum");
     function pickedRows(){
       if(!pickedDays.length){ return (d.wrongs || []); }
       var out = [];
@@ -822,7 +835,7 @@
     function syncWrongBar(){
       var n = pickedRows().length;
       if(wbar){
-        [].slice.call(wbar.querySelectorAll(".daychip")).forEach(function(b){
+        [].slice.call(wbar.querySelectorAll(".dayrow")).forEach(function(b){
           var v = b.getAttribute("data-wday");
           b.classList.toggle("is-on", v === "all" ? !pickedDays.length : (pickedDays.indexOf(v) >= 0));
         });
@@ -834,7 +847,7 @@
       }
     }
     if(wbar){
-      [].slice.call(wbar.querySelectorAll(".daychip")).forEach(function(b){
+      [].slice.call(wbar.querySelectorAll(".dayrow")).forEach(function(b){
         b.addEventListener("click", function(){
           var v = b.getAttribute("data-wday");
           if(v === "all"){ pickedDays = []; }
@@ -847,21 +860,17 @@
       });
       syncWrongBar();
     }
-    // ---- 按日期看：点日期 → 显示当天内容 ----
-    var daybar = q("#daybar"), dayview = q("#dayview");
-    if(daybar && dayview){
-      var drows = dayList(d);
-      [].slice.call(daybar.querySelectorAll(".daychip")).forEach(function(b){
-        b.addEventListener("click", function(){
-          [].slice.call(daybar.querySelectorAll(".daychip")).forEach(function(x){ x.classList.remove("is-on"); });
-          b.classList.add("is-on");
-          var day = b.getAttribute("data-day");
-          var r = drows.filter(function(x){ return x.day === day; })[0];
-          dayview.innerHTML = r ? dayInnerHtml(r) : "";
-          bindPrintDay(dayview);
+    // ---- 按日期看：点一行日期 → 展开当天的详细结果（同时把其它天收起）----
+    var daylist = q("#daylist");
+    if(daylist){
+      [].slice.call(daylist.querySelectorAll(".dayitem")).forEach(function(item){
+        item.querySelector(".dayrow").addEventListener("click", function(){
+          var wasOpen = item.classList.contains("is-open");
+          [].slice.call(daylist.querySelectorAll(".dayitem")).forEach(function(x){ x.classList.remove("is-open"); });
+          if(!wasOpen){ item.classList.add("is-open"); }
         });
       });
-      bindPrintDay(dayview);
+      bindPrintDay(daylist);
     }
     var b1 = q("#btn-print-wrong"); if(b1){ b1.addEventListener("click", function(){ printWrong(pickedDays); }); }
     var b2 = q("#btn-print-report"); if(b2){ b2.addEventListener("click", function(){ printReport(); }); }
