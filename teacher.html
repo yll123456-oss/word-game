@@ -399,9 +399,17 @@
         headers:{"apikey":SUPABASE.key, "Authorization":"Bearer " + tk, "Accept":"application/json"}
       });
     }).then(function(r){
-      if(r.status === 401 || r.status === 403){ throw new Error("NO_SESSION"); }
-      if(!r.ok){ throw new Error("HTTP " + r.status); }
-      return r.json();
+      if(r.ok){ return r.json(); }
+      // 关键：401/403 里其实有两种完全不同的情况，以前一律当成"没登录"，
+      // 于是"数据库权限缺失"会被误报成"登录不上"，白白排查很久。
+      return r.text().then(function(txt){
+        var t = String(txt || "");
+        if(/permission denied|42501|could not find the table|does not exist/i.test(t)){
+          throw new Error("NO_PERMISSION:" + t.slice(0, 200));
+        }
+        if(r.status === 401 || r.status === 403){ throw new Error("NO_SESSION"); }
+        throw new Error("HTTP " + r.status + " " + t.slice(0, 120));
+      });
     });
   }
   function sbPost(path, body){
@@ -561,6 +569,22 @@
     return CLOUD ? cloudSummary() : api("/api/summary");
   }
   function isNoSession(e){ return String((e && e.message) || "") === "NO_SESSION"; }
+  function isNoPermission(e){ return String((e && e.message) || "").indexOf("NO_PERMISSION:") === 0; }
+  // 权限缺失（能登录、但读不到数据）→ 明确说清楚，并给出修复语句
+  function permissionHelp(){
+    var el = q("#boot-err");
+    if(!el){ return; }
+    el.style.display = "block";
+    el.innerHTML = "⚠️ <b>数据库读取权限缺失</b>（你的账号和密码没问题，登录是成功的）\n"
+      + "表现：能登录进来，但一读数据就报 permission denied —— 页面会退回登录页，看着像「登录不上」。\n\n"
+      + "原因：某次脚本用 drop view 删掉再重建视图时，把视图的授权一起删掉了。\n"
+      + "修复：去 Supabase → SQL Editor 执行这一句，然后刷新本页：\n\n"
+      + "grant select on public.v_totals, public.v_students, public.v_daily,\n"
+      + "                public.v_daily_wrongs, public.v_wrongs, public.v_records,\n"
+      + "                public.v_modes, public.v_class_wrongs\n"
+      + "  to authenticated;\n\n"
+      + "（已经帮你把权限恢复了的话，刷新即可。）";
+  }
   function load(){
     getSummary().then(function(d){
       S.summary = d;
@@ -577,6 +601,12 @@
     }).catch(function(e){
       if(isNoSession(e)){ needLogin(); return; }
       var m = String((e && e.message) || e || "");
+      if(isNoPermission(e)){
+        permissionHelp();
+        q("#subline").textContent = "数据库读取权限缺失（登录本身是成功的）";
+        q("#tbody").innerHTML = '<tr><td colspan="10" class="empty">权限缺失 —— 看页面顶部的红色提示，按里面那一句 SQL 修一下</td></tr>';
+        return;
+      }
       q("#subline").textContent = CLOUD ? "连不上云端服务器" : "连不上本机后端";
       q("#tbody").innerHTML = '<tr><td colspan="10" class="empty">' + (CLOUD ? "云端未连接" : "后端未连接") + '</td></tr>';
       if(CLOUD){
@@ -622,6 +652,7 @@
       if(el && el.scrollIntoView){ el.scrollIntoView({behavior:"smooth", block:"start"}); }
     }).catch(function(e){
       if(isNoSession(e)){ needLogin(); return; }
+      if(isNoPermission(e)){ permissionHelp(); return; }
       alert("读不到这个学生的档案：" + ((e && e.message) || e));
     });
   }
