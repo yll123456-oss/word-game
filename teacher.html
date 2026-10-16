@@ -43,6 +43,19 @@
   .gdown{color:var(--red);}
   .grow-line{font-size:13px; line-height:1.9;}
   .grow-line b{font-size:15px;}
+  .vpre-daylist{background:#fff; border:1px solid var(--line); border-radius:14px; padding:2px 14px;}
+  .vpre-dayfold{border-bottom:1px solid var(--line);}
+  .vpre-dayfold:last-child{border-bottom:0;}
+  .vpre-dayfold > summary{display:flex; align-items:baseline; gap:8px; padding:10px 0; cursor:pointer; font-size:12.5px; list-style:none;}
+  .vpre-dayfold > summary::-webkit-details-marker{display:none;}
+  .vpre-dayfold > summary::before{content:"▸"; color:var(--muted); font-size:11px;}
+  .vpre-dayfold[open] > summary::before{content:"▾";}
+  .vpre-dayfold > summary > span{margin-left:auto; font-size:11.5px; color:var(--muted);}
+  .vpre-daybody{padding:0 0 12px 16px;}
+  .vpre-dayblock{margin-bottom:10px;}
+  .vpre-dayblock > b{font-size:12px; color:var(--ink);}
+  .vpre-dayline{font-size:11.5px; color:var(--muted); line-height:1.9; margin-top:6px;}
+  .vpre-dayline b{color:var(--ink);}
   @media (max-width:820px){ .cards{grid-template-columns:1fr 1fr;} .two{grid-template-columns:1fr;} }
   #print-root{display:none;}
   @media print{
@@ -379,7 +392,8 @@
       sbGet("v_wrongs?select=*&sid=eq." + sbQ(sid) + "&order=wrong_count.desc"),
       sbGet("v_records?select=*&sid=eq." + sbQ(sid) + "&order=id.desc&limit=500"),
       sbGet("v_modes?select=*&sid=eq." + sbQ(sid)),
-      sbGet("v_daily?select=*&sid=eq." + sbQ(sid) + "&order=day.desc")
+      sbGet("v_daily?select=*&sid=eq." + sbQ(sid) + "&order=day.desc"),
+      sbGet("v_daily_wrongs?select=*&sid=eq." + sbQ(sid) + "&order=day.desc")
     ]).then(function(a){
       var s = (a[0] || [])[0] || {};
       return {
@@ -390,7 +404,7 @@
         words:[],
         mastery:{weak:s.weak || 0, shaky:s.shaky || 0, mastered:s.mastered || 0},
         modes:a[3] || [],
-        daily:a[4] || [],
+        daily:dailyJoin(a[4] || [], a[2] || [], a[5] || []),
         practiceCount:s.practiceCount || 0
       };
     });
@@ -555,36 +569,75 @@
     if(v === 0){ return '持平'; }
     return (v > 0 ? '提升 ' : '下降 ') + Math.abs(v) + ' 个百分点';
   }
+  // 把"按日期统计 / 练习记录 / 当天错题"按日期拼到一起
+  function dailyJoin(daily, records, wrongs){
+    return (daily || []).map(function(r){
+      var rs = (records || []).filter(function(x){ return x.day === r.day; });
+      var ws = (wrongs || []).filter(function(x){ return x.day === r.day; });
+      return {day:r.day, questions:r.questions, correct:r.correct, accuracy:r.accuracy,
+              practices:r.practices, seconds:r.seconds, records:rs, wrongs:ws};
+    });
+  }
+  function fmtDur(sec){
+    sec = Number(sec) || 0;
+    if(!sec){ return "—"; }
+    var m = Math.floor(sec / 60), r = sec % 60;
+    return m ? (m + " 分" + (r ? (" " + r + " 秒") : "")) : (r + " 秒");
+  }
+  function wChoice(w){ return w.last_choice || w.chosen || ""; }
+  function wModule(w){ return w.last_module || w.module || ""; }
+  function wTs(w){ return w.last_ts || w.ts || ""; }
   // ===== 按日期看：每个日期一行，最近的展开、更早的折叠（历史一直保留） =====
   function dailyHtml(d){
     var rows = d.daily || [];
     if(!rows.length){ return ''; }
-    function fmtDur(sec){
-      sec = Number(sec) || 0;
-      if(!sec){ return "—"; }
-      var m = Math.floor(sec / 60), s2 = sec % 60;
-      return m ? (m + " 分 " + (s2 ? (s2 + " 秒") : "")) : (s2 + " 秒");
-    }
     var today = new Date();
     function pad(n){ return (n < 10 ? "0" : "") + n; }
     var todayStr2 = today.getFullYear() + "-" + pad(today.getMonth()+1) + "-" + pad(today.getDate());
     var body = rows.map(function(r, i){
-      var open = (i === 0) ? " open" : "";                       // 最近一天默认展开
+      var open = (i === 0) ? " open" : "";
       var tag = (r.day === todayStr2) ? ' <span class="muted">（今天）</span>' : "";
-      return '<details' + open + ' style="border-bottom:1px solid var(--line); padding:6px 0;">'
-        + '<summary style="cursor:pointer; font-size:12.5px; font-weight:600;">'
-        +   esc(r.day) + tag
-        +   ' · 答题 ' + (r.questions || 0) + ' 题'
-        +   ' · 正确率 ' + (r.accuracy || 0) + '%'
-        +   (r.practices ? (' · 练完 ' + r.practices + ' 组') : '')
-        + '</summary>'
-        + '<div class="muted" style="padding:6px 0 2px 14px; line-height:1.9;">'
-        +   '答题 ' + (r.questions || 0) + ' 题（对 ' + (r.correct || 0) + ' 题，正确率 ' + (r.accuracy || 0) + '%）<br>'
-        +   '练完 ' + (r.practices || 0) + ' 组完整练习 · 用时 ' + fmtDur(r.seconds)
-        + '</div></details>';
+      var inner = '';
+      if(r.records && r.records.length){
+        inner += '<div class="vpre-dayblock"><b>当天练习（每组一行）</b>'
+          + '<table style="margin-top:6px;"><thead><tr><th>时间</th><th>模块</th><th>单元</th><th>组</th><th>单词数</th><th>正确率</th><th>用时</th></tr></thead><tbody>'
+          + r.records.map(function(x){
+              return '<tr><td class="muted">' + esc(String(x.ts || '').slice(11, 16)) + '</td><td>' + esc(x.mode || '') + '</td>'
+                + '<td class="muted">' + esc((x.book || '') + ' ' + (x.unit || '')) + '</td>'
+                + '<td>' + (x.group_no ? ('第 ' + x.group_no + ' 组') : '—') + '</td>'
+                + '<td>' + (x.total || 0) + ' 个</td><td>' + (x.accuracy || 0) + '%</td>'
+                + '<td class="muted">' + fmtDur(x.duration) + '</td></tr>';
+            }).join('') + '</tbody></table></div>';
+        inner += '<div class="vpre-dayline">每组用时：'
+          + r.records.map(function(x, k){ return (x.group_no ? ('第' + x.group_no + '组 ') : '') + fmtDur(x.duration); }).join('　·　')
+          + '　｜　当天合计 <b>' + fmtDur(r.seconds) + '</b></div>';
+      } else {
+        inner += '<div class="vpre-dayline">这一天没有"练完一整组"的记录（可能只做了部分题目，详见下方答错的词）</div>';
+      }
+      if(r.wrongs && r.wrongs.length){
+        var uniq = {}, list = [];
+        r.wrongs.forEach(function(w){
+          var k = String(w.word || '').toLowerCase();
+          if(!uniq[k]){ uniq[k] = {word:w.word, meaning:w.meaning, choice:wChoice(w), module:wModule(w), ts:wTs(w), n:0}; list.push(uniq[k]); }
+          uniq[k].n += 1;
+        });
+        inner += '<div class="vpre-dayblock"><b>当天练错的词（' + list.length + ' 个）</b>'
+          + '<table style="margin-top:6px;"><thead><tr><th>单词</th><th>释义</th><th>错几次</th><th>选错成</th><th>模块</th><th>时间</th></tr></thead><tbody>'
+          + list.map(function(w){
+              return '<tr><td><b>' + esc(w.word) + '</b></td><td class="muted">' + esc(w.meaning || '') + '</td>'
+                + '<td><span class="pill no">' + w.n + '</span></td><td class="muted">' + esc(w.choice || '') + '</td>'
+                + '<td class="muted">' + esc(w.module || '') + '</td><td class="muted">' + esc(String(w.ts || '').slice(5, 16)) + '</td></tr>';
+            }).join('') + '</tbody></table></div>';
+      }
+      return '<details' + open + ' class="vpre-dayfold">'
+        + '<summary><b>' + esc(r.day) + '</b>' + tag
+        + '<span>答题 ' + (r.questions || 0) + ' 题 · 正确率 ' + (r.accuracy || 0) + '%'
+        + (r.practices ? (' · 练完 ' + r.practices + ' 组') : '') + ' · 用时 ' + fmtDur(r.seconds) + '</span></summary>'
+        + '<div class="vpre-daybody">' + inner + '</div></details>';
     }).join("");
     return '<div class="panel"><h2>按日期看 <span class="muted" style="font-weight:400;font-size:12px;">共 '
-      + rows.length + ' 天 · 点日期展开当天数据（历史一直保留，不会清掉）</span></h2>' + body + '</div>';
+      + rows.length + ' 天 · 点日期展开当天每组用时与错题（历史一直保留）</span></h2>'
+      + '<div class="vpre-daylist">' + body + '</div></div>';
   }
   function renderDetail(){
     var d = S.detail;
@@ -643,14 +696,15 @@
   }
   function recordTable(rows){
     if(!rows.length){ return '<div class="empty">还没有练习记录</div>'; }
-    return '<div style="overflow:auto;"><table><thead><tr><th>时间</th><th>模块</th><th>组</th><th>单元</th><th>题数</th><th>正确率</th><th>用时</th><th>星星</th></tr></thead><tbody>'
+    return '<div style="overflow:auto;"><table><thead><tr><th>时间</th><th>模块</th><th>单元</th><th>组</th><th>单词数</th><th>答对</th><th>正确率</th><th>用时</th><th>星星</th></tr></thead><tbody>'
       + rows.map(function(r){
           return '<tr><td class="muted">' + esc((r.ts || '').slice(0, 16)) + '</td><td>' + esc(r.mode) + '</td>'
-            + '<td>' + (r.group_no ? ('第 ' + r.group_no + ' 组') : '—') + '</td>'
             + '<td class="muted">' + esc((r.book || '') + ' ' + (r.unit || '')) + '</td>'
-            + '<td>' + r.correct + '/' + r.total + '</td>'
+            + '<td>' + (r.group_no ? ('第 ' + r.group_no + ' 组') : '—') + '</td>'
+            + '<td>' + (r.total || 0) + ' 个</td>'
+            + '<td>' + r.correct + '</td>'
             + '<td>' + r.accuracy + '%</td>'
-            + '<td class="muted">' + r.duration + 's</td>'
+            + '<td class="muted">' + fmtDur(r.duration) + '</td>'
             + '<td>' + r.stars + '</td></tr>';
         }).join("") + '</tbody></table></div>';
   }
