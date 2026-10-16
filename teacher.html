@@ -687,7 +687,8 @@
     var body = rows.map(function(r, i){
       var open = (i === 0) ? " open" : "";
       var tag = (r.day === todayStr2) ? ' <span class="muted">（今天）</span>' : "";
-      var inner = '';
+      var inner = '<div style="text-align:right; margin:2px 0 6px;">'
+        + '<button class="ghost" type="button" data-print-day="' + esc(r.day) + '" style="padding:6px 12px; font-size:11.5px;">🖨 打印这天错题</button></div>';
       if(r.records && r.records.length){
         inner += '<div class="vpre-dayblock"><b>当天练习（每组一行）</b>'
           + '<table style="margin-top:6px;"><thead><tr><th>时间</th><th>模块</th><th>单元</th><th>组</th><th>单词数</th><th>正确率</th><th>用时</th></tr></thead><tbody>'
@@ -762,6 +763,12 @@
       + '</div>'
       + '<div class="btns">'
       + '<button id="btn-print-wrong" type="button">打印错题本</button>'
+      + '<select id="wrong-print-date" style="padding:9px 12px; border:1px solid var(--line); border-radius:11px; background:#fff; font-size:12.5px; font-weight:600; color:var(--ink);">'
+      +   '<option value="all">范围：全部错词（累计）</option>'
+      +   (d.daily || []).map(function(r){
+            return '<option value="' + esc(r.day) + '">范围：' + esc(r.day) + ' 当天（' + uniqWrongWords(r).length + ' 个）</option>';
+          }).join("")
+      + '</select>'
       + '<button class="ghost" id="btn-print-report" type="button">打印学情报告</button>'
       + (CLOUD || DEMO
           ? '<button class="ghost" id="btn-csv-wrong" type="button">导出错题本(CSV)</button>'
@@ -773,14 +780,26 @@
       + dailyHtml(d)                                  // 按日期折叠：每天展开 = 当天练习记录 + 当天错题
       + allWrongsHtml(wrongs)                         // 全部错题（累计）也做成折叠
       + allRecordsHtml(records);                      // 全部练习记录也做成折叠
-    var b1 = q("#btn-print-wrong"); if(b1){ b1.addEventListener("click", function(){ printWrong(); }); }
+    var selDate = q("#wrong-print-date");
+    function curScope(){ return selDate ? selDate.value : "all"; }
+    var b1 = q("#btn-print-wrong"); if(b1){ b1.addEventListener("click", function(){ printWrong(curScope()); }); }
+    // 每一天里也有一个"打印这天"的按钮
+    [].slice.call(box.querySelectorAll("[data-print-day]")).forEach(function(b){
+      b.addEventListener("click", function(){
+        var day = b.getAttribute("data-print-day");
+        if(selDate){ selDate.value = day; }
+        printWrong(day);
+      });
+    });
     var b2 = q("#btn-print-report"); if(b2){ b2.addEventListener("click", function(){ printReport(); }); }
     var b4 = q("#btn-csv-wrong");
     if(b4){
       b4.addEventListener("click", function(){
-        downloadCsv("错题本-" + (d.student.name || "") + ".csv",
+        var scope = curScope();
+        var rs = wrongRowsFor(scope);
+        downloadCsv("错题本-" + (d.student.name || "") + (scope === "all" ? "-全部" : ("-" + scope)) + ".csv",
           ["单词", "释义", "错误次数", "最近错选", "模块", "最近时间"],
-          (d.wrongs || []).map(function(w){ return [w.word, w.meaning, w.wrong_count, w.last_choice, w.last_module, w.last_ts]; }));
+          rs.map(function(w){ return [w.word, w.meaning, w.wrong_count, w.last_choice, w.last_module, w.last_ts]; }));
       });
     }
     var b3 = q("#btn-close-detail"); if(b3){ b3.addEventListener("click", function(){ q("#detail").innerHTML = ""; }); }
@@ -819,19 +838,46 @@
     root.innerHTML = head + inner;
     window.print();
   }
-  function printWrong(){
-    var rows = (S.detail.wrongs || []);
+  // 某一天的错词（把同一天的同一个词合并，按错次排序）
+  function dayWrongRows(day){
+    var r = (S.detail.daily || []).filter(function(x){ return x.day === day; })[0];
+    if(!r){ return []; }
+    var map = {}, out = [];
+    (r.wrongs || []).forEach(function(w){
+      var k = String(w.word || '').toLowerCase();
+      if(!map[k]){
+        map[k] = {word:w.word, meaning:w.meaning, wrong_count:0, last_choice:wChoice(w), last_module:wModule(w), last_ts:wTs(w)};
+        out.push(map[k]);
+      }
+      map[k].wrong_count += 1;
+      var ts = wTs(w);
+      if(ts && ts > (map[k].last_ts || "")){ map[k].last_ts = ts; }
+    });
+    out.sort(function(a, b){ return b.wrong_count - a.wrong_count; });
+    return out;
+  }
+  // scope: "all" = 全部累计错词；"2026-10-16" = 只看这一天
+  function wrongRowsFor(scope){
+    if(scope && scope !== "all"){ return dayWrongRows(scope); }
+    return (S.detail.wrongs || []);
+  }
+  function printWrong(scope){
+    var d = S.detail;
+    var rows = wrongRowsFor(scope);
+    var isDay = (scope && scope !== "all");
     var body = '';
     if(rows.length){
       body = '<table><thead><tr><th>单词</th><th>释义</th><th>错次</th><th>最近错选</th><th>模块</th><th>最近时间</th></tr></thead><tbody>'
         + rows.map(function(w){
             return '<tr><td><b>' + esc(w.word) + '</b></td><td>' + esc(w.meaning || '') + '</td><td>' + w.wrong_count + '</td><td>'
-              + esc(w.last_choice || '') + '</td><td>' + esc(w.last_module || '') + '</td><td>' + esc((w.last_ts || '').slice(0, 16)) + '</td></tr>';
+              + esc(w.last_choice || '') + '</td><td>' + esc(w.last_module || '') + '</td><td>' + esc(String(w.last_ts || '').slice(0, 16)) + '</td></tr>';
           }).join("") + '</tbody></table>';
     } else {
-      body = '<p>暂无错词。</p>';
+      body = '<p>' + (isDay ? '这一天没有错词。' : '暂无错词。') + '</p>';
     }
-    fillPrint('<h2>错题本（第二天复习用）</h2>' + body);
+    fillPrint('<h2>错题本（第二天复习用）</h2>'
+      + '<p class="meta">' + (isDay ? ('日期：' + esc(scope) + ' · 当天错词 ' + rows.length + ' 个') : ('范围：全部错词（累计，按错次）· 共 ' + rows.length + ' 个')) + '</p>'
+      + body);
   }
   function printReport(){
     var d = S.detail;
