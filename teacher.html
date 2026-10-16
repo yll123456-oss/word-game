@@ -151,7 +151,7 @@
       </table>
     </div>
     <div class="muted" style="margin-top:8px;">
-      👉 <b>点任意一行</b>即可查看这个学生的数据（按日期折叠的练习记录、错题、成长对比）；
+      👉 <b>点任意一行</b>即可查看这个学生的数据（每日一练、错题本、学情报告分析）；
       <button class="ghost" id="btn-toggle-phone" type="button" style="padding:4px 10px; font-size:11.5px;">显示完整学号</button>
     </div>
   </div>
@@ -673,16 +673,16 @@
   }
   function growthHtml(d){
     var g = growth(d);
-    if(!g){ return '<div class="panel"><h2>使用前后对比</h2><div class="empty">还没有练习数据</div></div>'; }
+    if(!g){ return '<div class="panel"><h2>学情报告分析</h2><div class="empty">还没有练习数据</div></div>'; }
     if(!g.has2){
-      return '<div class="panel"><h2>使用前后对比</h2>'
+      return '<div class="panel"><h2>学情报告分析</h2>'
         + '<div class="empty">目前只有 1 天练习数据（' + esc(g.last.day) + '）<br>至少练满两天，才能做"第一天 vs 最新一天"的成长对比</div>'
         + '<div style="margin-top:8px;">' + cmpHintSingle(g.last) + '</div></div>';
     }
     var last = g.last, first = g.first;
     var good = g.good.length ? g.good.map(function(t){ return '<li>' + esc(t) + '</li>'; }).join("") : '<li class="muted">暂时没有明显进步点（多练几天再看）</li>';
     var bad = g.bad.length ? g.bad.map(function(t){ return '<li>' + esc(t) + '</li>'; }).join("") : '<li class="muted">暂时没有明显退步/问题</li>';
-    return '<div class="panel"><h2>使用前后对比 <span class="muted" style="font-weight:400;font-size:12px;">'
+    return '<div class="panel"><h2>学情报告分析 <span class="muted" style="font-weight:400;font-size:12px;">'
         + '第一天 ' + esc(first.day) + ' → 最新一天 ' + esc(last.day) + '（共练了 ' + g.totalDays + ' 天）</span></h2>'
       + '<div class="gtext">' + esc(growthText(g, d)) + '</div>'
       + '<div class="cmp">'
@@ -776,7 +776,7 @@
         + '</button>'
         + '<div class="daybody">' + dayInnerHtml(r) + '</div></div>';
     }).join("");
-    return '<div class="panel"><h2>按日期看 <span class="muted" style="font-weight:400;font-size:12px;">共 '
+    return '<div class="panel"><h2>每日一练 <span class="muted" style="font-weight:400;font-size:12px;">共 '
       + rows.length + ' 天 · 点日期看当天详细结果（历史一直保留）</span></h2>'
       + '<div class="daylist" id="daylist">' + list + '</div></div>';
   }
@@ -802,9 +802,8 @@
       + '<button class="ghost" id="btn-close-detail" type="button">收起</button>'
       + '</div>'
       + '</div>'
-      + growthHtml(d)
-      + dailyHtml(d)                                  // 按日期看：点日期 → 显示当天的练习内容
-      + '<div class="panel"><h2>打印错题本 <span class="muted" style="font-weight:400;font-size:12px;">按日期勾选要打印的范围，可多选；不勾选=全部累计</span></h2>'
+      + dailyHtml(d)                                  // 每日一练：点日期 → 显示当天的练习内容
+      + '<div class="panel"><h2>错题本 <span class="muted" style="font-weight:400;font-size:12px;">按日期勾选要打印的范围，可多选；不勾选=全部累计</span></h2>'
       + '<div class="daylist" id="wrong-daylist">'
       +   '<button class="dayrow is-on" type="button" data-wday="all"><span class="d-mark">✓</span>'
       +     '<span class="d-date">全部（累计）</span><span class="d-sum">共 ' + wrongs.length + ' 个错词</span></button>'
@@ -822,7 +821,8 @@
           : '<a class="btn ghost" href="/api/export.csv?sid=' + encodeURIComponent(st.sid) + '">导出错题本(CSV)</a>')
       + '</div>'
       + '<div class="muted" id="wrong-sum" style="margin-top:8px;"></div>'
-      + '</div>';
+      + '</div>'
+      + growthHtml(d);                                // 学情报告分析：放页面最下端
     // ---- 错题本打印范围：日期多选 ----
     var pickedDays = [];
     var wbar = q("#wrong-daylist"), wsum = q("#wrong-sum");
@@ -984,7 +984,7 @@
         }).join("") + '</tbody></table>';
     var g2 = growth(d);
     var grow = (g2 && g2.has2)
-      ? '<h2>使用前后对比（第一天 ' + esc(g2.first.day) + ' → 最新一天 ' + esc(g2.last.day) + '）</h2>'
+      ? '<h2>学情报告分析（第一天 ' + esc(g2.first.day) + ' → 最新一天 ' + esc(g2.last.day) + '）</h2>'
         + '<p class="meta" style="line-height:1.95;">' + esc(growthText(g2, d)) + '</p>'
         + '<table><thead><tr><th>指标</th><th>第一天</th><th>最新一天</th><th>变化</th></tr></thead><tbody>'
         + '<tr><td>正确率</td><td>' + g2.first.accuracy + '%</td><td>' + g2.last.accuracy + '%</td><td>'
