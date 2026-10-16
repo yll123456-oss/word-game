@@ -57,6 +57,7 @@
   .vpre-dayline{font-size:11.5px; color:var(--muted); line-height:1.9; margin-top:6px;}
   .vpre-dayline b{color:var(--ink);}
   /* 使用前后对比：对比条 + 折线 + 成长点/失误点 */
+  .gtext{background:#f7f9ff; border:1px solid #e2e8f6; border-radius:12px; padding:10px 12px; font-size:12.5px; line-height:1.95; color:var(--ink); margin:8px 0 10px;}
   .cmp{margin:10px 0 6px;}
   .cmprow{display:grid; grid-template-columns:64px 1fr 1fr 78px; gap:8px; align-items:center; margin-bottom:8px;}
   .cmpname{font-size:11.5px; color:var(--muted);}
@@ -631,6 +632,34 @@
       + dots + labels + vals
       + '</svg><div class="muted" style="text-align:center; margin-top:2px;">每天的正确率（红点=第一天 ' + g.first.accuracy + '%，绿点=最新一天 ' + g.last.accuracy + '%）</div></div>';
   }
+  // ===== 使用前后对比的文字说明（自动生成一段话，屏幕和打印稿都用） =====
+  function growthText(g, d){
+    if(!g){ return ""; }
+    var name = (d && d.student && d.student.name) ? d.student.name : "该学生";
+    if(!g.has2){
+      return name + "目前只有 " + g.last.day + " 一天的数据（答题 " + g.last.questions + " 题，正确率 "
+        + g.last.accuracy + "%）。至少练满两天，才能做使用前后的对比。";
+    }
+    var f = g.first, l = g.last, t = [];
+    t.push(name + "从 " + f.day + " 开始使用，到 " + l.day + " 一共练了 " + g.totalDays + " 天（第一天 "
+      + f.questions + " 题、最新一天 " + l.questions + " 题）。");
+    var dAcc = l.accuracy - f.accuracy;
+    t.push("正确率从 " + f.accuracy + "% 到 " + l.accuracy + "%"
+      + (dAcc === 0 ? "，基本持平；" : (dAcc > 0 ? ("，提升了 " + dAcc + " 个百分点；") : ("，下降了 " + Math.abs(dAcc) + " 个百分点；"))));
+    t.push("当天错词从 " + f.wrongN + " 个" + (l.wrongN === f.wrongN ? "持平" : (l.wrongN < f.wrongN ? ("减少到 " + l.wrongN + " 个") : ("增加到 " + l.wrongN + " 个"))) + "。");
+    var m = (d && d.mastery) || {};
+    t.push("目前累计已掌握 " + (m.mastered || 0) + " 个词、待巩固 " + (m.shaky || 0) + " 个、未掌握 " + (m.weak || 0) + " 个。");
+    var todo = [];
+    ((d && d.wrongs) || []).forEach(function(w){ if(w.level === "未掌握"){ todo.push(w.word); } });
+    if(todo.length){
+      t.push("建议重点复习这 " + todo.length + " 个还没掌握的词：" + todo.slice(0, 10).join("、") + (todo.length > 10 ? " 等" : "") + "。");
+    } else if((m.shaky || 0) > 0){
+      t.push("建议把 " + m.shaky + " 个待巩固的词再各练一轮，争取升到已掌握。");
+    } else {
+      t.push("目前没有明显薄弱的词，继续保持。");
+    }
+    return t.join("");
+  }
   function growthHtml(d){
     var g = growth(d);
     if(!g){ return '<div class="panel"><h2>使用前后对比</h2><div class="empty">还没有练习数据</div></div>'; }
@@ -644,6 +673,7 @@
     var bad = g.bad.length ? g.bad.map(function(t){ return '<li>' + esc(t) + '</li>'; }).join("") : '<li class="muted">暂时没有明显退步/问题</li>';
     return '<div class="panel"><h2>使用前后对比 <span class="muted" style="font-weight:400;font-size:12px;">'
         + '第一天 ' + esc(first.day) + ' → 最新一天 ' + esc(last.day) + '（共练了 ' + g.totalDays + ' 天）</span></h2>'
+      + '<div class="gtext">' + esc(growthText(g, d)) + '</div>'
       + '<div class="cmp">'
       +   cmpBar('正确率', first.accuracy, last.accuracy, '%', true)
       +   cmpBar('当天错词', first.wrongN, last.wrongN, ' 个', false)
@@ -890,6 +920,7 @@
     var g2 = growth(d);
     var grow = (g2 && g2.has2)
       ? '<h2>使用前后对比（第一天 ' + esc(g2.first.day) + ' → 最新一天 ' + esc(g2.last.day) + '）</h2>'
+        + '<p class="meta" style="line-height:1.95;">' + esc(growthText(g2, d)) + '</p>'
         + '<table><thead><tr><th>指标</th><th>第一天</th><th>最新一天</th><th>变化</th></tr></thead><tbody>'
         + '<tr><td>正确率</td><td>' + g2.first.accuracy + '%</td><td>' + g2.last.accuracy + '%</td><td>'
           + (g2.last.accuracy - g2.first.accuracy === 0 ? '持平' : ((g2.last.accuracy > g2.first.accuracy ? '提升 ' : '下降 ') + Math.abs(g2.last.accuracy - g2.first.accuracy) + ' 个百分点')) + '</td></tr>'
