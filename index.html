@@ -557,6 +557,12 @@ body{
 .vpre-login-btn:active{transform:scale(.99);}
 .vpre-login-note{font-size:11px; color:var(--vp-muted); line-height:1.6; margin-top:12px;}
 .vpre-login-histtip{font-size:11px; color:var(--vp-muted); line-height:1.5; margin:-2px 0 6px 2px;}
+/* 同步状态（我的页）：一眼看出数据有没有传上去 */
+.vpre-sync{margin:2px 0 10px; font-size:12px; line-height:1.7; text-align:center; color:var(--vp-muted); background:var(--vp-card); border:1px solid var(--vp-line); border-radius:14px; padding:10px 12px;}
+.vpre-sync.is-warn{color:#b45309; background:#fff8ec; border-color:#f3ddb0;}
+.vpre-sync b{font-weight:700;}
+.vpre-sync button{margin-left:8px; border:0; background:var(--vp-blue); color:#fff; font-size:12px; font-weight:700; padding:7px 14px; border-radius:99px; cursor:pointer;}
+.vpre-sync button:active{transform:scale(.97);}
 .vpre-login-lastbtn{width:100%; border:1.5px dashed var(--vp-blue); background:var(--vp-blue-soft); color:var(--vp-blue); font-size:13.5px; font-weight:700; padding:12px 10px; border-radius:14px; cursor:pointer; line-height:1.5;}
 .vpre-login-lastbtn small{display:block; font-weight:400; font-size:11px; color:var(--vp-muted); margin-top:2px;}
 .vpre-login-lastbtn:active{transform:scale(.99);}
@@ -686,6 +692,7 @@ body{
             <div class="vpre-mine-books"></div>
 
             <button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-install="1">📲 安装到手机 / 电脑桌面</button>
+            <div class="vpre-sync" id="vpre-sync"></div>
             <button class="vpre-btn vpre-btn-primary vpre-btn-block" type="button" data-action="open-report">📊 查看学习报告</button>
             <button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-action="wipe-local" style="color:#e5484d;">🧹 清空本机数据（重新登录）</button>
             <div class="vpre-note">进度保存在本机浏览器，换设备/换浏览器不通用；家长可查看学习报告</div>
@@ -903,8 +910,10 @@ body{
       for(var i=0;i<localStorage.length;i++){
         var k = localStorage.key(i);
         if(!k){ continue; }
-        if(k.indexOf("vpreProgress") === 0 || k === "vpreStudent" || k === "vpreUploadQueue" ||
-           k === "vpreRegQueue" || k === "vpreAnswerQueue" || k === "vpreLegacyAdopted"){
+        // 注意：vpreUploadQueue / vpreAnswerQueue / vpreRegQueue **不在这里清**，
+      // 否则学生还没上传成功的练习数据会被永久丢掉。它们会在启动时自动尝试补传。
+      if(k.indexOf("vpreProgress") === 0 || k === "vpreStudent" ||
+         k === "vpreLegacyAdopted" || k === "vpreStudentHistory" || k === "vpreLastStudent"){
           kill.push(k);
         }
       }
@@ -967,11 +976,50 @@ body{
   function progressKey(){
     return STUDENT ? ("vpreProgress:" + STUDENT.sid) : LEGACY_PROGRESS_KEY;
   }
+  // ===== 同步状态（我的页显示：数据是否都传上去了）=====
+  function queueLen(k){
+    try{ var a = JSON.parse(localStorage.getItem(k) || "[]"); return a && a.length ? a.length : 0; }catch(e){ return 0; }
+  }
+  function pendingCount(){
+    return queueLen("vpreUploadQueue") + queueLen("vpreAnswerQueue") + queueLen("vpreRegQueue");
+  }
+  function fmtSyncTime(ts){
+    if(!ts){ return "还没同步过"; }
+    var d = new Date(ts), now = new Date();
+    function p(n){ return (n < 10 ? "0" : "") + n; }
+    var sameDay = d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth() && d.getDate() === now.getDate();
+    return (sameDay ? "今天 " : (p(d.getMonth()+1) + "-" + p(d.getDate()) + " ")) + p(d.getHours()) + ":" + p(d.getMinutes());
+  }
+  function renderSyncStatus(phone){
+    var box = document.getElementById("vpre-sync");
+    if(!box){ return; }
+    var n = pendingCount();
+    var last = 0; try{ last = parseInt(localStorage.getItem("vpreLastSync") || "0", 10) || 0; }catch(e){ last = 0; }
+    if(n > 0){
+      box.className = "vpre-sync is-warn";
+      box.innerHTML = '⚠️ 还有 <b>' + n + '</b> 条数据没上传（网络恢复后会自己补传）'
+        + '<button type="button" id="vpre-sync-retry">立即重试</button>';
+      var b = document.getElementById("vpre-sync-retry");
+      if(b){
+        b.addEventListener("click", function(){
+          sfx.play("tap");
+          try{ flushAnswerQueue(); }catch(e){}
+          try{ flushQueue(); }catch(e){}
+          try{ flushRegQueue(); }catch(e){}
+          setTimeout(function(){ renderSyncStatus(phone); }, 1800);
+        });
+      }
+    } else {
+      box.className = "vpre-sync";
+      box.innerHTML = '✅ 数据已同步 · 最后同步：' + fmtSyncTime(last);
+    }
+  }
   function refreshStudents(){
     qa(".vpre-phone").forEach(function(ph){
       renderUnits(ph);
       renderMine(ph);
       renderWrong(ph);
+      try{ renderSyncStatus(ph); }catch(e){}
     });
   }
   // 记住这台设备用过的学生（下拉列表选自己）；列表最多 20 人，最近用的排最前
@@ -1245,6 +1293,7 @@ body{
     try{
       return postBackend("report", payload).then(function(r){
         if(!r.ok){ throw new Error("bad status"); }
+        try{ localStorage.setItem("vpreLastSync", String(Date.now())); }catch(e){}
         return true;
       }).catch(function(){ queueReport(payload); return false; });
     }catch(e){
@@ -1258,6 +1307,7 @@ body{
     try{
       postBackend("register", payload).then(function(r){
         if(!r.ok){ throw new Error("bad"); }
+        try{ localStorage.setItem("vpreLastSync", String(Date.now())); }catch(e){}
       }).catch(function(){ queueRegister(payload); });
     }catch(e){ queueRegister(payload); }
   }
@@ -1295,6 +1345,7 @@ body{
   function submitAnswer(payload){
     try{
       return postBackend("answer", payload).then(function(r){
+        try{ if(r.ok || r.status === 204){ localStorage.setItem("vpreLastSync", String(Date.now())); } }catch(e){}
         // 400/404 = 服务端没这个接口或参数不对（比如还没跑新版 SQL）：不再重试，返回 false，
         // 这样整组上报时会让服务端兜底更新一次词表，错题本不会丢词
         if(r.status === 400 || r.status === 404){ return false; }
