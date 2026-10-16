@@ -1281,11 +1281,15 @@ body{
     return ZH_MAP[String(en || "").toLowerCase()] || "";
   }
   function apiUrl(path){ return (API_BASE || "") + path; }
+  // 每条上报的"身份证"：一次生成、重试时不变，服务端据此去重（不会把同一条算两次）
+  function newCid(){
+    return "c" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
+  }
   function queueReport(payload){
     try{
       var q = JSON.parse(localStorage.getItem("vpreUploadQueue") || "[]");
       q.push(payload);
-      if(q.length > 50){ q = q.slice(-50); }
+      if(q.length > 1000){ q = q.slice(-1000); }
       localStorage.setItem("vpreUploadQueue", JSON.stringify(q));
     }catch(e){}
   }
@@ -1303,7 +1307,7 @@ body{
   }
   function submitRegister(student){
     if(!student || !student.sid){ return; }
-    var payload = {sid:student.sid, name:student.name, ts:new Date().toISOString()};
+    var payload = {cid:newCid(), sid:student.sid, name:student.name, ts:new Date().toISOString()};
     try{
       postBackend("register", payload).then(function(r){
         if(!r.ok){ throw new Error("bad"); }
@@ -1315,7 +1319,7 @@ body{
     try{
       var q = JSON.parse(localStorage.getItem("vpreRegQueue") || "[]");
       q.push(payload);
-      if(q.length > 5){ q = q.slice(-5); }
+      if(q.length > 100){ q = q.slice(-100); }
       localStorage.setItem("vpreRegQueue", JSON.stringify(q));
     }catch(e){}
   }
@@ -1338,7 +1342,7 @@ body{
     try{
       var q = JSON.parse(localStorage.getItem("vpreAnswerQueue") || "[]");
       q.push(payload);
-      if(q.length > 200){ q = q.slice(-200); }
+      if(q.length > 5000){ q = q.slice(-5000); }   // 上限放宽到 5000 条，基本不会丢
       localStorage.setItem("vpreAnswerQueue", JSON.stringify(q));
     }catch(e){}
   }
@@ -1385,6 +1389,7 @@ body{
     var correct = (z.type === "match") ? (z.matched || 0) : (z.score || 0);
     var duration = z.start ? Math.max(0, Math.round((Date.now() - z.start) / 1000)) : 0;
     return {
+      cid: newCid(),                                  // 整组上报也带去重 id
       sid: STUDENT ? STUDENT.sid : "",
       name: STUDENT ? STUDENT.name : "",
       // 只有这一组每一题都实时上报成功了，才让服务端跳过词表更新（否则让整组上报兜底补一次，保证错题本不丢词）
@@ -1477,6 +1482,7 @@ body{
     var s = state[phone.__id];
     var en = (z.type === "word" || z.type === "wrong") ? it.prompt : it.answer;
     submitAnswer({
+      cid: newCid(),
       sid: STUDENT.sid, name: STUDENT.name,
       word: String(en || ""),
       meaning: zhOf(en) || "",
@@ -4361,6 +4367,16 @@ body{
   flushQueue();
   flushRegQueue();
   flushAnswerQueue();
+  // 有条件就补传：网络恢复、切回前台、以及每分钟检查一次（没传完就一直等着传）
+  function flushAllQueues(){
+    try{ flushAnswerQueue(); }catch(e){}
+    try{ flushQueue(); }catch(e){}
+    try{ flushRegQueue(); }catch(e){}
+    try{ var ph = qa(".vpre-phone")[0]; if(ph){ renderSyncStatus(ph); } }catch(e){}
+  }
+  window.addEventListener("online", flushAllQueues);
+  document.addEventListener("visibilitychange", function(){ if(document.visibilityState === "visible"){ flushAllQueues(); } });
+  setInterval(function(){ try{ if(pendingCount() > 0){ flushAllQueues(); } }catch(e){} }, 60000);
   if(STUDENT){ hideLogin(); } else { showLogin(); }
   loadBook(currentBookName(), function(){
     if(initDemo()){ return; }

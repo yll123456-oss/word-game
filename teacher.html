@@ -185,6 +185,14 @@
       })
     };
   }
+  function demoDaily(){
+    return [
+      {day:"2026-10-16", questions:60, correct:52, accuracy:87, practices:3, seconds:305},
+      {day:"2026-10-15", questions:40, correct:30, accuracy:75, practices:2, seconds:222},
+      {day:"2026-10-14", questions:20, correct:11, accuracy:55, practices:1, seconds:150},
+      {day:"2026-10-10", questions:20, correct:9,  accuracy:45, practices:1, seconds:166}
+    ];
+  }
   function demoStudent(sid){
     var st = null;
     demoSummary().students.forEach(function(s){ if(s.sid === sid){ st = s; } });
@@ -205,6 +213,7 @@
       }),
       words:[], mastery:{weak:st.weak, shaky:st.shaky, mastered:st.mastered},
       modes:Object.keys(modes).map(function(k){ return {mode:k, count:modes[k].count, avgAccuracy:Math.round(modes[k].sum/modes[k].count)}; }),
+      daily:demoDaily(),
       practiceCount:st.practiceCount
     };
   }
@@ -369,7 +378,8 @@
       sbGet("v_students?select=*&sid=eq." + sbQ(sid)),
       sbGet("v_wrongs?select=*&sid=eq." + sbQ(sid) + "&order=wrong_count.desc"),
       sbGet("v_records?select=*&sid=eq." + sbQ(sid) + "&order=id.desc&limit=500"),
-      sbGet("v_modes?select=*&sid=eq." + sbQ(sid))
+      sbGet("v_modes?select=*&sid=eq." + sbQ(sid)),
+      sbGet("v_daily?select=*&sid=eq." + sbQ(sid) + "&order=day.desc")
     ]).then(function(a){
       var s = (a[0] || [])[0] || {};
       return {
@@ -380,6 +390,7 @@
         words:[],
         mastery:{weak:s.weak || 0, shaky:s.shaky || 0, mastered:s.mastered || 0},
         modes:a[3] || [],
+        daily:a[4] || [],
         practiceCount:s.practiceCount || 0
       };
     });
@@ -544,6 +555,37 @@
     if(v === 0){ return '持平'; }
     return (v > 0 ? '提升 ' : '下降 ') + Math.abs(v) + ' 个百分点';
   }
+  // ===== 按日期看：每个日期一行，最近的展开、更早的折叠（历史一直保留） =====
+  function dailyHtml(d){
+    var rows = d.daily || [];
+    if(!rows.length){ return ''; }
+    function fmtDur(sec){
+      sec = Number(sec) || 0;
+      if(!sec){ return "—"; }
+      var m = Math.floor(sec / 60), s2 = sec % 60;
+      return m ? (m + " 分 " + (s2 ? (s2 + " 秒") : "")) : (s2 + " 秒");
+    }
+    var today = new Date();
+    function pad(n){ return (n < 10 ? "0" : "") + n; }
+    var todayStr2 = today.getFullYear() + "-" + pad(today.getMonth()+1) + "-" + pad(today.getDate());
+    var body = rows.map(function(r, i){
+      var open = (i === 0) ? " open" : "";                       // 最近一天默认展开
+      var tag = (r.day === todayStr2) ? ' <span class="muted">（今天）</span>' : "";
+      return '<details' + open + ' style="border-bottom:1px solid var(--line); padding:6px 0;">'
+        + '<summary style="cursor:pointer; font-size:12.5px; font-weight:600;">'
+        +   esc(r.day) + tag
+        +   ' · 答题 ' + (r.questions || 0) + ' 题'
+        +   ' · 正确率 ' + (r.accuracy || 0) + '%'
+        +   (r.practices ? (' · 练完 ' + r.practices + ' 组') : '')
+        + '</summary>'
+        + '<div class="muted" style="padding:6px 0 2px 14px; line-height:1.9;">'
+        +   '答题 ' + (r.questions || 0) + ' 题（对 ' + (r.correct || 0) + ' 题，正确率 ' + (r.accuracy || 0) + '%）<br>'
+        +   '练完 ' + (r.practices || 0) + ' 组完整练习 · 用时 ' + fmtDur(r.seconds)
+        + '</div></details>';
+    }).join("");
+    return '<div class="panel"><h2>按日期看 <span class="muted" style="font-weight:400;font-size:12px;">共 '
+      + rows.length + ' 天 · 点日期展开当天数据（历史一直保留，不会清掉）</span></h2>' + body + '</div>';
+  }
   function renderDetail(){
     var d = S.detail;
     var box = q("#detail");
@@ -571,6 +613,7 @@
       + '</div>'
       + '</div>'
       + growthHtml(d)
+      + dailyHtml(d)
       + '<div class="two">'
       + '<div class="panel"><h2>错题本（按错误次数）</h2>' + wrongTable(wrongs) + '</div>'
       + '<div class="panel"><h2>练习记录</h2>' + recordTable(records) + '</div>'
@@ -659,7 +702,15 @@
         + '</tbody></table>'
         + modeTable(g, true)
       : '';
-    fillPrint(grow
+    var daily = (d.daily || []);
+    var dailyTbl = daily.length
+      ? '<h2>按日期统计</h2><table><thead><tr><th>日期</th><th>答题</th><th>答对</th><th>正确率</th><th>练完组数</th><th>用时</th></tr></thead><tbody>'
+        + daily.map(function(r){
+            return '<tr><td>' + esc(r.day) + '</td><td>' + (r.questions||0) + '</td><td>' + (r.correct||0) + '</td><td>'
+              + (r.accuracy||0) + '%</td><td>' + (r.practices||0) + '</td><td>' + Math.round((Number(r.seconds)||0)/60) + ' 分钟</td></tr>';
+          }).join("") + '</tbody></table>'
+      : '';
+    fillPrint(grow + dailyTbl
       + '<h2>学习概况</h2><p class="meta">练习模块：' + esc(modes) + '</p>'
       + '<h2>练习记录</h2>' + records);
   }
