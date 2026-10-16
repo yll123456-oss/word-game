@@ -147,7 +147,8 @@
       </table>
     </div>
     <div class="muted" style="margin-top:8px;">
-      👉 <b>点任意一行</b>即可查看这个学生的数据（每日一练、错题本、学情报告分析）；
+      👉 <b>点任意一行</b>即可查看这个学生的数据（每日一练、错题本、学情报告分析）。<br>
+      📅 <b>练习次数按练习日期算</b>：某天练过就记 1 次，同一天做几个玩法都只算 1 次（跟模块数无关）；
       <button class="ghost" id="btn-toggle-phone" type="button" style="padding:4px 10px; font-size:11.5px;">显示完整学号</button>
     </div>
   </div>
@@ -455,7 +456,7 @@
       q("#k-new").textContent = d.totals.newToday || 0;
       q("#k-never").textContent = d.totals.neverPracticed || 0;
       q("#subline").textContent = (DEMO ? "【演示数据 · 不写数据库】" : "")
-        + "统计日期 " + d.date + " · 今日练习 " + d.totals.records + " 次";
+        + "统计日期 " + d.date + " · 今日练习 " + d.totals.records + " 组";
       q("#login").style.display = "none";
       q("#btn-logout").style.display = CLOUD ? "inline-block" : "none";
       q("#btn-clear-all").style.display = "inline-block";
@@ -786,7 +787,7 @@
     box.innerHTML =
       '<div class="panel">'
       + '<h2>' + esc(st.name) + ' · 学习档案 <span class="muted" style="font-weight:400; font-size:12px;">（学号 ' + esc(st.sidMasked) + '）</span></h2>'
-      + '<div class="muted" style="margin-bottom:10px;">练习次数 ' + d.practiceCount + ' 次 · 最近练习 ' + esc(st.lastSeen || '') + '</div>'
+      + '<div class="muted" style="margin-bottom:10px;">练习次数 ' + d.practiceCount + ' 次（练过的天数，按练习日期算）· 最近练习 ' + esc(st.lastSeen || '') + '</div>'
       + '<div class="cards" style="margin-bottom:12px;">'
       + '<div class="card"><b style="color:#0f9d76;">' + m.mastered + '</b><span>已掌握</span></div>'
       + '<div class="card"><b style="color:#b45309;">' + m.shaky + '</b><span>待巩固</span></div>'
