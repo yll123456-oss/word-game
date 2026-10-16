@@ -35,10 +35,6 @@
   .empty{color:var(--muted); font-size:13px; padding:14px 0; text-align:center;}
   .two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
   .grow{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin:10px 0 6px;}
-  .gbox{background:#fafbfe; border:1px solid var(--line); border-radius:13px; padding:11px 12px;}
-  .gbox span{display:block; font-size:11.5px; color:var(--muted);}
-  .gbox b{display:block; font-size:19px; margin:3px 0 2px;}
-  .gbox em{font-style:normal; font-size:12px; font-weight:700;}
   .gup{color:var(--green);}
   .gdown{color:var(--red);}
   .grow-line{font-size:13px; line-height:1.9;}
@@ -677,7 +673,7 @@
     if(!g.has2){
       return '<div class="panel"><h2>学情报告分析</h2>'
         + '<div class="empty">目前只有 1 天练习数据（' + esc(g.last.day) + '）<br>至少练满两天，才能做"第一天 vs 最新一天"的成长对比</div>'
-        + '<div style="margin-top:8px;">' + cmpHintSingle(g.last) + '</div></div>';
+        + '<div style="margin-top:10px;">' + cmpHintSingle(g.last) + '</div></div>';
     }
     var last = g.last, first = g.first;
     var good = g.good.length ? g.good.map(function(t){ return '<li>' + esc(t) + '</li>'; }).join("") : '<li class="muted">暂时没有明显进步点（多练几天再看）</li>';
@@ -697,8 +693,8 @@
       + '</div></div>';
   }
   function cmpHintSingle(r){
-    return '<div class="gbox">练了 <b>' + r.questions + '</b> 题（对 ' + r.correct + ' 题，正确率 <b>' + r.accuracy + '%</b>）'
-      + '，练完 <b>' + r.practices + '</b> 组，当天错 <b>' + r.wrongN + '</b> 个词，用时 ' + fmtDur(r.seconds) + '</div>';
+    return '<div class="gtext">今天练了 <b>' + r.questions + '</b> 题（对 ' + r.correct + ' 题，正确率 <b>' + r.accuracy + '%</b>）'
+      + '，练完 <b>' + r.practices + '</b> 组，当天错 <b>' + r.wrongN + '</b> 个词，用时 ' + fmtDur(r.seconds) + '。</div>';
   }
   // 把"按日期统计 / 练习记录 / 当天错题"按日期拼到一起
   function dailyJoin(daily, records, wrongs){
@@ -797,10 +793,6 @@
       + '<div class="card"><b style="color:#e5484d;">' + m.weak + '</b><span>未掌握</span></div>'
       + '<div class="card"><b>' + (d.modes || []).length + '</b><span>练过的模块</span></div>'
       + '</div>'
-      + '<div class="btns">'
-      + '<button class="ghost" id="btn-print-report" type="button">打印学情报告</button>'
-      + '<button class="ghost" id="btn-close-detail" type="button">收起</button>'
-      + '</div>'
       + '</div>'
       + dailyHtml(d)                                  // 每日一练：点日期 → 显示当天的练习内容
       + '<div class="panel"><h2>错题本 <span class="muted" style="font-weight:400;font-size:12px;">按日期勾选要打印的范围，可多选；不勾选=全部累计</span></h2>'
@@ -822,7 +814,11 @@
       + '</div>'
       + '<div class="muted" id="wrong-sum" style="margin-top:8px;"></div>'
       + '</div>'
-      + growthHtml(d);                                // 学情报告分析：放页面最下端
+      + growthHtml(d)                                 // 学情报告分析：放页面最下端
+      + '<div class="btns" style="justify-content:flex-end; margin:0 0 18px;">'
+      + '<button class="ghost" id="btn-print-report" type="button">打印学情报告</button>'
+      + '<button class="ghost" id="btn-close-detail" type="button">收起</button>'
+      + '</div>';
     // ---- 错题本打印范围：日期多选 ----
     var pickedDays = [];
     var wbar = q("#wrong-daylist"), wsum = q("#wrong-sum");
