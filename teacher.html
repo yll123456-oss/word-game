@@ -139,7 +139,8 @@
       </table>
     </div>
     <div class="muted" style="margin-top:8px;">
-      点击任意一行查看该学生的错题本和练习记录；<button class="ghost" id="btn-toggle-phone" type="button" style="padding:4px 10px; font-size:11.5px;">显示完整学号</button>
+      👉 <b>点任意一行</b>即可查看这个学生的数据（按日期折叠的练习记录、错题、成长对比）；
+      <button class="ghost" id="btn-toggle-phone" type="button" style="padding:4px 10px; font-size:11.5px;">显示完整学号</button>
     </div>
   </div>
 
@@ -728,6 +729,20 @@
       + rows.length + ' 天 · 点日期展开当天每组用时与错题（历史一直保留）</span></h2>'
       + '<div class="vpre-daylist">' + body + '</div></div>';
   }
+  // 全部错题（累计）：默认收起，点标题展开
+  function allWrongsHtml(wrongs){
+    var n = (wrongs || []).length;
+    return '<div class="panel"><details class="vpre-dayfold">'
+      + '<summary><b>全部错题（累计，按错次）</b><span>' + (n ? (n + ' 个词 · 点这里展开') : '暂无错词') + '</span></summary>'
+      + '<div class="vpre-daybody">' + wrongTable(wrongs) + '</div></details></div>';
+  }
+  // 全部练习记录：默认收起，点标题展开
+  function allRecordsHtml(records){
+    var n = (records || []).length;
+    return '<div class="panel"><details class="vpre-dayfold">'
+      + '<summary><b>全部练习记录</b><span>' + (n ? (n + ' 次 · 点这里展开') : '暂无记录') + '</span></summary>'
+      + '<div class="vpre-daybody">' + recordTable(records) + '</div></details></div>';
+  }
   function renderDetail(){
     var d = S.detail;
     var box = q("#detail");
@@ -755,11 +770,9 @@
       + '</div>'
       + '</div>'
       + growthHtml(d)
-      + dailyHtml(d)
-      + '<div class="two">'
-      + '<div class="panel"><h2>错题本（按错误次数）</h2>' + wrongTable(wrongs) + '</div>'
-      + '<div class="panel"><h2>练习记录</h2>' + recordTable(records) + '</div>'
-      + '</div>';
+      + dailyHtml(d)                                  // 按日期折叠：每天展开 = 当天练习记录 + 当天错题
+      + allWrongsHtml(wrongs)                         // 全部错题（累计）也做成折叠
+      + allRecordsHtml(records);                      // 全部练习记录也做成折叠
     var b1 = q("#btn-print-wrong"); if(b1){ b1.addEventListener("click", function(){ printWrong(); }); }
     var b2 = q("#btn-print-report"); if(b2){ b2.addEventListener("click", function(){ printReport(); }); }
     var b4 = q("#btn-csv-wrong");
