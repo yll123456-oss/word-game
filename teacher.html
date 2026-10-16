@@ -750,29 +750,21 @@
                 + '<td class="muted">' + esc(w.module || '') + '</td><td class="muted">' + esc(String(w.ts || '').slice(5, 16)) + '</td></tr>';
             }).join('') + '</tbody></table></div>';
       }
-      return '<details' + open + ' class="vpre-dayfold">'
+      return '<details' + open + ' class="vpre-dayfold" data-day="' + esc(r.day) + '">'
         + '<summary><b>' + esc(r.day) + '</b>' + tag
         + '<span>答题 ' + (r.questions || 0) + ' 题 · 正确率 ' + (r.accuracy || 0) + '%'
         + (r.practices ? (' · 练完 ' + r.practices + ' 组') : '') + ' · 用时 ' + fmtDur(r.seconds) + '</span></summary>'
         + '<div class="vpre-daybody">' + inner + '</div></details>';
     }).join("");
+    var opts = rows.map(function(r){
+      return '<option value="' + esc(r.day) + '">' + esc(r.day) + (r.day === todayStr2 ? '（今天）' : '')
+        + ' · 答题 ' + (r.questions || 0) + ' 题 · ' + (r.accuracy || 0) + '%</option>';
+    }).join("");
     return '<div class="panel"><h2>按日期看 <span class="muted" style="font-weight:400;font-size:12px;">共 '
-      + rows.length + ' 天 · 点日期展开当天每组用时与错题（历史一直保留）</span></h2>'
+      + rows.length + ' 天 · 选日期或点日期展开（历史一直保留）</span></h2>'
+      + '<div style="margin:0 0 8px;"><select id="daily-jump" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:11px; background:#fff; font-size:12.5px; font-weight:600; color:var(--ink);">'
+      +   '<option value="">选择日期查看当天的练习记录与错题…</option>' + opts + '</select></div>'
       + '<div class="vpre-daylist">' + body + '</div></div>';
-  }
-  // 全部错题（累计）：默认收起，点标题展开
-  function allWrongsHtml(wrongs){
-    var n = (wrongs || []).length;
-    return '<div class="panel"><details class="vpre-dayfold">'
-      + '<summary><b>全部错题（累计，按错次）</b><span>' + (n ? (n + ' 个词 · 点这里展开') : '暂无错词') + '</span></summary>'
-      + '<div class="vpre-daybody">' + wrongTable(wrongs) + '</div></details></div>';
-  }
-  // 全部练习记录：默认收起，点标题展开
-  function allRecordsHtml(records){
-    var n = (records || []).length;
-    return '<div class="panel"><details class="vpre-dayfold">'
-      + '<summary><b>全部练习记录</b><span>' + (n ? (n + ' 次 · 点这里展开') : '暂无记录') + '</span></summary>'
-      + '<div class="vpre-daybody">' + recordTable(records) + '</div></details></div>';
   }
   function renderDetail(){
     var d = S.detail;
@@ -807,9 +799,16 @@
       + '</div>'
       + '</div>'
       + growthHtml(d)
-      + dailyHtml(d)                                  // 按日期折叠：每天展开 = 当天练习记录 + 当天错题
-      + allWrongsHtml(wrongs)                         // 全部错题（累计）也做成折叠
-      + allRecordsHtml(records);                      // 全部练习记录也做成折叠
+      + dailyHtml(d);                                 // 按日期折叠：每天展开 = 当天练习记录 + 当天错题
+    var jump = q("#daily-jump");
+    if(jump){
+      jump.addEventListener("change", function(){
+        var day = jump.value;
+        if(!day){ return; }
+        var el2 = box.querySelector('details[data-day="' + day + '"]');
+        if(el2){ el2.open = true; if(el2.scrollIntoView){ el2.scrollIntoView({behavior:"smooth", block:"center"}); } }
+      });
+    }
     var selDate = q("#wrong-print-date");
     function curScope(){ return selDate ? selDate.value : "all"; }
     var b1 = q("#btn-print-wrong"); if(b1){ b1.addEventListener("click", function(){ printWrong(curScope()); }); }
