@@ -461,6 +461,24 @@
   }
   var BUILD_VER = "2026-10-16 21:10";
   function setDiag(msg){ var el = q("#li-diag"); if(el){ el.textContent = msg; } }
+  // 把"连不上"这件事在页面上说清楚：红框 + 具体怎么救
+  function netHelp(why){
+    var el = q("#boot-err");
+    if(!el){ return; }
+    el.style.display = "block";
+    el.innerHTML = "⚠️ <b>连不上云端服务器</b>（跟账号、密码没关系）\n"
+      + "原因：" + esc(why || "请求没发出去") + "\n\n"
+      + "最常见就是<b>这台设备的网络到 supabase.co 不通</b>（学校网、公司网、部分宽带会拦）。按顺序试：\n"
+      + "① 换成<b>手机热点</b>再打开本页（最有效，先试这个）；\n"
+      + "② 把电脑 DNS 改成 223.5.5.5 或 119.29.29.29，然后重开本页；\n"
+      + "③ 直接在浏览器地址栏打开 https://vixsmcezymbrpcipqwzc.supabase.co/auth/v1/health —— 打得开说明网络是通的，打不开就是被拦了；\n"
+      + "④ 如果换热点就能上、平时上不了，那就是网络限制，需要走代理，或者把后台换到国内能访问的服务器（这个我可以给方案）。";
+  }
+  function appendBoot(txt){
+    var el = q("#boot-err");
+    if(!el){ return; }
+    el.innerHTML = el.innerHTML + "\n\n" + esc(txt);
+  }
   // 登录页自检①：直接打一下 Supabase 的健康检查，判断是"账号问题"还是"这台设备连不上"
   function diagTest(){
     setDiag("正在测试与服务器的连接…");
@@ -558,10 +576,18 @@
       renderTable();
     }).catch(function(e){
       if(isNoSession(e)){ needLogin(); return; }
-      q("#subline").textContent = CLOUD
-        ? "读不到云端数据：检查 Supabase 地址 / anon key 是否填对，以及网络是否通"
-        : "无法读取数据，请确认后端服务已启动（python3 server/server.py）";
+      var m = String((e && e.message) || e || "");
+      q("#subline").textContent = CLOUD ? "连不上云端服务器" : "连不上本机后端";
       q("#tbody").innerHTML = '<tr><td colspan="10" class="empty">' + (CLOUD ? "云端未连接" : "后端未连接") + '</td></tr>';
+      if(CLOUD){
+        netHelp(m || "读取数据失败");
+        // 顺手自己测一次连通性，把结论写进红框，省得再猜
+        fetch(sbBase() + "/auth/v1/health", {headers:{"apikey":SUPABASE.key}})
+          .then(function(r){ appendBoot("连通性自测：服务器可达（HTTP " + r.status + "）→ 网络没问题，问题在登录状态，点下面「清除本机登录状态」再登一次。"); })
+          .catch(function(){ appendBoot("连通性自测：这台设备打不开 supabase.co —— 确认是网络被拦，按上面 ① 换热点试。"); });
+      } else if(!DEMO){
+        q("#subline").textContent = "无法读取数据，请确认后端服务已启动（python3 server/server.py）";
+      }
     });
   }
   function phoneText(s){
