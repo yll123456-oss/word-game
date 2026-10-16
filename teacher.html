@@ -43,19 +43,21 @@
   .gdown{color:var(--red);}
   .grow-line{font-size:13px; line-height:1.9;}
   .grow-line b{font-size:15px;}
-  .vpre-daylist{background:#fff; border:1px solid var(--line); border-radius:14px; padding:2px 14px;}
-  .vpre-dayfold{border-bottom:1px solid var(--line);}
-  .vpre-dayfold:last-child{border-bottom:0;}
-  .vpre-dayfold > summary{display:flex; align-items:baseline; gap:8px; padding:10px 0; cursor:pointer; font-size:12.5px; list-style:none;}
-  .vpre-dayfold > summary::-webkit-details-marker{display:none;}
-  .vpre-dayfold > summary::before{content:"▸"; color:var(--muted); font-size:11px;}
-  .vpre-dayfold[open] > summary::before{content:"▾";}
-  .vpre-dayfold > summary > span{margin-left:auto; font-size:11.5px; color:var(--muted);}
-  .vpre-daybody{padding:0 0 12px 16px;}
   .vpre-dayblock{margin-bottom:10px;}
   .vpre-dayblock > b{font-size:12px; color:var(--ink);}
   .vpre-dayline{font-size:11.5px; color:var(--muted); line-height:1.9; margin-top:6px;}
   .vpre-dayline b{color:var(--ink);}
+  /* 按日期看：日期条 + 点选后显示当天内容 */
+  .daybar{display:flex; gap:8px; flex-wrap:wrap; margin:0 0 12px;}
+  .daychip{background:#fff; border:1px solid var(--line); border-radius:12px; padding:8px 12px; cursor:pointer;
+           text-align:left; line-height:1.35; color:var(--ink); font-weight:700; font-family:inherit;}
+  .daychip b{display:block; font-size:13px;}
+  .daychip span{display:block; font-size:11px; color:var(--muted); font-weight:500; margin-top:2px;}
+  .daychip:hover{border-color:#c9d3ee;}
+  .daychip.is-on{background:var(--blue); border-color:var(--blue);}
+  .daychip.is-on b, .daychip.is-on span{color:#fff;}
+  .dayview{background:#fafbfe; border:1px solid var(--line); border-radius:14px; padding:12px 14px;}
+  .dayview .vpre-dayline{margin-top:8px;}
   /* 使用前后对比：对比条 + 折线 + 成长点/失误点 */
   .gtext{background:#f7f9ff; border:1px solid #e2e8f6; border-radius:12px; padding:10px 12px; font-size:12.5px; line-height:1.95; color:var(--ink); margin:8px 0 10px;}
   .cmp{margin:10px 0 6px;}
@@ -707,64 +709,64 @@
   function wChoice(w){ return w.last_choice || w.chosen || ""; }
   function wModule(w){ return w.last_module || w.module || ""; }
   function wTs(w){ return w.last_ts || w.ts || ""; }
-  // ===== 按日期看：每个日期一行，最近的展开、更早的折叠（历史一直保留） =====
-  function dailyHtml(d){
-    var rows = d.daily || [];
-    if(!rows.length){ return ''; }
-    var today = new Date();
+  // ===== 按日期看：先把练习日期列出来，点某个日期再看当天练了什么 =====
+  function todayStr(){
+    var t = new Date();
     function pad(n){ return (n < 10 ? "0" : "") + n; }
-    var todayStr2 = today.getFullYear() + "-" + pad(today.getMonth()+1) + "-" + pad(today.getDate());
-    var body = rows.map(function(r, i){
-      var open = (i === 0) ? " open" : "";
-      var tag = (r.day === todayStr2) ? ' <span class="muted">（今天）</span>' : "";
-      var inner = '<div style="text-align:right; margin:2px 0 6px;">'
-        + '<button class="ghost" type="button" data-print-day="' + esc(r.day) + '" style="padding:6px 12px; font-size:11.5px;">🖨 打印这天错题</button></div>';
-      if(r.records && r.records.length){
-        inner += '<div class="vpre-dayblock"><b>当天练习（每组一行）</b>'
-          + '<table style="margin-top:6px;"><thead><tr><th>时间</th><th>模块</th><th>单元</th><th>组</th><th>单词数</th><th>正确率</th><th>用时</th></tr></thead><tbody>'
-          + r.records.map(function(x){
-              return '<tr><td class="muted">' + esc(String(x.ts || '').slice(11, 16)) + '</td><td>' + esc(x.mode || '') + '</td>'
-                + '<td class="muted">' + esc((x.book || '') + ' ' + (x.unit || '')) + '</td>'
-                + '<td>' + (x.group_no ? ('第 ' + x.group_no + ' 组') : '—') + '</td>'
-                + '<td>' + (x.total || 0) + ' 个</td><td>' + (x.accuracy || 0) + '%</td>'
-                + '<td class="muted">' + fmtDur(x.duration) + '</td></tr>';
-            }).join('') + '</tbody></table></div>';
-        inner += '<div class="vpre-dayline">每组用时：'
-          + r.records.map(function(x){ return (x.group_no ? ('第' + x.group_no + '组 ') : '') + fmtDur(x.duration); }).join('　·　')
-          + '　｜　当天合计 <b>' + fmtDur(r.seconds) + '</b></div>';
-      } else {
-        inner += '<div class="vpre-dayline">这一天没有"练完一整组"的记录（可能只做了部分题目，详见下方答错的词）</div>';
-      }
-      if(r.wrongs && r.wrongs.length){
-        var uniq = {}, list = [];
-        r.wrongs.forEach(function(w){
-          var k = String(w.word || '').toLowerCase();
-          if(!uniq[k]){ uniq[k] = {word:w.word, meaning:w.meaning, choice:wChoice(w), module:wModule(w), ts:wTs(w), n:0}; list.push(uniq[k]); }
-          uniq[k].n += 1;
-        });
-        inner += '<div class="vpre-dayblock"><b>当天练错的词（' + list.length + ' 个）</b>'
-          + '<table style="margin-top:6px;"><thead><tr><th>单词</th><th>释义</th><th>错几次</th><th>选错成</th><th>模块</th><th>时间</th></tr></thead><tbody>'
-          + list.map(function(w){
-              return '<tr><td><b>' + esc(w.word) + '</b></td><td class="muted">' + esc(w.meaning || '') + '</td>'
-                + '<td><span class="pill no">' + w.n + '</span></td><td class="muted">' + esc(w.choice || '') + '</td>'
-                + '<td class="muted">' + esc(w.module || '') + '</td><td class="muted">' + esc(String(w.ts || '').slice(5, 16)) + '</td></tr>';
-            }).join('') + '</tbody></table></div>';
-      }
-      return '<details' + open + ' class="vpre-dayfold" data-day="' + esc(r.day) + '">'
-        + '<summary><b>' + esc(r.day) + '</b>' + tag
-        + '<span>答题 ' + (r.questions || 0) + ' 题 · 正确率 ' + (r.accuracy || 0) + '%'
-        + (r.practices ? (' · 练完 ' + r.practices + ' 组') : '') + ' · 用时 ' + fmtDur(r.seconds) + '</span></summary>'
-        + '<div class="vpre-daybody">' + inner + '</div></details>';
-    }).join("");
-    var opts = rows.map(function(r){
-      return '<option value="' + esc(r.day) + '">' + esc(r.day) + (r.day === todayStr2 ? '（今天）' : '')
-        + ' · 答题 ' + (r.questions || 0) + ' 题 · ' + (r.accuracy || 0) + '%</option>';
+    return t.getFullYear() + "-" + pad(t.getMonth() + 1) + "-" + pad(t.getDate());
+  }
+  function dayInnerHtml(r){
+    var inner = '<div style="display:flex; justify-content:flex-end; margin:0 0 6px;">'
+      + '<button class="ghost" type="button" data-print-day="' + esc(r.day) + '" style="padding:6px 12px; font-size:11.5px;">🖨 打印这天错题</button></div>';
+    if(r.records && r.records.length){
+      inner += '<div class="vpre-dayblock"><b>当天练习（每组一行）</b>'
+        + '<table style="margin-top:6px;"><thead><tr><th>时间</th><th>模块</th><th>单元</th><th>组</th><th>单词数</th><th>正确率</th><th>用时</th></tr></thead><tbody>'
+        + r.records.map(function(x){
+            return '<tr><td class="muted">' + esc(String(x.ts || '').slice(11, 16)) + '</td><td>' + esc(x.mode || '') + '</td>'
+              + '<td class="muted">' + esc((x.book || '') + ' ' + (x.unit || '')) + '</td>'
+              + '<td>' + (x.group_no ? ('第 ' + x.group_no + ' 组') : '—') + '</td>'
+              + '<td>' + (x.total || 0) + ' 个</td><td>' + (x.accuracy || 0) + '%</td>'
+              + '<td class="muted">' + fmtDur(x.duration) + '</td></tr>';
+          }).join('') + '</tbody></table></div>';
+      inner += '<div class="vpre-dayline">每组用时：'
+        + r.records.map(function(x){ return (x.group_no ? ('第' + x.group_no + '组 ') : '') + fmtDur(x.duration); }).join('　·　')
+        + '　｜　当天合计 <b>' + fmtDur(r.seconds) + '</b></div>';
+    } else {
+      inner += '<div class="vpre-dayline">这一天没有"练完一整组"的记录（可能只做了部分题目，详见下方答错的词）</div>';
+    }
+    if(r.wrongs && r.wrongs.length){
+      var uniq = {}, list = [];
+      r.wrongs.forEach(function(w){
+        var k = String(w.word || '').toLowerCase();
+        if(!uniq[k]){ uniq[k] = {word:w.word, meaning:w.meaning, choice:wChoice(w), module:wModule(w), ts:wTs(w), n:0}; list.push(uniq[k]); }
+        uniq[k].n += 1;
+      });
+      inner += '<div class="vpre-dayblock"><b>当天练错的词（' + list.length + ' 个）</b>'
+        + '<table style="margin-top:6px;"><thead><tr><th>单词</th><th>释义</th><th>错几次</th><th>选错成</th><th>模块</th><th>时间</th></tr></thead><tbody>'
+        + list.map(function(w){
+            return '<tr><td><b>' + esc(w.word) + '</b></td><td class="muted">' + esc(w.meaning || '') + '</td>'
+              + '<td><span class="pill no">' + w.n + '</span></td><td class="muted">' + esc(w.choice || '') + '</td>'
+              + '<td class="muted">' + esc(w.module || '') + '</td><td class="muted">' + esc(String(w.ts || '').slice(5, 16)) + '</td></tr>';
+          }).join('') + '</tbody></table></div>';
+    }
+    return inner;
+  }
+  // 日期条：每个练习日期一个按钮，点哪个就显示哪天的内容
+  function dailyHtml(d){
+    var rows = dayList(d);                       // 最近的排在前面
+    if(!rows.length){ return ''; }
+    var ts = todayStr();
+    var bar = rows.map(function(r, i){
+      var isToday = (r.day === ts);
+      return '<button type="button" class="daychip' + (i === 0 ? ' is-on' : '') + '" data-day="' + esc(r.day) + '">'
+        + '<b>' + esc(String(r.day).slice(5).replace("-", "/")) + (isToday ? ' 今天' : '') + '</b>'
+        + '<span>答题 ' + (r.questions || 0) + ' 题 · ' + (r.accuracy || 0) + '%'
+        + (r.practices ? (' · ' + r.practices + ' 组') : '') + '</span></button>';
     }).join("");
     return '<div class="panel"><h2>按日期看 <span class="muted" style="font-weight:400;font-size:12px;">共 '
-      + rows.length + ' 天 · 选日期或点日期展开（历史一直保留）</span></h2>'
-      + '<div style="margin:0 0 8px;"><select id="daily-jump" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:11px; background:#fff; font-size:12.5px; font-weight:600; color:var(--ink);">'
-      +   '<option value="">选择日期查看当天的练习记录与错题…</option>' + opts + '</select></div>'
-      + '<div class="vpre-daylist">' + body + '</div></div>';
+      + rows.length + ' 天 · 点下面某个日期，看当天练了什么（历史一直保留）</span></h2>'
+      + '<div class="daybar" id="daybar">' + bar + '</div>'
+      + '<div class="dayview" id="dayview">' + dayInnerHtml(rows[0]) + '</div></div>';
   }
   function renderDetail(){
     var d = S.detail;
@@ -784,49 +786,91 @@
       + '<div class="card"><b>' + (d.modes || []).length + '</b><span>练过的模块</span></div>'
       + '</div>'
       + '<div class="btns">'
-      + '<button id="btn-print-wrong" type="button">打印错题本</button>'
-      + '<select id="wrong-print-date" style="padding:9px 12px; border:1px solid var(--line); border-radius:11px; background:#fff; font-size:12.5px; font-weight:600; color:var(--ink);">'
-      +   '<option value="all">范围：全部错词（累计）</option>'
-      +   (d.daily || []).map(function(r){
-            return '<option value="' + esc(r.day) + '">范围：' + esc(r.day) + ' 当天（' + uniqWrongWords(r).length + ' 个）</option>';
-          }).join("")
-      + '</select>'
       + '<button class="ghost" id="btn-print-report" type="button">打印学情报告</button>'
-      + (CLOUD || DEMO
-          ? '<button class="ghost" id="btn-csv-wrong" type="button">导出错题本(CSV)</button>'
-          : '<a class="btn ghost" href="/api/export.csv?sid=' + encodeURIComponent(st.sid) + '">导出错题本(CSV)</a>')
       + '<button class="ghost" id="btn-close-detail" type="button">收起</button>'
       + '</div>'
       + '</div>'
       + growthHtml(d)
-      + dailyHtml(d);                                 // 按日期折叠：每天展开 = 当天练习记录 + 当天错题
-    var jump = q("#daily-jump");
-    if(jump){
-      jump.addEventListener("change", function(){
-        var day = jump.value;
-        if(!day){ return; }
-        var el2 = box.querySelector('details[data-day="' + day + '"]');
-        if(el2){ el2.open = true; if(el2.scrollIntoView){ el2.scrollIntoView({behavior:"smooth", block:"center"}); } }
-      });
+      + dailyHtml(d)                                  // 按日期看：点日期 → 显示当天的练习内容
+      + '<div class="panel"><h2>打印错题本 <span class="muted" style="font-weight:400;font-size:12px;">按日期勾选要打印的范围，可多选；不勾选=全部累计</span></h2>'
+      + '<div class="daybar" id="wrong-daybar">'
+      +   '<button type="button" class="daychip is-on" data-wday="all"><b>全部（累计）</b><span>共 ' + wrongs.length + ' 个错词</span></button>'
+      +   dayList(d).map(function(r){
+            var n = dayWrongRows(r.day).length;
+            return '<button type="button" class="daychip" data-wday="' + esc(r.day) + '"><b>'
+              + esc(String(r.day).slice(5).replace("-", "/")) + (r.day === todayStr() ? ' 今天' : '') + '</b>'
+              + '<span>' + n + ' 个错词</span></button>';
+          }).join("")
+      + '</div>'
+      + '<div class="btns">'
+      + '<button id="btn-print-wrong" type="button">🖨 打印所选范围的错题本</button>'
+      + (CLOUD || DEMO
+          ? '<button class="ghost" id="btn-csv-wrong" type="button">导出错题本(CSV)</button>'
+          : '<a class="btn ghost" href="/api/export.csv?sid=' + encodeURIComponent(st.sid) + '">导出错题本(CSV)</a>')
+      + '</div>'
+      + '<div class="muted" id="wrong-sum" style="margin-top:8px;"></div>'
+      + '</div>';
+    // ---- 错题本打印范围：日期多选 ----
+    var pickedDays = [];
+    var wbar = q("#wrong-daybar"), wsum = q("#wrong-sum");
+    function pickedRows(){
+      if(!pickedDays.length){ return (d.wrongs || []); }
+      var out = [];
+      pickedDays.slice().sort().forEach(function(day){ out = out.concat(dayWrongRows(day)); });
+      return out;
     }
-    var selDate = q("#wrong-print-date");
-    function curScope(){ return selDate ? selDate.value : "all"; }
-    var b1 = q("#btn-print-wrong"); if(b1){ b1.addEventListener("click", function(){ printWrong(curScope()); }); }
-    // 每一天里也有一个"打印这天"的按钮
-    [].slice.call(box.querySelectorAll("[data-print-day]")).forEach(function(b){
-      b.addEventListener("click", function(){
-        var day = b.getAttribute("data-print-day");
-        if(selDate){ selDate.value = day; }
-        printWrong(day);
+    function syncWrongBar(){
+      var n = pickedRows().length;
+      if(wbar){
+        [].slice.call(wbar.querySelectorAll(".daychip")).forEach(function(b){
+          var v = b.getAttribute("data-wday");
+          b.classList.toggle("is-on", v === "all" ? !pickedDays.length : (pickedDays.indexOf(v) >= 0));
+        });
+      }
+      if(wsum){
+        wsum.innerHTML = pickedDays.length
+          ? ('当前范围：' + pickedDays.slice().sort().join('、') + '　共 <b>' + n + '</b> 个错词')
+          : ('当前范围：全部累计错词　共 <b>' + n + '</b> 个');
+      }
+    }
+    if(wbar){
+      [].slice.call(wbar.querySelectorAll(".daychip")).forEach(function(b){
+        b.addEventListener("click", function(){
+          var v = b.getAttribute("data-wday");
+          if(v === "all"){ pickedDays = []; }
+          else {
+            var i = pickedDays.indexOf(v);
+            if(i >= 0){ pickedDays.splice(i, 1); } else { pickedDays.push(v); }
+          }
+          syncWrongBar();
+        });
       });
-    });
+      syncWrongBar();
+    }
+    // ---- 按日期看：点日期 → 显示当天内容 ----
+    var daybar = q("#daybar"), dayview = q("#dayview");
+    if(daybar && dayview){
+      var drows = dayList(d);
+      [].slice.call(daybar.querySelectorAll(".daychip")).forEach(function(b){
+        b.addEventListener("click", function(){
+          [].slice.call(daybar.querySelectorAll(".daychip")).forEach(function(x){ x.classList.remove("is-on"); });
+          b.classList.add("is-on");
+          var day = b.getAttribute("data-day");
+          var r = drows.filter(function(x){ return x.day === day; })[0];
+          dayview.innerHTML = r ? dayInnerHtml(r) : "";
+          bindPrintDay(dayview);
+        });
+      });
+      bindPrintDay(dayview);
+    }
+    var b1 = q("#btn-print-wrong"); if(b1){ b1.addEventListener("click", function(){ printWrong(pickedDays); }); }
     var b2 = q("#btn-print-report"); if(b2){ b2.addEventListener("click", function(){ printReport(); }); }
     var b4 = q("#btn-csv-wrong");
     if(b4){
       b4.addEventListener("click", function(){
-        var scope = curScope();
-        var rs = wrongRowsFor(scope);
-        downloadCsv("错题本-" + (d.student.name || "") + (scope === "all" ? "-全部" : ("-" + scope)) + ".csv",
+        var rs = pickedRows();
+        var tag = pickedDays.length ? pickedDays.slice().sort().join('_') : "全部";
+        downloadCsv("错题本-" + (d.student.name || "") + "-" + tag + ".csv",
           ["单词", "释义", "错误次数", "最近错选", "模块", "最近时间"],
           rs.map(function(w){ return [w.word, w.meaning, w.wrong_count, w.last_choice, w.last_module, w.last_ts]; }));
       });
@@ -885,28 +929,41 @@
     out.sort(function(a, b){ return b.wrong_count - a.wrong_count; });
     return out;
   }
-  // scope: "all" = 全部累计错词；"2026-10-16" = 只看这一天
-  function wrongRowsFor(scope){
-    if(scope && scope !== "all"){ return dayWrongRows(scope); }
-    return (S.detail.wrongs || []);
+  // 错词表（打印稿里用）
+  function wrongTableHtml(rows){
+    if(!rows.length){ return '<p>没有错词。</p>'; }
+    return '<table><thead><tr><th>单词</th><th>释义</th><th>错次</th><th>最近错选</th><th>模块</th><th>最近时间</th></tr></thead><tbody>'
+      + rows.map(function(w){
+          return '<tr><td><b>' + esc(w.word) + '</b></td><td>' + esc(w.meaning || '') + '</td><td>' + (w.wrong_count || 0) + '</td><td>'
+            + esc(w.last_choice || '') + '</td><td>' + esc(w.last_module || '') + '</td><td>' + esc(String(w.last_ts || '').slice(0, 16)) + '</td></tr>';
+        }).join("") + '</tbody></table>';
   }
-  function printWrong(scope){
+  // 容器里所有「🖨 打印这天错题」按钮（切换日期后要重新绑）
+  function bindPrintDay(scopeEl){
+    if(!scopeEl){ return; }
+    [].slice.call(scopeEl.querySelectorAll("[data-print-day]")).forEach(function(b){
+      b.addEventListener("click", function(){ printWrong([b.getAttribute("data-print-day")]); });
+    });
+  }
+  // days：数组。空数组 = 全部累计错词；否则按勾选的日期分天打印
+  function printWrong(days){
     var d = S.detail;
-    var rows = wrongRowsFor(scope);
-    var isDay = (scope && scope !== "all");
-    var body = '';
-    if(rows.length){
-      body = '<table><thead><tr><th>单词</th><th>释义</th><th>错次</th><th>最近错选</th><th>模块</th><th>最近时间</th></tr></thead><tbody>'
-        + rows.map(function(w){
-            return '<tr><td><b>' + esc(w.word) + '</b></td><td>' + esc(w.meaning || '') + '</td><td>' + w.wrong_count + '</td><td>'
-              + esc(w.last_choice || '') + '</td><td>' + esc(w.last_module || '') + '</td><td>' + esc(String(w.last_ts || '').slice(0, 16)) + '</td></tr>';
-          }).join("") + '</tbody></table>';
+    var list = (days && days.length) ? days.slice().sort() : null;
+    var body, meta, total = 0;
+    if(list){
+      body = list.map(function(day){
+        var rows = dayWrongRows(day);
+        total += rows.length;
+        return '<h2>' + esc(day) + ' 的错词（' + rows.length + ' 个）</h2>' + wrongTableHtml(rows);
+      }).join("");
+      meta = '打印日期：' + esc(list.join('、')) + ' · 共 ' + total + ' 个错词';
     } else {
-      body = '<p>' + (isDay ? '这一天没有错词。' : '暂无错词。') + '</p>';
+      var all = (d.wrongs || []);
+      total = all.length;
+      body = '<h2>全部错词（累计，按错次）· 共 ' + total + ' 个</h2>' + wrongTableHtml(all);
+      meta = '范围：全部错词（累计，按错次）· 共 ' + total + ' 个';
     }
-    fillPrint('<h2>错题本（第二天复习用）</h2>'
-      + '<p class="meta">' + (isDay ? ('日期：' + esc(scope) + ' · 当天错词 ' + rows.length + ' 个') : ('范围：全部错词（累计，按错次）· 共 ' + rows.length + ' 个')) + '</p>'
-      + body);
+    fillPrint('<h2>错题本（第二天复习用）</h2><p class="meta">' + meta + '</p>' + body);
   }
   function printReport(){
     var d = S.detail;
