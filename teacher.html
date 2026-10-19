@@ -767,7 +767,7 @@
   }
   // 每日正确率折线（SVG，最多最近 14 天，标出第一天和最新一天）
   function trendSvg(g){
-    var days = g.days.slice(0, 14).slice().reverse();      // 老 → 新
+    var days = (g.days || []).slice().reverse();           // 全部日期，老 → 新（不限 14 天）
     if(days.length < 2){ return ''; }
     var W = 620, H = 170, padL = 38, padR = 14, padT = 14, padB = 26;
     var n = days.length;
@@ -776,14 +776,16 @@
     function y(v){ return padT + (1 - Math.max(0, Math.min(100, v)) / 100) * (H - padT - padB); }
     var pts = days.map(function(d, i){ return x(i) + "," + y(d.accuracy); }).join(" ");
     var area = padL + "," + y(0) + " " + pts + " " + x(n - 1) + "," + y(0);
+    var labelStep = Math.max(1, Math.ceil(n / 8));
+    var midR = n > 40 ? 2.2 : 3;
     var dots = days.map(function(d, i){
       var first = (i === 0), last = (i === n - 1);
-      var r = (first || last) ? 4.5 : 3;
+      var r = (first || last) ? 4.5 : midR;
       var fill = last ? "#0f9d76" : (first ? "#e5484d" : "#3b5bdb");
       return '<circle cx="' + x(i) + '" cy="' + y(d.accuracy) + '" r="' + r + '" fill="' + fill + '"></circle>';
     }).join("");
     var labels = days.map(function(d, i){
-      if(n > 8 && i !== 0 && i !== n - 1 && i % 3 !== 0){ return ''; }
+      if(n > 8 && i !== 0 && i !== n - 1 && i % labelStep !== 0){ return ''; }
       return '<text x="' + x(i) + '" y="' + (H - 8) + '" font-size="9.5" fill="#8a93a6" text-anchor="middle">' + esc(String(d.day).slice(5)) + '</text>';
     }).join("");
     var vals = days.map(function(d, i){
@@ -798,7 +800,7 @@
       + '<polygon points="' + area + '" fill="rgba(59,91,219,.10)"></polygon>'
       + '<polyline points="' + pts + '" fill="none" stroke="#3b5bdb" stroke-width="2.2" stroke-linejoin="round"></polyline>'
       + dots + labels + vals
-      + '</svg><div class="muted" style="text-align:center; margin-top:2px;">每天的正确率（红点=第一天 ' + g.first.accuracy + '%，绿点=最新一天 ' + g.last.accuracy + '%）</div></div>';
+      + '</svg><div class="muted" style="text-align:center; margin-top:2px;">每天的正确率（红点=最早一天 ' + days[0].accuracy + '%，绿点=最新一天 ' + days[n - 1].accuracy + '%，共 ' + n + ' 天）</div></div>';
   }
   // ===== 使用前后对比的文字说明（自动生成一段话，屏幕和打印稿都用） =====
   function growthText(g, d){
@@ -967,7 +969,7 @@
     return '<table class="gtab"><thead><tr><th>指标</th><th>第一天</th><th>最新一天</th><th>变化</th></tr></thead><tbody>' + rows.join("") + '</tbody></table>';
   }
   function trendSpeedSvg(g){
-    var days = (g.days || []).slice(0, 14).slice().reverse();
+    var days = (g.days || []).slice().reverse();
     if(days.length < 2){ return ''; }
     var vals = days.map(function(d){ return perQ(d); });
     var rawMax = Math.max.apply(null, vals);
@@ -980,12 +982,14 @@
     function x(i){ return padL + i * step; }
     function y(v){ return padT + (1 - (v - lo) / (hi - lo)) * (H - padT - padB); }
     var pts = days.map(function(d, i){ return x(i) + "," + y(perQ(d)); }).join(" ");
+    var labelStep2 = Math.max(1, Math.ceil(n / 8));
+    var midR2 = n > 40 ? 2 : 2.8;
     var dots = days.map(function(d, i){
       var isF = (i === 0), isL = (i === n - 1);
-      return '<circle cx="' + x(i) + '" cy="' + y(perQ(d)) + '" r="' + (isF || isL ? 4 : 2.8) + '" fill="' + (isL ? '#0f9d76' : (isF ? '#e5484d' : '#b45309')) + '"></circle>';
+      return '<circle cx="' + x(i) + '" cy="' + y(perQ(d)) + '" r="' + (isF || isL ? 4 : midR2) + '" fill="' + (isL ? '#0f9d76' : (isF ? '#e5484d' : '#b45309')) + '"></circle>';
     }).join("");
     var labels = days.map(function(d, i){
-      if(n > 8 && i !== 0 && i !== n - 1 && i % 3 !== 0){ return ''; }
+      if(n > 8 && i !== 0 && i !== n - 1 && i % labelStep2 !== 0){ return ''; }
       return '<text x="' + x(i) + '" y="' + (H - 6) + '" font-size="9.5" fill="#8a93a6" text-anchor="middle">' + esc(String(d.day).slice(5)) + '</text>';
     }).join("");
     var vt = [0, n - 1].map(function(i){
@@ -993,7 +997,7 @@
     }).join("");
     return '<div class="vpre-chartbox" style="margin-top:8px;"><svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" role="img" aria-label="每题平均用时">'
       + '<polyline points="' + pts + '" fill="none" stroke="#b45309" stroke-width="2" stroke-linejoin="round"></polyline>' + dots + labels + vt
-      + '</svg><div class="muted" style="text-align:center; margin-top:2px;">每题平均用时（越往下越快）</div></div>';
+      + '</svg><div class="muted" style="text-align:center; margin-top:2px;">每题平均用时（越往下越快，共 ' + n + ' 天）</div></div>';
   }
   function growthHtml(d){
     var g = growth(d);
