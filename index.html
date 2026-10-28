@@ -2916,6 +2916,7 @@ body{
   function speakText(en){
     var raw = String(en == null ? "" : en);
     var t = raw.replace(/[’‘`]/g, "'");
+    t = t.replace(/^["“”\s]+|["“”\s]+$/g, "");
     t = t.replace(/\.{2,}|…+/g, " something ");
     t = t.replace(/\(\s*sb\s*\)/gi, " somebody ");
     t = t.replace(/\(\s*sth\s*\)/gi, " something ");
@@ -2959,7 +2960,9 @@ body{
     }catch(e){ playAudio(text, phone); }
   }
   var TTS_SOURCES = [
-    function(w){ return "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(w) + "&type=2"; }
+    function(w){ return "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(w) + "&type=2"; },
+    // 英式发音：连字符复合词（thirty-metre-high、five-year-old 等）美式源会 500，英式源正常
+    function(w){ return "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(w) + "&type=1"; }
   ];
   // 有道对部分短语会返回 500（例如 name something after）。
   // 兜底策略：先去掉 sb/sth 占位，再逐级去掉末尾的词，直到能念出来为止（最少保留 1 个词）。
