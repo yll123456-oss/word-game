@@ -2959,28 +2959,62 @@ body{
     }catch(e){ playAudio(text, phone); }
   }
   var TTS_SOURCES = [
-    function(w){ return "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(w) + "&type=2"; },
-    function(w){ return "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=" + encodeURIComponent(w); }
+    function(w){ return "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(w) + "&type=2"; }
   ];
-  var IS_WECHAT = /MicroMessenger/i.test(navigator.userAgent || "");
-  function playAudio(text, phone, i, blocked){
-    i = i || 0;
-    if(i >= TTS_SOURCES.length){
-      toast(phone, blocked ? "请点击🔊按钮播放发音" : "发音加载失败，请检查网络后点🔊重试");
-      return;
+  // 有道对部分短语会返回 500（例如 name something after）。
+  // 兜底策略：先去掉 sb/sth 占位，再逐级去掉末尾的词，直到能念出来为止（最少保留 1 个词）。
+  function simpleSpeakText(t){
+    var x = String(t || "")
+      .replace(/\b(somebody|something)['’]s\b/gi, " ")
+      .replace(/\b(somebody|something)\b/gi, " ")
+      .replace(/\s+/g, " ").trim();
+    x = x.replace(/\s+\bor\b\s*$/i, "").trim();
+    var toks = x.split(" ").filter(Boolean);
+    if(toks.length >= 3 && /^(of|in|to|on|for|at|with|from|by|about|into|over|after|behind|apart)$/i.test(toks[toks.length-1])){
+      toks = toks.slice(0, -1);
+      x = toks.join(" ");
     }
-    try{
-      var a = phone.__audio || (phone.__audio = new Audio());
-      a.pause();
-      a.onerror = function(){ playAudio(text, phone, i+1, blocked); };
-      a.src = TTS_SOURCES[i](text);
-      var p = a.play();
-      if(p && p.catch){
-        p.catch(function(err){
-          playAudio(text, phone, i+1, blocked || (err && err.name === "NotAllowedError"));
-        });
+    return x;
+  }
+  function speakCandidates(text){
+    var out = [], seen = {};
+    function push(v){
+      var t = String(v || "").replace(/\s+/g, " ").trim();
+      if(t && !seen[t.toLowerCase()]){ seen[t.toLowerCase()] = 1; out.push(t); }
+    }
+    push(text);
+    var s = simpleSpeakText(text);
+    push(s);
+    var toks = (s || String(text || "")).split(" ").filter(Boolean);
+    while(toks.length > 1){ toks = toks.slice(0, -1); push(toks.join(" ")); }
+    return out;
+  }
+  var IS_WECHAT = /MicroMessenger/i.test(navigator.userAgent || "");
+  function playAudio(text, phone){
+    var cands = speakCandidates(text), ci = 0, si = 0, blocked = false;
+    function next(){
+      if(ci >= cands.length){
+        toast(phone, blocked ? "请点击🔊按钮播放发音" : "发音加载失败，请检查网络后点🔊重试");
+        return;
       }
-    }catch(e){ playAudio(text, phone, i+1, blocked); }
+      if(si >= TTS_SOURCES.length){ ci++; si = 0; next(); return; }
+      var t = cands[ci], url = TTS_SOURCES[si++](t), settled = false;
+      try{
+        var a = phone.__audio || (phone.__audio = new Audio());
+        try{ a.referrerPolicy = "no-referrer"; }catch(e0){}
+        a.pause();
+        a.onerror = function(){ if(!settled){ settled = true; next(); } };
+        a.src = url;
+        var p = a.play();
+        if(p && p.catch){
+          p.catch(function(err){
+            if(err && err.name === "NotAllowedError"){ blocked = true; }
+            if(!settled){ settled = true; next(); }
+          });
+        }
+      }catch(e){ if(!settled){ settled = true; next(); } }
+    }
+    next();
   }
   function toast(phone, msg){
     var t = q(".vpre-toast", phone);
