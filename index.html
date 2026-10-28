@@ -108,7 +108,7 @@ body{
 .vpre-fill-tiles{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0 4px;}
 .vpre-fill-tile{min-width:46px; height:48px; padding:0 10px; border:1.5px solid var(--vp-line); background:#fafbff; border-radius:12px; font-size:20px; font-weight:800; color:var(--vp-ink); cursor:pointer; transition:transform .12s, border-color .15s;}
 .vpre-fill-tile:active{transform:scale(.94);}
-.vpre-fill-tile.is-used{opacity:.28; cursor:default;}
+.vpre-fill-tile.is-used{opacity:.55; cursor:pointer; border-color:var(--vp-blue); background:#eef2ff; color:var(--vp-blue);}
 .vpre-undo-btn{display:block; margin:10px auto 0; border:1px solid var(--vp-line); background:#fff; color:var(--vp-muted); border-radius:12px; padding:9px 18px; font-size:12.5px; font-weight:600; cursor:pointer;}
 .vpre-btn:disabled{opacity:.45; cursor:default;}
 .vpre-qipa.is-pattern{font-size:13px; line-height:1.9; letter-spacing:.5px; word-break:break-word; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; background:#f7f9ff; border:1px dashed var(--vp-line); border-radius:12px; padding:8px 12px; color:var(--vp-ink-2);}
@@ -2621,7 +2621,7 @@ body{
       }).join("");
       var tilesHtml = it.tiles.map(function(t, i){
         var used = z.picked.indexOf(i) >= 0;
-        return '<button class="vpre-fill-tile' + (used ? ' is-used' : '') + '" type="button" data-tile="' + i + '"' + (used || z.locked ? ' disabled' : '') + '>' + t + '</button>';
+        return '<button class="vpre-fill-tile' + (used ? ' is-used' : '') + '" type="button" data-tile="' + i + '"' + (z.locked ? ' disabled' : '') + '>' + t + '</button>';
       }).join("");
       var wEl = q(".vpre-fill-word", el); if(wEl){ wEl.innerHTML = wordHtml; }
       var tEl = q(".vpre-fill-tiles", el); if(tEl){ tEl.innerHTML = tilesHtml; }
@@ -2631,9 +2631,18 @@ body{
       if(undo){ undo.style.display = (!z.locked && z.picked.length) ? "block" : "none"; }
       qa("[data-tile]", el).forEach(function(b){
         b.addEventListener("click", function(){
-          if(z.locked || z.picked.length >= it.holes.length){ return; }
+          if(z.locked){ return; }
+          var idx = parseInt(b.getAttribute("data-tile"), 10);
+          var pos = z.picked.indexOf(idx);
+          if(pos >= 0){                        // 再点一次已选字母 → 取消填入
+            sfx.play("tap");
+            z.picked.splice(pos, 1);
+            draw();
+            return;
+          }
+          if(z.picked.length >= it.holes.length){ return; }
           sfx.play("flip");
-          z.picked.push(parseInt(b.getAttribute("data-tile"), 10));
+          z.picked.push(idx);
           draw();
         });
       });
