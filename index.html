@@ -2902,8 +2902,26 @@ body{
     }
     return best;
   }
+  // 朗读前把词表里的占位符换成自然读法：
+  //   sb → somebody、sth → something、... / …… → something、括号去掉、sb/sth → somebody or something
+  function speakText(en){
+    var raw = String(en == null ? "" : en);
+    var t = raw.replace(/[’‘`]/g, "'");
+    t = t.replace(/\.{2,}|…+/g, " something ");
+    t = t.replace(/\(\s*sb\s*\)/gi, " somebody ");
+    t = t.replace(/\(\s*sth\s*\)/gi, " something ");
+    t = t.replace(/\bsb's\b/gi, "somebody's");
+    t = t.replace(/\bsb\b/gi, "somebody");
+    t = t.replace(/\bsth\b/gi, "something");
+    t = t.replace(/\s*\/\s*/g, " or ");
+    t = t.replace(/[()]/g, " ");
+    t = t.replace(/\s+/g, " ").trim();
+    return t || raw;
+  }
   function speak(text, phone, rate){
+    text = speakText(text);
     try{
+      if(!text){ return; }
       if(phone.__speechDead || IS_WECHAT || !("speechSynthesis" in window)){ playAudio(text, phone); return; }
       var ss = window.speechSynthesis;
       var hasVoice = false;
@@ -2918,16 +2936,18 @@ body{
       var v = pickVoice(ss);
       if(v){ u.voice = v; }
       var started = false;
-      u.onstart = function(){ started = true; };
+      u.onstart = function(){ started = true; phone.__speechFail = 0; };
       ss.speak(u);
       clearTimeout(phone.__speechFallback);
       phone.__speechFallback = setTimeout(function(){
         if(!started && !ss.speaking){
-          phone.__speechDead = true;
+          // 不再"慢一次就永久禁用"：连续 3 次起不来才降级到网络发音
+          phone.__speechFail = (phone.__speechFail || 0) + 1;
+          if(phone.__speechFail >= 3){ phone.__speechDead = true; }
           playAudio(text, phone);
         }
-      }, 600);
-    }catch(e){ phone.__speechDead = true; playAudio(text, phone); }
+      }, 1500);
+    }catch(e){ playAudio(text, phone); }
   }
   var TTS_SOURCES = [
     function(w){ return "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(w) + "&type=2"; },
