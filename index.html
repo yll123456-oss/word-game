@@ -2913,6 +2913,18 @@ body{
   }
   // 朗读前把词表里的占位符换成自然读法：
   //   sb → somebody、sth → something、... / …… → something、括号去掉、sb/sth → somebody or something
+  // 个别短语发音源不认（要重试多次，很慢），这里固定一个更自然、且能一次读出的说法
+  var SPEAK_OVERRIDE = {
+    "name something after": "name someone after",
+    "leave something behind": "leave behind",
+    "unlock the secrets of something": "unlock the secret",
+    "be worth doing something": "be worth doing",
+    "mistake something for something": "mistake for",
+    "lift somebody's spirits": "lift spirits",
+    "dig into something": "dig into",
+    "depend on somebody or something": "depend on",
+    "somebody's understanding": "understanding"
+  };
   function speakText(en){
     var raw = String(en == null ? "" : en);
     var t = raw.replace(/[’‘`]/g, "'");
@@ -2926,6 +2938,7 @@ body{
     t = t.replace(/\s*\/\s*/g, " or ");
     t = t.replace(/[()]/g, " ");
     t = t.replace(/\s+/g, " ").trim();
+    t = SPEAK_OVERRIDE[t.toLowerCase()] || t;
     return t || raw;
   }
   function speak(text, phone, rate){
