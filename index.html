@@ -2923,7 +2923,8 @@ body{
     "lift somebody's spirits": "lift spirits",
     "dig into something": "dig into",
     "depend on somebody or something": "depend on",
-    "somebody's understanding": "understanding"
+    "somebody's understanding": "understanding",
+    "take something apart": "take apart"
   };
   function speakText(en){
     var raw = String(en == null ? "" : en);
@@ -2973,9 +2974,10 @@ body{
     }catch(e){ playAudio(text, phone); }
   }
   var TTS_SOURCES = [
-    function(w){ return "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(w) + "&type=2"; },
-    // 英式发音：连字符复合词（thirty-metre-high、five-year-old 等）美式源会 500，英式源正常
-    function(w){ return "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(w) + "&type=1"; }
+    // 外研版教材用英式发音；英式源对短语和连字符复合词覆盖更全，
+    // 放第一位可以避免"先试美式失败再重试"造成的延迟
+    function(w){ return "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(w) + "&type=1"; },
+    function(w){ return "https://dict.youdao.com/dictvoice?audio=" + encodeURIComponent(w) + "&type=2"; }
   ];
   // 有道对部分短语会返回 500（例如 name something after）。
   // 兜底策略：先去掉 sb/sth 占位，再逐级去掉末尾的词，直到能念出来为止（最少保留 1 个词）。
