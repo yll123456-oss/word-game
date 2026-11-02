@@ -1267,9 +1267,14 @@
       b4.addEventListener("click", function(){
         var rs = pickedRows();
         var tag = pickedDays.length ? pickedDays.slice().sort().join('_') : "全部日期";
+        var lastDay = null;
         downloadCsv("错题本-" + (d.student.name || "") + "-" + tag + ".csv",
           ["日期", "单词", "释义", "当天错次", "选错成", "模块", "最近时间"],
-          rs.map(function(w){ return [w.day, w.word, w.meaning, w.wrong_count, w.last_choice, w.last_module, w.last_ts]; }));
+          rs.map(function(w){
+            var showDay = (w.day === lastDay) ? "" : w.day;   // 日期只在该组第一行显示，不重复
+            lastDay = w.day;
+            return [showDay, w.word, w.meaning, w.wrong_count, w.last_choice, w.last_module, String(w.last_ts || '').slice(11, 16)];
+          }));
       });
     }
     var b3 = q("#btn-close-detail"); if(b3){ b3.addEventListener("click", function(){ q("#detail").innerHTML = ""; }); }
@@ -1329,10 +1334,10 @@
   // 错词表（打印稿里用）
   function wrongTableHtml(rows){
     if(!rows.length){ return '<p>没有错词。</p>'; }
-    return '<table><thead><tr><th>单词</th><th>释义</th><th>当天错次</th><th>选错成</th><th>模块</th><th>最近时间</th></tr></thead><tbody>'
+    return '<table><thead><tr><th>单词</th><th>释义</th><th>当天错次</th><th>选错成</th><th>模块</th><th>时间</th></tr></thead><tbody>'
       + rows.map(function(w){
           return '<tr><td><b>' + esc(w.word) + '</b></td><td>' + esc(w.meaning || '') + '</td><td>' + (w.wrong_count || 0) + '</td><td>'
-            + esc(w.last_choice || '') + '</td><td>' + esc(w.last_module || '') + '</td><td>' + esc(String(w.last_ts || '').slice(0, 16)) + '</td></tr>';
+            + esc(w.last_choice || '') + '</td><td>' + esc(w.last_module || '') + '</td><td>' + esc(String(w.last_ts || '').slice(11, 16)) + '</td></tr>';
         }).join("") + '</tbody></table>';
   }
   // 容器里所有「🖨 打印这天错题」按钮（切换日期后要重新绑）
