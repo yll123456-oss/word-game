@@ -1175,10 +1175,11 @@
       + '</div>'
       + '</div>'
       + dailyHtml(d)                                  // 每日一练：点日期 → 显示当天的练习内容
-      + '<div class="panel"><h2>错题本 <span class="muted" style="font-weight:400;font-size:12px;">按日期勾选要打印的范围，可多选；不勾选=全部累计</span></h2>'
+      + '<div class="panel"><h2>错题本 <span class="muted" style="font-weight:400;font-size:12px;">按日期看，只统计当天错次；可多选日期一起打印</span></h2>'
       + '<div class="daylist" id="wrong-daylist">'
       +   '<button class="dayrow is-on" type="button" data-wday="all"><span class="d-mark">✓</span>'
-      +     '<span class="d-date">全部（累计）</span><span class="d-sum">共 ' + wrongs.length + ' 个错词</span></button>'
+      +     '<span class="d-date">全部日期</span><span class="d-sum">共 ' + dayList(d).length + ' 天 · '
+      +       dayList(d).reduce(function(a, r){ return a + dayWrongRows(r.day).length; }, 0) + ' 条错记</span></button>'
       +   dayList(d).map(function(r){
             var n = dayWrongRows(r.day).length;
             return '<button class="dayrow" type="button" data-wday="' + esc(r.day) + '"><span class="d-mark">✓</span>'
@@ -1204,9 +1205,14 @@
     var pickedDays = [];
     var wbar = q("#wrong-daylist"), wsum = q("#wrong-sum");
     function pickedRows(){
-      if(!pickedDays.length){ return (d.wrongs || []); }
+      var days = pickedDays.length ? pickedDays.slice().sort() : dayList(d).map(function(r){ return r.day; }).sort();
       var out = [];
-      pickedDays.slice().sort().forEach(function(day){ out = out.concat(dayWrongRows(day)); });
+      days.forEach(function(day){
+        dayWrongRows(day).forEach(function(w){
+          out.push({ day:day, word:w.word, meaning:w.meaning, wrong_count:w.wrong_count,
+                     last_choice:w.last_choice, last_module:w.last_module, last_ts:w.last_ts });
+        });
+      });
       return out;
     }
     function syncWrongBar(){
@@ -1219,8 +1225,8 @@
       }
       if(wsum){
         wsum.innerHTML = pickedDays.length
-          ? ('当前范围：' + pickedDays.slice().sort().join('、') + '　共 <b>' + n + '</b> 个错词')
-          : ('当前范围：全部累计错词　共 <b>' + n + '</b> 个');
+          ? ('当前范围：' + pickedDays.slice().sort().join('、') + '　共 <b>' + n + '</b> 条错记')
+          : ('当前范围：全部日期（' + dayList(d).length + ' 天）　共 <b>' + n + '</b> 条错记');
       }
     }
     if(wbar){
@@ -1260,10 +1266,10 @@
     if(b4){
       b4.addEventListener("click", function(){
         var rs = pickedRows();
-        var tag = pickedDays.length ? pickedDays.slice().sort().join('_') : "全部";
+        var tag = pickedDays.length ? pickedDays.slice().sort().join('_') : "全部日期";
         downloadCsv("错题本-" + (d.student.name || "") + "-" + tag + ".csv",
-          ["单词", "释义", "错误次数", "最近错选", "模块", "最近时间"],
-          rs.map(function(w){ return [w.word, w.meaning, w.wrong_count, w.last_choice, w.last_module, w.last_ts]; }));
+          ["日期", "单词", "释义", "当天错次", "选错成", "模块", "最近时间"],
+          rs.map(function(w){ return [w.day, w.word, w.meaning, w.wrong_count, w.last_choice, w.last_module, w.last_ts]; }));
       });
     }
     var b3 = q("#btn-close-detail"); if(b3){ b3.addEventListener("click", function(){ q("#detail").innerHTML = ""; }); }
@@ -1323,7 +1329,7 @@
   // 错词表（打印稿里用）
   function wrongTableHtml(rows){
     if(!rows.length){ return '<p>没有错词。</p>'; }
-    return '<table><thead><tr><th>单词</th><th>释义</th><th>错次</th><th>最近错选</th><th>模块</th><th>最近时间</th></tr></thead><tbody>'
+    return '<table><thead><tr><th>单词</th><th>释义</th><th>当天错次</th><th>选错成</th><th>模块</th><th>最近时间</th></tr></thead><tbody>'
       + rows.map(function(w){
           return '<tr><td><b>' + esc(w.word) + '</b></td><td>' + esc(w.meaning || '') + '</td><td>' + (w.wrong_count || 0) + '</td><td>'
             + esc(w.last_choice || '') + '</td><td>' + esc(w.last_module || '') + '</td><td>' + esc(String(w.last_ts || '').slice(0, 16)) + '</td></tr>';
@@ -1339,24 +1345,19 @@
       });
     });
   }
-  // days：数组。空数组 = 全部累计错词；否则按勾选的日期分天打印
+  // days：数组。空数组 = 全部日期（仍按日期分组）；否则按勾选的日期分天打印
   function printWrong(days){
     var d = S.detail;
-    var list = (days && days.length) ? days.slice().sort() : null;
-    var body, meta, total = 0;
-    if(list){
-      body = list.map(function(day){
-        var rows = dayWrongRows(day);
-        total += rows.length;
-        return '<h2>' + esc(day) + ' 的错词（' + rows.length + ' 个）</h2>' + wrongTableHtml(rows);
-      }).join("");
-      meta = '打印日期：' + esc(list.join('、')) + ' · 共 ' + total + ' 个错词';
-    } else {
-      var all = (d.wrongs || []);
-      total = all.length;
-      body = '<h2>全部错词（累计，按错次）· 共 ' + total + ' 个</h2>' + wrongTableHtml(all);
-      meta = '范围：全部错词（累计，按错次）· 共 ' + total + ' 个';
-    }
+    var picked = !!(days && days.length);
+    var list = picked ? days.slice().sort() : dayList(d).map(function(r){ return r.day; }).sort();
+    var total = 0;
+    var body = list.map(function(day){
+      var rows = dayWrongRows(day);
+      total += rows.length;
+      return '<h2>' + esc(day) + ' 的错词（' + rows.length + ' 个）</h2>' + wrongTableHtml(rows);
+    }).join("") || '<p>没有错词。</p>';
+    var meta = (picked ? ('打印日期：' + esc(list.join('、'))) : ('全部日期：共 ' + list.length + ' 天'))
+      + ' · 共 ' + total + ' 条错记';
     fillPrint('<h2>错题本（第二天复习用）</h2><p class="meta">' + meta + '</p>' + body);
   }
   function printReport(){
