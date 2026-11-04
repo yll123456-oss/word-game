@@ -1687,28 +1687,44 @@ body{
       .replace(/。/g, ".")
       .replace(/\s+/g, " ")
       .trim()
-      .toLowerCase();
+      .toLowerCase()
+      .replace(/^[.,;:!?]+|[.,;:!?]+$/g, "")   // 去掉首尾的句号/逗号等标点（手机键盘常自动加句号）
+      .trim();
   }
   function matchAnswer(input, answer){
     var a = normAnswer(answer), b = normAnswer(input);
     if(!b){ return false; }
     if(a === b){ return true; }
+    // 连字符和空格视为等价：old-fashioned ↔ old fashioned
+    var hy = function(t){ return t.replace(/-/g, " ").replace(/\s+/g, " ").trim(); };
+    if(hy(a) === hy(b)){ return true; }
     // 括号内容可选：lend (sb) a hand → 接受 "lend a hand" / "lend sb a hand"
     var variants = [
       a.replace(/\(([^)]*)\)/g, "$1").replace(/\s+/g, " ").trim(),
-      a.replace(/\([^)]*\)/g, "").replace(/\s+/g, " ").trim()
+      a.replace(/\([^)]*\)/g, "").replace(/\s+/g, " ").trim(),
+      a.replace(/\(\s*(sb|sth)\s*\)/gi, function(m, w){ return /^sb$/i.test(w) ? "somebody" : "something"; })
+       .replace(/\(([^)]*)\)/g, "$1")
+       .replace(/\bsb\b/gi, "somebody")
+       .replace(/\bsth\b/gi, "something")
+       .replace(/\s*\/\s*/g, " or ")
+       .replace(/\s+/g, " ").trim()
     ];
     for(var i=0;i<variants.length;i++){
-      if(variants[i] && variants[i] !== a && variants[i] === b){ return true; }
+      if(variants[i] && variants[i] !== a && (variants[i] === b || hy(variants[i]) === hy(b))){ return true; }
     }
-    // 省略号占位：take……apart → 接受 "take ... apart" / "take it apart" / "take sth apart"
+    // 省略号占位：take……apart → 接受 "take apart" / "take it apart" / "take...apart"（空格可有可无）
     if(a.indexOf("...") >= 0){
-      var esc = function(t){ return t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ +/g, "\\s+"); };
-      var parts = a.split("...").map(esc);
-      try{
-        var re = new RegExp("^" + parts.join(".{0,20}?") + "$");
-        if(re.test(b)){ return true; }
-      }catch(e){}
+      var aNo = a.replace(/\.{3,}/g, " ").replace(/\s+/g, " ").trim();
+      if(aNo === b || hy(aNo) === hy(b)){ return true; }
+      var bs = b.replace(/\s+/g, "");
+      var parts = aNo.split(" ").filter(function(t){ return !!t; })
+                      .map(function(t){ return t.replace(/[-.*+?^${}()|[\]\\]/g, "\\$&"); });
+      if(parts.length >= 2){
+        try{
+          var re = new RegExp("^" + parts.join(".{0,25}?") + "$");
+          if(re.test(bs)){ return true; }
+        }catch(e){}
+      }
     }
     return false;
   }
