@@ -1115,6 +1115,10 @@ body{
     saveStudentHistory(STUDENT);
     adoptLegacyProgress(STUDENT.sid);
     PROG = loadProgress();
+    qa(".vpre-phone").forEach(function(phone){
+      restoreStudyPosition(phone);
+      phone.__wrongRows = [];
+    });
     hideLogin();
     refreshStudents();
     try{ submitRegister(STUDENT); }catch(e){}
@@ -1775,7 +1779,10 @@ body{
     phone.__arenaLvl = null;
     // 记住"从哪进":错词本→回错词本；单元页里某一组→回单元页；其余→首页
     phone.__quizFrom = (type === "wrong") ? "wrong" : ((typeof groupIdx === "number") ? "unit" : null);
-    if(typeof unitIdx === "number"){ state[phone.__id].unit = unitIdx; }
+    if(typeof unitIdx === "number"){
+      state[phone.__id].unit = unitIdx;
+      saveStudyPosition(phone);
+    }
     var unitNow = unitWords(phone);
     var list;
     if(typeof groupIdx === "number"){
@@ -4045,6 +4052,7 @@ body{
         idx = i;
       }
       st.unit = idx;
+      saveStudyPosition(phone);
       renderUnits(phone);                            // 让主题/首页跟着切册
       renderUnitDetail(phone);
       setView(phone, "unit");
@@ -4301,10 +4309,26 @@ body{
     renderQuiz(phone);
     setView(phone, "quiz");
   }
+  // 记住学生正在学习的年级、册和单元。页面重新加载后错题本仍按同一册筛选。
+  function restoreStudyPosition(phone){
+    var id = phone.__id;
+    var nav = PROG.nav || {};
+    var book = String(nav.book || "");
+    if(BOOK_LIST.indexOf(book) < 0){ book = "九上"; }
+    var unit = parseInt(nav.unit, 10);
+    if(!isFinite(unit) || unit < 0){ unit = 0; }
+    state[id] = {grade:gradeOfBook(book), book:book, unit:unit};
+  }
+  function saveStudyPosition(phone){
+    var s = state[phone.__id];
+    if(!s){ return; }
+    PROG.nav = {grade:s.grade, book:s.book, unit:s.unit};
+    saveProgress();
+  }
   function initPhone(phone){
     var id = "p" + qa(".vpre-phone").indexOf(phone);
     phone.__id = id;
-    state[id] = {grade:"g9", book:"九上", unit:0};
+    restoreStudyPosition(phone);
     qa(".vpre-chip[data-grade]", phone).forEach(function(b){
       b.addEventListener("click", function(){
         qa(".vpre-chip[data-grade]", phone).forEach(function(x){ x.classList.remove("is-active"); x.setAttribute("aria-pressed","false"); });
@@ -4312,6 +4336,7 @@ body{
         state[id].grade = b.getAttribute("data-grade");
         state[id].book = GRADE_BOOKS[state[id].grade][0];
         state[id].unit = 0;
+        saveStudyPosition(phone);
         loadBook(state[id].book).then(function(){ renderUnits(phone); });
       });
     });
@@ -4355,6 +4380,7 @@ body{
         if(!b) return;
         state[id].book = b.getAttribute("data-book");
         state[id].unit = 0;
+        saveStudyPosition(phone);
         loadBook(state[id].book).then(function(){ renderUnits(phone); });
       });
     }
@@ -4374,6 +4400,7 @@ body{
       var unitCard = btn.closest(".vpre-unit[data-unit]");
       if(unitCard){
         state[id].unit = parseInt(unitCard.getAttribute("data-unit"),10);
+        saveStudyPosition(phone);
         renderUnitDetail(phone); setView(phone, "unit"); return;
       }
       var aBook = btn.closest("[data-arena-book]");
@@ -4405,6 +4432,7 @@ body{
       var boardBtn = btn.closest("[data-board-unit]");
       if(boardBtn){
         state[id].unit = parseInt(boardBtn.getAttribute("data-board-unit"), 10);
+        saveStudyPosition(phone);
         renderUnitDetail(phone);
         setView(phone, "unit");
         return;
