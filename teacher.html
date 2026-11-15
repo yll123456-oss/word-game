@@ -700,7 +700,9 @@
     S.current = sid;
     S.range = {stage:"all", group:"all", book:"all"};
     S.view = null;
-    (DEMO ? Promise.resolve(demoStudent(sid)) : (CLOUD ? cloudStudent(sid) : api("/api/student?sid=" + encodeURIComponent(sid)))).then(function(d){
+    loadCatalog().then(function(){
+      return DEMO ? demoStudent(sid) : (CLOUD ? cloudStudent(sid) : api("/api/student?sid=" + encodeURIComponent(sid)));
+    }).then(function(d){
       S.detail = d;
       renderDetail();
       var el = q("#detail");
