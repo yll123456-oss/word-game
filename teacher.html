@@ -66,6 +66,14 @@
   .daybody .vpre-dayline{margin-top:8px;}
   .dayrow.is-on{background:#eef3ff;}
   .dayrow.is-on .d-mark{visibility:visible; font-weight:800;}
+  .range-panel{background:#f8faff;border:1px solid #dfe7f5;border-radius:14px;padding:12px 14px;margin-bottom:14px;}
+  .range-line{display:flex;align-items:flex-start;gap:10px;margin:7px 0;}
+  .range-line:first-child{margin-top:0;}
+  .range-line:last-child{margin-bottom:0;}
+  .range-label{width:72px;flex:none;padding-top:7px;color:var(--muted);font-size:11.5px;font-weight:700;}
+  .range-chips{display:flex;gap:6px;flex-wrap:wrap;min-width:0;}
+  .range-chip{border:1px solid #dfe4ee;background:#fff;color:#44506a;border-radius:99px;padding:6px 11px;font-size:11.5px;font-weight:700;cursor:pointer;}
+  .range-chip.is-active{background:var(--blue);border-color:var(--blue);color:#fff;}
   /* 使用前后对比：对比条 + 折线 + 成长点/失误点 */
   .gtext{background:#f7f9ff; border:1px solid #e2e8f6; border-radius:12px; padding:10px 12px; font-size:12.5px; line-height:1.95; color:var(--ink); margin:8px 0 10px;}
   .gsub{font-size:12.5px; margin:14px 0 6px; color:var(--ink); font-weight:700;}
@@ -240,7 +248,8 @@
 
 <script>
 (function(){
-  var S = {summary:null, detail:null, current:null, showFull:false};
+  var S = {summary:null, detail:null, view:null, current:null, showFull:false,
+           range:{stage:"all", group:"all", book:"all"}};
   function q(s){ return document.querySelector(s); }
   function esc(t){ return String(t == null ? "" : t).replace(/[&<>"]/g, function(c){ return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"})[c]; }); }
 
@@ -484,7 +493,7 @@
     var p = CLOUD ? sbPost("admin_clear_data", {}) : apiPost("/api/clear-all", {});
     p.then(function(){
       alert("已清空" + where + "的所有学生数据 ✅");
-      S.summary = null; S.detail = null; S.current = null;
+      S.summary = null; S.detail = null; S.view = null; S.current = null;
       q("#detail").innerHTML = "";
       load();
     }).catch(function(e){
@@ -502,7 +511,7 @@
     return fetch(path, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body || {})})
       .then(function(r){ if(!r.ok){ throw new Error("HTTP " + r.status); } return r.json(); });
   }
-  var BUILD_VER = "2026-11-11 admin-role";
+  var BUILD_VER = "2026-11-15 multistage-filter";
   function setDiag(msg){ var el = q("#li-diag"); if(el){ el.textContent = msg; } }
   // 把"连不上"这件事在页面上说清楚：红框 + 具体怎么救
   function netHelp(why){
@@ -572,15 +581,20 @@
   }
   // 云端模式下的单个学生档案：拼成和本机 /api/student 一样的形状
   function cloudStudent(sid){
-    return Promise.all([
+    return loadCatalog().then(function(){
+      return Promise.all([
       sbGet("v_students?select=*&sid=eq." + sbQ(sid)),
       sbGet("v_wrongs?select=*&sid=eq." + sbQ(sid) + "&order=wrong_count.desc"),
       sbGet("v_records?select=*&sid=eq." + sbQ(sid) + "&order=id.desc&limit=500"),
       sbGet("v_modes?select=*&sid=eq." + sbQ(sid)),
       sbGet("v_daily?select=*&sid=eq." + sbQ(sid) + "&order=day.desc"),
-      sbGet("v_daily_wrongs?select=*&sid=eq." + sbQ(sid) + "&order=day.desc")
-    ]).then(function(a){
+      sbGet("v_daily_wrongs?select=*&sid=eq." + sbQ(sid) + "&order=day.desc"),
+      sbGet("v_daily_content?select=*&sid=eq." + sbQ(sid) + "&order=day.desc")
+        .catch(function(){ return []; })
+    ]);
+    }).then(function(a){
       var s = (a[0] || [])[0] || {};
+      var dailyContent = (a[6] && a[6].length) ? a[6] : (a[4] || []);
       return {
         student:{sid:sid, sidMasked:s.sidMasked || sid, name:s.name || "",
                  firstSeen:"", lastSeen:s.lastTs || ""},
@@ -589,7 +603,9 @@
         words:[],
         mastery:{weak:s.weak || 0, shaky:s.shaky || 0, mastered:s.mastered || 0},
         modes:a[3] || [],
-        daily:dailyJoin(a[4] || [], a[2] || [], a[5] || []),
+        dailyContent:dailyContent,
+        dailyWrongs:a[5] || [],
+        daily:dailyJoin(dailyContent, a[2] || [], a[5] || []),
         practiceCount:s.practiceCount || 0
       };
     });
@@ -617,7 +633,7 @@
       + "修复：去 Supabase → SQL Editor 执行这一句，然后刷新本页：\n\n"
       + "grant select on public.v_totals, public.v_students, public.v_daily,\n"
       + "                public.v_daily_wrongs, public.v_wrongs, public.v_records,\n"
-      + "                public.v_modes, public.v_class_wrongs\n"
+      + "                public.v_modes, public.v_class_wrongs, public.v_daily_content\n"
       + "  to authenticated;\n\n"
       + "（已经帮你把权限恢复了的话，刷新即可。）";
   }
@@ -682,6 +698,8 @@
   }
   function openStudent(sid){
     S.current = sid;
+    S.range = {stage:"all", group:"all", book:"all"};
+    S.view = null;
     (DEMO ? Promise.resolve(demoStudent(sid)) : (CLOUD ? cloudStudent(sid) : api("/api/student?sid=" + encodeURIComponent(sid)))).then(function(d){
       S.detail = d;
       renderDetail();
@@ -926,44 +944,131 @@
     if(n > 80 && n <= 85){ return 4; }
     return Math.ceil(n / 20);
   }
-  var WB_CACHE = null, WB_LOADING = null;
+  var CATALOG = null, WB_CACHE = null, WB_LOADING = null;
+  var BOOK_META = {}, GROUP_META = {}, STAGE_META = {};
+  var GRADE_BOOK_IDS = {};
+  function installCatalog(catalog){
+    CATALOG = catalog || {stages:[]};
+    BOOK_META = {}; GROUP_META = {}; STAGE_META = {}; GRADE_BOOK_IDS = {};
+    (CATALOG.stages || []).forEach(function(stage){
+      STAGE_META[stage.id] = stage;
+      (stage.groups || []).forEach(function(group){
+        GROUP_META[group.id] = {id:group.id, name:group.name, stageId:stage.id, stageName:stage.name};
+        GRADE_BOOK_IDS[group.id] = (group.books || []).map(function(book){ return book.id; });
+        (group.books || []).forEach(function(book){
+          var meta = {};
+          for(var k in book){ meta[k] = book[k]; }
+          meta.stageId = stage.id; meta.stageName = stage.name;
+          meta.groupId = group.id; meta.groupName = group.name;
+          BOOK_META[book.id] = meta;
+        });
+      });
+    });
+    WB_CACHE = null;
+    return CATALOG;
+  }
+  function loadCatalog(){
+    if(CATALOG){ return Promise.resolve(CATALOG); }
+    if(WB_LOADING){ return WB_LOADING; }
+    WB_LOADING = fetch("data/catalog.json", {cache:"no-cache"})
+      .then(function(r){ if(!r.ok){ throw new Error("HTTP " + r.status); } return r.json(); })
+      .then(installCatalog)
+      .catch(function(){ return installCatalog({stages:[]}); });
+    return WB_LOADING;
+  }
+  function bookMeta(book){ return BOOK_META[book] || null; }
+  function bookLabel(book){
+    if(!book || book === "legacy"){ return "历史未分册"; }
+    var meta = bookMeta(book);
+    return meta ? meta.name : String(book);
+  }
+  function bookStage(book){ var meta = bookMeta(book); return meta ? meta.stageId : ""; }
+  function bookGroup(book){ var meta = bookMeta(book); return meta ? meta.groupId : ""; }
+  function stageGroups(stageId){
+    var stage = STAGE_META[stageId];
+    return stage ? (stage.groups || []) : [];
+  }
+  function stageBooks(stageId){
+    var out = [];
+    stageGroups(stageId).forEach(function(group){
+      (group.books || []).forEach(function(book){ out.push(book); });
+    });
+    return out;
+  }
   function loadWordbank(){
     if(WB_CACHE){ return Promise.resolve(WB_CACHE); }
-    if(WB_LOADING){ return WB_LOADING; }
-    var books = ["七上", "七下", "八上", "八下", "九上", "九下"];
-    WB_LOADING = Promise.all(books.map(function(b){
-      return fetch("data/" + encodeURIComponent(b) + ".json", {cache:"force-cache"})
-        .then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; });
-    })).then(function(arr){
+    return loadCatalog().then(function(catalog){
       var map = {};
-      arr.forEach(function(bd){
-        if(!bd || !bd.book || !bd.units){ return; }
-        map[bd.book] = bd.units.map(function(u){ return { name:u.name, n:(u.words || []).length }; });
+      Object.keys(BOOK_META).forEach(function(id){
+        map[id] = (BOOK_META[id].units || []).map(function(u){ return {name:u.name,n:u.words,groups:u.groups}; });
       });
       WB_CACHE = map;
       return map;
     });
-    return WB_LOADING;
+  }
+  function allBookIds(){
+    return Object.keys(BOOK_META);
+  }
+  function rangeBooks(){
+    var r = S.range || {stage:"all", group:"all", book:"all"};
+    if(r.book !== "all"){ return bookMeta(r.book) ? [r.book] : []; }
+    if(r.group !== "all"){ return (GRADE_BOOK_IDS[r.group] || []).slice(); }
+    if(r.stage !== "all"){ return stageBooks(r.stage).map(function(book){ return book.id; }); }
+    return allBookIds();
+  }
+  function rangeBookChoices(){
+    var r = S.range || {stage:"all", group:"all", book:"all"};
+    if(r.group !== "all"){ return (GRADE_BOOK_IDS[r.group] || []).slice(); }
+    if(r.stage !== "all"){ return stageBooks(r.stage).map(function(book){ return book.id; }); }
+    return allBookIds();
+  }
+  function recordBook(r){ return r && r.book ? String(r.book) : "legacy"; }
+  function bookInRange(book){
+    var r = S.range || {stage:"all", group:"all", book:"all"};
+    if(r.book !== "all"){ return book === r.book; }
+    if(book === "legacy" || !bookMeta(book)){ return r.stage === "all" && r.group === "all"; }
+    if(r.group !== "all"){ return bookGroup(book) === r.group; }
+    if(r.stage !== "all"){ return bookStage(book) === r.stage; }
+    return true;
+  }
+  function filterRecords(records){
+    return (records || []).filter(function(r){ return bookInRange(recordBook(r)); });
+  }
+  function filterDailyParts(parts){
+    return (parts || []).filter(function(r){ return bookInRange(recordBook(r)); });
+  }
+  function filterDailyWrongs(wrongs){
+    return (wrongs || []).filter(function(w){ return bookInRange(recordBook(w)); });
+  }
+  function rangeLabel(){
+    var r = S.range || {};
+    var out = [];
+    if(r.stage !== "all" && STAGE_META[r.stage]){ out.push(STAGE_META[r.stage].name); }
+    if(r.group !== "all" && GROUP_META[r.group]){ out.push(GROUP_META[r.group].name); }
+    if(r.book !== "all" && bookMeta(r.book)){ out.push(bookMeta(r.book).name); }
+    return out.length ? out.join(" · ") : "全部学段和册";
   }
   function coverageHtml(d, wb){
     var done = {}, units = {}, byBook = {};
-    ((d && d.records) || []).forEach(function(r){
+    filterRecords((d && d.records) || []).forEach(function(r){
       if(r.group_no == null){ return; }
       var b = r.book || "未分册", u = r.unit || "未分单元";
       var k = b + "|" + u + "|" + r.group_no;
       if(!done[k]){ done[k] = 1; byBook[b] = (byBook[b] || 0) + 1; units[b + "|" + u] = 1; }
     });
     var totalAll = 0, perBook = {};
-    Object.keys(wb || {}).forEach(function(b){
-      var t = (wb[b] || []).reduce(function(a, u){ return a + groupCountOf(u.n); }, 0);
+    var scope = rangeBooks();
+    scope.forEach(function(b){
+      var meta = bookMeta(b);
+      var t = meta ? (meta.totalGroups || 0) : 0;
       perBook[b] = t; totalAll += t;
     });
     var doneAll = Object.keys(done).length, unitN = Object.keys(units).length;
     var parts = [];
-    parts.push("已练 <b>" + doneAll + "</b> 组" + (totalAll ? (" / 六册共 <b>" + totalAll + "</b> 组（" + Math.round(doneAll * 100 / totalAll) + "%）") : ""));
+    parts.push("已练 <b>" + doneAll + "</b> 组" + (totalAll ? (" / 当前范围共 <b>" + totalAll + "</b> 组（" + Math.round(doneAll * 100 / totalAll) + "%）") : ""));
     parts.push("涉及 <b>" + unitN + "</b> 个单元");
     var bs = Object.keys(byBook);
-    if(bs.length){ parts.push(bs.map(function(b){ return b + " " + byBook[b] + (perBook[b] ? ("/" + perBook[b]) : "") + " 组"; }).join(" · ")); }
+    if(bs.length){ parts.push(bs.map(function(b){ return bookLabel(b) + " " + byBook[b] + (perBook[b] ? ("/" + perBook[b]) : "") + " 组"; }).join(" · ")); }
     return parts.join("　｜　");
   }
   function fillCoverage(d){
@@ -1062,7 +1167,7 @@
             var cls = dv > 0 ? 'gup' : (dv < 0 ? 'gdown' : 'muted');
             var dt = dv === 0 ? '持平' : ((dv > 0 ? '▲ +' : '▼ ') + Math.abs(dv) + ' 个百分点');
             var durTxt = o.durDiff > 0 ? ('快 ' + fmtDur(o.durDiff)) : (o.durDiff < 0 ? ('慢 ' + fmtDur(-o.durDiff)) : '');
-            return '<tr><td>' + esc((o.book || '') + ' ' + (o.unit || '') + ' 第' + o.group + '组') + '</td>'
+            return '<tr><td>' + esc(bookLabel(o.book) + ' ' + (o.unit || '') + ' 第' + o.group + '组') + '</td>'
               + '<td>' + esc(o.mode) + '</td>'
               + '<td class="muted">' + (Number(o.first.accuracy) || 0) + '%</td>'
               + '<td><b>' + (Number(o.last.accuracy) || 0) + '%</b></td>'
@@ -1103,13 +1208,35 @@
     return '<div class="gtext">今天练了 <b>' + r.questions + '</b> 题（对 ' + r.correct + ' 题，正确率 <b>' + r.accuracy + '%</b>）'
       + '，练完 <b>' + r.practices + '</b> 组，当天错 <b>' + r.wrongN + '</b> 个词，用时 ' + fmtDur(r.seconds) + '。</div>';
   }
-  // 把"按日期统计 / 练习记录 / 当天错题"按日期拼到一起
+  // 把按册明细聚合到日期，再拼接练习记录和当天错题
   function dailyJoin(daily, records, wrongs){
-    return (daily || []).map(function(r){
-      var rs = (records || []).filter(function(x){ return x.day === r.day; });
-      var ws = (wrongs || []).filter(function(x){ return x.day === r.day; });
-      return {day:r.day, questions:r.questions, correct:r.correct, accuracy:r.accuracy,
-              practices:r.practices, seconds:r.seconds, records:rs, wrongs:ws};
+    var map = {};
+    function row(day){
+      return map[day] || (map[day] = {day:day, questions:0, correct:0, accuracy:0,
+                                      practices:0, seconds:0, records:[], wrongs:[], parts:[]});
+    }
+    (daily || []).forEach(function(r){
+      var o = row(r.day);
+      o.questions += Number(r.questions) || 0;
+      o.correct += Number(r.correct) || 0;
+      o.practices += Number(r.practices) || 0;
+      o.seconds += Number(r.seconds) || 0;
+      o.parts.push(r);
+    });
+    (records || []).forEach(function(r){
+      var o = row(r.day);
+      if(!o.records.length && o.questions === 0){
+        o.questions += Number(r.total) || 0;
+        o.correct += Number(r.correct) || 0;
+        o.seconds += Number(r.duration) || 0;
+      }
+      o.records.push(r);
+    });
+    (wrongs || []).forEach(function(w){ row(w.day).wrongs.push(w); });
+    return Object.keys(map).sort().reverse().map(function(day){
+      var o = map[day];
+      o.accuracy = o.questions ? Math.round(o.correct * 100 / o.questions) : 0;
+      return o;
     });
   }
   function fmtDur(sec){
@@ -1134,7 +1261,7 @@
         + '<table style="margin-top:6px;"><thead><tr><th>时间</th><th>模块</th><th>单元</th><th>组</th><th>单词数</th><th>正确率</th><th>用时</th></tr></thead><tbody>'
         + r.records.map(function(x){
             return '<tr><td class="muted">' + esc(String(x.ts || '').slice(11, 16)) + '</td><td>' + esc(x.mode || '') + '</td>'
-              + '<td class="muted">' + esc((x.book || '') + ' ' + (x.unit || '')) + '</td>'
+              + '<td class="muted">' + esc(bookLabel(x.book) + ' ' + (x.unit || '')) + '</td>'
               + '<td>' + (x.group_no ? ('第 ' + x.group_no + ' 组') : '—') + '</td>'
               + '<td>' + (x.total || 0) + ' 个</td><td>' + (x.accuracy || 0) + '%</td>'
               + '<td class="muted">' + fmtDur(x.duration) + '</td></tr>';
@@ -1148,14 +1275,14 @@
     if(r.wrongs && r.wrongs.length){
       var uniq = {}, list = [];
       r.wrongs.forEach(function(w){
-        var k = String(w.word || '').toLowerCase();
-        if(!uniq[k]){ uniq[k] = {word:w.word, meaning:w.meaning, choice:wChoice(w), module:wModule(w), ts:wTs(w), n:0}; list.push(uniq[k]); }
+        var k = recordBook(w) + "|" + String(w.unit || "") + "|" + String(w.word || '').toLowerCase();
+        if(!uniq[k]){ uniq[k] = {book:recordBook(w), unit:w.unit || '', word:w.word, meaning:w.meaning, choice:wChoice(w), module:wModule(w), ts:wTs(w), n:0}; list.push(uniq[k]); }
         uniq[k].n += 1;
       });
       inner += '<div class="vpre-dayblock"><b>当天练错的词（' + list.length + ' 个）</b>'
-        + '<table style="margin-top:6px;"><thead><tr><th>单词</th><th>释义</th><th>错几次</th><th>选错成</th><th>模块</th><th>时间</th></tr></thead><tbody>'
+        + '<table style="margin-top:6px;"><thead><tr><th>册 · 单元</th><th>单词</th><th>释义</th><th>错几次</th><th>选错成</th><th>模块</th><th>时间</th></tr></thead><tbody>'
         + list.map(function(w){
-            return '<tr><td><b>' + esc(w.word) + '</b></td><td class="muted">' + esc(w.meaning || '') + '</td>'
+            return '<tr><td class="muted">' + esc(bookLabel(w.book) + ' ' + (w.unit || '')) + '</td><td><b>' + esc(w.word) + '</b></td><td class="muted">' + esc(w.meaning || '') + '</td>'
               + '<td><span class="pill no">' + w.n + '</span></td><td class="muted">' + esc(w.choice || '') + '</td>'
               + '<td class="muted">' + esc(w.module || '') + '</td><td class="muted">' + esc(String(w.ts || '').slice(5, 16)) + '</td></tr>';
           }).join('') + '</tbody></table></div>';
@@ -1185,8 +1312,71 @@
       + rows.length + ' 天 · 点日期看当天详细结果（历史一直保留）</span></h2>'
       + '<div class="daylist" id="daylist">' + list + '</div></div>';
   }
+  function rangePanelHtml(){
+    var r = S.range || {stage:"all", group:"all", book:"all"};
+    var stages = ['<button class="range-chip ' + (r.stage === "all" ? 'is-active' : '') +
+      '" type="button" data-range-stage="all">全部学段</button>'];
+    (CATALOG.stages || []).forEach(function(stage){
+      stages.push('<button class="range-chip ' + (r.stage === stage.id ? 'is-active' : '') +
+        '" type="button" data-range-stage="' + stage.id + '">' + esc(stage.name) + '</button>');
+    });
+    var groups = ['<button class="range-chip ' + (r.group === "all" ? 'is-active' : '') +
+      '" type="button" data-range-group="all">全部</button>'];
+    var groupSource = r.stage === "all" ? (CATALOG.stages || []) : [STAGE_META[r.stage]];
+    groupSource.forEach(function(stage){
+      if(!stage){ return; }
+      (stage.groups || []).forEach(function(group){
+        groups.push('<button class="range-chip ' + (r.group === group.id ? 'is-active' : '') +
+          '" type="button" data-range-group="' + group.id + '">' + esc(group.name) + '</button>');
+      });
+    });
+    var books = ['<button class="range-chip ' + (r.book === "all" ? 'is-active' : '') +
+      '" type="button" data-range-book="all">全部册</button>'];
+    rangeBookChoices().forEach(function(id){
+      books.push('<button class="range-chip ' + (r.book === id ? 'is-active' : '') +
+        '" type="button" data-range-book="' + esc(id) + '">' + esc(bookLabel(id)) + '</button>');
+    });
+    return '<div class="range-panel">'
+      + '<div class="range-line"><span class="range-label">学段</span><div class="range-chips">' + stages.join("") + '</div></div>'
+      + '<div class="range-line"><span class="range-label">年级/类别</span><div class="range-chips">' + groups.join("") + '</div></div>'
+      + '<div class="range-line"><span class="range-label">册</span><div class="range-chips">' + books.join("") + '</div></div>'
+      + '<div class="muted" style="margin-top:8px;">当前范围：<b>' + esc(rangeLabel()) + '</b> · 掌握度卡片为全部累计</div>'
+      + '</div>';
+  }
+  function viewDetail(d){
+    if(!d){ return null; }
+    var records = filterRecords(d.records || []);
+    var dailyParts = filterDailyParts(d.dailyContent || d.daily || []);
+    var dailyWrongs = filterDailyWrongs(d.dailyWrongs || ((d.daily || []).reduce(function(a, row){
+      return a.concat(row.wrongs || []);
+    }, [])));
+    var modesMap = {};
+    records.forEach(function(r){
+      var key = r.mode || "其它";
+      var o = modesMap[key] || (modesMap[key] = {mode:key,count:0,sum:0});
+      o.count += 1; o.sum += Number(r.accuracy) || 0;
+    });
+    var modes = Object.keys(modesMap).map(function(key){
+      var o = modesMap[key];
+      return {mode:o.mode,count:o.count,avgAccuracy:o.count ? Math.round(o.sum / o.count) : 0};
+    });
+    var allRange = S.range.stage === "all" && S.range.group === "all" && S.range.book === "all";
+    return {
+      student:d.student,
+      records:records,
+      wrongs:allRange ? (d.wrongs || []) : dailyWrongs,
+      words:[],
+      mastery:d.mastery || {weak:0,shaky:0,mastered:0},
+      modes:modes,
+      daily:dailyJoin(dailyParts, records, dailyWrongs),
+      dailyContent:dailyParts,
+      dailyWrongs:dailyWrongs,
+      practiceCount:Object.keys(records.reduce(function(a,r){ a[r.day]=1; return a; }, {})).length
+    };
+  }
   function renderDetail(){
-    var d = S.detail;
+    var d = viewDetail(S.detail);
+    S.view = d;
     var box = q("#detail");
     if(!d){ box.innerHTML = ""; return; }
     var st = d.student, m = d.mastery;
@@ -1202,6 +1392,7 @@
       + '<div class="card"><b style="color:#e5484d;">' + m.weak + '</b><span>未掌握</span></div>'
       + '<div class="card"><b>' + (d.modes || []).length + '</b><span>练过的模块</span></div>'
       + '</div>'
+      + rangePanelHtml()
       + '</div>'
       + dailyHtml(d)                                  // 每日一练：点日期 → 显示当天的练习内容
       + '<div class="panel"><h2>错题本 <span class="muted" style="font-weight:400;font-size:12px;">按日期看，只统计当天错次；可多选日期一起打印</span></h2>'
@@ -1229,6 +1420,35 @@
       + '<button class="ghost" id="btn-print-report" type="button">打印学情报告</button>'
       + '<button class="ghost" id="btn-close-detail" type="button">收起</button>'
       + '</div>';
+    var rp = q(".range-panel", box);
+    if(rp){
+      rp.addEventListener("click", function(ev){
+        var stageBtn = ev.target.closest("[data-range-stage]");
+        var groupBtn = ev.target.closest("[data-range-group]");
+        var bookBtn = ev.target.closest("[data-range-book]");
+        if(stageBtn){
+          S.range.stage = stageBtn.getAttribute("data-range-stage");
+          S.range.group = "all"; S.range.book = "all";
+          renderDetail(); return;
+        }
+        if(groupBtn){
+          S.range.group = groupBtn.getAttribute("data-range-group");
+          S.range.book = "all";
+          if(S.range.group !== "all" && GROUP_META[S.range.group]){
+            S.range.stage = GROUP_META[S.range.group].stageId;
+          }
+          renderDetail(); return;
+        }
+        if(bookBtn){
+          S.range.book = bookBtn.getAttribute("data-range-book");
+          if(S.range.book !== "all" && bookMeta(S.range.book)){
+            S.range.stage = bookStage(S.range.book);
+            S.range.group = bookGroup(S.range.book);
+          }
+          renderDetail(); return;
+        }
+      });
+    }
     fillCoverage(d);                                  // 练习覆盖要读词库，异步补进「练习覆盖」那一行
     // ---- 错题本打印范围：日期多选 ----
     var pickedDays = [];
@@ -1238,7 +1458,7 @@
       var out = [];
       days.forEach(function(day){
         dayWrongRows(day).forEach(function(w){
-          out.push({ day:day, word:w.word, meaning:w.meaning, wrong_count:w.wrong_count,
+          out.push({ day:day, book:w.book, unit:w.unit, word:w.word, meaning:w.meaning, wrong_count:w.wrong_count,
                      last_choice:w.last_choice, last_module:w.last_module, last_ts:w.last_ts });
         });
       });
@@ -1298,11 +1518,13 @@
         var tag = pickedDays.length ? pickedDays.slice().sort().join('_') : "全部日期";
         var lastDay = null;
         downloadCsv("错题本-" + (d.student.name || "") + "-" + tag + ".csv",
-          ["日期", "单词", "释义", "当天错次", "选错成", "模块", "最近时间"],
+          ["日期", "学段", "年级/类别", "册", "单元", "单词", "释义", "当天错次", "选错成", "模块", "最近时间"],
           rs.map(function(w){
             var showDay = (w.day === lastDay) ? "" : w.day;   // 日期只在该组第一行显示，不重复
             lastDay = w.day;
-            return [showDay, w.word, w.meaning, w.wrong_count, w.last_choice, w.last_module, String(w.last_ts || '').slice(11, 16)];
+            var meta = bookMeta(w.book) || {};
+            return [showDay, meta.stageName || "", meta.groupName || "", bookLabel(w.book), w.unit || "",
+                    w.word, w.meaning, w.wrong_count, w.last_choice, w.last_module, String(w.last_ts || '').slice(11, 16)];
           }));
       });
     }
@@ -1334,23 +1556,24 @@
         }).join("") + '</tbody></table></div>';
   }
   function fillPrint(inner){
-    var d = S.detail;
+    var d = S.view || S.detail;
     var root = q("#print-root");
     var head = '<div class="head"><h1>单词大冒险 · ' + esc(d.student.name) + '</h1>'
-      + '<div class="meta">学号 ' + esc(d.student.sidMasked) + ' · 生成时间 ' + new Date().toLocaleString('zh-CN') + ' · 练习 ' + d.practiceCount + ' 次</div>'
+      + '<div class="meta">学号 ' + esc(d.student.sidMasked) + ' · 范围 ' + esc(rangeLabel()) + ' · 生成时间 ' + new Date().toLocaleString('zh-CN') + ' · 练习 ' + d.practiceCount + ' 次</div>'
       + '<div class="stats" style="margin-top:6px;"><span>已掌握 ' + d.mastery.mastered + '</span><span>待巩固 ' + d.mastery.shaky + '</span><span>未掌握 ' + d.mastery.weak + '</span></div></div>';
     root.innerHTML = head + inner;
     window.print();
   }
   // 某一天的错词（把同一天的同一个词合并，按错次排序）
   function dayWrongRows(day){
-    var r = (S.detail.daily || []).filter(function(x){ return x.day === day; })[0];
+    var view = S.view || S.detail;
+    var r = (view.daily || []).filter(function(x){ return x.day === day; })[0];
     if(!r){ return []; }
     var map = {}, out = [];
     (r.wrongs || []).forEach(function(w){
-      var k = String(w.word || '').toLowerCase();
+      var k = recordBook(w) + "|" + String(w.unit || "") + "|" + String(w.word || '').toLowerCase();
       if(!map[k]){
-        map[k] = {word:w.word, meaning:w.meaning, wrong_count:0, last_choice:wChoice(w), last_module:wModule(w), last_ts:wTs(w)};
+        map[k] = {book:recordBook(w), unit:w.unit || '', word:w.word, meaning:w.meaning, wrong_count:0, last_choice:wChoice(w), last_module:wModule(w), last_ts:wTs(w)};
         out.push(map[k]);
       }
       map[k].wrong_count += 1;
@@ -1363,9 +1586,9 @@
   // 错词表（打印稿里用）
   function wrongTableHtml(rows){
     if(!rows.length){ return '<p>没有错词。</p>'; }
-    return '<table><thead><tr><th>单词</th><th>释义</th><th>当天错次</th><th>选错成</th><th>模块</th><th>时间</th></tr></thead><tbody>'
+    return '<table><thead><tr><th>册 · 单元</th><th>单词</th><th>释义</th><th>当天错次</th><th>选错成</th><th>模块</th><th>时间</th></tr></thead><tbody>'
       + rows.map(function(w){
-          return '<tr><td><b>' + esc(w.word) + '</b></td><td>' + esc(w.meaning || '') + '</td><td>' + (w.wrong_count || 0) + '</td><td>'
+          return '<tr><td>' + esc(bookLabel(w.book) + ' ' + (w.unit || '')) + '</td><td><b>' + esc(w.word) + '</b></td><td>' + esc(w.meaning || '') + '</td><td>' + (w.wrong_count || 0) + '</td><td>'
             + esc(w.last_choice || '') + '</td><td>' + esc(w.last_module || '') + '</td><td>' + esc(String(w.last_ts || '').slice(11, 16)) + '</td></tr>';
         }).join("") + '</tbody></table>';
   }
@@ -1381,7 +1604,7 @@
   }
   // days：数组。空数组 = 全部日期（仍按日期分组）；否则按勾选的日期分天打印
   function printWrong(days){
-    var d = S.detail;
+    var d = S.view || S.detail;
     var picked = !!(days && days.length);
     var list = picked ? days.slice().sort() : dayList(d).map(function(r){ return r.day; }).sort();
     var total = 0;
@@ -1390,17 +1613,17 @@
       total += rows.length;
       return '<h2>' + esc(day) + ' 的错词（' + rows.length + ' 个）</h2>' + wrongTableHtml(rows);
     }).join("") || '<p>没有错词。</p>';
-    var meta = (picked ? ('打印日期：' + esc(list.join('、'))) : ('全部日期：共 ' + list.length + ' 天'))
+    var meta = '范围：' + esc(rangeLabel()) + ' · ' + (picked ? ('打印日期：' + esc(list.join('、'))) : ('全部日期：共 ' + list.length + ' 天'))
       + ' · 共 ' + total + ' 条错记';
     fillPrint('<h2>错题本（第二天复习用）</h2><p class="meta">' + meta + '</p>' + body);
   }
   function printReport(){
-    var d = S.detail;
+    var d = S.view || S.detail;
     var modes = (d.modes || []).map(function(m){ return m.mode + ' ' + m.count + ' 次（平均 ' + m.avgAccuracy + '%）'; }).join('、') || '暂无';
     var records = '<table><thead><tr><th>时间</th><th>模块</th><th>单元</th><th>正确率</th><th>用时</th></tr></thead><tbody>'
       + (d.records || []).map(function(r){
           return '<tr><td>' + esc((r.ts || '').slice(0, 16)) + '</td><td>' + esc(r.mode) + '</td><td>'
-            + esc((r.book || '') + ' ' + (r.unit || '')) + '</td><td>' + r.accuracy + '%（' + r.correct + '/' + r.total + '）</td><td>' + r.duration + 's</td></tr>';
+            + esc(bookLabel(r.book) + ' ' + (r.unit || '')) + '</td><td>' + r.accuracy + '%（' + r.correct + '/' + r.total + '）</td><td>' + r.duration + 's</td></tr>';
         }).join("") + '</tbody></table>';
     var g2 = growth(d);
     var grow = (g2 && g2.has2)
@@ -1420,7 +1643,7 @@
               + (r.accuracy||0) + '%</td><td>' + (r.practices||0) + '</td><td>' + Math.round((Number(r.seconds)||0)/60) + ' 分钟</td></tr>';
           }).join("") + '</tbody></table>'
       : '';
-    fillPrint(grow + dailyTbl
+    fillPrint('<p class="meta"><b>学情范围：' + esc(rangeLabel()) + '</b></p>' + grow + dailyTbl
       + '<h2>学习概况</h2><p class="meta">练习模块：' + esc(modes) + '</p>'
       + '<h2>练习记录</h2>' + records);
   }
@@ -1452,7 +1675,7 @@
       return;
     }
     if(t.id === "btn-clear-all"){ clearAllData(); return; }
-    if(t.id === "btn-logout"){ saveSession(null); S.summary = null; S.detail = null; q("#detail").innerHTML = ""; q("#tbody").innerHTML = ""; q("#btn-clear-all").style.display = "none"; needLogin(); return; }
+    if(t.id === "btn-logout"){ saveSession(null); S.summary = null; S.detail = null; S.view = null; q("#detail").innerHTML = ""; q("#tbody").innerHTML = ""; q("#btn-clear-all").style.display = "none"; needLogin(); return; }
     if(t.id === "btn-toggle-phone"){ S.showFull = !S.showFull; t.textContent = S.showFull ? "隐藏学号" : "显示完整学号"; renderTable(); }
     if(t.id === "btn-print-list"){ printList(); }
     if(t.id === "btn-csv"){ if(CLOUD || DEMO){ ev.preventDefault(); exportCsv(); } }
