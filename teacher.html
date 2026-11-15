@@ -216,6 +216,8 @@
 
   <div id="boot-err" style="display:none; margin-bottom:16px; background:#fff2f2; border:1px solid #f3c2c4; color:#b3242a; border-radius:12px; padding:12px 14px; font-size:12.5px; line-height:1.8; white-space:pre-wrap;"></div>
 
+  <div id="scope-panel" class="range-panel" style="margin-bottom:16px;"></div>
+
   <div class="cards">
     <div class="card"><b id="k-students">0</b><span>学生总数</span></div>
     <div class="card"><b id="k-done">0</b><span>今日已练</span></div>
@@ -224,14 +226,14 @@
   </div>
 
   <div class="panel">
-    <h2>学生列表（未练的排在最前）</h2>
+    <h2 id="student-list-title">学生列表</h2>
     <div style="overflow:auto;">
       <table>
         <thead><tr>
-          <th>姓名</th><th>学号</th><th>今日</th><th>练习次数</th><th>平均正确率</th>
-          <th>已掌握</th><th>待巩固</th><th>未掌握</th><th>最近练习</th><th>操作</th>
+          <th>姓名</th><th>学号</th><th>今日</th><th>练习记录</th><th>答题数</th>
+          <th>平均正确率</th><th>最近练习</th><th>操作</th>
         </tr></thead>
-        <tbody id="tbody"><tr><td colspan="10" class="empty">加载中…</td></tr></tbody>
+        <tbody id="tbody"><tr><td colspan="8" class="empty">加载中…</td></tr></tbody>
       </table>
     </div>
     <div class="muted" style="margin-top:8px;">
@@ -249,6 +251,7 @@
 <script>
 (function(){
   var S = {summary:null, detail:null, view:null, current:null, showFull:false,
+           scope:{stage:"junior",group:"g9"},
            range:{stage:"all", group:"all", book:"all"}};
   function q(s){ return document.querySelector(s); }
   function esc(t){ return String(t == null ? "" : t).replace(/[&<>"]/g, function(c){ return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"})[c]; }); }
@@ -307,12 +310,28 @@
     return v.length >= 7 ? (v.slice(0,3) + "****" + v.slice(-2)) : v;
   }
   function demoSummary(){
+    var scopeMap = {};
+    DEMO_STUDENTS.forEach(function(st){
+      (DEMO_RECORDS[st.sid] || []).forEach(function(r){
+        var book = String(r[3] || "").split(" ")[0] || "legacy";
+        var key = st.sid + "|" + book;
+        var o = scopeMap[key] || (scopeMap[key] = {
+          sid:st.sid,name:st.name,book:book,recordCount:0,todayCount:0,
+          questions:0,correct:0,lastTs:""
+        });
+        o.recordCount += 1;
+        o.questions += Number(r[5]) || 0;
+        o.correct += Number(r[4]) || 0;
+        if(String(r[0] || "") > String(o.lastTs || "")){ o.lastTs = r[0]; }
+      });
+    });
     return {
       date: "2026-10-12",
       totals: {students:4, practiced:2, notPracticed:2, records:8, avgAccuracy:74, newToday:2, neverPracticed:1},
       students: DEMO_STUDENTS.map(function(s){
         var o = JSON.parse(JSON.stringify(s)); o.phoneMasked = demoMask(o.sid); o.sidMasked = demoMask(o.sid); return o;
-      })
+      }),
+      scopeRows: Object.keys(scopeMap).map(function(k){ return scopeMap[k]; })
     };
   }
   function demoDaily(){
@@ -565,7 +584,13 @@
   }
   // 云端模式下的"总览"：把 v_totals + v_students 拼成和本机接口一样的形状
   function cloudSummary(){
-    return Promise.all([sbGet("v_totals?select=*"), sbGet("v_students?select=*")]).then(function(a){
+    return loadCatalog().then(function(){
+      return Promise.all([
+        sbGet("v_totals?select=*"),
+        sbGet("v_students?select=*"),
+        sbGet("v_student_books?select=*&order=lastTs.desc").catch(function(){ return null; })
+      ]);
+    }).then(function(a){
       var t = (a[0] || [])[0] || {};
       return {
         date: t.date || "",
@@ -575,7 +600,8 @@
           avgAccuracy: t.avgAccuracy || 0, newToday: t.newToday || 0,
           neverPracticed: t.neverPracticed || 0
         },
-        students: a[1] || []
+        students: a[1] || [],
+        scopeRows: Array.isArray(a[2]) ? a[2] : null
       };
     });
   }
@@ -646,10 +672,12 @@
       q("#k-never").textContent = d.totals.neverPracticed || 0;
       q("#subline").textContent = (DEMO ? "【演示数据 · 不写数据库】" : "")
         + "统计日期 " + d.date + " · 今日练习 " + d.totals.records + " 组"
+        + " · 当前范围 " + scopeName()
         + (CLOUD ? (" · " + (isAdmin() ? "管理员" : "老师")) : "");
       q("#login").style.display = "none";
       q("#btn-logout").style.display = CLOUD ? "inline-block" : "none";
       q("#btn-clear-all").style.display = (!CLOUD || isAdmin()) ? "inline-block" : "none";
+      renderScopePanel();
       renderTable();
     }).catch(function(e){
       if(isNoSession(e)){ needLogin(); return; }
@@ -677,20 +705,48 @@
     if(S.showFull){ return esc(s.sid); }
     return esc(s.sidMasked) + '<span class="muted" style="font-size:11px;"> </span>';
   }
+  function renderScopePanel(){
+    var panel = q("#scope-panel");
+    if(!panel){ return; }
+    panel.innerHTML = scopePanelHtml();
+    panel.onclick = function(ev){
+      var stage = ev.target.closest("[data-scope-stage]");
+      var group = ev.target.closest("[data-scope-group]");
+      if(stage){
+        S.scope.stage = stage.getAttribute("data-scope-stage");
+        S.scope.group = "all";
+        q("#detail").innerHTML = "";
+        S.detail = null; S.view = null;
+        renderScopePanel();
+        renderTable();
+        return;
+      }
+      if(group){
+        S.scope.group = group.getAttribute("data-scope-group");
+        if(S.scope.group !== "all" && GROUP_META[S.scope.group]){
+          S.scope.stage = GROUP_META[S.scope.group].stageId;
+        }
+        q("#detail").innerHTML = "";
+        S.detail = null; S.view = null;
+        renderScopePanel();
+        renderTable();
+      }
+    };
+    var title = q("#student-list-title");
+    if(title){ title.textContent = scopeName() + " · 学生列表"; }
+  }
   function renderTable(){
-    var list = (S.summary && S.summary.students) || [];
+    var list = scopeStudentList();
     var box = q("#tbody");
-    if(!list.length){ box.innerHTML = '<tr><td colspan="10" class="empty">还没有学生数据（学生完成一次练习后就会出现）</td></tr>'; return; }
+    if(!list.length){ box.innerHTML = '<tr><td colspan="8" class="empty">当前学段和年级还没有练习数据（学生完成该范围练习后会出现）</td></tr>'; return; }
     box.innerHTML = list.map(function(s){
       return '<tr class="clk" data-sid="' + esc(s.sid) + '">'
         + '<td><b>' + esc(s.name) + '</b></td>'
         + '<td class="muted">' + phoneText(s) + '</td>'
         + '<td>' + (s.practicedToday ? '<span class="pill ok">已练</span>' : '<span class="pill no">未练</span>') + '</td>'
         + '<td>' + s.practiceCount + '</td>'
+        + '<td>' + (s.questions || 0) + '</td>'
         + '<td>' + s.avgAccuracy + '%</td>'
-        + '<td><span class="pill ok">' + s.mastered + '</span></td>'
-        + '<td><span class="pill warn">' + s.shaky + '</span></td>'
-        + '<td><span class="pill no">' + s.weak + '</span></td>'
         + '<td class="muted">' + esc((s.lastTs || '').slice(0, 16)) + '</td>'
         + '<td><button class="ghost" data-open="' + esc(s.sid) + '" type="button" style="padding:6px 10px; font-size:12px;">查看/打印 ›</button></td>'
         + '</tr>';
@@ -698,7 +754,7 @@
   }
   function openStudent(sid){
     S.current = sid;
-    S.range = {stage:"all", group:"all", book:"all"};
+    S.range = {stage:S.scope.stage, group:S.scope.group, book:"all"};
     S.view = null;
     loadCatalog().then(function(){
       return DEMO ? demoStudent(sid) : (CLOUD ? cloudStudent(sid) : api("/api/student?sid=" + encodeURIComponent(sid)));
@@ -877,12 +933,16 @@
     MODE_ORDER.forEach(function(md){ var a = modeAccOf(l, md); if(a != null && a < weakAcc){ weakAcc = a; weakMode = md; } });
     if(weakMode && weakAcc < 80){ t.push("最新一天最弱的是「" + weakMode + "」（" + weakAcc + "%），建议优先补。"); }
     var m = (d && d.mastery) || {};
-    t.push("目前累计已掌握 " + (m.mastered || 0) + " 个词、待巩固 " + (m.shaky || 0) + " 个、未掌握 " + (m.weak || 0) + " 个。");
+    if(m.scoped){
+      t.push("当前学段年级范围累计有 " + (m.weak || 0) + " 个错词需要复习。");
+    }else{
+      t.push("目前累计已掌握 " + (m.mastered || 0) + " 个词、待巩固 " + (m.shaky || 0) + " 个、未掌握 " + (m.weak || 0) + " 个。");
+    }
     var todo = [];
     ((d && d.wrongs) || []).forEach(function(w){ if(w.level === "未掌握"){ todo.push(w.word); } });
     if(todo.length){
       t.push("建议重点复习这 " + todo.length + " 个还没掌握的词：" + todo.slice(0, 10).join("、") + (todo.length > 10 ? " 等" : "") + "。");
-    } else if((m.shaky || 0) > 0){
+    } else if(!m.scoped && (m.shaky || 0) > 0){
       t.push("建议把 " + m.shaky + " 个待巩固的词再各练一轮，争取升到已掌握。");
     } else {
       t.push("目前没有明显薄弱的词，继续保持。");
@@ -1049,6 +1109,86 @@
     if(r.group !== "all" && GROUP_META[r.group]){ out.push(GROUP_META[r.group].name); }
     if(r.book !== "all" && bookMeta(r.book)){ out.push(bookMeta(r.book).name); }
     return out.length ? out.join(" · ") : "全部学段和册";
+  }
+  function scopeBookIds(){
+    var s = S.scope || {stage:"all",group:"all"};
+    if(s.group !== "all"){ return (GRADE_BOOK_IDS[s.group] || []).slice(); }
+    if(s.stage !== "all"){ return stageBooks(s.stage).map(function(book){ return book.id; }); }
+    return allBookIds();
+  }
+  function scopeName(){
+    var s = S.scope || {stage:"all",group:"all"};
+    var out = [];
+    if(s.stage !== "all" && STAGE_META[s.stage]){ out.push(STAGE_META[s.stage].name); }
+    if(s.group !== "all" && GROUP_META[s.group]){ out.push(GROUP_META[s.group].name); }
+    return out.length ? out.join(" · ") : "全部学段";
+  }
+  function scopedScopeRows(){
+    var allowed = {};
+    scopeBookIds().forEach(function(id){ allowed[id] = 1; });
+    return (S.summary && S.summary.scopeRows ? S.summary.scopeRows : []).filter(function(r){
+      return allowed[recordBook(r)];
+    });
+  }
+  function scopeStudentList(){
+    var all = (S.summary && S.summary.students) || [];
+    var rows = scopedScopeRows();
+    if(!rows.length){
+      return (S.summary && Array.isArray(S.summary.scopeRows)) ? [] : all;
+    }
+    var bySid = {};
+    rows.forEach(function(r){
+      var o = bySid[r.sid] || (bySid[r.sid] = {
+        sid:r.sid,name:r.name,practiceCount:0,todayCount:0,questions:0,correct:0,lastTs:"",books:{}
+      });
+      o.practiceCount += Number(r.recordCount) || 0;
+      o.todayCount += Number(r.todayCount) || 0;
+      o.questions += Number(r.questions) || 0;
+      o.correct += Number(r.correct) || 0;
+      o.books[recordBook(r)] = 1;
+      if(String(r.lastTs || "") > String(o.lastTs || "")){ o.lastTs = r.lastTs; }
+    });
+    var base = {};
+    all.forEach(function(s){ base[s.sid] = s; });
+    return Object.keys(bySid).map(function(sid){
+      var o = bySid[sid], src = base[sid] || {};
+      o.name = o.name || src.name || sid;
+      o.sidMasked = src.sidMasked || sid;
+      o.avgAccuracy = o.questions ? Math.round(o.correct * 100 / o.questions) : 0;
+      o.practicedToday = o.todayCount > 0;
+      return o;
+    }).sort(function(a,b){
+      return (Number(b.practicedToday) - Number(a.practicedToday)) ||
+             String(b.lastTs || "").localeCompare(String(a.lastTs || ""));
+    });
+  }
+  function scopePanelHtml(){
+    var s = S.scope || {stage:"all",group:"all"};
+    var stages = ['<button class="range-chip ' + (s.stage === "all" ? 'is-active' : '') +
+      '" type="button" data-scope-stage="all">全部学段</button>'];
+    (CATALOG.stages || []).forEach(function(stage){
+      stages.push('<button class="range-chip ' + (s.stage === stage.id ? 'is-active' : '') +
+        '" type="button" data-scope-stage="' + stage.id + '">' + esc(stage.name) + '</button>');
+    });
+    var groups = ['<button class="range-chip ' + (s.group === "all" ? 'is-active' : '') +
+      '" type="button" data-scope-group="all">全部年级</button>'];
+    var stageSource = s.stage === "all" ? (CATALOG.stages || []) : [STAGE_META[s.stage]];
+    stageSource.forEach(function(stage){
+      if(!stage){ return; }
+      (stage.groups || []).forEach(function(group){
+        groups.push('<button class="range-chip ' + (s.group === group.id ? 'is-active' : '') +
+          '" type="button" data-scope-group="' + group.id + '">' + esc(group.name) + '</button>');
+      });
+    });
+    var rows = scopedScopeRows();
+    var studentN = new Set(rows.map(function(r){ return r.sid; })).size;
+    var todayN = new Set(rows.filter(function(r){ return Number(r.todayCount) > 0; }).map(function(r){ return r.sid; })).size;
+    var recordN = rows.reduce(function(a,r){ return a + (Number(r.recordCount) || 0); }, 0);
+    var qN = rows.reduce(function(a,r){ return a + (Number(r.questions) || 0); }, 0);
+    return '<div class="range-line"><span class="range-label">学段</span><div class="range-chips">' + stages.join("") + '</div></div>'
+      + '<div class="range-line"><span class="range-label">年级/类别</span><div class="range-chips">' + groups.join("") + '</div></div>'
+      + '<div class="muted" style="margin-top:8px;">当前：<b>' + esc(scopeName()) + '</b> · 学员 <b>' + studentN +
+      '</b> 人 · 今日已练 <b>' + todayN + '</b> 人 · 练习记录 <b>' + recordN + '</b> 条 · 答题 <b>' + qN + '</b> 题</div>';
   }
   function coverageHtml(d, wb){
     var done = {}, units = {}, byBook = {};
@@ -1316,22 +1456,6 @@
   }
   function rangePanelHtml(){
     var r = S.range || {stage:"all", group:"all", book:"all"};
-    var stages = ['<button class="range-chip ' + (r.stage === "all" ? 'is-active' : '') +
-      '" type="button" data-range-stage="all">全部学段</button>'];
-    (CATALOG.stages || []).forEach(function(stage){
-      stages.push('<button class="range-chip ' + (r.stage === stage.id ? 'is-active' : '') +
-        '" type="button" data-range-stage="' + stage.id + '">' + esc(stage.name) + '</button>');
-    });
-    var groups = ['<button class="range-chip ' + (r.group === "all" ? 'is-active' : '') +
-      '" type="button" data-range-group="all">全部</button>'];
-    var groupSource = r.stage === "all" ? (CATALOG.stages || []) : [STAGE_META[r.stage]];
-    groupSource.forEach(function(stage){
-      if(!stage){ return; }
-      (stage.groups || []).forEach(function(group){
-        groups.push('<button class="range-chip ' + (r.group === group.id ? 'is-active' : '') +
-          '" type="button" data-range-group="' + group.id + '">' + esc(group.name) + '</button>');
-      });
-    });
     var books = ['<button class="range-chip ' + (r.book === "all" ? 'is-active' : '') +
       '" type="button" data-range-book="all">全部册</button>'];
     rangeBookChoices().forEach(function(id){
@@ -1339,10 +1463,9 @@
         '" type="button" data-range-book="' + esc(id) + '">' + esc(bookLabel(id)) + '</button>');
     });
     return '<div class="range-panel">'
-      + '<div class="range-line"><span class="range-label">学段</span><div class="range-chips">' + stages.join("") + '</div></div>'
-      + '<div class="range-line"><span class="range-label">年级/类别</span><div class="range-chips">' + groups.join("") + '</div></div>'
+      + '<div class="range-line"><span class="range-label">当前范围</span><div class="range-chips"><b>' + esc(scopeName()) + '</b></div></div>'
       + '<div class="range-line"><span class="range-label">册</span><div class="range-chips">' + books.join("") + '</div></div>'
-      + '<div class="muted" style="margin-top:8px;">当前范围：<b>' + esc(rangeLabel()) + '</b> · 掌握度卡片为全部累计</div>'
+      + '<div class="muted" style="margin-top:8px;">学习档案、每日一练、错题本和学情报告均只统计当前学段与年级。</div>'
       + '</div>';
   }
   function viewDetail(d){
@@ -1363,12 +1486,15 @@
       return {mode:o.mode,count:o.count,avgAccuracy:o.count ? Math.round(o.sum / o.count) : 0};
     });
     var allRange = S.range.stage === "all" && S.range.group === "all" && S.range.book === "all";
+    var scopedWrongWords = {};
+    dailyWrongs.forEach(function(w){ scopedWrongWords[String(w.word || "").toLowerCase()] = 1; });
     return {
       student:d.student,
       records:records,
       wrongs:allRange ? (d.wrongs || []) : dailyWrongs,
       words:[],
-      mastery:d.mastery || {weak:0,shaky:0,mastered:0},
+      mastery:allRange ? (d.mastery || {weak:0,shaky:0,mastered:0})
+                       : {weak:Object.keys(scopedWrongWords).length,shaky:0,mastered:0,scoped:true},
       modes:modes,
       daily:dailyJoin(dailyParts, records, dailyWrongs),
       dailyContent:dailyParts,
@@ -1384,15 +1510,22 @@
     var st = d.student, m = d.mastery;
     var records = d.records || [];
     var wrongs = d.wrongs || [];
+    var dayN = (d.daily || []).length;
+    var questions = (d.daily || []).reduce(function(a,r){ return a + (Number(r.questions) || 0); }, 0);
+    var correct = (d.daily || []).reduce(function(a,r){ return a + (Number(r.correct) || 0); }, 0);
+    var accuracy = questions ? Math.round(correct * 100 / questions) : 0;
+    var wrongMap = {};
+    (d.dailyWrongs || []).forEach(function(w){ wrongMap[String(w.word || "").toLowerCase()] = 1; });
+    var wrongN = Object.keys(wrongMap).length;
     box.innerHTML =
       '<div class="panel">'
-      + '<h2>' + esc(st.name) + ' · 学习档案 <span class="muted" style="font-weight:400; font-size:12px;">（学号 ' + esc(st.sidMasked) + '）</span></h2>'
-      + '<div class="muted" style="margin-bottom:10px;">练习次数 ' + d.practiceCount + ' 次（练过的天数，按练习日期算）· 最近练习 ' + esc(st.lastSeen || '') + '</div>'
+      + '<h2>' + esc(st.name) + ' · ' + esc(scopeName()) + ' · 学习档案 <span class="muted" style="font-weight:400; font-size:12px;">（学号 ' + esc(st.sidMasked) + '）</span></h2>'
+      + '<div class="muted" style="margin-bottom:10px;">练习 ' + dayN + ' 天 · 练习记录 ' + records.length + ' 条 · 答题 ' + questions + ' 题 · 最近练习 ' + esc(st.lastSeen || '') + '</div>'
       + '<div class="cards" style="margin-bottom:12px;">'
-      + '<div class="card"><b style="color:#0f9d76;">' + m.mastered + '</b><span>已掌握</span></div>'
-      + '<div class="card"><b style="color:#b45309;">' + m.shaky + '</b><span>待巩固</span></div>'
-      + '<div class="card"><b style="color:#e5484d;">' + m.weak + '</b><span>未掌握</span></div>'
-      + '<div class="card"><b>' + (d.modes || []).length + '</b><span>练过的模块</span></div>'
+      + '<div class="card"><b style="color:#0f9d76;">' + dayN + '</b><span>练习天数</span></div>'
+      + '<div class="card"><b>' + records.length + '</b><span>练习记录</span></div>'
+      + '<div class="card"><b>' + accuracy + '%</b><span>平均正确率</span></div>'
+      + '<div class="card"><b style="color:#e5484d;">' + wrongN + '</b><span>当前范围错词</span></div>'
       + '</div>'
       + rangePanelHtml()
       + '</div>'
@@ -1652,14 +1785,14 @@
   function printList(){
     var d = S.summary;
     if(!d){ return; }
-    var body = '<table><thead><tr><th>姓名</th><th>今日</th><th>练习次数</th><th>平均正确率</th><th>已掌握</th><th>待巩固</th><th>未掌握</th><th>最近练习</th></tr></thead><tbody>'
-      + d.students.map(function(s){
+    var body = '<table><thead><tr><th>姓名</th><th>今日</th><th>练习记录</th><th>答题数</th><th>平均正确率</th><th>最近练习</th></tr></thead><tbody>'
+      + scopeStudentList().map(function(s){
           return '<tr><td>' + esc(s.name) + '</td><td>' + (s.practicedToday ? '已练' : '未练') + '</td><td>' + s.practiceCount + '</td><td>'
-            + s.avgAccuracy + '%</td><td>' + s.mastered + '</td><td>' + s.shaky + '</td><td>' + s.weak + '</td><td>' + esc((s.lastTs || '').slice(0, 16)) + '</td></tr>';
+            + (s.questions || 0) + '</td><td>' + s.avgAccuracy + '%</td><td>' + esc((s.lastTs || '').slice(0, 16)) + '</td></tr>';
         }).join("") + '</tbody></table>';
     var root = q("#print-root");
-    root.innerHTML = '<div class="head"><h1>单词大冒险 · 学生统计</h1><div class="meta">统计日期 ' + esc(d.date)
-      + ' · 学生 ' + d.totals.students + ' 人 · 今日已练 ' + d.totals.practiced + ' 人 · 平均正确率 ' + d.totals.avgAccuracy + '%</div></div>' + body;
+    root.innerHTML = '<div class="head"><h1>单词大冒险 · ' + esc(scopeName()) + ' 学生统计</h1><div class="meta">统计日期 ' + esc(d.date)
+      + ' · 当前范围 ' + esc(scopeName()) + '</div></div>' + body;
     window.print();
   }
   document.addEventListener("click", function(ev){
@@ -1690,11 +1823,11 @@
   });
   function exportCsv(){
     if(!S.summary){ alert("数据还没加载出来"); return; }
-    downloadCsv("单词大冒险-学生统计.csv",
-      ["姓名", "学号", "今日", "练习次数", "平均正确率", "已掌握", "待巩固", "未掌握", "最近练习"],
-      S.summary.students.map(function(s){
+    downloadCsv("单词大冒险-" + scopeName() + "-学生统计.csv",
+      ["姓名", "学号", "今日", "练习记录", "答题数", "平均正确率", "最近练习"],
+      scopeStudentList().map(function(s){
         return [s.name, S.showFull ? s.sid : s.sidMasked, s.practicedToday ? "已练" : "未练",
-                s.practiceCount, s.avgAccuracy + "%", s.mastered, s.shaky, s.weak, s.lastTs || ""];
+                s.practiceCount, s.questions || 0, s.avgAccuracy + "%", s.lastTs || ""];
       }));
   }
   ["li-email","li-pass"].forEach(function(id){
@@ -1710,7 +1843,7 @@
   });
   if(DEMO){
     q("#login").style.display = "none";
-    load();
+    loadCatalog().then(load);
   } else if(CLOUD){
     q("#btn-logout").style.display = "none";
     if(session && session.refresh_token && currentRole()){
@@ -1720,7 +1853,7 @@
       needLogin();
     }
   } else {
-    load();
+    loadCatalog().then(load);
   }
   window.__teacherBooted = true;      // 告诉启动自检：脚本已经跑完了
 })();
