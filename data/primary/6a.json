@@ -1,0 +1,1675 @@
+{
+  "bookId": "primary_6a",
+  "title": "六年级上册",
+  "stage": "primary",
+  "section": "六年级",
+  "sourceFile": "小学英语词汇总表（三上-六下·八册全）.xlsx",
+  "units": [
+    {
+      "name": "Unit 1",
+      "words": [
+        [
+          "north",
+          "北方；北方的",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0001",
+            "aliases": [
+              "north"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "north",
+            "sourceRef": "六年级上册!4"
+          }
+        ],
+        [
+          "northeast",
+          "东北方；东北方的",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0002",
+            "aliases": [
+              "northeast"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "northeast",
+            "sourceRef": "六年级上册!5"
+          }
+        ],
+        [
+          "east",
+          "东方；东方的",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0003",
+            "aliases": [
+              "east"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "east",
+            "sourceRef": "六年级上册!6"
+          }
+        ],
+        [
+          "southeast",
+          "东南方；东南方的",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0004",
+            "aliases": [
+              "southeast"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "southeast",
+            "sourceRef": "六年级上册!7"
+          }
+        ],
+        [
+          "south",
+          "南方；南方的",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0005",
+            "aliases": [
+              "south"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "south",
+            "sourceRef": "六年级上册!8"
+          }
+        ],
+        [
+          "southwest",
+          "西南方；西南方的",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0006",
+            "aliases": [
+              "southwest"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "southwest",
+            "sourceRef": "六年级上册!9"
+          }
+        ],
+        [
+          "west",
+          "西方；西方的",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0007",
+            "aliases": [
+              "west"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "west",
+            "sourceRef": "六年级上册!10"
+          }
+        ],
+        [
+          "northwest",
+          "西北方；西北方的",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0008",
+            "aliases": [
+              "northwest"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "northwest",
+            "sourceRef": "六年级上册!11"
+          }
+        ],
+        [
+          "climb",
+          "攀登；爬",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0009",
+            "aliases": [
+              "climb"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "climb",
+            "sourceRef": "六年级上册!12"
+          }
+        ],
+        [
+          "mountain",
+          "高山",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0010",
+            "aliases": [
+              "mountain"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "mountain",
+            "sourceRef": "六年级上册!13"
+          }
+        ],
+        [
+          "sunrise",
+          "日出",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0011",
+            "aliases": [
+              "sunrise"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sunrise",
+            "sourceRef": "六年级上册!14"
+          }
+        ],
+        [
+          "ride",
+          "骑",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0012",
+            "aliases": [
+              "ride"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "ride",
+            "sourceRef": "六年级上册!15"
+          }
+        ],
+        [
+          "city",
+          "城市",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0013",
+            "aliases": [
+              "city"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "city",
+            "sourceRef": "六年级上册!16"
+          }
+        ],
+        [
+          "wonderful",
+          "精彩的；绝妙的；令人惊叹的",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0014",
+            "aliases": [
+              "wonderful"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "wonderful",
+            "sourceRef": "六年级上册!17"
+          }
+        ],
+        [
+          "hometown",
+          "家乡；故乡",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0015",
+            "aliases": [
+              "hometown"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "hometown",
+            "sourceRef": "六年级上册!18"
+          }
+        ],
+        [
+          "beach",
+          "海滩；沙滩",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0016",
+            "aliases": [
+              "beach"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "beach",
+            "sourceRef": "六年级上册!19"
+          }
+        ],
+        [
+          "top",
+          "顶端；顶部",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0017",
+            "aliases": [
+              "top"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "top",
+            "sourceRef": "六年级上册!20"
+          }
+        ],
+        [
+          "last",
+          "最近的；上一个",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0018",
+            "aliases": [
+              "last"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "last",
+            "sourceRef": "六年级上册!21"
+          }
+        ],
+        [
+          "young",
+          "年轻的；相对年轻的",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0019",
+            "aliases": [
+              "young"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "young",
+            "sourceRef": "六年级上册!22"
+          }
+        ],
+        [
+          "look for",
+          "寻找",
+          {
+            "wordId": "primary_6a:primary_6a_u1:0020",
+            "aliases": [
+              "look for"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "look for",
+            "sourceRef": "六年级上册!23"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 2",
+      "words": [
+        [
+          "excited",
+          "激动的；兴奋的",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0001",
+            "aliases": [
+              "excited"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "excited",
+            "sourceRef": "六年级上册!27"
+          }
+        ],
+        [
+          "angry",
+          "愤怒的；生气的",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0002",
+            "aliases": [
+              "angry"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "angry",
+            "sourceRef": "六年级上册!28"
+          }
+        ],
+        [
+          "win",
+          "获胜；赢",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0003",
+            "aliases": [
+              "win"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "win",
+            "sourceRef": "六年级上册!29"
+          }
+        ],
+        [
+          "get",
+          "获得；得到；感染上（疾病）；患上；遭受……之苦",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0004",
+            "aliases": [
+              "get"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "get",
+            "sourceRef": "六年级上册!30"
+          }
+        ],
+        [
+          "break",
+          "弄坏；损坏",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0005",
+            "aliases": [
+              "break"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "break",
+            "sourceRef": "六年级上册!31"
+          }
+        ],
+        [
+          "internet",
+          "（国际）互联网；因特网",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0006",
+            "aliases": [
+              "internet"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "internet",
+            "sourceRef": "六年级上册!32"
+          }
+        ],
+        [
+          "why",
+          "（用于问句）为什么，为何",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0007",
+            "aliases": [
+              "why"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "why",
+            "sourceRef": "六年级上册!33"
+          }
+        ],
+        [
+          "volleyball",
+          "排球",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0008",
+            "aliases": [
+              "volleyball"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "volleyball",
+            "sourceRef": "六年级上册!34"
+          }
+        ],
+        [
+          "ago",
+          "以前",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0009",
+            "aliases": [
+              "ago"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "ago",
+            "sourceRef": "六年级上册!35"
+          }
+        ],
+        [
+          "begin",
+          "开始",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0010",
+            "aliases": [
+              "begin"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "begin",
+            "sourceRef": "六年级上册!36"
+          }
+        ],
+        [
+          "cry",
+          "哭；哭泣",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0011",
+            "aliases": [
+              "cry"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "cry",
+            "sourceRef": "六年级上册!37"
+          }
+        ],
+        [
+          "call",
+          "打电话；通话",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0012",
+            "aliases": [
+              "call"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "call",
+            "sourceRef": "六年级上册!38"
+          }
+        ],
+        [
+          "not ... at all",
+          "一点也不……；完全不……",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0013",
+            "aliases": [
+              "not ... at all"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "not ... at all",
+            "sourceRef": "六年级上册!39"
+          }
+        ],
+        [
+          "What's up?",
+          "怎么回事？",
+          {
+            "wordId": "primary_6a:primary_6a_u2:0014",
+            "aliases": [
+              "What's up?"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "What's up?",
+            "sourceRef": "六年级上册!40"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 3",
+      "words": [
+        [
+          "first",
+          "第一；首先",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0001",
+            "aliases": [
+              "first"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "first",
+            "sourceRef": "六年级上册!44"
+          }
+        ],
+        [
+          "get",
+          "去取（或带来）",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0002",
+            "aliases": [
+              "get"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "get",
+            "sourceRef": "六年级上册!45"
+          }
+        ],
+        [
+          "seed",
+          "种子",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0003",
+            "aliases": [
+              "seed"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "seed",
+            "sourceRef": "六年级上册!46"
+          }
+        ],
+        [
+          "soil",
+          "土壤",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0004",
+            "aliases": [
+              "soil"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "soil",
+            "sourceRef": "六年级上册!47"
+          }
+        ],
+        [
+          "pot",
+          "花盆；花罐",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0005",
+            "aliases": [
+              "pot"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "pot",
+            "sourceRef": "六年级上册!48"
+          }
+        ],
+        [
+          "second",
+          "第二；其次",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0006",
+            "aliases": [
+              "second"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "second",
+            "sourceRef": "六年级上册!49"
+          }
+        ],
+        [
+          "put",
+          "放",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0007",
+            "aliases": [
+              "put"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "put",
+            "sourceRef": "六年级上册!50"
+          }
+        ],
+        [
+          "third",
+          "第三",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0008",
+            "aliases": [
+              "third"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "third",
+            "sourceRef": "六年级上册!51"
+          }
+        ],
+        [
+          "fourth",
+          "第四",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0009",
+            "aliases": [
+              "fourth"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "fourth",
+            "sourceRef": "六年级上册!52"
+          }
+        ],
+        [
+          "sun",
+          "太阳",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0010",
+            "aliases": [
+              "sun"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sun",
+            "sourceRef": "六年级上册!53"
+          }
+        ],
+        [
+          "harvest",
+          "收割；收获",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0011",
+            "aliases": [
+              "harvest"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "harvest",
+            "sourceRef": "六年级上册!54"
+          }
+        ],
+        [
+          "fifth",
+          "第五",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0012",
+            "aliases": [
+              "fifth"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "fifth",
+            "sourceRef": "六年级上册!55"
+          }
+        ],
+        [
+          "sixth",
+          "第六",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0013",
+            "aliases": [
+              "sixth"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sixth",
+            "sourceRef": "六年级上册!56"
+          }
+        ],
+        [
+          "seventh",
+          "第七",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0014",
+            "aliases": [
+              "seventh"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "seventh",
+            "sourceRef": "六年级上册!57"
+          }
+        ],
+        [
+          "eighth",
+          "第八",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0015",
+            "aliases": [
+              "eighth"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "eighth",
+            "sourceRef": "六年级上册!58"
+          }
+        ],
+        [
+          "ninth",
+          "第九",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0016",
+            "aliases": [
+              "ninth"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "ninth",
+            "sourceRef": "六年级上册!59"
+          }
+        ],
+        [
+          "tenth",
+          "第十",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0017",
+            "aliases": [
+              "tenth"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "tenth",
+            "sourceRef": "六年级上册!60"
+          }
+        ],
+        [
+          "tiny",
+          "极小的",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0018",
+            "aliases": [
+              "tiny"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "tiny",
+            "sourceRef": "六年级上册!61"
+          }
+        ],
+        [
+          "fourteenth",
+          "第十四",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0019",
+            "aliases": [
+              "fourteenth"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "fourteenth",
+            "sourceRef": "六年级上册!62"
+          }
+        ],
+        [
+          "leaf",
+          "（复数leaves）叶子",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0020",
+            "aliases": [
+              "leaf"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "leaf",
+            "sourceRef": "六年级上册!63"
+          }
+        ],
+        [
+          "sixteenth",
+          "第十六",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0021",
+            "aliases": [
+              "sixteenth"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sixteenth",
+            "sourceRef": "六年级上册!64"
+          }
+        ],
+        [
+          "grow",
+          "（1）种植（2）成长",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0022",
+            "aliases": [
+              "grow"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "grow",
+            "sourceRef": "六年级上册!65"
+          }
+        ],
+        [
+          "thirtieth",
+          "第三十",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0023",
+            "aliases": [
+              "thirtieth"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "thirtieth",
+            "sourceRef": "六年级上册!66"
+          }
+        ],
+        [
+          "pull",
+          "拔；拉",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0024",
+            "aliases": [
+              "pull"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "pull",
+            "sourceRef": "六年级上册!67"
+          }
+        ],
+        [
+          "radish",
+          "小萝卜",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0025",
+            "aliases": [
+              "radish"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "radish",
+            "sourceRef": "六年级上册!68"
+          }
+        ],
+        [
+          "easy",
+          "容易的",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0026",
+            "aliases": [
+              "easy"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "easy",
+            "sourceRef": "六年级上册!69"
+          }
+        ],
+        [
+          "wait",
+          "等；等待",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0027",
+            "aliases": [
+              "wait"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "wait",
+            "sourceRef": "六年级上册!70"
+          }
+        ],
+        [
+          "front",
+          "前面的；前部的",
+          {
+            "wordId": "primary_6a:primary_6a_u3:0028",
+            "aliases": [
+              "front"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "front",
+            "sourceRef": "六年级上册!71"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 4",
+      "words": [
+        [
+          "spring",
+          "春天；春季",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0001",
+            "aliases": [
+              "spring"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "spring",
+            "sourceRef": "六年级上册!75"
+          }
+        ],
+        [
+          "summer",
+          "夏天；夏季",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0002",
+            "aliases": [
+              "summer"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "summer",
+            "sourceRef": "六年级上册!76"
+          }
+        ],
+        [
+          "autumn",
+          "秋天；秋季",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0003",
+            "aliases": [
+              "autumn"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "autumn",
+            "sourceRef": "六年级上册!77"
+          }
+        ],
+        [
+          "winter",
+          "冬天；冬季",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0004",
+            "aliases": [
+              "winter"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "winter",
+            "sourceRef": "六年级上册!78"
+          }
+        ],
+        [
+          "outing",
+          "（集体）出外游玩（或学习等）；远足",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0005",
+            "aliases": [
+              "outing"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "outing",
+            "sourceRef": "六年级上册!79"
+          }
+        ],
+        [
+          "sky",
+          "天空",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0006",
+            "aliases": [
+              "sky"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sky",
+            "sourceRef": "六年级上册!80"
+          }
+        ],
+        [
+          "pick",
+          "采摘",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0007",
+            "aliases": [
+              "pick"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "pick",
+            "sourceRef": "六年级上册!81"
+          }
+        ],
+        [
+          "go skating",
+          "滑冰",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0008",
+            "aliases": [
+              "go skating"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "go skating",
+            "sourceRef": "六年级上册!82"
+          }
+        ],
+        [
+          "season",
+          "季；季节",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0009",
+            "aliases": [
+              "season"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "season",
+            "sourceRef": "六年级上册!83"
+          }
+        ],
+        [
+          "wake",
+          "醒；醒来",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0010",
+            "aliases": [
+              "wake"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "wake",
+            "sourceRef": "六年级上册!84"
+          }
+        ],
+        [
+          "moon",
+          "月亮",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0011",
+            "aliases": [
+              "moon"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "moon",
+            "sourceRef": "六年级上册!85"
+          }
+        ],
+        [
+          "year",
+          "年；一年时间",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0012",
+            "aliases": [
+              "year"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "year",
+            "sourceRef": "六年级上册!86"
+          }
+        ],
+        [
+          "rain",
+          "雨；下雨",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0013",
+            "aliases": [
+              "rain"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "rain",
+            "sourceRef": "六年级上册!87"
+          }
+        ],
+        [
+          "star",
+          "星；恒星",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0014",
+            "aliases": [
+              "star"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "star",
+            "sourceRef": "六年级上册!88"
+          }
+        ],
+        [
+          "snow",
+          "雪；下雪",
+          {
+            "wordId": "primary_6a:primary_6a_u4:0015",
+            "aliases": [
+              "snow"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "snow",
+            "sourceRef": "六年级上册!89"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 5",
+      "words": [
+        [
+          "January",
+          "一月",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0001",
+            "aliases": [
+              "January"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "January",
+            "sourceRef": "六年级上册!93"
+          }
+        ],
+        [
+          "February",
+          "二月",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0002",
+            "aliases": [
+              "February"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "February",
+            "sourceRef": "六年级上册!94"
+          }
+        ],
+        [
+          "March",
+          "三月",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0003",
+            "aliases": [
+              "March"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "March",
+            "sourceRef": "六年级上册!95"
+          }
+        ],
+        [
+          "April",
+          "四月",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0004",
+            "aliases": [
+              "April"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "April",
+            "sourceRef": "六年级上册!96"
+          }
+        ],
+        [
+          "May",
+          "五月",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0005",
+            "aliases": [
+              "May"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "May",
+            "sourceRef": "六年级上册!97"
+          }
+        ],
+        [
+          "June",
+          "六月",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0006",
+            "aliases": [
+              "June"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "June",
+            "sourceRef": "六年级上册!98"
+          }
+        ],
+        [
+          "July",
+          "七月",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0007",
+            "aliases": [
+              "July"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "July",
+            "sourceRef": "六年级上册!99"
+          }
+        ],
+        [
+          "August",
+          "八月",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0008",
+            "aliases": [
+              "August"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "August",
+            "sourceRef": "六年级上册!100"
+          }
+        ],
+        [
+          "September",
+          "九月",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0009",
+            "aliases": [
+              "September"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "September",
+            "sourceRef": "六年级上册!101"
+          }
+        ],
+        [
+          "October",
+          "十月",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0010",
+            "aliases": [
+              "October"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "October",
+            "sourceRef": "六年级上册!102"
+          }
+        ],
+        [
+          "November",
+          "十一月",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0011",
+            "aliases": [
+              "November"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "November",
+            "sourceRef": "六年级上册!103"
+          }
+        ],
+        [
+          "December",
+          "十二月",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0012",
+            "aliases": [
+              "December"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "December",
+            "sourceRef": "六年级上册!104"
+          }
+        ],
+        [
+          "festival",
+          "节日",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0013",
+            "aliases": [
+              "festival"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "festival",
+            "sourceRef": "六年级上册!105"
+          }
+        ],
+        [
+          "month",
+          "月；月份",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0014",
+            "aliases": [
+              "month"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "month",
+            "sourceRef": "六年级上册!106"
+          }
+        ],
+        [
+          "candle",
+          "蜡烛",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0015",
+            "aliases": [
+              "candle"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "candle",
+            "sourceRef": "六年级上册!107"
+          }
+        ],
+        [
+          "get together",
+          "聚会",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0016",
+            "aliases": [
+              "get together"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "get together",
+            "sourceRef": "六年级上册!108"
+          }
+        ],
+        [
+          "mooncake",
+          "月饼",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0017",
+            "aliases": [
+              "mooncake"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "mooncake",
+            "sourceRef": "六年级上册!109"
+          }
+        ],
+        [
+          "wish",
+          "希望；想要；祝愿",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0018",
+            "aliases": [
+              "wish"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "wish",
+            "sourceRef": "六年级上册!110"
+          }
+        ],
+        [
+          "sunshine",
+          "阳光",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0019",
+            "aliases": [
+              "sunshine"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sunshine",
+            "sourceRef": "六年级上册!111"
+          }
+        ],
+        [
+          "catch",
+          "逮住；捕捉；捕获",
+          {
+            "wordId": "primary_6a:primary_6a_u5:0020",
+            "aliases": [
+              "catch"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "catch",
+            "sourceRef": "六年级上册!112"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 6",
+      "words": [
+        [
+          "astronaut",
+          "宇航员",
+          {
+            "wordId": "primary_6a:primary_6a_u6:0001",
+            "aliases": [
+              "astronaut"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "astronaut",
+            "sourceRef": "六年级上册!116"
+          }
+        ],
+        [
+          "engineer",
+          "工程师",
+          {
+            "wordId": "primary_6a:primary_6a_u6:0002",
+            "aliases": [
+              "engineer"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "engineer",
+            "sourceRef": "六年级上册!117"
+          }
+        ],
+        [
+          "poet",
+          "诗人",
+          {
+            "wordId": "primary_6a:primary_6a_u6:0003",
+            "aliases": [
+              "poet"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "poet",
+            "sourceRef": "六年级上册!118"
+          }
+        ],
+        [
+          "scientist",
+          "科学家",
+          {
+            "wordId": "primary_6a:primary_6a_u6:0004",
+            "aliases": [
+              "scientist"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "scientist",
+            "sourceRef": "六年级上册!119"
+          }
+        ],
+        [
+          "space",
+          "外层空间；太空",
+          {
+            "wordId": "primary_6a:primary_6a_u6:0005",
+            "aliases": [
+              "space"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "space",
+            "sourceRef": "六年级上册!120"
+          }
+        ],
+        [
+          "design",
+          "设计",
+          {
+            "wordId": "primary_6a:primary_6a_u6:0006",
+            "aliases": [
+              "design"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "design",
+            "sourceRef": "六年级上册!121"
+          }
+        ],
+        [
+          "railway",
+          "铁路；铁道",
+          {
+            "wordId": "primary_6a:primary_6a_u6:0007",
+            "aliases": [
+              "railway"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "railway",
+            "sourceRef": "六年级上册!122"
+          }
+        ],
+        [
+          "develop",
+          "研发；培育",
+          {
+            "wordId": "primary_6a:primary_6a_u6:0008",
+            "aliases": [
+              "develop"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "develop",
+            "sourceRef": "六年级上册!123"
+          }
+        ],
+        [
+          "hybrid",
+          "杂交的",
+          {
+            "wordId": "primary_6a:primary_6a_u6:0009",
+            "aliases": [
+              "hybrid"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "hybrid",
+            "sourceRef": "六年级上册!124"
+          }
+        ],
+        [
+          "hero",
+          "英雄；崇拜的对象",
+          {
+            "wordId": "primary_6a:primary_6a_u6:0010",
+            "aliases": [
+              "hero"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "hero",
+            "sourceRef": "六年级上册!125"
+          }
+        ],
+        [
+          "fan",
+          "迷；狂热爱好者",
+          {
+            "wordId": "primary_6a:primary_6a_u6:0011",
+            "aliases": [
+              "fan"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "fan",
+            "sourceRef": "六年级上册!126"
+          }
+        ],
+        [
+          "him",
+          "（he的宾格）他",
+          {
+            "wordId": "primary_6a:primary_6a_u6:0012",
+            "aliases": [
+              "him"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "him",
+            "sourceRef": "六年级上册!127"
+          }
+        ]
+      ]
+    }
+  ],
+  "book": "六年级上册"
+}

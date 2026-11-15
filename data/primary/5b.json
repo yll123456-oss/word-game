@@ -1,0 +1,2189 @@
+{
+  "bookId": "primary_5b",
+  "title": "五年级下册",
+  "stage": "primary",
+  "section": "五年级",
+  "sourceFile": "小学英语词汇总表（三上-六下·八册全）.xlsx",
+  "units": [
+    {
+      "name": "Unit 1",
+      "words": [
+        [
+          "library",
+          "图书馆",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0001",
+            "aliases": [
+              "library"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "library",
+            "sourceRef": "五年级下册!4"
+          }
+        ],
+        [
+          "borrow",
+          "（向某人、从某人）借",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0002",
+            "aliases": [
+              "borrow"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "borrow",
+            "sourceRef": "五年级下册!5"
+          }
+        ],
+        [
+          "borrow books",
+          "借书",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0003",
+            "aliases": [
+              "borrow books"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "borrow books",
+            "sourceRef": "五年级下册!6"
+          }
+        ],
+        [
+          "meeting room",
+          "会议室",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0004",
+            "aliases": [
+              "meeting room"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "meeting room",
+            "sourceRef": "五年级下册!7"
+          }
+        ],
+        [
+          "have a meeting",
+          "开会",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0005",
+            "aliases": [
+              "have a meeting"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "have a meeting",
+            "sourceRef": "五年级下册!8"
+          }
+        ],
+        [
+          "welcome",
+          "欢迎",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0006",
+            "aliases": [
+              "welcome"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "welcome",
+            "sourceRef": "五年级下册!9"
+          }
+        ],
+        [
+          "meet",
+          "相遇；开会",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0007",
+            "aliases": [
+              "meet"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "meet",
+            "sourceRef": "五年级下册!10"
+          }
+        ],
+        [
+          "our",
+          "我们的",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0008",
+            "aliases": [
+              "our"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "our",
+            "sourceRef": "五年级下册!11"
+          }
+        ],
+        [
+          "English lesson",
+          "英语课",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0009",
+            "aliases": [
+              "English lesson"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "English lesson",
+            "sourceRef": "五年级下册!12"
+          }
+        ],
+        [
+          "language lab",
+          "语言实验室",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0010",
+            "aliases": [
+              "language lab"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "language lab",
+            "sourceRef": "五年级下册!13"
+          }
+        ],
+        [
+          "science lesson",
+          "科学课",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0011",
+            "aliases": [
+              "science lesson"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "science lesson",
+            "sourceRef": "五年级下册!14"
+          }
+        ],
+        [
+          "science lab",
+          "科学实验室",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0012",
+            "aliases": [
+              "science lab"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "science lab",
+            "sourceRef": "五年级下册!15"
+          }
+        ],
+        [
+          "we",
+          "我们",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0013",
+            "aliases": [
+              "we"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "we",
+            "sourceRef": "五年级下册!16"
+          }
+        ],
+        [
+          "have",
+          "有",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0014",
+            "aliases": [
+              "have"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "have",
+            "sourceRef": "五年级下册!17"
+          }
+        ],
+        [
+          "all",
+          "所有；全部",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0015",
+            "aliases": [
+              "all"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "all",
+            "sourceRef": "五年级下册!18"
+          }
+        ],
+        [
+          "like",
+          "喜欢",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0016",
+            "aliases": [
+              "like"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "like",
+            "sourceRef": "五年级下册!19"
+          }
+        ],
+        [
+          "very much",
+          "非常；很",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0017",
+            "aliases": [
+              "very much"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "very much",
+            "sourceRef": "五年级下册!20"
+          }
+        ],
+        [
+          "art club",
+          "美术（艺术）俱乐部",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0018",
+            "aliases": [
+              "art club"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "art club",
+            "sourceRef": "五年级下册!21"
+          }
+        ],
+        [
+          "paint a picture",
+          "（用颜料）绘画",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0019",
+            "aliases": [
+              "paint a picture"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "paint a picture",
+            "sourceRef": "五年级下册!22"
+          }
+        ],
+        [
+          "music club",
+          "音乐俱乐部",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0020",
+            "aliases": [
+              "music club"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "music club",
+            "sourceRef": "五年级下册!23"
+          }
+        ],
+        [
+          "play the piano",
+          "弹钢琴",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0021",
+            "aliases": [
+              "play the piano"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play the piano",
+            "sourceRef": "五年级下册!24"
+          }
+        ],
+        [
+          "many",
+          "许多",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0022",
+            "aliases": [
+              "many"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "many",
+            "sourceRef": "五年级下册!25"
+          }
+        ],
+        [
+          "way",
+          "路；道路",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0023",
+            "aliases": [
+              "way"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "way",
+            "sourceRef": "五年级下册!26"
+          }
+        ],
+        [
+          "please",
+          "请",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0024",
+            "aliases": [
+              "please"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "please",
+            "sourceRef": "五年级下册!27"
+          }
+        ],
+        [
+          "also",
+          "也；同样",
+          {
+            "wordId": "primary_5b:primary_5b_u1:0025",
+            "aliases": [
+              "also"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "also",
+            "sourceRef": "五年级下册!28"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 2",
+      "words": [
+        [
+          "toy train",
+          "玩具火车",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0001",
+            "aliases": [
+              "toy train"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "toy train",
+            "sourceRef": "五年级下册!32"
+          }
+        ],
+        [
+          "toy plane",
+          "玩具飞机",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0002",
+            "aliases": [
+              "toy plane"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "toy plane",
+            "sourceRef": "五年级下册!33"
+          }
+        ],
+        [
+          "toy ship",
+          "玩具轮船",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0003",
+            "aliases": [
+              "toy ship"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "toy ship",
+            "sourceRef": "五年级下册!34"
+          }
+        ],
+        [
+          "toy boat",
+          "玩具小船",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0004",
+            "aliases": [
+              "toy boat"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "toy boat",
+            "sourceRef": "五年级下册!35"
+          }
+        ],
+        [
+          "can",
+          "能",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0005",
+            "aliases": [
+              "can"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "can",
+            "sourceRef": "五年级下册!36"
+          }
+        ],
+        [
+          "help",
+          "帮助",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0006",
+            "aliases": [
+              "help"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "help",
+            "sourceRef": "五年级下册!37"
+          }
+        ],
+        [
+          "want",
+          "想；想要",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0007",
+            "aliases": [
+              "want"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "want",
+            "sourceRef": "五年级下册!38"
+          }
+        ],
+        [
+          "toy",
+          "玩具",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0008",
+            "aliases": [
+              "toy"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "toy",
+            "sourceRef": "五年级下册!39"
+          }
+        ],
+        [
+          "train",
+          "火车",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0009",
+            "aliases": [
+              "train"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "train",
+            "sourceRef": "五年级下册!40"
+          }
+        ],
+        [
+          "plane",
+          "飞机",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0010",
+            "aliases": [
+              "plane"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "plane",
+            "sourceRef": "五年级下册!41"
+          }
+        ],
+        [
+          "ship",
+          "轮船",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0011",
+            "aliases": [
+              "ship"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "ship",
+            "sourceRef": "五年级下册!42"
+          }
+        ],
+        [
+          "boat",
+          "小船",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0012",
+            "aliases": [
+              "boat"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "boat",
+            "sourceRef": "五年级下册!43"
+          }
+        ],
+        [
+          "motorbike",
+          "摩托车",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0013",
+            "aliases": [
+              "motorbike"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "motorbike",
+            "sourceRef": "五年级下册!44"
+          }
+        ],
+        [
+          "jeep",
+          "吉普车",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0014",
+            "aliases": [
+              "jeep"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "jeep",
+            "sourceRef": "五年级下册!45"
+          }
+        ],
+        [
+          "coach",
+          "长途旅游车",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0015",
+            "aliases": [
+              "coach"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "coach",
+            "sourceRef": "五年级下册!46"
+          }
+        ],
+        [
+          "buy",
+          "买",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0016",
+            "aliases": [
+              "buy"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "buy",
+            "sourceRef": "五年级下册!47"
+          }
+        ],
+        [
+          "bike",
+          "自行车",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0017",
+            "aliases": [
+              "bike"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "bike",
+            "sourceRef": "五年级下册!48"
+          }
+        ],
+        [
+          "car",
+          "小汽车",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0018",
+            "aliases": [
+              "car"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "car",
+            "sourceRef": "五年级下册!49"
+          }
+        ],
+        [
+          "bus",
+          "公共汽车",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0019",
+            "aliases": [
+              "bus"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "bus",
+            "sourceRef": "五年级下册!50"
+          }
+        ],
+        [
+          "taxi",
+          "出租车",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0020",
+            "aliases": [
+              "taxi"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "taxi",
+            "sourceRef": "五年级下册!51"
+          }
+        ],
+        [
+          "trousers",
+          "裤子；长裤",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0021",
+            "aliases": [
+              "trousers"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "trousers",
+            "sourceRef": "五年级下册!52"
+          }
+        ],
+        [
+          "short pants",
+          "短裤",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0022",
+            "aliases": [
+              "short pants"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "short pants",
+            "sourceRef": "五年级下册!53"
+          }
+        ],
+        [
+          "try",
+          "试",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0023",
+            "aliases": [
+              "try"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "try",
+            "sourceRef": "五年级下册!54"
+          }
+        ],
+        [
+          "coat",
+          "大衣",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0024",
+            "aliases": [
+              "coat"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "coat",
+            "sourceRef": "五年级下册!55"
+          }
+        ],
+        [
+          "clothes",
+          "衣服",
+          {
+            "wordId": "primary_5b:primary_5b_u2:0025",
+            "aliases": [
+              "clothes"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "clothes",
+            "sourceRef": "五年级下册!56"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 3",
+      "words": [
+        [
+          "ask",
+          "问",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0001",
+            "aliases": [
+              "ask"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "ask",
+            "sourceRef": "五年级下册!60"
+          }
+        ],
+        [
+          "answer",
+          "回答",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0002",
+            "aliases": [
+              "answer"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "answer",
+            "sourceRef": "五年级下册!61"
+          }
+        ],
+        [
+          "eat",
+          "吃",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0003",
+            "aliases": [
+              "eat"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "eat",
+            "sourceRef": "五年级下册!62"
+          }
+        ],
+        [
+          "make",
+          "制造；做",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0004",
+            "aliases": [
+              "make"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "make",
+            "sourceRef": "五年级下册!63"
+          }
+        ],
+        [
+          "think",
+          "想",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0005",
+            "aliases": [
+              "think"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "think",
+            "sourceRef": "五年级下册!64"
+          }
+        ],
+        [
+          "late",
+          "晚；迟到",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0006",
+            "aliases": [
+              "late"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "late",
+            "sourceRef": "五年级下册!65"
+          }
+        ],
+        [
+          "class",
+          "班",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0007",
+            "aliases": [
+              "class"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "class",
+            "sourceRef": "五年级下册!66"
+          }
+        ],
+        [
+          "question",
+          "问题",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0008",
+            "aliases": [
+              "question"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "question",
+            "sourceRef": "五年级下册!67"
+          }
+        ],
+        [
+          "actively",
+          "积极地",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0009",
+            "aliases": [
+              "actively"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "actively",
+            "sourceRef": "五年级下册!68"
+          }
+        ],
+        [
+          "quiet",
+          "安静的",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0010",
+            "aliases": [
+              "quiet"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "quiet",
+            "sourceRef": "五年级下册!69"
+          }
+        ],
+        [
+          "make noise",
+          "喧闹；制造噪音",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0011",
+            "aliases": [
+              "make noise"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "make noise",
+            "sourceRef": "五年级下册!70"
+          }
+        ],
+        [
+          "keep your room clean",
+          "保持房间清洁",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0012",
+            "aliases": [
+              "keep your room clean"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "keep your room clean",
+            "sourceRef": "五年级下册!71"
+          }
+        ],
+        [
+          "do housework",
+          "做家务",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0013",
+            "aliases": [
+              "do housework"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "do housework",
+            "sourceRef": "五年级下册!72"
+          }
+        ],
+        [
+          "read in bed",
+          "在床上看书",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0014",
+            "aliases": [
+              "read in bed"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "read in bed",
+            "sourceRef": "五年级下册!73"
+          }
+        ],
+        [
+          "go home late",
+          "晚回家",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0015",
+            "aliases": [
+              "go home late"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "go home late",
+            "sourceRef": "五年级下册!74"
+          }
+        ],
+        [
+          "go home",
+          "回家",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0016",
+            "aliases": [
+              "go home"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "go home",
+            "sourceRef": "五年级下册!75"
+          }
+        ],
+        [
+          "get up",
+          "起床",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0017",
+            "aliases": [
+              "get up"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "get up",
+            "sourceRef": "五年级下册!76"
+          }
+        ],
+        [
+          "go to bed",
+          "去睡觉",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0018",
+            "aliases": [
+              "go to bed"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "go to bed",
+            "sourceRef": "五年级下册!77"
+          }
+        ],
+        [
+          "help old people",
+          "帮助老人",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0019",
+            "aliases": [
+              "help old people"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "help old people",
+            "sourceRef": "五年级下册!78"
+          }
+        ],
+        [
+          "keep off the grass",
+          "不要进入草地",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0020",
+            "aliases": [
+              "keep off the grass"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "keep off the grass",
+            "sourceRef": "五年级下册!79"
+          }
+        ],
+        [
+          "take good care of young children",
+          "照看好儿童",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0021",
+            "aliases": [
+              "take good care of young children"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "take good care of young children",
+            "sourceRef": "五年级下册!80"
+          }
+        ],
+        [
+          "play on the street",
+          "在街道上玩耍",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0022",
+            "aliases": [
+              "play on the street"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play on the street",
+            "sourceRef": "五年级下册!81"
+          }
+        ],
+        [
+          "pick flowers",
+          "摘花",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0023",
+            "aliases": [
+              "pick flowers"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "pick flowers",
+            "sourceRef": "五年级下册!82"
+          }
+        ],
+        [
+          "litter",
+          "乱丢杂物",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0024",
+            "aliases": [
+              "litter"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "litter",
+            "sourceRef": "五年级下册!83"
+          }
+        ],
+        [
+          "wait",
+          "等待",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0025",
+            "aliases": [
+              "wait"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "wait",
+            "sourceRef": "五年级下册!84"
+          }
+        ],
+        [
+          "take",
+          "拿；乘坐",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0026",
+            "aliases": [
+              "take"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "take",
+            "sourceRef": "五年级下册!85"
+          }
+        ],
+        [
+          "young",
+          "年轻的",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0027",
+            "aliases": [
+              "young"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "young",
+            "sourceRef": "五年级下册!86"
+          }
+        ],
+        [
+          "child (children)",
+          "孩子（复数）",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0028",
+            "aliases": [
+              "child (children)",
+              "child",
+              "children"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "child (children)",
+            "sourceRef": "五年级下册!87"
+          }
+        ],
+        [
+          "people",
+          "人；人们",
+          {
+            "wordId": "primary_5b:primary_5b_u3:0029",
+            "aliases": [
+              "people"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "people",
+            "sourceRef": "五年级下册!88"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 4",
+      "words": [
+        [
+          "have a bad cold",
+          "重感冒",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0001",
+            "aliases": [
+              "have a bad cold"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "have a bad cold",
+            "sourceRef": "五年级下册!92"
+          }
+        ],
+        [
+          "have a fever",
+          "发烧",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0002",
+            "aliases": [
+              "have a fever"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "have a fever",
+            "sourceRef": "五年级下册!93"
+          }
+        ],
+        [
+          "have a headache",
+          "头痛",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0003",
+            "aliases": [
+              "have a headache"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "have a headache",
+            "sourceRef": "五年级下册!94"
+          }
+        ],
+        [
+          "have a cough",
+          "咳嗽",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0004",
+            "aliases": [
+              "have a cough"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "have a cough",
+            "sourceRef": "五年级下册!95"
+          }
+        ],
+        [
+          "dear",
+          "亲爱的",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0005",
+            "aliases": [
+              "dear"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "dear",
+            "sourceRef": "五年级下册!96"
+          }
+        ],
+        [
+          "ill",
+          "有病的",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0006",
+            "aliases": [
+              "ill"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "ill",
+            "sourceRef": "五年级下册!97"
+          }
+        ],
+        [
+          "bad",
+          "严重的；厉害的",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0007",
+            "aliases": [
+              "bad"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "bad",
+            "sourceRef": "五年级下册!98"
+          }
+        ],
+        [
+          "afraid",
+          "害怕",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0008",
+            "aliases": [
+              "afraid"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "afraid",
+            "sourceRef": "五年级下册!99"
+          }
+        ],
+        [
+          "worry",
+          "担心，着急",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0009",
+            "aliases": [
+              "worry"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "worry",
+            "sourceRef": "五年级下册!100"
+          }
+        ],
+        [
+          "have a toothache",
+          "牙痛",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0010",
+            "aliases": [
+              "have a toothache"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "have a toothache",
+            "sourceRef": "五年级下册!101"
+          }
+        ],
+        [
+          "have a stomachache",
+          "胃痛",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0011",
+            "aliases": [
+              "have a stomachache"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "have a stomachache",
+            "sourceRef": "五年级下册!102"
+          }
+        ],
+        [
+          "take some medicine",
+          "吃点儿药",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0012",
+            "aliases": [
+              "take some medicine"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "take some medicine",
+            "sourceRef": "五年级下册!103"
+          }
+        ],
+        [
+          "take a good rest",
+          "好好休息",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0013",
+            "aliases": [
+              "take a good rest"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "take a good rest",
+            "sourceRef": "五年级下册!104"
+          }
+        ],
+        [
+          "wrong",
+          "错的",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0014",
+            "aliases": [
+              "wrong"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "wrong",
+            "sourceRef": "五年级下册!105"
+          }
+        ],
+        [
+          "with",
+          "和……一起",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0015",
+            "aliases": [
+              "with"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "with",
+            "sourceRef": "五年级下册!106"
+          }
+        ],
+        [
+          "head",
+          "头",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0016",
+            "aliases": [
+              "head"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "head",
+            "sourceRef": "五年级下册!107"
+          }
+        ],
+        [
+          "face",
+          "脸",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0017",
+            "aliases": [
+              "face"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "face",
+            "sourceRef": "五年级下册!108"
+          }
+        ],
+        [
+          "ear",
+          "耳朵",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0018",
+            "aliases": [
+              "ear"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "ear",
+            "sourceRef": "五年级下册!109"
+          }
+        ],
+        [
+          "arm",
+          "胳膊",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0019",
+            "aliases": [
+              "arm"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "arm",
+            "sourceRef": "五年级下册!110"
+          }
+        ],
+        [
+          "chocolate",
+          "巧克力",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0020",
+            "aliases": [
+              "chocolate"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "chocolate",
+            "sourceRef": "五年级下册!111"
+          }
+        ],
+        [
+          "dragon fruit",
+          "火龙果",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0021",
+            "aliases": [
+              "dragon fruit"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "dragon fruit",
+            "sourceRef": "五年级下册!112"
+          }
+        ],
+        [
+          "bring",
+          "带来",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0022",
+            "aliases": [
+              "bring"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "bring",
+            "sourceRef": "五年级下册!113"
+          }
+        ],
+        [
+          "feel",
+          "感觉",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0023",
+            "aliases": [
+              "feel"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "feel",
+            "sourceRef": "五年级下册!114"
+          }
+        ],
+        [
+          "get-well card",
+          "康复卡",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0024",
+            "aliases": [
+              "get-well card"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "get-well card",
+            "sourceRef": "五年级下册!115"
+          }
+        ],
+        [
+          "here",
+          "这里；在这里",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0025",
+            "aliases": [
+              "here"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "here",
+            "sourceRef": "五年级下册!116"
+          }
+        ],
+        [
+          "for",
+          "为了……；给……",
+          {
+            "wordId": "primary_5b:primary_5b_u4:0026",
+            "aliases": [
+              "for"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "for",
+            "sourceRef": "五年级下册!117"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 5",
+      "words": [
+        [
+          "make a call",
+          "打电话",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0001",
+            "aliases": [
+              "make a call"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "make a call",
+            "sourceRef": "五年级下册!121"
+          }
+        ],
+        [
+          "write an email",
+          "写电子邮件",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0002",
+            "aliases": [
+              "write an email"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "write an email",
+            "sourceRef": "五年级下册!122"
+          }
+        ],
+        [
+          "wash the clothes",
+          "洗衣服",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0003",
+            "aliases": [
+              "wash the clothes"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "wash the clothes",
+            "sourceRef": "五年级下册!123"
+          }
+        ],
+        [
+          "clean the room",
+          "打扫房间",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0004",
+            "aliases": [
+              "clean the room"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "clean the room",
+            "sourceRef": "五年级下册!124"
+          }
+        ],
+        [
+          "tell a story",
+          "讲故事",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0005",
+            "aliases": [
+              "tell a story"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "tell a story",
+            "sourceRef": "五年级下册!125"
+          }
+        ],
+        [
+          "sing a song",
+          "唱歌",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0006",
+            "aliases": [
+              "sing a song"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sing a song",
+            "sourceRef": "五年级下册!126"
+          }
+        ],
+        [
+          "play the guitar",
+          "弹吉他",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0007",
+            "aliases": [
+              "play the guitar"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play the guitar",
+            "sourceRef": "五年级下册!127"
+          }
+        ],
+        [
+          "play the violin",
+          "拉小提琴",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0008",
+            "aliases": [
+              "play the violin"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play the violin",
+            "sourceRef": "五年级下册!128"
+          }
+        ],
+        [
+          "look at the picture",
+          "看图片",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0009",
+            "aliases": [
+              "look at the picture"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "look at the picture",
+            "sourceRef": "五年级下册!129"
+          }
+        ],
+        [
+          "talk about",
+          "谈论……",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0010",
+            "aliases": [
+              "talk about"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "talk about",
+            "sourceRef": "五年级下册!130"
+          }
+        ],
+        [
+          "stand",
+          "站立",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0011",
+            "aliases": [
+              "stand"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "stand",
+            "sourceRef": "五年级下册!131"
+          }
+        ],
+        [
+          "sit",
+          "坐；坐下",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0012",
+            "aliases": [
+              "sit"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sit",
+            "sourceRef": "五年级下册!132"
+          }
+        ],
+        [
+          "cousin",
+          "表（堂）兄弟；表（堂）姐妹",
+          {
+            "wordId": "primary_5b:primary_5b_u5:0013",
+            "aliases": [
+              "cousin"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "cousin",
+            "sourceRef": "五年级下册!133"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 6",
+      "words": [
+        [
+          "play football",
+          "踢足球",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0001",
+            "aliases": [
+              "play football"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play football",
+            "sourceRef": "五年级下册!137"
+          }
+        ],
+        [
+          "play volleyball",
+          "打排球",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0002",
+            "aliases": [
+              "play volleyball"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play volleyball",
+            "sourceRef": "五年级下册!138"
+          }
+        ],
+        [
+          "play basketball",
+          "打篮球",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0003",
+            "aliases": [
+              "play basketball"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play basketball",
+            "sourceRef": "五年级下册!139"
+          }
+        ],
+        [
+          "watch the games",
+          "观看比赛",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0004",
+            "aliases": [
+              "watch the games"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "watch the games",
+            "sourceRef": "五年级下册!140"
+          }
+        ],
+        [
+          "game",
+          "比赛；游戏",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0005",
+            "aliases": [
+              "game"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "game",
+            "sourceRef": "五年级下册!141"
+          }
+        ],
+        [
+          "foot (feet)",
+          "脚（复数）",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0006",
+            "aliases": [
+              "foot (feet)",
+              "foot",
+              "feet"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "foot (feet)",
+            "sourceRef": "五年级下册!142"
+          }
+        ],
+        [
+          "football",
+          "足球",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0007",
+            "aliases": [
+              "football"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "football",
+            "sourceRef": "五年级下册!143"
+          }
+        ],
+        [
+          "basketball",
+          "篮球",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0008",
+            "aliases": [
+              "basketball"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "basketball",
+            "sourceRef": "五年级下册!144"
+          }
+        ],
+        [
+          "playground",
+          "操场",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0009",
+            "aliases": [
+              "playground"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "playground",
+            "sourceRef": "五年级下册!145"
+          }
+        ],
+        [
+          "play badminton",
+          "打羽毛球",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0010",
+            "aliases": [
+              "play badminton"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play badminton",
+            "sourceRef": "五年级下册!146"
+          }
+        ],
+        [
+          "play tennis",
+          "打网球",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0011",
+            "aliases": [
+              "play tennis"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play tennis",
+            "sourceRef": "五年级下册!147"
+          }
+        ],
+        [
+          "play ping-pong",
+          "打乒乓球",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0012",
+            "aliases": [
+              "play ping-pong"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play ping-pong",
+            "sourceRef": "五年级下册!148"
+          }
+        ],
+        [
+          "play baseball",
+          "打棒球",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0013",
+            "aliases": [
+              "play baseball"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play baseball",
+            "sourceRef": "五年级下册!149"
+          }
+        ],
+        [
+          "Miss",
+          "小姐",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0014",
+            "aliases": [
+              "Miss"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Miss",
+            "sourceRef": "五年级下册!150"
+          }
+        ],
+        [
+          "Ms",
+          "女士",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0015",
+            "aliases": [
+              "Ms"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Ms",
+            "sourceRef": "五年级下册!151"
+          }
+        ],
+        [
+          "Mr",
+          "先生",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0016",
+            "aliases": [
+              "Mr"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Mr",
+            "sourceRef": "五年级下册!152"
+          }
+        ],
+        [
+          "Mrs",
+          "太太",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0017",
+            "aliases": [
+              "Mrs"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Mrs",
+            "sourceRef": "五年级下册!153"
+          }
+        ],
+        [
+          "favourite",
+          "最喜欢的",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0018",
+            "aliases": [
+              "favourite"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "favourite",
+            "sourceRef": "五年级下册!154"
+          }
+        ],
+        [
+          "sport",
+          "运动",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0019",
+            "aliases": [
+              "sport"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sport",
+            "sourceRef": "五年级下册!155"
+          }
+        ],
+        [
+          "do the high jump",
+          "跳高",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0020",
+            "aliases": [
+              "do the high jump"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "do the high jump",
+            "sourceRef": "五年级下册!156"
+          }
+        ],
+        [
+          "do the long jump",
+          "跳远",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0021",
+            "aliases": [
+              "do the long jump"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "do the long jump",
+            "sourceRef": "五年级下册!157"
+          }
+        ],
+        [
+          "run fast",
+          "跑得快",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0022",
+            "aliases": [
+              "run fast"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "run fast",
+            "sourceRef": "五年级下册!158"
+          }
+        ],
+        [
+          "run",
+          "跑；跑步",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0023",
+            "aliases": [
+              "run"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "run",
+            "sourceRef": "五年级下册!159"
+          }
+        ],
+        [
+          "high jump",
+          "跳高",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0024",
+            "aliases": [
+              "high jump"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "high jump",
+            "sourceRef": "五年级下册!160"
+          }
+        ],
+        [
+          "long jump",
+          "跳远",
+          {
+            "wordId": "primary_5b:primary_5b_u6:0025",
+            "aliases": [
+              "long jump"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "long jump",
+            "sourceRef": "五年级下册!161"
+          }
+        ]
+      ]
+    }
+  ],
+  "book": "五年级下册"
+}

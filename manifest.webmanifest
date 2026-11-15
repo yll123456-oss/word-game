@@ -1,7 +1,7 @@
 {
-  "name": "单词大冒险 · 初中英语记单词",
+  "name": "单词大冒险 · 小学初中高中英语记单词",
   "short_name": "单词大冒险",
-  "description": "按单元分组练习：看词选义、拼写、跟读、默写，随时复习",
+  "description": "小学、初中、高中按单元练习：看词选义、拼写、缺字母、默写和闯关复习",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

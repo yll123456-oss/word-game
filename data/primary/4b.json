@@ -1,0 +1,1615 @@
+{
+  "bookId": "primary_4b",
+  "title": "四年级下册",
+  "stage": "primary",
+  "section": "四年级",
+  "sourceFile": "小学英语词汇总表（三上-六下·八册全）.xlsx",
+  "units": [
+    {
+      "name": "Unit 1",
+      "words": [
+        [
+          "by",
+          "（表示方式）",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0001",
+            "aliases": [
+              "by"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "by",
+            "sourceRef": "四年级下册!4"
+          }
+        ],
+        [
+          "car",
+          "小汽车；轿车",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0002",
+            "aliases": [
+              "car"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "car",
+            "sourceRef": "四年级下册!5"
+          }
+        ],
+        [
+          "subway",
+          "地铁",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0003",
+            "aliases": [
+              "subway"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "subway",
+            "sourceRef": "四年级下册!6"
+          }
+        ],
+        [
+          "on foot",
+          "步行",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0004",
+            "aliases": [
+              "on foot"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "on foot",
+            "sourceRef": "四年级下册!7"
+          }
+        ],
+        [
+          "taxi",
+          "出租汽车",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0005",
+            "aliases": [
+              "taxi"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "taxi",
+            "sourceRef": "四年级下册!8"
+          }
+        ],
+        [
+          "train",
+          "火车",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0006",
+            "aliases": [
+              "train"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "train",
+            "sourceRef": "四年级下册!9"
+          }
+        ],
+        [
+          "ship",
+          "（大）船；舰",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0007",
+            "aliases": [
+              "ship"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "ship",
+            "sourceRef": "四年级下册!10"
+          }
+        ],
+        [
+          "plane",
+          "飞机",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0008",
+            "aliases": [
+              "plane"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "plane",
+            "sourceRef": "四年级下册!11"
+          }
+        ],
+        [
+          "usually",
+          "通常",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0009",
+            "aliases": [
+              "usually"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "usually",
+            "sourceRef": "四年级下册!12"
+          }
+        ],
+        [
+          "come",
+          "来",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0010",
+            "aliases": [
+              "come"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "come",
+            "sourceRef": "四年级下册!13"
+          }
+        ],
+        [
+          "near",
+          "离……近",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0011",
+            "aliases": [
+              "near"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "near",
+            "sourceRef": "四年级下册!14"
+          }
+        ],
+        [
+          "our",
+          "我们的",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0012",
+            "aliases": [
+              "our"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "our",
+            "sourceRef": "四年级下册!15"
+          }
+        ],
+        [
+          "travel",
+          "长途行走；旅行",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0013",
+            "aliases": [
+              "travel"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "travel",
+            "sourceRef": "四年级下册!16"
+          }
+        ],
+        [
+          "holiday",
+          "假期；假日；节日",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0014",
+            "aliases": [
+              "holiday"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "holiday",
+            "sourceRef": "四年级下册!17"
+          }
+        ],
+        [
+          "see",
+          "看见；看望",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0015",
+            "aliases": [
+              "see"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "see",
+            "sourceRef": "四年级下册!18"
+          }
+        ],
+        [
+          "live",
+          "住；居住",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0016",
+            "aliases": [
+              "live"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "live",
+            "sourceRef": "四年级下册!19"
+          }
+        ],
+        [
+          "parent",
+          "父亲；母亲",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0017",
+            "aliases": [
+              "parent"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "parent",
+            "sourceRef": "四年级下册!20"
+          }
+        ],
+        [
+          "we",
+          "我们",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0018",
+            "aliases": [
+              "we"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "we",
+            "sourceRef": "四年级下册!21"
+          }
+        ],
+        [
+          "work",
+          "工作",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0019",
+            "aliases": [
+              "work"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "work",
+            "sourceRef": "四年级下册!22"
+          }
+        ],
+        [
+          "go to work",
+          "去上班",
+          {
+            "wordId": "primary_4b:primary_4b_u1:0020",
+            "aliases": [
+              "go to work"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "go to work",
+            "sourceRef": "四年级下册!23"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 2",
+      "words": [
+        [
+          "Chinese",
+          "中文；汉语",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0001",
+            "aliases": [
+              "Chinese"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Chinese",
+            "sourceRef": "四年级下册!27"
+          }
+        ],
+        [
+          "maths",
+          "数学",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0002",
+            "aliases": [
+              "maths"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "maths",
+            "sourceRef": "四年级下册!28"
+          }
+        ],
+        [
+          "art",
+          "美术",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0003",
+            "aliases": [
+              "art"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "art",
+            "sourceRef": "四年级下册!29"
+          }
+        ],
+        [
+          "English",
+          "英语",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0004",
+            "aliases": [
+              "English"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "English",
+            "sourceRef": "四年级下册!30"
+          }
+        ],
+        [
+          "science",
+          "科学",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0005",
+            "aliases": [
+              "science"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "science",
+            "sourceRef": "四年级下册!31"
+          }
+        ],
+        [
+          "PE",
+          "体育",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0006",
+            "aliases": [
+              "PE"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "PE",
+            "sourceRef": "四年级下册!32"
+          }
+        ],
+        [
+          "IT",
+          "信息技术",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0007",
+            "aliases": [
+              "IT"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "IT",
+            "sourceRef": "四年级下册!33"
+          }
+        ],
+        [
+          "model",
+          "模型",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0008",
+            "aliases": [
+              "model"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "model",
+            "sourceRef": "四年级下册!34"
+          }
+        ],
+        [
+          "study",
+          "研究；学习",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0009",
+            "aliases": [
+              "study"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "study",
+            "sourceRef": "四年级下册!35"
+          }
+        ],
+        [
+          "plant",
+          "植物",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0010",
+            "aliases": [
+              "plant"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "plant",
+            "sourceRef": "四年级下册!36"
+          }
+        ],
+        [
+          "poem",
+          "诗；韵文",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0011",
+            "aliases": [
+              "poem"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "poem",
+            "sourceRef": "四年级下册!37"
+          }
+        ],
+        [
+          "flute",
+          "长笛",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0012",
+            "aliases": [
+              "flute"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "flute",
+            "sourceRef": "四年级下册!38"
+          }
+        ],
+        [
+          "subject",
+          "学科；科目；课程",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0013",
+            "aliases": [
+              "subject"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "subject",
+            "sourceRef": "四年级下册!39"
+          }
+        ],
+        [
+          "dear",
+          "亲爱的",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0014",
+            "aliases": [
+              "dear"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "dear",
+            "sourceRef": "四年级下册!40"
+          }
+        ],
+        [
+          "because",
+          "因为",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0015",
+            "aliases": [
+              "because"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "because",
+            "sourceRef": "四年级下册!41"
+          }
+        ],
+        [
+          "learn",
+          "学习；学到",
+          {
+            "wordId": "primary_4b:primary_4b_u2:0016",
+            "aliases": [
+              "learn"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "learn",
+            "sourceRef": "四年级下册!42"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 3",
+      "words": [
+        [
+          "Monday",
+          "星期一",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0001",
+            "aliases": [
+              "Monday"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Monday",
+            "sourceRef": "四年级下册!46"
+          }
+        ],
+        [
+          "Tuesday",
+          "星期二",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0002",
+            "aliases": [
+              "Tuesday"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Tuesday",
+            "sourceRef": "四年级下册!47"
+          }
+        ],
+        [
+          "Wednesday",
+          "星期三",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0003",
+            "aliases": [
+              "Wednesday"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Wednesday",
+            "sourceRef": "四年级下册!48"
+          }
+        ],
+        [
+          "Thursday",
+          "星期四",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0004",
+            "aliases": [
+              "Thursday"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Thursday",
+            "sourceRef": "四年级下册!49"
+          }
+        ],
+        [
+          "Friday",
+          "星期五",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0005",
+            "aliases": [
+              "Friday"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Friday",
+            "sourceRef": "四年级下册!50"
+          }
+        ],
+        [
+          "Saturday",
+          "星期六",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0006",
+            "aliases": [
+              "Saturday"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Saturday",
+            "sourceRef": "四年级下册!51"
+          }
+        ],
+        [
+          "Sunday",
+          "星期日；星期天",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0007",
+            "aliases": [
+              "Sunday"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Sunday",
+            "sourceRef": "四年级下册!52"
+          }
+        ],
+        [
+          "badminton",
+          "羽毛球",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0008",
+            "aliases": [
+              "badminton"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "badminton",
+            "sourceRef": "四年级下册!53"
+          }
+        ],
+        [
+          "tennis",
+          "网球",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0009",
+            "aliases": [
+              "tennis"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "tennis",
+            "sourceRef": "四年级下册!54"
+          }
+        ],
+        [
+          "piano",
+          "钢琴",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0010",
+            "aliases": [
+              "piano"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "piano",
+            "sourceRef": "四年级下册!55"
+          }
+        ],
+        [
+          "guzheng",
+          "古筝",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0011",
+            "aliases": [
+              "guzheng"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "guzheng",
+            "sourceRef": "四年级下册!56"
+          }
+        ],
+        [
+          "Beijing Opera",
+          "京剧",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0012",
+            "aliases": [
+              "Beijing Opera"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Beijing Opera",
+            "sourceRef": "四年级下册!57"
+          }
+        ],
+        [
+          "else",
+          "其他的；别的",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0013",
+            "aliases": [
+              "else"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "else",
+            "sourceRef": "四年级下册!58"
+          }
+        ],
+        [
+          "happy",
+          "愉快的；高兴的",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0014",
+            "aliases": [
+              "happy"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "happy",
+            "sourceRef": "四年级下册!59"
+          }
+        ],
+        [
+          "playground",
+          "（学校的）操场；（公园里的）游乐场",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0015",
+            "aliases": [
+              "playground"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "playground",
+            "sourceRef": "四年级下册!60"
+          }
+        ],
+        [
+          "with",
+          "和；同",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0016",
+            "aliases": [
+              "with"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "with",
+            "sourceRef": "四年级下册!61"
+          }
+        ],
+        [
+          "busy",
+          "忙碌的",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0017",
+            "aliases": [
+              "busy"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "busy",
+            "sourceRef": "四年级下册!62"
+          }
+        ],
+        [
+          "interesting",
+          "有趣的",
+          {
+            "wordId": "primary_4b:primary_4b_u3:0018",
+            "aliases": [
+              "interesting"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "interesting",
+            "sourceRef": "四年级下册!63"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 4",
+      "words": [
+        [
+          "chore",
+          "（家庭）日常杂务",
+          {
+            "wordId": "primary_4b:primary_4b_u4:0001",
+            "aliases": [
+              "chore"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "chore",
+            "sourceRef": "四年级下册!67"
+          }
+        ],
+        [
+          "homework",
+          "（学生的）家庭作业",
+          {
+            "wordId": "primary_4b:primary_4b_u4:0002",
+            "aliases": [
+              "homework"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "homework",
+            "sourceRef": "四年级下册!68"
+          }
+        ],
+        [
+          "exercise",
+          "锻炼；运动",
+          {
+            "wordId": "primary_4b:primary_4b_u4:0003",
+            "aliases": [
+              "exercise"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "exercise",
+            "sourceRef": "四年级下册!69"
+          }
+        ],
+        [
+          "cook",
+          "烹饪；煮；烧",
+          {
+            "wordId": "primary_4b:primary_4b_u4:0004",
+            "aliases": [
+              "cook"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "cook",
+            "sourceRef": "四年级下册!70"
+          }
+        ],
+        [
+          "visit",
+          "探望；访问",
+          {
+            "wordId": "primary_4b:primary_4b_u4:0005",
+            "aliases": [
+              "visit"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "visit",
+            "sourceRef": "四年级下册!71"
+          }
+        ],
+        [
+          "grandparent",
+          "爷爷；奶奶；外公；外婆",
+          {
+            "wordId": "primary_4b:primary_4b_u4:0006",
+            "aliases": [
+              "grandparent"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "grandparent",
+            "sourceRef": "四年级下册!72"
+          }
+        ],
+        [
+          "have",
+          "进行（活动）；举办",
+          {
+            "wordId": "primary_4b:primary_4b_u4:0007",
+            "aliases": [
+              "have"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "have",
+            "sourceRef": "四年级下册!73"
+          }
+        ],
+        [
+          "picnic",
+          "野餐",
+          {
+            "wordId": "primary_4b:primary_4b_u4:0008",
+            "aliases": [
+              "picnic"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "picnic",
+            "sourceRef": "四年级下册!74"
+          }
+        ],
+        [
+          "weekend",
+          "周末",
+          {
+            "wordId": "primary_4b:primary_4b_u4:0009",
+            "aliases": [
+              "weekend"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "weekend",
+            "sourceRef": "四年级下册!75"
+          }
+        ],
+        [
+          "together",
+          "一起",
+          {
+            "wordId": "primary_4b:primary_4b_u4:0010",
+            "aliases": [
+              "together"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "together",
+            "sourceRef": "四年级下册!76"
+          }
+        ],
+        [
+          "take a walk",
+          "散步",
+          {
+            "wordId": "primary_4b:primary_4b_u4:0011",
+            "aliases": [
+              "take a walk"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "take a walk",
+            "sourceRef": "四年级下册!77"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 5",
+      "words": [
+        [
+          "flower",
+          "花；花朵",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0001",
+            "aliases": [
+              "flower"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "flower",
+            "sourceRef": "四年级下册!81"
+          }
+        ],
+        [
+          "card",
+          "卡片",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0002",
+            "aliases": [
+              "card"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "card",
+            "sourceRef": "四年级下册!82"
+          }
+        ],
+        [
+          "cup",
+          "杯子",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0003",
+            "aliases": [
+              "cup"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "cup",
+            "sourceRef": "四年级下册!83"
+          }
+        ],
+        [
+          "write",
+          "书写",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0004",
+            "aliases": [
+              "write"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "write",
+            "sourceRef": "四年级下册!84"
+          }
+        ],
+        [
+          "letter",
+          "信",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0005",
+            "aliases": [
+              "letter"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "letter",
+            "sourceRef": "四年级下册!85"
+          }
+        ],
+        [
+          "tell",
+          "讲述；说",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0006",
+            "aliases": [
+              "tell"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "tell",
+            "sourceRef": "四年级下册!86"
+          }
+        ],
+        [
+          "sing",
+          "唱（歌）；演唱",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0007",
+            "aliases": [
+              "sing"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sing",
+            "sourceRef": "四年级下册!87"
+          }
+        ],
+        [
+          "song",
+          "歌；歌曲",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0008",
+            "aliases": [
+              "song"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "song",
+            "sourceRef": "四年级下册!88"
+          }
+        ],
+        [
+          "cut",
+          "切；削；剪；砍",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0009",
+            "aliases": [
+              "cut"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "cut",
+            "sourceRef": "四年级下册!89"
+          }
+        ],
+        [
+          "paper cutting",
+          "剪纸",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0010",
+            "aliases": [
+              "paper cutting"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "paper cutting",
+            "sourceRef": "四年级下册!90"
+          }
+        ],
+        [
+          "act",
+          "表演",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0011",
+            "aliases": [
+              "act"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "act",
+            "sourceRef": "四年级下册!91"
+          }
+        ],
+        [
+          "play",
+          "戏剧",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0012",
+            "aliases": [
+              "play"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play",
+            "sourceRef": "四年级下册!92"
+          }
+        ],
+        [
+          "know",
+          "知道",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0013",
+            "aliases": [
+              "know"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "know",
+            "sourceRef": "四年级下册!93"
+          }
+        ],
+        [
+          "Mother's Day",
+          "母亲节",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0014",
+            "aliases": [
+              "Mother's Day"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Mother's Day",
+            "sourceRef": "四年级下册!94"
+          }
+        ],
+        [
+          "Children's Day",
+          "儿童节",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0015",
+            "aliases": [
+              "Children's Day"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Children's Day",
+            "sourceRef": "四年级下册!95"
+          }
+        ],
+        [
+          "party",
+          "联欢会；派对",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0016",
+            "aliases": [
+              "party"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "party",
+            "sourceRef": "四年级下册!96"
+          }
+        ],
+        [
+          "Spring Festival",
+          "春节",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0017",
+            "aliases": [
+              "Spring Festival"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Spring Festival",
+            "sourceRef": "四年级下册!97"
+          }
+        ],
+        [
+          "TV",
+          "电视",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0018",
+            "aliases": [
+              "TV"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "TV",
+            "sourceRef": "四年级下册!98"
+          }
+        ],
+        [
+          "lucky money",
+          "压岁钱",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0019",
+            "aliases": [
+              "lucky money"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "lucky money",
+            "sourceRef": "四年级下册!99"
+          }
+        ],
+        [
+          "Good idea!",
+          "好主意！",
+          {
+            "wordId": "primary_4b:primary_4b_u5:0020",
+            "aliases": [
+              "Good idea!"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Good idea!",
+            "sourceRef": "四年级下册!100"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 6",
+      "words": [
+        [
+          "post office",
+          "邮局",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0001",
+            "aliases": [
+              "post office"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "post office",
+            "sourceRef": "四年级下册!104"
+          }
+        ],
+        [
+          "restaurant",
+          "饭店；餐厅",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0002",
+            "aliases": [
+              "restaurant"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "restaurant",
+            "sourceRef": "四年级下册!105"
+          }
+        ],
+        [
+          "supermarket",
+          "超市",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0003",
+            "aliases": [
+              "supermarket"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "supermarket",
+            "sourceRef": "四年级下册!106"
+          }
+        ],
+        [
+          "zoo",
+          "动物园",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0004",
+            "aliases": [
+              "zoo"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "zoo",
+            "sourceRef": "四年级下册!107"
+          }
+        ],
+        [
+          "straight",
+          "直地；笔直地",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0005",
+            "aliases": [
+              "straight"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "straight",
+            "sourceRef": "四年级下册!108"
+          }
+        ],
+        [
+          "turn",
+          "转弯",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0006",
+            "aliases": [
+              "turn"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "turn",
+            "sourceRef": "四年级下册!109"
+          }
+        ],
+        [
+          "left",
+          "左边；在左边；向左边",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0007",
+            "aliases": [
+              "left"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "left",
+            "sourceRef": "四年级下册!110"
+          }
+        ],
+        [
+          "right",
+          "右边；在右边；向右边",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0008",
+            "aliases": [
+              "right"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "right",
+            "sourceRef": "四年级下册!111"
+          }
+        ],
+        [
+          "across from",
+          "在……对面",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0009",
+            "aliases": [
+              "across from"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "across from",
+            "sourceRef": "四年级下册!112"
+          }
+        ],
+        [
+          "next to",
+          "紧邻；在……近旁",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0010",
+            "aliases": [
+              "next to"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "next to",
+            "sourceRef": "四年级下册!113"
+          }
+        ],
+        [
+          "between",
+          "在……中间",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0011",
+            "aliases": [
+              "between"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "between",
+            "sourceRef": "四年级下册!114"
+          }
+        ],
+        [
+          "map",
+          "地图",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0012",
+            "aliases": [
+              "map"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "map",
+            "sourceRef": "四年级下册!115"
+          }
+        ],
+        [
+          "phone",
+          "电话",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0013",
+            "aliases": [
+              "phone"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "phone",
+            "sourceRef": "四年级下册!116"
+          }
+        ],
+        [
+          "far",
+          "远",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0014",
+            "aliases": [
+              "far"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "far",
+            "sourceRef": "四年级下册!117"
+          }
+        ],
+        [
+          "very",
+          "很；非常",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0015",
+            "aliases": [
+              "very"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "very",
+            "sourceRef": "四年级下册!118"
+          }
+        ],
+        [
+          "think",
+          "认为",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0016",
+            "aliases": [
+              "think"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "think",
+            "sourceRef": "四年级下册!119"
+          }
+        ],
+        [
+          "ask someone for help",
+          "向某人寻求帮助",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0017",
+            "aliases": [
+              "ask someone for help"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "ask someone for help",
+            "sourceRef": "四年级下册!120"
+          }
+        ],
+        [
+          "shop",
+          "商店；店铺",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0018",
+            "aliases": [
+              "shop"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "shop",
+            "sourceRef": "四年级下册!121"
+          }
+        ],
+        [
+          "then",
+          "然后",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0019",
+            "aliases": [
+              "then"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "then",
+            "sourceRef": "四年级下册!122"
+          }
+        ],
+        [
+          "Excuse me",
+          "（用于礼貌地引起某人的注意）打扰一下（或劳驾）。",
+          {
+            "wordId": "primary_4b:primary_4b_u6:0020",
+            "aliases": [
+              "Excuse me"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Excuse me",
+            "sourceRef": "四年级下册!123"
+          }
+        ]
+      ]
+    }
+  ],
+  "book": "四年级下册"
+}

@@ -1,0 +1,1480 @@
+{
+  "bookId": "primary_5a",
+  "title": "五年级上册",
+  "stage": "primary",
+  "section": "五年级",
+  "sourceFile": "小学英语词汇总表（三上-六下·八册全）.xlsx",
+  "units": [
+    {
+      "name": "Unit 1",
+      "words": [
+        [
+          "France",
+          "法国",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0001",
+            "aliases": [
+              "France"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "France",
+            "sourceRef": "五年级上册!4"
+          }
+        ],
+        [
+          "the UK",
+          "英国",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0002",
+            "aliases": [
+              "the UK"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "the UK",
+            "sourceRef": "五年级上册!5"
+          }
+        ],
+        [
+          "Australia",
+          "澳大利亚",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0003",
+            "aliases": [
+              "Australia"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Australia",
+            "sourceRef": "五年级上册!6"
+          }
+        ],
+        [
+          "Brazil",
+          "巴西",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0004",
+            "aliases": [
+              "Brazil"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Brazil",
+            "sourceRef": "五年级上册!7"
+          }
+        ],
+        [
+          "Egypt",
+          "埃及",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0005",
+            "aliases": [
+              "Egypt"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Egypt",
+            "sourceRef": "五年级上册!8"
+          }
+        ],
+        [
+          "world",
+          "世界",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0006",
+            "aliases": [
+              "world"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "world",
+            "sourceRef": "五年级上册!9"
+          }
+        ],
+        [
+          "classmate",
+          "同班同学",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0007",
+            "aliases": [
+              "classmate"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "classmate",
+            "sourceRef": "五年级上册!10"
+          }
+        ],
+        [
+          "country",
+          "国；国家",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0008",
+            "aliases": [
+              "country"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "country",
+            "sourceRef": "五年级上册!11"
+          }
+        ],
+        [
+          "famous",
+          "著名的；出名的",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0009",
+            "aliases": [
+              "famous"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "famous",
+            "sourceRef": "五年级上册!12"
+          }
+        ],
+        [
+          "building",
+          "建筑物",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0010",
+            "aliases": [
+              "building"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "building",
+            "sourceRef": "五年级上册!13"
+          }
+        ],
+        [
+          "lake",
+          "湖",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0011",
+            "aliases": [
+              "lake"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "lake",
+            "sourceRef": "五年级上册!14"
+          }
+        ],
+        [
+          "sailing boat",
+          "帆船",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0012",
+            "aliases": [
+              "sailing boat"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sailing boat",
+            "sourceRef": "五年级上册!15"
+          }
+        ],
+        [
+          "sea",
+          "海",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0013",
+            "aliases": [
+              "sea"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sea",
+            "sourceRef": "五年级上册!16"
+          }
+        ],
+        [
+          "place",
+          "地方；位置",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0014",
+            "aliases": [
+              "place"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "place",
+            "sourceRef": "五年级上册!17"
+          }
+        ],
+        [
+          "show",
+          "演出",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0015",
+            "aliases": [
+              "show"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "show",
+            "sourceRef": "五年级上册!18"
+          }
+        ],
+        [
+          "wild",
+          "自然生长的；野生的",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0016",
+            "aliases": [
+              "wild"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "wild",
+            "sourceRef": "五年级上册!19"
+          }
+        ],
+        [
+          "hill",
+          "山丘；小山",
+          {
+            "wordId": "primary_5a:primary_5a_u1:0017",
+            "aliases": [
+              "hill"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "hill",
+            "sourceRef": "五年级上册!20"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 2",
+      "words": [
+        [
+          "farmer",
+          "农场主；农民",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0001",
+            "aliases": [
+              "farmer"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "farmer",
+            "sourceRef": "五年级上册!24"
+          }
+        ],
+        [
+          "teacher",
+          "教师",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0002",
+            "aliases": [
+              "teacher"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "teacher",
+            "sourceRef": "五年级上册!25"
+          }
+        ],
+        [
+          "reporter",
+          "记者；新闻广播员",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0003",
+            "aliases": [
+              "reporter"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "reporter",
+            "sourceRef": "五年级上册!26"
+          }
+        ],
+        [
+          "worker",
+          "工人",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0004",
+            "aliases": [
+              "worker"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "worker",
+            "sourceRef": "五年级上册!27"
+          }
+        ],
+        [
+          "writer",
+          "作家",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0005",
+            "aliases": [
+              "writer"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "writer",
+            "sourceRef": "五年级上册!28"
+          }
+        ],
+        [
+          "doctor",
+          "医生",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0006",
+            "aliases": [
+              "doctor"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "doctor",
+            "sourceRef": "五年级上册!29"
+          }
+        ],
+        [
+          "driver",
+          "司机",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0007",
+            "aliases": [
+              "driver"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "driver",
+            "sourceRef": "五年级上册!30"
+          }
+        ],
+        [
+          "nurse",
+          "护士",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0008",
+            "aliases": [
+              "nurse"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "nurse",
+            "sourceRef": "五年级上册!31"
+          }
+        ],
+        [
+          "police officer",
+          "警察；警员",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0009",
+            "aliases": [
+              "police officer"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "police officer",
+            "sourceRef": "五年级上册!32"
+          }
+        ],
+        [
+          "job",
+          "工作；职业",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0010",
+            "aliases": [
+              "job"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "job",
+            "sourceRef": "五年级上册!33"
+          }
+        ],
+        [
+          "like",
+          "像……那样",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0011",
+            "aliases": [
+              "like"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "like",
+            "sourceRef": "五年级上册!34"
+          }
+        ],
+        [
+          "people",
+          "人们",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0012",
+            "aliases": [
+              "people"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "people",
+            "sourceRef": "五年级上册!35"
+          }
+        ],
+        [
+          "must",
+          "一定；想必",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0013",
+            "aliases": [
+              "must"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "must",
+            "sourceRef": "五年级上册!36"
+          }
+        ],
+        [
+          "hard",
+          "努力地；彻底认真地",
+          {
+            "wordId": "primary_5a:primary_5a_u2:0014",
+            "aliases": [
+              "hard"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "hard",
+            "sourceRef": "五年级上册!37"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 3",
+      "words": [
+        [
+          "bank",
+          "银行",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0001",
+            "aliases": [
+              "bank"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "bank",
+            "sourceRef": "五年级上册!41"
+          }
+        ],
+        [
+          "hotel",
+          "酒店；旅馆",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0002",
+            "aliases": [
+              "hotel"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "hotel",
+            "sourceRef": "五年级上册!42"
+          }
+        ],
+        [
+          "police station",
+          "警察局；派出所",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0003",
+            "aliases": [
+              "police station"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "police station",
+            "sourceRef": "五年级上册!43"
+          }
+        ],
+        [
+          "TV station",
+          "电视台",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0004",
+            "aliases": [
+              "TV station"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "TV station",
+            "sourceRef": "五年级上册!44"
+          }
+        ],
+        [
+          "Ms",
+          "（用于女子的姓氏或姓名前，不指明婚否）女士",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0005",
+            "aliases": [
+              "Ms"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Ms",
+            "sourceRef": "五年级上册!45"
+          }
+        ],
+        [
+          "company",
+          "公司",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0006",
+            "aliases": [
+              "company"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "company",
+            "sourceRef": "五年级上册!46"
+          }
+        ],
+        [
+          "factory",
+          "工厂",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0007",
+            "aliases": [
+              "factory"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "factory",
+            "sourceRef": "五年级上册!47"
+          }
+        ],
+        [
+          "farm",
+          "农场；牧场；饲养场",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0008",
+            "aliases": [
+              "farm"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "farm",
+            "sourceRef": "五年级上册!48"
+          }
+        ],
+        [
+          "hospital",
+          "医院",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0009",
+            "aliases": [
+              "hospital"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "hospital",
+            "sourceRef": "五年级上册!49"
+          }
+        ],
+        [
+          "please",
+          "请",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0010",
+            "aliases": [
+              "please"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "please",
+            "sourceRef": "五年级上册!50"
+          }
+        ],
+        [
+          "sleep",
+          "睡觉",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0011",
+            "aliases": [
+              "sleep"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sleep",
+            "sourceRef": "五年级上册!51"
+          }
+        ],
+        [
+          "middle",
+          "中间的；中间",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0012",
+            "aliases": [
+              "middle"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "middle",
+            "sourceRef": "五年级上册!52"
+          }
+        ],
+        [
+          "middle school",
+          "中学",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0013",
+            "aliases": [
+              "middle school"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "middle school",
+            "sourceRef": "五年级上册!53"
+          }
+        ],
+        [
+          "woman",
+          "女人",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0014",
+            "aliases": [
+              "woman"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "woman",
+            "sourceRef": "五年级上册!54"
+          }
+        ],
+        [
+          "Nice to see you!",
+          "（以前见过面的人之间用）见到你很高兴！",
+          {
+            "wordId": "primary_5a:primary_5a_u3:0015",
+            "aliases": [
+              "Nice to see you!"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Nice to see you!",
+            "sourceRef": "五年级上册!55"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 4",
+      "words": [
+        [
+          "its",
+          "它的",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0001",
+            "aliases": [
+              "its"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "its",
+            "sourceRef": "五年级上册!59"
+          }
+        ],
+        [
+          "their",
+          "他们的",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0002",
+            "aliases": [
+              "their"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "their",
+            "sourceRef": "五年级上册!60"
+          }
+        ],
+        [
+          "mine",
+          "我的",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0003",
+            "aliases": [
+              "mine"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "mine",
+            "sourceRef": "五年级上册!61"
+          }
+        ],
+        [
+          "yours",
+          "你的；你们的",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0004",
+            "aliases": [
+              "yours"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "yours",
+            "sourceRef": "五年级上册!62"
+          }
+        ],
+        [
+          "hers",
+          "她的",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0005",
+            "aliases": [
+              "hers"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "hers",
+            "sourceRef": "五年级上册!63"
+          }
+        ],
+        [
+          "ours",
+          "我们的",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0006",
+            "aliases": [
+              "ours"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "ours",
+            "sourceRef": "五年级上册!64"
+          }
+        ],
+        [
+          "theirs",
+          "他们的",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0007",
+            "aliases": [
+              "theirs"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "theirs",
+            "sourceRef": "五年级上册!65"
+          }
+        ],
+        [
+          "look after",
+          "照顾；照管",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0008",
+            "aliases": [
+              "look after"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "look after",
+            "sourceRef": "五年级上册!66"
+          }
+        ],
+        [
+          "whose",
+          "谁的",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0009",
+            "aliases": [
+              "whose"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "whose",
+            "sourceRef": "五年级上册!67"
+          }
+        ],
+        [
+          "bag",
+          "包；袋子",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0010",
+            "aliases": [
+              "bag"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "bag",
+            "sourceRef": "五年级上册!68"
+          }
+        ],
+        [
+          "put ... in order",
+          "把……整理好",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0011",
+            "aliases": [
+              "put ... in order"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "put ... in order",
+            "sourceRef": "五年级上册!69"
+          }
+        ],
+        [
+          "photo",
+          "照片；相片",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0012",
+            "aliases": [
+              "photo"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "photo",
+            "sourceRef": "五年级上册!70"
+          }
+        ],
+        [
+          "best",
+          "最好的",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0013",
+            "aliases": [
+              "best"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "best",
+            "sourceRef": "五年级上册!71"
+          }
+        ],
+        [
+          "beside",
+          "在……的旁边",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0014",
+            "aliases": [
+              "beside"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "beside",
+            "sourceRef": "五年级上册!72"
+          }
+        ],
+        [
+          "cousin",
+          "堂兄弟；堂姐妹；表兄弟；表姐妹",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0015",
+            "aliases": [
+              "cousin"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "cousin",
+            "sourceRef": "五年级上册!73"
+          }
+        ],
+        [
+          "behind",
+          "在……的后面",
+          {
+            "wordId": "primary_5a:primary_5a_u4:0016",
+            "aliases": [
+              "behind"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "behind",
+            "sourceRef": "五年级上册!74"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 5",
+      "words": [
+        [
+          "bedroom",
+          "卧室",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0001",
+            "aliases": [
+              "bedroom"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "bedroom",
+            "sourceRef": "五年级上册!78"
+          }
+        ],
+        [
+          "kitchen",
+          "厨房",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0002",
+            "aliases": [
+              "kitchen"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "kitchen",
+            "sourceRef": "五年级上册!79"
+          }
+        ],
+        [
+          "living room",
+          "客厅；起居室",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0003",
+            "aliases": [
+              "living room"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "living room",
+            "sourceRef": "五年级上册!80"
+          }
+        ],
+        [
+          "study",
+          "书房",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0004",
+            "aliases": [
+              "study"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "study",
+            "sourceRef": "五年级上册!81"
+          }
+        ],
+        [
+          "toilet",
+          "卫生间",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0005",
+            "aliases": [
+              "toilet"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "toilet",
+            "sourceRef": "五年级上册!82"
+          }
+        ],
+        [
+          "bathroom",
+          "浴室；洗手间",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0006",
+            "aliases": [
+              "bathroom"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "bathroom",
+            "sourceRef": "五年级上册!83"
+          }
+        ],
+        [
+          "table",
+          "桌子",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0007",
+            "aliases": [
+              "table"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "table",
+            "sourceRef": "五年级上册!84"
+          }
+        ],
+        [
+          "dish",
+          "餐具",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0008",
+            "aliases": [
+              "dish"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "dish",
+            "sourceRef": "五年级上册!85"
+          }
+        ],
+        [
+          "do the dishes",
+          "洗餐具",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0009",
+            "aliases": [
+              "do the dishes"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "do the dishes",
+            "sourceRef": "五年级上册!86"
+          }
+        ],
+        [
+          "tidy",
+          "使整洁；整洁的",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0010",
+            "aliases": [
+              "tidy"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "tidy",
+            "sourceRef": "五年级上册!87"
+          }
+        ],
+        [
+          "put away",
+          "把……收拾起来",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0011",
+            "aliases": [
+              "put away"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "put away",
+            "sourceRef": "五年级上册!88"
+          }
+        ],
+        [
+          "paper",
+          "纸",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0012",
+            "aliases": [
+              "paper"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "paper",
+            "sourceRef": "五年级上册!89"
+          }
+        ],
+        [
+          "always",
+          "总是",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0013",
+            "aliases": [
+              "always"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "always",
+            "sourceRef": "五年级上册!90"
+          }
+        ],
+        [
+          "keep",
+          "保持",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0014",
+            "aliases": [
+              "keep"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "keep",
+            "sourceRef": "五年级上册!91"
+          }
+        ],
+        [
+          "those",
+          "那些",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0015",
+            "aliases": [
+              "those"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "those",
+            "sourceRef": "五年级上册!92"
+          }
+        ],
+        [
+          "tired",
+          "疲倦的；疲劳的",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0016",
+            "aliases": [
+              "tired"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "tired",
+            "sourceRef": "五年级上册!93"
+          }
+        ],
+        [
+          "What a mess!",
+          "真是一团糟啊！",
+          {
+            "wordId": "primary_5a:primary_5a_u5:0017",
+            "aliases": [
+              "What a mess!"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "What a mess!",
+            "sourceRef": "五年级上册!94"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 6",
+      "words": [
+        [
+          "kind",
+          "体贴的；友好的",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0001",
+            "aliases": [
+              "kind"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "kind",
+            "sourceRef": "五年级上册!98"
+          }
+        ],
+        [
+          "lovely",
+          "可爱的",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0002",
+            "aliases": [
+              "lovely"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "lovely",
+            "sourceRef": "五年级上册!99"
+          }
+        ],
+        [
+          "quiet",
+          "文静的",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0003",
+            "aliases": [
+              "quiet"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "quiet",
+            "sourceRef": "五年级上册!100"
+          }
+        ],
+        [
+          "thin",
+          "瘦的",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0004",
+            "aliases": [
+              "thin"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "thin",
+            "sourceRef": "五年级上册!101"
+          }
+        ],
+        [
+          "active",
+          "活跃的",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0005",
+            "aliases": [
+              "active"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "active",
+            "sourceRef": "五年级上册!102"
+          }
+        ],
+        [
+          "strong",
+          "强壮的",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0006",
+            "aliases": [
+              "strong"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "strong",
+            "sourceRef": "五年级上册!103"
+          }
+        ],
+        [
+          "stronger",
+          "更强壮",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0007",
+            "aliases": [
+              "stronger"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "stronger",
+            "sourceRef": "五年级上册!104"
+          }
+        ],
+        [
+          "taller",
+          "更高",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0008",
+            "aliases": [
+              "taller"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "taller",
+            "sourceRef": "五年级上册!105"
+          }
+        ],
+        [
+          "more",
+          "（与两个或两个以上音节的形容词或副词连用，构成比较级）更",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0009",
+            "aliases": [
+              "more"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "more",
+            "sourceRef": "五年级上册!106"
+          }
+        ],
+        [
+          "careful",
+          "细心的",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0010",
+            "aliases": [
+              "careful"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "careful",
+            "sourceRef": "五年级上册!107"
+          }
+        ],
+        [
+          "popular",
+          "受欢迎的",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0011",
+            "aliases": [
+              "popular"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "popular",
+            "sourceRef": "五年级上册!108"
+          }
+        ],
+        [
+          "hear",
+          "听到；听见",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0012",
+            "aliases": [
+              "hear"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "hear",
+            "sourceRef": "五年级上册!109"
+          }
+        ],
+        [
+          "everyone",
+          "每个人",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0013",
+            "aliases": [
+              "everyone"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "everyone",
+            "sourceRef": "五年级上册!110"
+          }
+        ],
+        [
+          "special",
+          "特别的；不寻常的",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0014",
+            "aliases": [
+              "special"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "special",
+            "sourceRef": "五年级上册!111"
+          }
+        ],
+        [
+          "twin",
+          "双胞胎之一",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0015",
+            "aliases": [
+              "twin"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "twin",
+            "sourceRef": "五年级上册!112"
+          }
+        ],
+        [
+          "a lot",
+          "很多",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0016",
+            "aliases": [
+              "a lot"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "a lot",
+            "sourceRef": "五年级上册!113"
+          }
+        ],
+        [
+          "Be yourself!",
+          "做你自己！",
+          {
+            "wordId": "primary_5a:primary_5a_u6:0017",
+            "aliases": [
+              "Be yourself!"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Be yourself!",
+            "sourceRef": "五年级上册!114"
+          }
+        ]
+      ]
+    }
+  ],
+  "book": "五年级上册"
+}

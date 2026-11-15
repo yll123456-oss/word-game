@@ -4,7 +4,7 @@
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="单词大冒险">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>单词速记 · 初中英语词汇闯关</title><style id="theme">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>单词速记 · 小学初中高中英语词汇闯关</title><style id="theme">
 /* ===== 主题升级：配色 / 底纹 / 长词条 / 小屏适配 ===== */
 :root{
   --vp-ink:#1b2434; --vp-ink-2:#3c4760; --vp-muted:#78839c;
@@ -627,12 +627,10 @@ body{
               </div>
               <button class="vpre-btn vpre-btn-primary vpre-btn-block vpre-task-cta" type="button" data-action="open-unit">继续学习 → 九上 Unit 1</button>
             </div>
-            <div class="vpre-sec-title">选择词库</div>
-            <div class="vpre-seg" role="group" aria-label="选择年级">
-              <button class="vpre-chip" type="button" data-grade="g7" aria-pressed="false">初一</button>
-              <button class="vpre-chip" type="button" data-grade="g8" aria-pressed="false">初二</button>
-              <button class="vpre-chip is-active" type="button" data-grade="g9" aria-pressed="true">初三</button>
-            </div>
+            <div class="vpre-sec-title">选择学段</div>
+            <div class="vpre-seg" data-stage-seg role="group" aria-label="选择学段"></div>
+            <div class="vpre-sec-title">选择年级或类别</div>
+            <div class="vpre-seg" data-grade-seg role="group" aria-label="选择年级或类别"></div>
             <div class="vpre-bookseg" role="group" aria-label="选择上下册"></div>
             <div class="vpre-sec-title">单元列表 <span class="vpre-sec-note">九上</span></div>
             <div class="vpre-unit-list"></div>
@@ -662,7 +660,7 @@ body{
               <button class="vpre-mrow" type="button" data-mine-go="home">
                 <span class="vpre-mrow-ico">📚</span>
                 <span class="vpre-mrow-body">
-                  <span class="vpre-mrow-top"><b class="vpre-mine-learned">0</b><em class="vpre-mine-learn-unit">词已掌握（6 册）</em><i class="vpre-mine-learn-pct">0%</i></span>
+                  <span class="vpre-mrow-top"><b class="vpre-mine-learned">0</b><em class="vpre-mine-learn-unit">词已掌握（全部词库）</em><i class="vpre-mine-learn-pct">0%</i></span>
                   <span class="vpre-mrow-bar"><i class="vpre-mine-learn-bar" style="width:0%"></i></span>
                   <span class="vpre-mrow-sub vpre-mine-learn-sub">进行中：—</span>
                 </span>
@@ -671,7 +669,7 @@ body{
               <button class="vpre-mrow" type="button" data-mine-go="stage">
                 <span class="vpre-mrow-ico">🗺️</span>
                 <span class="vpre-mrow-body">
-                  <span class="vpre-mrow-top"><b class="vpre-mine-stars">0</b><em>颗闯关星星（6 册）</em><i class="vpre-mine-stars-pct">0%</i></span>
+                  <span class="vpre-mrow-top"><b class="vpre-mine-stars">0</b><em>颗闯关星星（全部词库）</em><i class="vpre-mine-stars-pct">0%</i></span>
                   <span class="vpre-mrow-bar"><i class="vpre-mine-stars-bar" style="width:0%"></i></span>
                   <span class="vpre-mrow-sub vpre-mine-stars-sub">已通关 0 个单元 · 4 个小游戏按组闯关</span>
                 </span>
@@ -680,7 +678,7 @@ body{
               <button class="vpre-mrow" type="button" data-mine-go="wrong">
                 <span class="vpre-mrow-ico">📕</span>
                 <span class="vpre-mrow-body">
-                  <span class="vpre-mrow-top"><b class="vpre-mine-wrong">0</b><em>个错词待复习（6 册）</em><i class="vpre-mine-wrong-pct">掌握率 0%</i></span>
+                  <span class="vpre-mrow-top"><b class="vpre-mine-wrong">0</b><em>个错词待复习（全部词库）</em><i class="vpre-mine-wrong-pct">掌握率 0%</i></span>
                   <span class="vpre-mrow-bar"><i class="vpre-mine-wrong-bar" style="width:0%"></i></span>
                   <span class="vpre-mrow-sub vpre-mine-wrong-sub">掌握率 0%</span>
                 </span>
@@ -688,7 +686,7 @@ body{
               </button>
             </div>
 
-            <div class="vpre-sec-title">六册进度 <span class="vpre-sec-note">点一册进入该册进行中的单元</span></div>
+            <div class="vpre-sec-title">词库进度 <span class="vpre-sec-note">点一册进入该册进行中的单元</span></div>
             <div class="vpre-mine-books"></div>
 
             <button class="vpre-btn vpre-btn-ghost vpre-btn-block" type="button" data-install="1">📲 安装到手机 / 电脑桌面</button>
@@ -732,23 +730,113 @@ body{
     }
     return arr;
   }
-  // ===== 词库：按册按需加载（首屏只加载当前册）=====
-  var BOOK_ORDER = {g7:["七上","七下"], g8:["八上","八下"], g9:["九上","九下"]};
-  var VOCAB = {g7:{books:{}}, g8:{books:{}}, g9:{books:{}}};
+  // ===== 词库：学段/年级或类别/册，全部由 catalog.json 驱动 =====
+  var FALLBACK_CATALOG = {
+    version:"fallback-junior",
+    groupSize:20,
+    stages:[{
+      id:"junior", name:"初中", groups:[
+        {id:"g7",name:"初一",books:[
+          {id:"七上",name:"七上",file:"data/七上.json",color:"#12b886",softColor:"#e7f8f2",totalWords:315},
+          {id:"七下",name:"七下",file:"data/七下.json",color:"#3b82f6",softColor:"#eaf2fe",totalWords:384}
+        ]},
+        {id:"g8",name:"初二",books:[
+          {id:"八上",name:"八上",file:"data/八上.json",color:"#7c5cff",softColor:"#f0ecff",totalWords:268},
+          {id:"八下",name:"八下",file:"data/八下.json",color:"#ef8a17",softColor:"#fff3e3",totalWords:222}
+        ]},
+        {id:"g9",name:"初三",books:[
+          {id:"九上",name:"九上",file:"data/九上.json",color:"#e5484d",softColor:"#feeceb",totalWords:304},
+          {id:"九下",name:"九下",file:"data/九下.json",color:"#12a4a4",softColor:"#e6f7f7",totalWords:189}
+        ]}
+      ]
+    }]
+  };
+  var CATALOG = null;
+  var BOOK_META = {};
+  var GROUP_META = {};
+  var STAGE_META = {};
+  var BOOK_ORDER = {};
+  var VOCAB = {};
+  var BOOK_DATA = {};
+  var BOOK_LIST = [];
+  var GRADE_NAME = {};
+  var GRADE_BOOKS = {};
+  var GRADE_BOOK = {};
+  function installCatalog(catalog){
+    if(!catalog || !catalog.stages || !catalog.stages.length){ return false; }
+    CATALOG = catalog;
+    BOOK_META = {}; GROUP_META = {}; STAGE_META = {}; BOOK_ORDER = {};
+    VOCAB = {}; BOOK_LIST = []; GRADE_NAME = {}; GRADE_BOOKS = {}; GRADE_BOOK = {};
+    catalog.stages.forEach(function(stage){
+      STAGE_META[stage.id] = stage;
+      (stage.groups || []).forEach(function(group){
+        GROUP_META[group.id] = {id:group.id,name:group.name,stageId:stage.id,stageName:stage.name};
+        BOOK_ORDER[group.id] = [];
+        GRADE_NAME[group.id] = group.name;
+        GRADE_BOOKS[group.id] = [];
+        VOCAB[group.id] = {books:{}};
+        (group.books || []).forEach(function(book){
+          var meta = {};
+          for(var k in book){ meta[k] = book[k]; }
+          meta.groupId = group.id;
+          meta.groupName = group.name;
+          meta.stageId = stage.id;
+          meta.stageName = stage.name;
+          BOOK_META[book.id] = meta;
+          BOOK_ORDER[group.id].push(book.id);
+          GRADE_BOOKS[group.id].push(book.id);
+          BOOK_LIST.push(book.id);
+        });
+        if(GRADE_BOOKS[group.id].length){ GRADE_BOOK[group.id] = GRADE_BOOKS[group.id][0]; }
+      });
+    });
+    return BOOK_LIST.length > 0;
+  }
+  function loadCatalog(){
+    return fetch("data/catalog.json", {cache:"no-cache"}).then(function(r){
+      if(!r.ok){ throw new Error("HTTP " + r.status); }
+      return r.json();
+    }).then(function(catalog){
+      if(!installCatalog(catalog)){ throw new Error("catalog empty"); }
+      return CATALOG;
+    }).catch(function(){
+      installCatalog(FALLBACK_CATALOG);
+      return CATALOG;
+    });
+  }
+  function bookMeta(book){ return BOOK_META[book] || null; }
+  function bookTitle(book){ var b = bookMeta(book); return b ? b.name : String(book || ""); }
+  function bookFile(book){ var b = bookMeta(book); return b && b.file ? b.file : ("data/" + encodeURIComponent(book) + ".json"); }
+  function groupMeta(group){ return GROUP_META[group] || null; }
+  function stageMeta(stage){ return STAGE_META[stage] || null; }
+  function stageGroups(stage){ var s = stageMeta(stage); return s ? (s.groups || []) : []; }
+  function stageBooks(stage){
+    var out = [];
+    stageGroups(stage).forEach(function(group){
+      (group.books || []).forEach(function(book){ out.push(book.id); });
+    });
+    return out;
+  }
   function gradeOfBook(book){
-    for(var g in BOOK_ORDER){ if(BOOK_ORDER[g].indexOf(book) >= 0) return g; }
-    return "g9";
+    var b = bookMeta(book);
+    return b ? b.groupId : "g9";
   }
   function applyBookData(obj){
-    if(!obj || !obj.book || !obj.units) return null;
-    var g = gradeOfBook(obj.book);
-    VOCAB[g].books[obj.book] = {units: obj.units.map(function(u){ return {name:u.name, n:u.words.length, words:u.words}; })};
-    return VOCAB[g].books[obj.book];
+    if(!obj || !obj.units) return null;
+    var book = obj.bookId || obj.book;
+    if(!book) return null;
+    var g = gradeOfBook(book);
+    var data = {units: obj.units.map(function(u){ return {name:u.name, n:u.words.length, words:u.words}; })};
+    BOOK_DATA[book] = data;
+    if(!VOCAB[g]){ VOCAB[g] = {books:{}}; }
+    VOCAB[g].books[book] = data;
+    ZH_MAP = null;
+    return data;
   }
-  var DATA_VERSION = "2026-09-28b";
+  var DATA_VERSION = "2026-11-15-multistage";
   function loadBook(book, cb){
     var g = gradeOfBook(book);
-    if(VOCAB[g].books[book]){ if(cb){ cb(VOCAB[g].books[book]); } return Promise.resolve(VOCAB[g].books[book]); }
+    if(BOOK_DATA[book]){ if(cb){ cb(BOOK_DATA[book]); } return Promise.resolve(BOOK_DATA[book]); }
     // 本地缓存只作"离线兜底"，联网时永远以服务器数据为准
     var cachedObj = null;
     try{
@@ -759,19 +847,19 @@ body{
         else if(c && c.units){ cachedObj = c; }
       }
     }catch(e){}
-    return fetch("data/" + encodeURIComponent(book) + ".json", {cache:"no-cache"}).then(function(r){
+    return fetch(bookFile(book), {cache:"no-cache"}).then(function(r){
       if(!r.ok){ throw new Error("HTTP " + r.status); }
       return r.json();
     }).then(function(obj){
       try{ localStorage.setItem("vpreData:" + book, JSON.stringify({__v: DATA_VERSION, data: obj})); }catch(e){}
       applyBookData(obj);
-      if(cb){ cb(VOCAB[g].books[book]); }
-      return VOCAB[g].books[book];
+      if(cb){ cb(BOOK_DATA[book]); }
+      return BOOK_DATA[book];
     }).catch(function(){
       if(cachedObj){
         applyBookData(cachedObj);
-        if(cb){ cb(VOCAB[g].books[book]); }
-        return VOCAB[g].books[book];
+        if(cb){ cb(BOOK_DATA[book]); }
+        return BOOK_DATA[book];
       }
       if(cb){ cb(null); }
       return null;
@@ -781,8 +869,7 @@ body{
     return Promise.all(BOOK_LIST.map(function(b){ return loadBook(b); }));
   }
   var TYPE_NAME = {word:"看词选义", spell:"拼写闯关", fill:"缺字母补全", dictate:"默写闯关", wrong:"错词复习", match:"连连看", speed:"限时快答", mole:"打地鼠"};
-  var GRADE_NAME = {g7:"初一", g8:"初二", g9:"初三"};
-  var GRADE_BOOK = {g7:"七上", g8:"八上", g9:"九上"};
+  installCatalog(FALLBACK_CATALOG);
   var state = {};
 
   var sfx = (function(){
@@ -1588,7 +1675,7 @@ body{
   }
   function unitLabel(phone){
     var s = state[phone.__id];
-    return s.book + ' ' + unitWords(phone).name;
+    return bookTitle(s.book) + ' ' + unitWords(phone).name;
   }
   function greetName(){
     var h = new Date().getHours();
@@ -2031,7 +2118,6 @@ body{
     q(".vpre-quiz-close", el).addEventListener("click", function(){ sfx.play("tap"); renderStageMap(phone); setView(phone, "stage"); });
   }
   // ===== 闯关（第二页）：独立设置 + 4 款小游戏 + 通关标记 =====
-  var ARENA_BOOKS = ["七上","七下","八上","八下","九上","九下"];
   var ARENA_GAMES = [
     ["link",   "🧩", "连连看",   "英中配对 · 一批 10 对 · 练完整组"],
     ["speed",  "⚡", "限时快答", "60 秒 · 英译汉 + 汉译英"],
@@ -2040,6 +2126,13 @@ body{
   ];
   function arenaSel(){
     PROG.arenaSel = PROG.arenaSel || {book: state[qa(".vpre-phone")[0].__id].book, unit: 0};
+    var ph = qa(".vpre-phone")[0];
+    var s = ph ? state[ph.__id] : null;
+    var meta = bookMeta(PROG.arenaSel.book);
+    if(s && (!meta || meta.stageId !== s.stage)){
+      PROG.arenaSel.book = s.book;
+      PROG.arenaSel.unit = 0;
+    }
     return PROG.arenaSel;
   }
   function arenaBook(){ return arenaSel().book; }
@@ -2154,13 +2247,14 @@ body{
     if(!el){ return; }
     var bd = bookData(arenaBook());
     if(!bd.units.length){
-      el.innerHTML = '<div class="vpre-unit-loading"><b>正在加载 ' + arenaBook() + ' 词库…</b><span>首次使用需要联网</span></div>';
+      el.innerHTML = '<div class="vpre-unit-loading"><b>正在加载 ' + bookTitle(arenaBook()) + ' 词库…</b><span>首次使用需要联网</span></div>';
       return;
     }
     var unit = arenaUnit();
     var cleared = arenaUnitClearedGames();
-    var booksHtml = ARENA_BOOKS.map(function(b){
-      return '<button type="button" data-arena-book="' + b + '" class="' + (b === arenaBook() ? 'is-active' : '') + '">' + b + '</button>';
+    var arenaStage = state[phone.__id].stage;
+    var booksHtml = stageBooks(arenaStage).map(function(b){
+      return '<button type="button" data-arena-book="' + b + '" class="' + (b === arenaBook() ? 'is-active' : '') + '">' + bookTitle(b) + '</button>';
     }).join("");
     var unitsHtml = bd.units.map(function(u, i){
       var c = 0;
@@ -2198,7 +2292,7 @@ body{
       +   '<div class="vpre-arena-row"><span>分册</span><div class="vpre-arena-chips" data-arena-books>' + booksHtml + '</div></div>'
       +   '<div class="vpre-arena-row"><span>单元</span><div class="vpre-arena-chips" data-arena-units>' + unitsHtml + '</div></div>'
       + '</div>'
-      + '<div class="vpre-arena-summary"><b>' + arenaBook() + ' ' + unit.name + '</b> · ' + (unit.words || []).length + ' 词 · 已通关 <b>' + cleared + '/' + ARENA_GAMES.length + '</b> 个游戏'
+      + '<div class="vpre-arena-summary"><b>' + bookTitle(arenaBook()) + ' ' + unit.name + '</b> · ' + (unit.words || []).length + ' 词 · 已通关 <b>' + cleared + '/' + ARENA_GAMES.length + '</b> 个游戏'
       + (cleared >= ARENA_GAMES.length ? ' · 🏆 本单元闯关通关！' : '')
       + '<div class="vpre-arena-dots">' + ARENA_GAMES.map(function(g){
           var ok = arenaGameCleared(g[0]);
@@ -2231,7 +2325,7 @@ body{
     mask.innerHTML = '<div class="vpre-confirm-card vpre-levels-card">'
       + '<div class="vpre-confirm-icon">' + (gmeta ? gmeta[1] : "🎮") + '</div>'
       + '<div class="vpre-confirm-title">' + (gmeta ? gmeta[2] : "小游戏") + ' · 闯关</div>'
-      + '<div class="vpre-confirm-sub">' + arenaBook() + ' ' + arenaUnit().name + ' · 共 ' + gs.length + ' 关（每关约 20 词）</div>'
+      + '<div class="vpre-confirm-sub">' + bookTitle(arenaBook()) + ' ' + arenaUnit().name + ' · 共 ' + gs.length + ' 关（每关约 20 词）</div>'
       + '<div class="vpre-levels-list">' + rows + '</div>'
       + '<div class="vpre-levels-tip">' + arenaGameTip(gameId) + '<br>每关拿到 3★ 解锁下一关；全部关卡 3★ = 这个游戏满星</div>'
       + '<button class="vpre-sheet-cancel" type="button" data-level-close="1" style="margin-top:12px;">关闭</button>'
@@ -3131,8 +3225,7 @@ body{
     if(act === "toast"){ toast(phone, "玩法开发中，敬请期待"); return; }
     openQuiz(phone, act.replace("quiz-", ""), unitIdx);
   }
-  var GRADE_BOOKS = {g7:["七上","七下"], g8:["八上","八下"], g9:["九上","九下"]};
-  var GROUP_SIZE = 20;
+  var GROUP_SIZE = (CATALOG && CATALOG.groupSize) || 20;
   var GROUP_MODES = [["word","📖 看词选义"],["spell","✏️ 拼写闯关"],["fill","🔤 缺字母补全"],["dictate","📝 默写闯关"]];
   function groupSeed(book, unitName){
     PROG.groupSeed = PROG.groupSeed || {};
@@ -3342,7 +3435,7 @@ body{
     groups.forEach(function(g, gi){ if(isGroupComplete(s.book, unit.name, gi)){ doneGroups++; } });
     var uset = (PROG.words[s.book] || {})[unit.name] || {};
     var learned = Object.keys(uset).length;
-    var html = '<div class="vpre-report-head"><b>' + s.book + ' · ' + unit.name + '</b>'
+    var html = '<div class="vpre-report-head"><b>' + bookTitle(s.book) + ' · ' + unit.name + '</b>'
       + '<span class="vpre-report-actions"><button class="vpre-report-back" type="button" data-unit-back="1">← 返回</button></span></div>'
       + '<button class="vpre-btn vpre-btn-ghost vpre-btn-block vpre-reshuffle" type="button" data-reshuffle="1">🔀 重新随机分组（本轮组进度会重置）</button>'
       + (function(){
@@ -3379,19 +3472,21 @@ body{
   function renderUnits(phone){
     tickDay();
     var s = state[phone.__id];
+    applyBookTheme(phone);
+    renderCatalogControls(phone);
     document.body.setAttribute("data-book", s.book);
     var list = q(".vpre-unit-list", phone);
     var bseg = q(".vpre-bookseg", phone);
     var books = GRADE_BOOKS[s.grade] || [];
     if(bseg){
       bseg.innerHTML = books.map(function(b){
-        return '<button class="vpre-bchip'+(b===s.book ? " is-active" : "")+'" type="button" data-book="'+b+'">'+b+'</button>';
+        return '<button class="vpre-bchip'+(b===s.book ? " is-active" : "")+'" type="button" data-book="'+b+'">'+bookTitle(b)+'</button>';
       }).join("");
     }
     var book = currentBook(phone);
     if(!book.units.length || !book.units[0].words.length){
       list.innerHTML = '<div class="vpre-unit-loading">'
-        + '<b>正在加载 ' + s.book + ' 词库…</b>'
+        + '<b>正在加载 ' + bookTitle(s.book) + ' 词库…</b>'
         + '<span>首次使用需要联网加载（之后可离线）</span>'
         + '<button class="vpre-btn vpre-btn-primary" type="button" data-reload="1">重新加载</button></div>';
       return;
@@ -3449,11 +3544,11 @@ body{
         ctaEl.textContent = "▶ 继续上次练习：" + rvText(PROG.resume);
       } else {
         ctaEl.setAttribute("data-action", "open-unit");
-        ctaEl.textContent = "继续学习 → " + s.book + " " + uw.name + " · 第 " + (giNow+1) + " 组";
+        ctaEl.textContent = "继续学习 → " + bookTitle(s.book) + " " + uw.name + " · 第 " + (giNow+1) + " 组";
       }
     }
     var secNote = q(".vpre-sec-note", phone);
-    if(secNote){ secNote.textContent = s.book + " · " + book.units.reduce(function(a,u){ return a+u.n; },0) + " 词"; }
+    if(secNote){ secNote.textContent = bookTitle(s.book) + " · " + book.units.reduce(function(a,u){ return a+u.n; },0) + " 词"; }
     var taskCta = q(".vpre-task-cta", phone);
     if(taskCta && !(PROG.resume && PROG.resume.idx > 0)){
       taskCta.setAttribute("data-action", "open-unit");
@@ -3462,23 +3557,29 @@ body{
     renderWrong(phone);
     renderStageMap(phone);
   }
-  var BOOK_LIST = ["七上","七下","八上","八下","九上","九下"];
   function bookData(book){
-    var gs = ["g7","g8","g9"];
-    for(var i=0;i<gs.length;i++){
-      var g = VOCAB[gs[i]];
-      if(g && g.books && g.books[book]) return g.books[book];
-    }
-    return {units:[]};
+    return BOOK_DATA[book] || {units:[]};
+  }
+  function bookUnitSummaries(book){
+    var meta = bookMeta(book);
+    if(meta && meta.units && meta.units.length){ return meta.units; }
+    return (bookData(book).units || []).map(function(unit){
+      return {name:unit.name, words:unit.n || (unit.words || []).length, groups:unitGroups(unit, 1).length};
+    });
+  }
+  function bookTotalWords(book){
+    var meta = bookMeta(book);
+    if(meta && typeof meta.totalWords === "number"){ return meta.totalWords; }
+    return (bookData(book).units || []).reduce(function(sum, unit){ return sum + (unit.n || 0); }, 0);
   }
   function renderStageMap(phone){
-    loadAllBooks().then(function(){ renderStageMapInner(phone); });
+    loadBook(arenaBook()).then(function(){ renderStageMapInner(phone); });
   }
   function renderStageMapInner(phone){
     loadBook(arenaBook(), function(){ renderArena(phone); });
   }
   function renderReport(phone){
-    loadAllBooks().then(function(){ renderReportInner(phone); });
+    renderReportInner(phone);
   }
   // 颜色转 rgba（十六进制 → 带透明度）
   function hexA(hex, a){
@@ -3501,7 +3602,7 @@ body{
     box.appendChild(cv);
     return ctx;
   }
-  // 蛛网图：六册掌握度（每轴 = 该册已掌握占比）
+  // 蛛网图：每个学段的单词掌握度
   function drawRadarChart(box, rows){
     if(!box || !rows || !rows.length){ return; }
     var W = Math.max(280, Math.min(700, box.clientWidth || 320)), H = 300;
@@ -3616,14 +3717,16 @@ body{
     tickDay();
     var learned = PROG.stats.learned || 0;
     var rate = PROG.stats.answers ? Math.round(PROG.stats.correct / PROG.stats.answers * 100) : 0;
-    var rows = BOOK_LIST.map(function(b){
-      var bd = bookData(b);
-      var total = bd.units.reduce(function(a,u){ return a+u.n; },0);
-      var lw = 0;
-      var wb = PROG.words[b] || {};
-      for(var u in wb){ lw += Object.keys(wb[u]).length; }
+    var rows = CATALOG.stages.map(function(stage){
+      var books = stageBooks(stage.id);
+      var total = 0, lw = 0;
+      books.forEach(function(b){
+        total += bookTotalWords(b);
+        var wb = PROG.words[b] || {};
+        for(var u in wb){ lw += Object.keys(wb[u]).length; }
+      });
       var pct = total ? Math.round(lw/total*100) : 0;
-      return {book:b, total:total, lw:lw, pct:pct};
+      return {book:stage.name, total:total, lw:lw, pct:pct, books:books.length};
     });
     var wrongAll = [];
     for(var bk in PROG.wrong){
@@ -3631,6 +3734,7 @@ body{
       for(var en in w){ wrongAll.push({en:en, c:w[en], book:bk}); }
     }
     var totalWords = rows.reduce(function(a,r){ return a + r.total; }, 0);
+    var totalBooks = rows.reduce(function(a,r){ return a + r.books; }, 0);
     el.innerHTML =
       '<div class="vpre-report-head"><b>学习报告</b><span class="vpre-report-actions"><button class="vpre-report-share" type="button">📸 晒一晒</button><button class="vpre-report-print" type="button">🖨 打印</button><button class="vpre-report-back" type="button">← 返回</button></span></div>'
       + '<div class="vpre-stats vpre-report-stats">'
@@ -3639,11 +3743,11 @@ body{
       + '<div><b>'+PROG.stats.streak+'</b><span>连续天数</span></div>'
       + '<div><b>'+wrongAll.length+'</b><span>错词待复习</span></div>'
       + '</div>'
-      + '<div class="vpre-sec-title">六册掌握度 <span>共 6 册 '+totalWords+' 词</span></div>'
+      + '<div class="vpre-sec-title">三学段掌握度 <span>共 '+totalBooks+' 册 '+totalWords+' 词</span></div>'
       + '<div class="vpre-chart" data-chart="radar"></div>'
       + '<div class="vpre-sec-title">近 7 天练习 <span>每天练习的词数</span></div>'
       + '<div class="vpre-chart" data-chart="trend"></div>';
-    // 画图（雷达图=六册掌握度；折线图=近 7 天练习量）
+    // 画图（雷达图=三学段掌握度；折线图=近 7 天练习量）
     drawRadarChart(q('[data-chart="radar"]', el), rows);
     drawTrendChart(q('[data-chart="trend"]', el));
   }
@@ -3933,7 +4037,7 @@ body{
       // 报告里的两张图表（雷达图 / 折线图）直接贴到导出图上
       var pageCharts = qa(".vpre-chart canvas", el);
       pageCharts.forEach(function(cv, ci){
-        secTitle(ci === 0 ? "六册掌握度" : "近 7 天练习");
+        secTitle(ci === 0 ? "三学段掌握度" : "近 7 天练习");
         var cw = RIGHT - X;
         var ch = Math.round(cvh(cv) * cw / cv.width);
         ctx.drawImage(cv, X, y, cw, ch);
@@ -3983,8 +4087,8 @@ body{
     // 已通关的单元：4 个小游戏的每一关都拿到 3★
     var n = 0;
     BOOK_LIST.forEach(function(b){
-      bookData(b).units.forEach(function(u){
-        var groups = unitGroups(u, groupSeed(b, u.name));
+      bookUnitSummaries(b).forEach(function(u){
+        var groups = new Array(u.groups || 0);
         var rec = ((PROG.arena || {})[b] || {})[u.name] || {};
         var ok = groups.length > 0;
         ARENA_GAMES.forEach(function(g){
@@ -4038,7 +4142,9 @@ body{
   function mineGoBook(phone, book){
     if(!book){ return; }
     var st = state[phone.__id];
+    var meta = bookMeta(book);
     st.book = book;
+    if(meta){ st.stage = meta.stageId; st.grade = meta.groupId; }
     st.unit = 0;
     loadBook(book).then(function(){
       var bd = bookData(book);
@@ -4065,36 +4171,34 @@ body{
   function renderMine(phone){
     tickDay();
     renderMineInner(phone);
-    // 六册进度需要各册词库；没加载完就先显示已有的，加载完再刷新一次
-    if(!allBooksLoaded()){ loadAllBooks().then(function(){ renderMineInner(phone); }); }
   }
-  // 「我的」= 6 册整体口径
+  // 「我的」= 三学段、全部册整体口径
   function renderMineInner(phone){
     var s = state[phone.__id];
 
-    // ① 六册合计：已掌握 / 总词数
+    // ① 全部词库：已掌握 / 总词数
     var learnedAll = 0, totalAll = 0, unitsAll = 0, starMax = 0, bookRows = [];
     var arena = PROG.arena || {};
     BOOK_LIST.forEach(function(b){
-      var bd = bookData(b);
-      var total = bd.units.reduce(function(a, x){ return a + (x.n || 0); }, 0);
+      var summaries = bookUnitSummaries(b);
+      var total = bookTotalWords(b);
       var w = PROG.words[b] || {}, lw = 0;
       for(var un in w){ lw += Object.keys(w[un]).length; }
       var rec = arena[b] || {};
       var doneUnits = 0;
-      bd.units.forEach(function(u){
-        var groups = unitGroups(u, groupSeed(b, u.name));
+      summaries.forEach(function(u){
+        var groupCount = u.groups || 0;
         unitsAll += 1;
-        starMax += groups.length * ARENA_GAMES.length * 3;
-        var allDone = groups.length > 0;
+        starMax += groupCount * ARENA_GAMES.length * 3;
+        var allDone = groupCount > 0;
         ARENA_GAMES.forEach(function(g){
           var lv = ((rec[u.name] || {})[g[0]] || {}).levels || {};
-          for(var k=0;k<groups.length;k++){ if(((lv[k] || {}).stars || 0) < 3){ allDone = false; } }
+          for(var k=0;k<groupCount;k++){ if(((lv[k] || {}).stars || 0) < 3){ allDone = false; } }
         });
         if(allDone){ doneUnits += 1; }
       });
       learnedAll += lw; totalAll += total;
-      bookRows.push({book:b, learned:lw, total:total, pct: total ? Math.round(lw/total*100) : 0, done: doneUnits, units: bd.units.length});
+      bookRows.push({book:b, learned:lw, total:total, pct: total ? Math.round(lw/total*100) : 0, done: doneUnits, units: summaries.length});
     });
     var learnedPct = totalAll ? Math.round(learnedAll / totalAll * 100) : 0;
     var el = q(".vpre-mine-learned", phone); if(el){ el.textContent = learnedAll; }
@@ -4109,7 +4213,7 @@ body{
         : ("点这里继续：" + unitLabel(phone) + " · 第 " + (nt.gi + 1) + " 组 · " + (modeLabel(nt.mode) || "看词选义"));
     }
 
-    // ② 六册闯关星星
+    // ② 全部词库闯关星星
     var starGot = 0;
     BOOK_LIST.forEach(function(b){
       var rec = arena[b] || {};
@@ -4144,7 +4248,7 @@ body{
         : ("本单元 4 个小游戏已满星 🏆 · 已通关 " + clearedAll + "/" + unitsAll + " 个单元");
     }
 
-    // ③ 六册错词
+    // ③ 全部词库错词
     var wrongAll = 0;
     for(var bk in PROG.wrong){ wrongAll += Object.keys(PROG.wrong[bk] || {}).length; }
     var rate = PROG.stats.answers ? Math.round(PROG.stats.correct / PROG.stats.answers * 100) : 0;
@@ -4156,7 +4260,7 @@ body{
 
     // ④ 身份信息
     var prof = q(".vpre-mine-profile", phone);
-    if(prof){ prof.textContent = GRADE_NAME[s.grade] + (STUDENT ? (" · " + maskSid(STUDENT.sid)) : ""); }
+    if(prof){ prof.textContent = (groupMeta(s.grade) ? groupMeta(s.grade).name : GRADE_NAME[s.grade]) + (STUDENT ? (" · " + maskSid(STUDENT.sid)) : ""); }
     var sub = q(".vpre-mine-sub", phone);
     if(sub){ sub.textContent = "🔥 连续打卡 " + (PROG.stats.streak || 1) + " 天 · 累计答题 " + (PROG.stats.answers || 0) + " 题"; }
     var nmShow = q(".vpre-mine-name", phone);
@@ -4164,17 +4268,17 @@ body{
     var avShow = q(".vpre-mine-avatar", phone);
     if(avShow){ avShow.textContent = STUDENT && STUDENT.name ? STUDENT.name.charAt(0) : "同"; }
 
-    // ⑤ 六册进度（点一册切到该册）
+    // ⑤ 词库进度（点一册切到该册）
     var bookBox = q(".vpre-mine-books", phone);
     if(bookBox){
       bookBox.innerHTML = bookRows.map(function(r){
         var done = r.total > 0 && r.learned >= r.total;
         return '<button class="vpre-bk' + (r.book === s.book ? ' is-cur' : '') + (done ? ' is-done' : '') + '" type="button" data-mine-book="' + r.book + '">'
-          + '<span class="vpre-bk-top"><b>' + r.book + '</b><span class="vpre-bk-right"><i>' + r.pct + '%</i><em>›</em></span></span>'
+      + '<span class="vpre-bk-top"><b>' + bookTitle(r.book) + '</b><span class="vpre-bk-right"><i>' + r.pct + '%</i><em>›</em></span></span>'
           + '<span class="vpre-bk-num">已掌握 ' + r.learned + ' / ' + r.total + ' 词</span>'
           + '<span class="vpre-bk-bar"><i style="width:' + r.pct + '%"></i></span></button>';
       }).join("");
-      // 六册块：每次重新渲染后直接绑定（双保险）
+      // 词库块：每次重新渲染后直接绑定（双保险）
       qa("[data-mine-book]", bookBox).forEach(function(b){
         b.addEventListener("click", function(ev){
           ev.stopPropagation();
@@ -4245,7 +4349,7 @@ body{
       +   '<span class="vpre-scope-count"><b>' + entries.length + '</b> 个待复习</span>'
       + '</div>'
       + '<div class="vpre-scope-sub">'
-      +   '<span class="vpre-scope-book">📕 ' + state[phone.__id].book + ' · ' + selName + '</span>'
+      +   '<span class="vpre-scope-book">📕 ' + bookTitle(state[phone.__id].book) + ' · ' + selName + '</span>'
       +   '<span class="vpre-scope-rate">掌握率 <b>' + rate + '%</b></span>'
       + '</div>'
       + '<div class="vpre-scope-bar"><div style="width:' + rate + '%"></div></div>'
@@ -4314,32 +4418,108 @@ body{
     var id = phone.__id;
     var nav = PROG.nav || {};
     var book = String(nav.book || "");
-    if(BOOK_LIST.indexOf(book) < 0){ book = "九上"; }
+    if(BOOK_LIST.indexOf(book) < 0){
+      var preferredGroup = GROUP_META[nav.grade] ? GROUP_META[nav.grade] : null;
+      var preferredStage = STAGE_META[nav.stage] ? STAGE_META[nav.stage] : null;
+      var group = preferredGroup || (preferredStage && preferredStage.groups && preferredStage.groups[0]) || (STAGE_META.junior.groups[0]);
+      var first = group && group.books && group.books[0];
+      book = first ? first.id : "九上";
+    }
     var unit = parseInt(nav.unit, 10);
     if(!isFinite(unit) || unit < 0){ unit = 0; }
-    state[id] = {grade:gradeOfBook(book), book:book, unit:unit};
+    var meta = bookMeta(book);
+    state[id] = {
+      stage:meta ? meta.stageId : "junior",
+      grade:meta ? meta.groupId : gradeOfBook(book),
+      book:book,
+      unit:unit
+    };
   }
   function saveStudyPosition(phone){
     var s = state[phone.__id];
     if(!s){ return; }
-    PROG.nav = {grade:s.grade, book:s.book, unit:s.unit};
+    PROG.nav = {stage:s.stage, grade:s.grade, book:s.book, unit:s.unit};
     saveProgress();
+  }
+  function applyBookTheme(phone){
+    var s = state[phone.__id];
+    var meta = bookMeta(s.book);
+    if(!meta){ return; }
+    phone.style.setProperty("--vp-blue", meta.color || "#4b63e6");
+    phone.style.setProperty("--vp-blue-soft", meta.softColor || "#eef1fb");
+    phone.setAttribute("data-book", s.book);
+  }
+  function renderCatalogControls(phone){
+    var s = state[phone.__id];
+    var stageBox = q("[data-stage-seg]", phone);
+    if(stageBox){
+      stageBox.innerHTML = (CATALOG ? CATALOG.stages : []).map(function(stage){
+        return '<button class="vpre-chip' + (stage.id === s.stage ? ' is-active' : '') +
+          '" type="button" data-stage-id="' + stage.id + '" aria-pressed="' +
+          (stage.id === s.stage ? 'true' : 'false') + '">' + stage.name + '</button>';
+      }).join("");
+    }
+    var gradeBox = q("[data-grade-seg]", phone);
+    if(gradeBox){
+      gradeBox.innerHTML = stageGroups(s.stage).map(function(group){
+        return '<button class="vpre-chip' + (group.id === s.grade ? ' is-active' : '') +
+          '" type="button" data-group-id="' + group.id + '" aria-pressed="' +
+          (group.id === s.grade ? 'true' : 'false') + '">' + group.name + '</button>';
+      }).join("");
+    }
+  }
+  function selectStage(phone, stageId){
+    var groups = stageGroups(stageId);
+    if(!groups.length){ return; }
+    var firstGroup = groups[0];
+    var firstBook = firstGroup.books && firstGroup.books[0] ? firstGroup.books[0].id : "";
+    if(!firstBook){ return; }
+    state[phone.__id].stage = stageId;
+    state[phone.__id].grade = firstGroup.id;
+    state[phone.__id].book = firstBook;
+    state[phone.__id].unit = 0;
+    saveStudyPosition(phone);
+    renderCatalogControls(phone);
+    loadBook(firstBook).then(function(){ renderUnits(phone); });
+  }
+  function selectGroup(phone, groupId){
+    var group = GROUP_META[groupId];
+    if(!group){ return; }
+    var first = GRADE_BOOKS[groupId] && GRADE_BOOKS[groupId][0];
+    if(!first){ return; }
+    state[phone.__id].stage = group.stageId;
+    state[phone.__id].grade = groupId;
+    state[phone.__id].book = first;
+    state[phone.__id].unit = 0;
+    saveStudyPosition(phone);
+    renderCatalogControls(phone);
+    loadBook(first).then(function(){ renderUnits(phone); });
   }
   function initPhone(phone){
     var id = "p" + qa(".vpre-phone").indexOf(phone);
     phone.__id = id;
     restoreStudyPosition(phone);
-    qa(".vpre-chip[data-grade]", phone).forEach(function(b){
-      b.addEventListener("click", function(){
-        qa(".vpre-chip[data-grade]", phone).forEach(function(x){ x.classList.remove("is-active"); x.setAttribute("aria-pressed","false"); });
-        b.classList.add("is-active"); b.setAttribute("aria-pressed","true");
-        state[id].grade = b.getAttribute("data-grade");
-        state[id].book = GRADE_BOOKS[state[id].grade][0];
-        state[id].unit = 0;
-        saveStudyPosition(phone);
-        loadBook(state[id].book).then(function(){ renderUnits(phone); });
+    renderCatalogControls(phone);
+    var stageBox = q("[data-stage-seg]", phone);
+    if(stageBox){
+      stageBox.addEventListener("click", function(ev){
+        var b = ev.target.closest("[data-stage-id]");
+        if(!b){ return; }
+        ev.stopPropagation();
+        sfx.play("tap");
+        selectStage(phone, b.getAttribute("data-stage-id"));
       });
-    });
+    }
+    var gradeBox = q("[data-grade-seg]", phone);
+    if(gradeBox){
+      gradeBox.addEventListener("click", function(ev){
+        var b = ev.target.closest("[data-group-id]");
+        if(!b){ return; }
+        ev.stopPropagation();
+        sfx.play("tap");
+        selectGroup(phone, b.getAttribute("data-group-id"));
+      });
+    }
     qa(".vpre-tab", phone).forEach(function(b){
       b.addEventListener("click", function(){
         sfx.play("tap");
@@ -4499,7 +4679,6 @@ body{
     });
     renderUnits(phone);
   }
-  qa(".vpre-phone").forEach(initPhone);
   bindLogin();
   if(STUDENT){ hideLogin(); }
   flushQueue();
@@ -4516,9 +4695,12 @@ body{
   document.addEventListener("visibilitychange", function(){ if(document.visibilityState === "visible"){ flushAllQueues(); } });
   setInterval(function(){ try{ if(pendingCount() > 0){ flushAllQueues(); } }catch(e){} }, 60000);
   if(STUDENT){ hideLogin(); } else { showLogin(); }
-  loadBook(currentBookName(), function(){
-    if(initDemo()){ return; }
-    refreshStudents();
+  loadCatalog().then(function(){
+    qa(".vpre-phone").forEach(initPhone);
+    loadBook(currentBookName(), function(){
+      if(initDemo()){ return; }
+      refreshStudents();
+    });
   });
   function demoMode(){
     var m = /[?&]demo=([a-z-]+)/i.exec(location.search);
@@ -4544,7 +4726,7 @@ body{
     hideLogin();
     var phone = qa(".vpre-phone")[0];
     if(!phone) return true;
-    loadAllBooks().then(function(){
+    loadBook(currentBookName()).then(function(){
       refreshStudents();
       if(mode === "login"){ showLogin(); return; }
       if(mode === "unit"){ renderUnitDetail(phone); setView(phone, "unit"); return; }

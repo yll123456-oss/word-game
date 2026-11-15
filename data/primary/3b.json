@@ -1,0 +1,1728 @@
+{
+  "bookId": "primary_3b",
+  "title": "三年级下册",
+  "stage": "primary",
+  "section": "三年级",
+  "sourceFile": "小学英语词汇总表（三上-六下·八册全）.xlsx",
+  "units": [
+    {
+      "name": "Unit 1",
+      "words": [
+        [
+          "in",
+          "在……内；在……中",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0001",
+            "aliases": [
+              "in"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "in",
+            "sourceRef": "三年级下册!4"
+          }
+        ],
+        [
+          "on",
+          "（覆盖、附着）在……上",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0002",
+            "aliases": [
+              "on"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "on",
+            "sourceRef": "三年级下册!5"
+          }
+        ],
+        [
+          "under",
+          "在（或到、通过）……下面",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0003",
+            "aliases": [
+              "under"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "under",
+            "sourceRef": "三年级下册!6"
+          }
+        ],
+        [
+          "box",
+          "盒；箱",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0004",
+            "aliases": [
+              "box"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "box",
+            "sourceRef": "三年级下册!7"
+          }
+        ],
+        [
+          "chair",
+          "椅子",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0005",
+            "aliases": [
+              "chair"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "chair",
+            "sourceRef": "三年级下册!8"
+          }
+        ],
+        [
+          "computer",
+          "计算机；电脑",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0006",
+            "aliases": [
+              "computer"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "computer",
+            "sourceRef": "三年级下册!9"
+          }
+        ],
+        [
+          "desk",
+          "书桌",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0007",
+            "aliases": [
+              "desk"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "desk",
+            "sourceRef": "三年级下册!10"
+          }
+        ],
+        [
+          "blackboard",
+          "黑板",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0008",
+            "aliases": [
+              "blackboard"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "blackboard",
+            "sourceRef": "三年级下册!11"
+          }
+        ],
+        [
+          "classroom",
+          "教室；课堂",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0009",
+            "aliases": [
+              "classroom"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "classroom",
+            "sourceRef": "三年级下册!12"
+          }
+        ],
+        [
+          "door",
+          "门",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0010",
+            "aliases": [
+              "door"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "door",
+            "sourceRef": "三年级下册!13"
+          }
+        ],
+        [
+          "floor",
+          "地板；地面",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0011",
+            "aliases": [
+              "floor"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "floor",
+            "sourceRef": "三年级下册!14"
+          }
+        ],
+        [
+          "wall",
+          "墙；壁；墙壁",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0012",
+            "aliases": [
+              "wall"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "wall",
+            "sourceRef": "三年级下册!15"
+          }
+        ],
+        [
+          "window",
+          "窗；窗户",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0013",
+            "aliases": [
+              "window"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "window",
+            "sourceRef": "三年级下册!16"
+          }
+        ],
+        [
+          "guess",
+          "猜测",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0014",
+            "aliases": [
+              "guess"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "guess",
+            "sourceRef": "三年级下册!17"
+          }
+        ],
+        [
+          "many",
+          "许多",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0015",
+            "aliases": [
+              "many"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "many",
+            "sourceRef": "三年级下册!18"
+          }
+        ],
+        [
+          "book",
+          "书；书籍",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0016",
+            "aliases": [
+              "book"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "book",
+            "sourceRef": "三年级下册!19"
+          }
+        ],
+        [
+          "love",
+          "爱；热爱",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0017",
+            "aliases": [
+              "love"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "love",
+            "sourceRef": "三年级下册!20"
+          }
+        ],
+        [
+          "dirty",
+          "脏的",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0018",
+            "aliases": [
+              "dirty"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "dirty",
+            "sourceRef": "三年级下册!21"
+          }
+        ],
+        [
+          "clean",
+          "打扫",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0019",
+            "aliases": [
+              "clean"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "clean",
+            "sourceRef": "三年级下册!22"
+          }
+        ],
+        [
+          "help",
+          "帮助",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0020",
+            "aliases": [
+              "help"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "help",
+            "sourceRef": "三年级下册!23"
+          }
+        ],
+        [
+          "great",
+          "优秀的；杰出的",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0021",
+            "aliases": [
+              "great"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "great",
+            "sourceRef": "三年级下册!24"
+          }
+        ],
+        [
+          "today",
+          "今天",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0022",
+            "aliases": [
+              "today"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "today",
+            "sourceRef": "三年级下册!25"
+          }
+        ],
+        [
+          "turn",
+          "（依次轮到的）机会",
+          {
+            "wordId": "primary_3b:primary_3b_u1:0023",
+            "aliases": [
+              "turn"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "turn",
+            "sourceRef": "三年级下册!26"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 2",
+      "words": [
+        [
+          "one",
+          "一",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0001",
+            "aliases": [
+              "one"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "one",
+            "sourceRef": "三年级下册!30"
+          }
+        ],
+        [
+          "two",
+          "二",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0002",
+            "aliases": [
+              "two"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "two",
+            "sourceRef": "三年级下册!31"
+          }
+        ],
+        [
+          "three",
+          "三",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0003",
+            "aliases": [
+              "three"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "three",
+            "sourceRef": "三年级下册!32"
+          }
+        ],
+        [
+          "four",
+          "四",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0004",
+            "aliases": [
+              "four"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "four",
+            "sourceRef": "三年级下册!33"
+          }
+        ],
+        [
+          "five",
+          "五",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0005",
+            "aliases": [
+              "five"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "five",
+            "sourceRef": "三年级下册!34"
+          }
+        ],
+        [
+          "six",
+          "六",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0006",
+            "aliases": [
+              "six"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "six",
+            "sourceRef": "三年级下册!35"
+          }
+        ],
+        [
+          "seven",
+          "七",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0007",
+            "aliases": [
+              "seven"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "seven",
+            "sourceRef": "三年级下册!36"
+          }
+        ],
+        [
+          "eight",
+          "八",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0008",
+            "aliases": [
+              "eight"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "eight",
+            "sourceRef": "三年级下册!37"
+          }
+        ],
+        [
+          "nine",
+          "九",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0009",
+            "aliases": [
+              "nine"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "nine",
+            "sourceRef": "三年级下册!38"
+          }
+        ],
+        [
+          "ten",
+          "十",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0010",
+            "aliases": [
+              "ten"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "ten",
+            "sourceRef": "三年级下册!39"
+          }
+        ],
+        [
+          "eleven",
+          "十一",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0011",
+            "aliases": [
+              "eleven"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "eleven",
+            "sourceRef": "三年级下册!40"
+          }
+        ],
+        [
+          "twelve",
+          "十二",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0012",
+            "aliases": [
+              "twelve"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "twelve",
+            "sourceRef": "三年级下册!41"
+          }
+        ],
+        [
+          "class",
+          "班；班级",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0013",
+            "aliases": [
+              "class"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "class",
+            "sourceRef": "三年级下册!42"
+          }
+        ],
+        [
+          "which",
+          "哪一个",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0014",
+            "aliases": [
+              "which"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "which",
+            "sourceRef": "三年级下册!43"
+          }
+        ],
+        [
+          "grade",
+          "年级",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0015",
+            "aliases": [
+              "grade"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "grade",
+            "sourceRef": "三年级下册!44"
+          }
+        ],
+        [
+          "student",
+          "学生",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0016",
+            "aliases": [
+              "student"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "student",
+            "sourceRef": "三年级下册!45"
+          }
+        ],
+        [
+          "school",
+          "（中、小）学校",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0017",
+            "aliases": [
+              "school"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "school",
+            "sourceRef": "三年级下册!46"
+          }
+        ],
+        [
+          "Well done!",
+          "做得好！",
+          {
+            "wordId": "primary_3b:primary_3b_u2:0018",
+            "aliases": [
+              "Well done!"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Well done!",
+            "sourceRef": "三年级下册!47"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 3",
+      "words": [
+        [
+          "father (dad)",
+          "爸爸",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0001",
+            "aliases": [
+              "father (dad)",
+              "father",
+              "dad"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "father (dad)",
+            "sourceRef": "三年级下册!51"
+          }
+        ],
+        [
+          "mother (mum)",
+          "妈妈",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0002",
+            "aliases": [
+              "mother (mum)",
+              "mother",
+              "mum"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "mother (mum)",
+            "sourceRef": "三年级下册!52"
+          }
+        ],
+        [
+          "baby",
+          "婴儿",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0003",
+            "aliases": [
+              "baby"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "baby",
+            "sourceRef": "三年级下册!53"
+          }
+        ],
+        [
+          "brother",
+          "哥哥；弟弟",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0004",
+            "aliases": [
+              "brother"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "brother",
+            "sourceRef": "三年级下册!54"
+          }
+        ],
+        [
+          "baby brother",
+          "弟弟",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0005",
+            "aliases": [
+              "baby brother"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "baby brother",
+            "sourceRef": "三年级下册!55"
+          }
+        ],
+        [
+          "sister",
+          "姐姐；妹妹",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0006",
+            "aliases": [
+              "sister"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sister",
+            "sourceRef": "三年级下册!56"
+          }
+        ],
+        [
+          "me",
+          "我",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0007",
+            "aliases": [
+              "me"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "me",
+            "sourceRef": "三年级下册!57"
+          }
+        ],
+        [
+          "aunt",
+          "姑母；姨母；伯母；婶母；舅母",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0008",
+            "aliases": [
+              "aunt"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "aunt",
+            "sourceRef": "三年级下册!58"
+          }
+        ],
+        [
+          "uncle",
+          "舅父；叔父；伯父；姑父；姨父",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0009",
+            "aliases": [
+              "uncle"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "uncle",
+            "sourceRef": "三年级下册!59"
+          }
+        ],
+        [
+          "grandfather (grandpa)",
+          "爷爷；外公",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0010",
+            "aliases": [
+              "grandfather (grandpa)",
+              "grandfather",
+              "grandpa"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "grandfather (grandpa)",
+            "sourceRef": "三年级下册!60"
+          }
+        ],
+        [
+          "grandmother (grandma)",
+          "奶奶；外婆",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0011",
+            "aliases": [
+              "grandmother (grandma)",
+              "grandmother",
+              "grandma"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "grandmother (grandma)",
+            "sourceRef": "三年级下册!61"
+          }
+        ],
+        [
+          "family",
+          "家，家庭",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0012",
+            "aliases": [
+              "family"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "family",
+            "sourceRef": "三年级下册!62"
+          }
+        ],
+        [
+          "son",
+          "儿子",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0013",
+            "aliases": [
+              "son"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "son",
+            "sourceRef": "三年级下册!63"
+          }
+        ],
+        [
+          "meet",
+          "相遇；遇见",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0014",
+            "aliases": [
+              "meet"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "meet",
+            "sourceRef": "三年级下册!64"
+          }
+        ],
+        [
+          "that",
+          "（指较远的人或事物）那，那个",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0015",
+            "aliases": [
+              "that"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "that",
+            "sourceRef": "三年级下册!65"
+          }
+        ],
+        [
+          "daughter",
+          "女儿",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0016",
+            "aliases": [
+              "daughter"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "daughter",
+            "sourceRef": "三年级下册!66"
+          }
+        ],
+        [
+          "who",
+          "谁",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0017",
+            "aliases": [
+              "who"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "who",
+            "sourceRef": "三年级下册!67"
+          }
+        ],
+        [
+          "beautiful",
+          "美丽的",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0018",
+            "aliases": [
+              "beautiful"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "beautiful",
+            "sourceRef": "三年级下册!68"
+          }
+        ],
+        [
+          "very much",
+          "非常",
+          {
+            "wordId": "primary_3b:primary_3b_u3:0019",
+            "aliases": [
+              "very much"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "very much",
+            "sourceRef": "三年级下册!69"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 4",
+      "words": [
+        [
+          "cap",
+          "（尤指男用有帽舌的）便帽，制服帽",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0001",
+            "aliases": [
+              "cap"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "cap",
+            "sourceRef": "三年级下册!73"
+          }
+        ],
+        [
+          "coat",
+          "外套；外衣；大衣",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0002",
+            "aliases": [
+              "coat"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "coat",
+            "sourceRef": "三年级下册!74"
+          }
+        ],
+        [
+          "shirt",
+          "（尤指男式的）衬衫",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0003",
+            "aliases": [
+              "shirt"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "shirt",
+            "sourceRef": "三年级下册!75"
+          }
+        ],
+        [
+          "sweater",
+          "套头衫；套头毛衣",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0004",
+            "aliases": [
+              "sweater"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sweater",
+            "sourceRef": "三年级下册!76"
+          }
+        ],
+        [
+          "T-shirt",
+          "T恤衫",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0005",
+            "aliases": [
+              "T-shirt"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "T-shirt",
+            "sourceRef": "三年级下册!77"
+          }
+        ],
+        [
+          "dress",
+          "连衣裙",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0006",
+            "aliases": [
+              "dress"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "dress",
+            "sourceRef": "三年级下册!78"
+          }
+        ],
+        [
+          "shorts",
+          "短裤",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0007",
+            "aliases": [
+              "shorts"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "shorts",
+            "sourceRef": "三年级下册!79"
+          }
+        ],
+        [
+          "skirt",
+          "女裙",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0008",
+            "aliases": [
+              "skirt"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "skirt",
+            "sourceRef": "三年级下册!80"
+          }
+        ],
+        [
+          "sock",
+          "短袜",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0009",
+            "aliases": [
+              "sock"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sock",
+            "sourceRef": "三年级下册!81"
+          }
+        ],
+        [
+          "trousers",
+          "裤子",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0010",
+            "aliases": [
+              "trousers"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "trousers",
+            "sourceRef": "三年级下册!82"
+          }
+        ],
+        [
+          "clothes",
+          "衣服；服装",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0011",
+            "aliases": [
+              "clothes"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "clothes",
+            "sourceRef": "三年级下册!83"
+          }
+        ],
+        [
+          "take",
+          "携带；拿走；取走",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0012",
+            "aliases": [
+              "take"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "take",
+            "sourceRef": "三年级下册!84"
+          }
+        ],
+        [
+          "wash",
+          "洗",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0013",
+            "aliases": [
+              "wash"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "wash",
+            "sourceRef": "三年级下册!85"
+          }
+        ],
+        [
+          "by myself",
+          "（我）独立地",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0014",
+            "aliases": [
+              "by myself"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "by myself",
+            "sourceRef": "三年级下册!86"
+          }
+        ],
+        [
+          "shoe",
+          "鞋",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0015",
+            "aliases": [
+              "shoe"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "shoe",
+            "sourceRef": "三年级下册!87"
+          }
+        ],
+        [
+          "by hand",
+          "用手",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0016",
+            "aliases": [
+              "by hand"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "by hand",
+            "sourceRef": "三年级下册!88"
+          }
+        ],
+        [
+          "helpful",
+          "有用的；有帮助的",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0017",
+            "aliases": [
+              "helpful"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "helpful",
+            "sourceRef": "三年级下册!89"
+          }
+        ],
+        [
+          "home",
+          "家；住所",
+          {
+            "wordId": "primary_3b:primary_3b_u4:0018",
+            "aliases": [
+              "home"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "home",
+            "sourceRef": "三年级下册!90"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 5",
+      "words": [
+        [
+          "chicken",
+          "鸡",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0001",
+            "aliases": [
+              "chicken"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "chicken",
+            "sourceRef": "三年级下册!94"
+          }
+        ],
+        [
+          "cow",
+          "母牛；奶牛",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0002",
+            "aliases": [
+              "cow"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "cow",
+            "sourceRef": "三年级下册!95"
+          }
+        ],
+        [
+          "duck",
+          "鸭",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0003",
+            "aliases": [
+              "duck"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "duck",
+            "sourceRef": "三年级下册!96"
+          }
+        ],
+        [
+          "horse",
+          "马",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0004",
+            "aliases": [
+              "horse"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "horse",
+            "sourceRef": "三年级下册!97"
+          }
+        ],
+        [
+          "sheep",
+          "绵羊",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0005",
+            "aliases": [
+              "sheep"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sheep",
+            "sourceRef": "三年级下册!98"
+          }
+        ],
+        [
+          "bee",
+          "蜜蜂",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0006",
+            "aliases": [
+              "bee"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "bee",
+            "sourceRef": "三年级下册!99"
+          }
+        ],
+        [
+          "bird",
+          "鸟",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0007",
+            "aliases": [
+              "bird"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "bird",
+            "sourceRef": "三年级下册!100"
+          }
+        ],
+        [
+          "fish",
+          "鱼",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0008",
+            "aliases": [
+              "fish"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "fish",
+            "sourceRef": "三年级下册!101"
+          }
+        ],
+        [
+          "mouse",
+          "老鼠",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0009",
+            "aliases": [
+              "mouse"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "mouse",
+            "sourceRef": "三年级下册!102"
+          }
+        ],
+        [
+          "pig",
+          "猪",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0010",
+            "aliases": [
+              "pig"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "pig",
+            "sourceRef": "三年级下册!103"
+          }
+        ],
+        [
+          "rabbit",
+          "兔子",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0011",
+            "aliases": [
+              "rabbit"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "rabbit",
+            "sourceRef": "三年级下册!104"
+          }
+        ],
+        [
+          "animal",
+          "动物",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0012",
+            "aliases": [
+              "animal"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "animal",
+            "sourceRef": "三年级下册!105"
+          }
+        ],
+        [
+          "kid",
+          "小孩",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0013",
+            "aliases": [
+              "kid"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "kid",
+            "sourceRef": "三年级下册!106"
+          }
+        ],
+        [
+          "here",
+          "在这里；向这里",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0014",
+            "aliases": [
+              "here"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "here",
+            "sourceRef": "三年级下册!107"
+          }
+        ],
+        [
+          "right",
+          "正确的",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0015",
+            "aliases": [
+              "right"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "right",
+            "sourceRef": "三年级下册!108"
+          }
+        ],
+        [
+          "where",
+          "哪里",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0016",
+            "aliases": [
+              "where"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "where",
+            "sourceRef": "三年级下册!109"
+          }
+        ],
+        [
+          "tree",
+          "树；树木",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0017",
+            "aliases": [
+              "tree"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "tree",
+            "sourceRef": "三年级下册!110"
+          }
+        ],
+        [
+          "heavy",
+          "重的；沉的",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0018",
+            "aliases": [
+              "heavy"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "heavy",
+            "sourceRef": "三年级下册!111"
+          }
+        ],
+        [
+          "grass",
+          "草",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0019",
+            "aliases": [
+              "grass"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "grass",
+            "sourceRef": "三年级下册!112"
+          }
+        ],
+        [
+          "give",
+          "给；交给",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0020",
+            "aliases": [
+              "give"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "give",
+            "sourceRef": "三年级下册!113"
+          }
+        ],
+        [
+          "us",
+          "我们",
+          {
+            "wordId": "primary_3b:primary_3b_u5:0021",
+            "aliases": [
+              "us"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "us",
+            "sourceRef": "三年级下册!114"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 6",
+      "words": [
+        [
+          "blue",
+          "蓝色的",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0001",
+            "aliases": [
+              "blue"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "blue",
+            "sourceRef": "三年级下册!118"
+          }
+        ],
+        [
+          "brown",
+          "棕色的；褐色的",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0002",
+            "aliases": [
+              "brown"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "brown",
+            "sourceRef": "三年级下册!119"
+          }
+        ],
+        [
+          "green",
+          "绿色的",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0003",
+            "aliases": [
+              "green"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "green",
+            "sourceRef": "三年级下册!120"
+          }
+        ],
+        [
+          "pink",
+          "粉色的",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0004",
+            "aliases": [
+              "pink"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "pink",
+            "sourceRef": "三年级下册!121"
+          }
+        ],
+        [
+          "red",
+          "红色的",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0005",
+            "aliases": [
+              "red"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "red",
+            "sourceRef": "三年级下册!122"
+          }
+        ],
+        [
+          "black",
+          "黑色的",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0006",
+            "aliases": [
+              "black"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "black",
+            "sourceRef": "三年级下册!123"
+          }
+        ],
+        [
+          "orange",
+          "橙色的",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0007",
+            "aliases": [
+              "orange"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "orange",
+            "sourceRef": "三年级下册!124"
+          }
+        ],
+        [
+          "white",
+          "白色的",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0008",
+            "aliases": [
+              "white"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "white",
+            "sourceRef": "三年级下册!125"
+          }
+        ],
+        [
+          "yellow",
+          "黄色的",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0009",
+            "aliases": [
+              "yellow"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "yellow",
+            "sourceRef": "三年级下册!126"
+          }
+        ],
+        [
+          "colour",
+          "（1）颜色（2）（用颜料、彩色笔等）为……着色",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0010",
+            "aliases": [
+              "colour"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "colour",
+            "sourceRef": "三年级下册!127"
+          }
+        ],
+        [
+          "draw",
+          "（用铅笔、钢笔或粉笔）画",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0011",
+            "aliases": [
+              "draw"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "draw",
+            "sourceRef": "三年级下册!128"
+          }
+        ],
+        [
+          "dream",
+          "梦想；理想",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0012",
+            "aliases": [
+              "dream"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "dream",
+            "sourceRef": "三年级下册!129"
+          }
+        ],
+        [
+          "garden",
+          "花园；果园；菜园",
+          {
+            "wordId": "primary_3b:primary_3b_u6:0013",
+            "aliases": [
+              "garden"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "garden",
+            "sourceRef": "三年级下册!130"
+          }
+        ]
+      ]
+    }
+  ],
+  "book": "三年级下册"
+}

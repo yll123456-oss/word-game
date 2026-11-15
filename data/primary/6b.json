@@ -1,0 +1,1303 @@
+{
+  "bookId": "primary_6b",
+  "title": "六年级下册",
+  "stage": "primary",
+  "section": "六年级",
+  "sourceFile": "小学英语词汇总表（三上-六下·八册全）.xlsx",
+  "units": [
+    {
+      "name": "Unit 1",
+      "words": [
+        [
+          "go to the beach",
+          "去沙滩",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0001",
+            "aliases": [
+              "go to the beach"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "go to the beach",
+            "sourceRef": "六年级下册!4"
+          }
+        ],
+        [
+          "enjoy sunbathing",
+          "享受日光浴",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0002",
+            "aliases": [
+              "enjoy sunbathing"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "enjoy sunbathing",
+            "sourceRef": "六年级下册!5"
+          }
+        ],
+        [
+          "enjoy the moon and stars",
+          "看月亮和星星",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0003",
+            "aliases": [
+              "enjoy the moon and stars"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "enjoy the moon and stars",
+            "sourceRef": "六年级下册!6"
+          }
+        ],
+        [
+          "stay at home",
+          "待在家里",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0004",
+            "aliases": [
+              "stay at home"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "stay at home",
+            "sourceRef": "六年级下册!7"
+          }
+        ],
+        [
+          "have a party",
+          "聚会",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0005",
+            "aliases": [
+              "have a party"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "have a party",
+            "sourceRef": "六年级下册!8"
+          }
+        ],
+        [
+          "enjoy Spring Festival",
+          "过春节",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0006",
+            "aliases": [
+              "enjoy Spring Festival"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "enjoy Spring Festival",
+            "sourceRef": "六年级下册!9"
+          }
+        ],
+        [
+          "sun",
+          "太阳",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0007",
+            "aliases": [
+              "sun"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "sun",
+            "sourceRef": "六年级下册!10"
+          }
+        ],
+        [
+          "moon",
+          "月亮",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0008",
+            "aliases": [
+              "moon"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "moon",
+            "sourceRef": "六年级下册!11"
+          }
+        ],
+        [
+          "star",
+          "星星",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0009",
+            "aliases": [
+              "star"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "star",
+            "sourceRef": "六年级下册!12"
+          }
+        ],
+        [
+          "at night",
+          "在晚上",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0010",
+            "aliases": [
+              "at night"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "at night",
+            "sourceRef": "六年级下册!13"
+          }
+        ],
+        [
+          "at home",
+          "在家里",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0011",
+            "aliases": [
+              "at home"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "at home",
+            "sourceRef": "六年级下册!14"
+          }
+        ],
+        [
+          "listen to English",
+          "听英语",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0012",
+            "aliases": [
+              "listen to English"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "listen to English",
+            "sourceRef": "六年级下册!15"
+          }
+        ],
+        [
+          "speak English",
+          "讲英语",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0013",
+            "aliases": [
+              "speak English"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "speak English",
+            "sourceRef": "六年级下册!16"
+          }
+        ],
+        [
+          "read English",
+          "读英语",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0014",
+            "aliases": [
+              "read English"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "read English",
+            "sourceRef": "六年级下册!17"
+          }
+        ],
+        [
+          "write English",
+          "写英语",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0015",
+            "aliases": [
+              "write English"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "write English",
+            "sourceRef": "六年级下册!18"
+          }
+        ],
+        [
+          "talk in English",
+          "用英语交谈",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0016",
+            "aliases": [
+              "talk in English"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "talk in English",
+            "sourceRef": "六年级下册!19"
+          }
+        ],
+        [
+          "play in English",
+          "用英语玩游戏",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0017",
+            "aliases": [
+              "play in English"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "play in English",
+            "sourceRef": "六年级下册!20"
+          }
+        ],
+        [
+          "learn",
+          "学；学习；学到",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0018",
+            "aliases": [
+              "learn"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "learn",
+            "sourceRef": "六年级下册!21"
+          }
+        ],
+        [
+          "a lot of",
+          "很多",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0019",
+            "aliases": [
+              "a lot of"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "a lot of",
+            "sourceRef": "六年级下册!22"
+          }
+        ],
+        [
+          "word",
+          "单词；词",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0020",
+            "aliases": [
+              "word"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "word",
+            "sourceRef": "六年级下册!23"
+          }
+        ],
+        [
+          "blackboard",
+          "黑板",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0021",
+            "aliases": [
+              "blackboard"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "blackboard",
+            "sourceRef": "六年级下册!24"
+          }
+        ],
+        [
+          "say",
+          "说",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0022",
+            "aliases": [
+              "say"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "say",
+            "sourceRef": "六年级下册!25"
+          }
+        ],
+        [
+          "do tasks",
+          "做任务",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0023",
+            "aliases": [
+              "do tasks"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "do tasks",
+            "sourceRef": "六年级下册!26"
+          }
+        ],
+        [
+          "have an English party",
+          "举办英语聚会",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0024",
+            "aliases": [
+              "have an English party"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "have an English party",
+            "sourceRef": "六年级下册!27"
+          }
+        ],
+        [
+          "act in drama",
+          "表演戏剧",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0025",
+            "aliases": [
+              "act in drama"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "act in drama",
+            "sourceRef": "六年级下册!28"
+          }
+        ],
+        [
+          "learn from each other",
+          "互相学习",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0026",
+            "aliases": [
+              "learn from each other"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "learn from each other",
+            "sourceRef": "六年级下册!29"
+          }
+        ],
+        [
+          "subject",
+          "学科",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0027",
+            "aliases": [
+              "subject"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "subject",
+            "sourceRef": "六年级下册!30"
+          }
+        ],
+        [
+          "but",
+          "但是",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0028",
+            "aliases": [
+              "but"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "but",
+            "sourceRef": "六年级下册!31"
+          }
+        ],
+        [
+          "yesterday",
+          "昨天",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0029",
+            "aliases": [
+              "yesterday"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "yesterday",
+            "sourceRef": "六年级下册!32"
+          }
+        ],
+        [
+          "why",
+          "为什么",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0030",
+            "aliases": [
+              "why"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "why",
+            "sourceRef": "六年级下册!33"
+          }
+        ],
+        [
+          "use",
+          "用",
+          {
+            "wordId": "primary_6b:primary_6b_u1:0031",
+            "aliases": [
+              "use"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "use",
+            "sourceRef": "六年级下册!34"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 2",
+      "words": [
+        [
+          "in front of",
+          "在……前面",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0001",
+            "aliases": [
+              "in front of"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "in front of",
+            "sourceRef": "六年级下册!38"
+          }
+        ],
+        [
+          "bookshop",
+          "书店",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0002",
+            "aliases": [
+              "bookshop"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "bookshop",
+            "sourceRef": "六年级下册!39"
+          }
+        ],
+        [
+          "behind",
+          "在……后面",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0003",
+            "aliases": [
+              "behind"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "behind",
+            "sourceRef": "六年级下册!40"
+          }
+        ],
+        [
+          "clothes shop",
+          "服装店",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0004",
+            "aliases": [
+              "clothes shop"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "clothes shop",
+            "sourceRef": "六年级下册!41"
+          }
+        ],
+        [
+          "supermarket",
+          "超市",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0005",
+            "aliases": [
+              "supermarket"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "supermarket",
+            "sourceRef": "六年级下册!42"
+          }
+        ],
+        [
+          "across the road",
+          "在马路对面",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0006",
+            "aliases": [
+              "across the road"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "across the road",
+            "sourceRef": "六年级下册!43"
+          }
+        ],
+        [
+          "river",
+          "河流",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0007",
+            "aliases": [
+              "river"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "river",
+            "sourceRef": "六年级下册!44"
+          }
+        ],
+        [
+          "near",
+          "在……附近",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0008",
+            "aliases": [
+              "near"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "near",
+            "sourceRef": "六年级下册!45"
+          }
+        ],
+        [
+          "beside",
+          "在……旁边",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0009",
+            "aliases": [
+              "beside"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "beside",
+            "sourceRef": "六年级下册!46"
+          }
+        ],
+        [
+          "between",
+          "在……中间",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0010",
+            "aliases": [
+              "between"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "between",
+            "sourceRef": "六年级下册!47"
+          }
+        ],
+        [
+          "healthy (food)",
+          "健康的（食品）",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0011",
+            "aliases": [
+              "healthy (food)",
+              "healthy",
+              "food"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "healthy (food)",
+            "sourceRef": "六年级下册!48"
+          }
+        ],
+        [
+          "vegetable",
+          "蔬菜",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0012",
+            "aliases": [
+              "vegetable"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "vegetable",
+            "sourceRef": "六年级下册!49"
+          }
+        ],
+        [
+          "go down this street",
+          "顺着这条街走",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0013",
+            "aliases": [
+              "go down this street"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "go down this street",
+            "sourceRef": "六年级下册!50"
+          }
+        ],
+        [
+          "turn right at the traffi lights",
+          "交通灯处右转",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0014",
+            "aliases": [
+              "turn right at the traffi lights"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "turn right at the traffi lights",
+            "sourceRef": "六年级下册!51"
+          }
+        ],
+        [
+          "cross the street",
+          "穿过马路",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0015",
+            "aliases": [
+              "cross the street"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "cross the street",
+            "sourceRef": "六年级下册!52"
+          }
+        ],
+        [
+          "street",
+          "大街；街道",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0016",
+            "aliases": [
+              "street"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "street",
+            "sourceRef": "六年级下册!53"
+          }
+        ],
+        [
+          "turn right/left",
+          "右转/左转",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0017",
+            "aliases": [
+              "turn right/left"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "turn right/left",
+            "sourceRef": "六年级下册!54"
+          }
+        ],
+        [
+          "on the right/left",
+          "在右边/左边",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0018",
+            "aliases": [
+              "on the right/left"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "on the right/left",
+            "sourceRef": "六年级下册!55"
+          }
+        ],
+        [
+          "minute",
+          "分钟；一会儿",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0019",
+            "aliases": [
+              "minute"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "minute",
+            "sourceRef": "六年级下册!56"
+          }
+        ],
+        [
+          "City Library",
+          "城市图书馆",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0020",
+            "aliases": [
+              "City Library"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "City Library",
+            "sourceRef": "六年级下册!57"
+          }
+        ],
+        [
+          "post office",
+          "邮局",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0021",
+            "aliases": [
+              "post office"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "post office",
+            "sourceRef": "六年级下册!58"
+          }
+        ],
+        [
+          "by bike/bus",
+          "骑自行车/乘坐公共汽车",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0022",
+            "aliases": [
+              "by bike/bus"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "by bike/bus",
+            "sourceRef": "六年级下册!59"
+          }
+        ],
+        [
+          "by subway",
+          "乘地铁",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0023",
+            "aliases": [
+              "by subway"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "by subway",
+            "sourceRef": "六年级下册!60"
+          }
+        ],
+        [
+          "on foot",
+          "步行",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0024",
+            "aliases": [
+              "on foot"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "on foot",
+            "sourceRef": "六年级下册!61"
+          }
+        ],
+        [
+          "half an hour",
+          "半小时",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0025",
+            "aliases": [
+              "half an hour"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "half an hour",
+            "sourceRef": "六年级下册!62"
+          }
+        ],
+        [
+          "city",
+          "城市",
+          {
+            "wordId": "primary_6b:primary_6b_u2:0026",
+            "aliases": [
+              "city"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "city",
+            "sourceRef": "六年级下册!63"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 3",
+      "words": [
+        [
+          "Shanghai",
+          "上海",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0001",
+            "aliases": [
+              "Shanghai"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Shanghai",
+            "sourceRef": "六年级下册!67"
+          }
+        ],
+        [
+          "Xi’an",
+          "西安",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0002",
+            "aliases": [
+              "Xi’an",
+              "Xi'an"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Xi’an",
+            "sourceRef": "六年级下册!68"
+          }
+        ],
+        [
+          "Wuhan",
+          "武汉",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0003",
+            "aliases": [
+              "Wuhan"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Wuhan",
+            "sourceRef": "六年级下册!69"
+          }
+        ],
+        [
+          "by plane",
+          "乘飞机",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0004",
+            "aliases": [
+              "by plane"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "by plane",
+            "sourceRef": "六年级下册!70"
+          }
+        ],
+        [
+          "by train",
+          "乘火车",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0005",
+            "aliases": [
+              "by train"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "by train",
+            "sourceRef": "六年级下册!71"
+          }
+        ],
+        [
+          "by ship",
+          "乘轮船",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0006",
+            "aliases": [
+              "by ship"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "by ship",
+            "sourceRef": "六年级下册!72"
+          }
+        ],
+        [
+          "travel",
+          "旅行",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0007",
+            "aliases": [
+              "travel"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "travel",
+            "sourceRef": "六年级下册!73"
+          }
+        ],
+        [
+          "know",
+          "知道",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0008",
+            "aliases": [
+              "know"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "know",
+            "sourceRef": "六年级下册!74"
+          }
+        ],
+        [
+          "hear",
+          "听见",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0009",
+            "aliases": [
+              "hear"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "hear",
+            "sourceRef": "六年级下册!75"
+          }
+        ],
+        [
+          "lake",
+          "湖；湖泊",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0010",
+            "aliases": [
+              "lake"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "lake",
+            "sourceRef": "六年级下册!76"
+          }
+        ],
+        [
+          "the Ming Tombs",
+          "明十三陵",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0011",
+            "aliases": [
+              "the Ming Tombs"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "the Ming Tombs",
+            "sourceRef": "六年级下册!77"
+          }
+        ],
+        [
+          "the Temple of Heaven",
+          "天坛",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0012",
+            "aliases": [
+              "the Temple of Heaven"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "the Temple of Heaven",
+            "sourceRef": "六年级下册!78"
+          }
+        ],
+        [
+          "the Summer Palace",
+          "颐和园",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0013",
+            "aliases": [
+              "the Summer Palace"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "the Summer Palace",
+            "sourceRef": "六年级下册!79"
+          }
+        ],
+        [
+          "the Forbidden City",
+          "紫禁城",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0014",
+            "aliases": [
+              "the Forbidden City"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "the Forbidden City",
+            "sourceRef": "六年级下册!80"
+          }
+        ],
+        [
+          "Beihai Park",
+          "北海公园",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0015",
+            "aliases": [
+              "Beihai Park"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Beihai Park",
+            "sourceRef": "六年级下册!81"
+          }
+        ],
+        [
+          "tomorrow",
+          "明天",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0016",
+            "aliases": [
+              "tomorrow"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "tomorrow",
+            "sourceRef": "六年级下册!82"
+          }
+        ],
+        [
+          "visit",
+          "参观",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0017",
+            "aliases": [
+              "visit"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "visit",
+            "sourceRef": "六年级下册!83"
+          }
+        ],
+        [
+          "the Great Wall",
+          "长城",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0018",
+            "aliases": [
+              "the Great Wall"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "the Great Wall",
+            "sourceRef": "六年级下册!84"
+          }
+        ],
+        [
+          "them",
+          "他们；她们；它们（they的宾格）",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0019",
+            "aliases": [
+              "them"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "them",
+            "sourceRef": "六年级下册!85"
+          }
+        ],
+        [
+          "Tower Bridge",
+          "伦敦塔桥",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0020",
+            "aliases": [
+              "Tower Bridge"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Tower Bridge",
+            "sourceRef": "六年级下册!86"
+          }
+        ],
+        [
+          "Big Ben",
+          "大本钟",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0021",
+            "aliases": [
+              "Big Ben"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Big Ben",
+            "sourceRef": "六年级下册!87"
+          }
+        ],
+        [
+          "Niagara Falls",
+          "尼亚加拉瀑布",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0022",
+            "aliases": [
+              "Niagara Falls"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Niagara Falls",
+            "sourceRef": "六年级下册!88"
+          }
+        ],
+        [
+          "CN Tower",
+          "加拿大国家电视塔",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0023",
+            "aliases": [
+              "CN Tower"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "CN Tower",
+            "sourceRef": "六年级下册!89"
+          }
+        ],
+        [
+          "Sydney Opera House",
+          "悉尼歌剧院",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0024",
+            "aliases": [
+              "Sydney Opera House"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Sydney Opera House",
+            "sourceRef": "六年级下册!90"
+          }
+        ],
+        [
+          "Disneyland",
+          "迪士尼乐园",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0025",
+            "aliases": [
+              "Disneyland"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "Disneyland",
+            "sourceRef": "六年级下册!91"
+          }
+        ],
+        [
+          "see",
+          "看见",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0026",
+            "aliases": [
+              "see"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "see",
+            "sourceRef": "六年级下册!92"
+          }
+        ],
+        [
+          "favourite",
+          "最喜欢的",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0027",
+            "aliases": [
+              "favourite"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "favourite",
+            "sourceRef": "六年级下册!93"
+          }
+        ],
+        [
+          "place",
+          "位置；地点",
+          {
+            "wordId": "primary_6b:primary_6b_u3:0028",
+            "aliases": [
+              "place"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "place",
+            "sourceRef": "六年级下册!94"
+          }
+        ]
+      ]
+    }
+  ],
+  "book": "六年级下册"
+}

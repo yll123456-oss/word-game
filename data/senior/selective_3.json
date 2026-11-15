@@ -1,0 +1,5443 @@
+{
+  "bookId": "senior_selective_3",
+  "title": "选择性必修第三册",
+  "stage": "senior",
+  "section": "选择性必修",
+  "sourceFile": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx",
+  "units": [
+    {
+      "name": "Unit 1",
+      "words": [
+        [
+          "self-critical",
+          "自我批评的，自我批判的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0001",
+            "aliases": [
+              "self-critical"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˌselfˈkrɪtɪkl/",
+            "frequency": null,
+            "sourceText": "self-critical",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:1"
+          }
+        ],
+        [
+          "freckle",
+          "（尤指脸上的）雀斑，斑点",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0002",
+            "aliases": [
+              "freckle"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈfrekl/",
+            "frequency": null,
+            "sourceText": "freckle",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:2"
+          }
+        ],
+        [
+          "enlarge",
+          "（使）增大，扩大",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0003",
+            "aliases": [
+              "enlarge"
+            ],
+            "pos": "v.",
+            "phonetic": "/ɪnˈlɑːdʒ/",
+            "frequency": 2,
+            "sourceText": "enlarge",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:3"
+          }
+        ],
+        [
+          "jawline",
+          "下巴的形状",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0004",
+            "aliases": [
+              "jawline"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈdʒɔːlaɪn/",
+            "frequency": null,
+            "sourceText": "jawline",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:4"
+          }
+        ],
+        [
+          "boost",
+          "促进，推动",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0005",
+            "aliases": [
+              "boost"
+            ],
+            "pos": "v.",
+            "phonetic": "/buːst/",
+            "frequency": 2,
+            "sourceText": "boost",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:5"
+          }
+        ],
+        [
+          "boost one’s confidence",
+          "增加某人的信心",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0006",
+            "aliases": [
+              "boost one’s confidence",
+              "boost one's confidence"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "boost one’s confidence",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:6"
+          }
+        ],
+        [
+          "narcissist",
+          "自我陶醉者",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0007",
+            "aliases": [
+              "narcissist"
+            ],
+            "pos": "n.",
+            "phonetic": "/nɑː'sɪsɪst/",
+            "frequency": null,
+            "sourceText": "narcissist",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:7"
+          }
+        ],
+        [
+          "obsessive",
+          "痴迷的，迷恋的；过度的（含贬义）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0008",
+            "aliases": [
+              "obsessive"
+            ],
+            "pos": "adj.",
+            "phonetic": "/əbˈsesɪv/",
+            "frequency": null,
+            "sourceText": "obsessive",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:8"
+          }
+        ],
+        [
+          "pretend",
+          "假装，装作",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0009",
+            "aliases": [
+              "pretend"
+            ],
+            "pos": "v.",
+            "phonetic": "/prɪˈtend/",
+            "frequency": 4,
+            "sourceText": "pretend",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:9"
+          }
+        ],
+        [
+          "misjudge",
+          "对（人或情况）判断错误",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0010",
+            "aliases": [
+              "misjudge"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˌmɪsˈdʒʌdʒ/",
+            "frequency": null,
+            "sourceText": "misjudge",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:10"
+          }
+        ],
+        [
+          "lipstick",
+          "唇膏，口红",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0011",
+            "aliases": [
+              "lipstick"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈlɪpstɪk/",
+            "frequency": null,
+            "sourceText": "lipstick",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:11"
+          }
+        ],
+        [
+          "identical",
+          "完全相同的；非常相似的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0012",
+            "aliases": [
+              "identical"
+            ],
+            "pos": "adj.",
+            "phonetic": "/aɪˈdentɪkl/",
+            "frequency": 1,
+            "sourceText": "identical",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:12"
+          }
+        ],
+        [
+          "dormitory",
+          "（大学里的）学生宿舍楼",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0013",
+            "aliases": [
+              "dormitory"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈdɔːmɪtri/",
+            "frequency": 2,
+            "sourceText": "dormitory",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:13"
+          }
+        ],
+        [
+          "roommate",
+          "（尤指大学里的）室友",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0014",
+            "aliases": [
+              "roommate"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈruːmmeɪt/",
+            "frequency": null,
+            "sourceText": "roommate",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:14"
+          }
+        ],
+        [
+          "bizarre",
+          "古怪的；奇异的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0015",
+            "aliases": [
+              "bizarre"
+            ],
+            "pos": "adj.",
+            "phonetic": "/bɪˈzɑː(r)/",
+            "frequency": null,
+            "sourceText": "bizarre",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:15"
+          }
+        ],
+        [
+          "from head to toe",
+          "从头到脚",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0016",
+            "aliases": [
+              "from head to toe"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "from head to toe",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:16"
+          }
+        ],
+        [
+          "makeover",
+          "（以新衣服、新发型等进行的）打扮，装扮",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0017",
+            "aliases": [
+              "makeover"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈmeɪkəʊvə(r)/",
+            "frequency": 1,
+            "sourceText": "makeover",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:17"
+          }
+        ],
+        [
+          "overlook",
+          "忽视，忽略",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0018",
+            "aliases": [
+              "overlook"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˌəʊvəˈlʊk/",
+            "frequency": 3,
+            "sourceText": "overlook",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:18"
+          }
+        ],
+        [
+          "bother",
+          "（使）苦恼",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0019",
+            "aliases": [
+              "bother"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈbɒðə(r)/",
+            "frequency": 3,
+            "sourceText": "bother",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:19"
+          }
+        ],
+        [
+          "pill",
+          "药丸，药片",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0020",
+            "aliases": [
+              "pill"
+            ],
+            "pos": "n.",
+            "phonetic": "/pɪl/",
+            "frequency": 2,
+            "sourceText": "pill",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:20"
+          }
+        ],
+        [
+          "stereotype",
+          "模式化的思想",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0021",
+            "aliases": [
+              "stereotype"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈsteriətaɪp/",
+            "frequency": null,
+            "sourceText": "stereotype",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:21"
+          }
+        ],
+        [
+          "skinny",
+          "极瘦的，皮包骨的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0022",
+            "aliases": [
+              "skinny"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈskɪni/",
+            "frequency": null,
+            "sourceText": "skinny",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:22"
+          }
+        ],
+        [
+          "acknowledge",
+          "承认（某事属实或某情况存在）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0023",
+            "aliases": [
+              "acknowledge"
+            ],
+            "pos": "v.",
+            "phonetic": "/əkˈnɒlɪdʒ/",
+            "frequency": 2,
+            "sourceText": "acknowledge",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:23"
+          }
+        ],
+        [
+          "assumption",
+          "假定，假设",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0024",
+            "aliases": [
+              "assumption"
+            ],
+            "pos": "n.",
+            "phonetic": "/əˈsʌmpʃn/",
+            "frequency": 1,
+            "sourceText": "assumption",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:24"
+          }
+        ],
+        [
+          "saving",
+          "积蓄",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0025",
+            "aliases": [
+              "saving"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈseɪvɪŋ/",
+            "frequency": 4,
+            "sourceText": "saving",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:25"
+          }
+        ],
+        [
+          "welfare",
+          "帮助；福利",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0026",
+            "aliases": [
+              "welfare"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈwelfeə(r)/",
+            "frequency": 1,
+            "sourceText": "welfare",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:26"
+          }
+        ],
+        [
+          "psychology",
+          "心理，心理过程",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0027",
+            "aliases": [
+              "psychology"
+            ],
+            "pos": "n.",
+            "phonetic": "/saɪˈkɒlədʒi/",
+            "frequency": 3,
+            "sourceText": "psychology",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:27"
+          }
+        ],
+        [
+          "finding",
+          "研究的结果；发现",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0028",
+            "aliases": [
+              "finding"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈfaɪndɪŋ/",
+            "frequency": 5,
+            "sourceText": "finding",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:28"
+          }
+        ],
+        [
+          "frightful",
+          "可怕的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0029",
+            "aliases": [
+              "frightful"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈfraɪtfl/",
+            "frequency": null,
+            "sourceText": "frightful",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:29"
+          }
+        ],
+        [
+          "monstrous",
+          "丑陋的，骇人的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0030",
+            "aliases": [
+              "monstrous"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈmɒnstrəs/",
+            "frequency": null,
+            "sourceText": "monstrous",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:30"
+          }
+        ],
+        [
+          "righteous",
+          "正派的，正直的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0031",
+            "aliases": [
+              "righteous"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈraɪtʃəs/",
+            "frequency": null,
+            "sourceText": "righteous",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:31"
+          }
+        ],
+        [
+          "outward",
+          "外表的，表面的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0032",
+            "aliases": [
+              "outward"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈaʊtwəd/",
+            "frequency": 1,
+            "sourceText": "outward",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:32"
+          }
+        ],
+        [
+          "beast",
+          "(尤指大型庞大或危险的)野兽",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0033",
+            "aliases": [
+              "beast"
+            ],
+            "pos": "",
+            "phonetic": "/biːst/",
+            "frequency": 1,
+            "sourceText": "beast",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:33"
+          }
+        ],
+        [
+          "timid",
+          "胆小的，胆怯的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0034",
+            "aliases": [
+              "timid"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈtɪmɪd/",
+            "frequency": null,
+            "sourceText": "timid",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:34"
+          }
+        ],
+        [
+          "coward",
+          "胆小鬼；懦夫",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0035",
+            "aliases": [
+              "coward"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈkaʊəd/",
+            "frequency": null,
+            "sourceText": "coward",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:35"
+          }
+        ],
+        [
+          "bookish",
+          "好读书的，书呆子气的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0036",
+            "aliases": [
+              "bookish"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈbʊkɪʃ/",
+            "frequency": null,
+            "sourceText": "bookish",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:36"
+          }
+        ],
+        [
+          "loyal",
+          "忠贞的，忠实的，忠诚的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0037",
+            "aliases": [
+              "loyal"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈlɔɪəl/",
+            "frequency": 1,
+            "sourceText": "loyal",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:37"
+          }
+        ],
+        [
+          "novelist",
+          "小说家",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0038",
+            "aliases": [
+              "novelist"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈnɒvəlɪst/",
+            "frequency": 2,
+            "sourceText": "novelist",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:38"
+          }
+        ],
+        [
+          "kidnap",
+          "绑架；劫持",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0039",
+            "aliases": [
+              "kidnap"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈkɪdnæp/",
+            "frequency": null,
+            "sourceText": "kidnap",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:39"
+          }
+        ],
+        [
+          "torture",
+          "拷打，拷问",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0040",
+            "aliases": [
+              "torture"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈtɔːtʃə(r)/",
+            "frequency": null,
+            "sourceText": "torture",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:40"
+          }
+        ],
+        [
+          "execution",
+          "（尤指依法的）处死",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0041",
+            "aliases": [
+              "execution"
+            ],
+            "pos": "n.",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "execution",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:41"
+          }
+        ],
+        [
+          "predicament",
+          "尴尬的处境",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0042",
+            "aliases": [
+              "predicament"
+            ],
+            "pos": "n.",
+            "phonetic": "/prɪˈdɪkəmənt/",
+            "frequency": null,
+            "sourceText": "predicament",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:42"
+          }
+        ],
+        [
+          "graceful",
+          "优美的，优雅的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0043",
+            "aliases": [
+              "graceful"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈɡreɪsfl/",
+            "frequency": 1,
+            "sourceText": "graceful",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:43"
+          }
+        ],
+        [
+          "repulsive",
+          "令人厌恶的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0044",
+            "aliases": [
+              "repulsive"
+            ],
+            "pos": "adj.",
+            "phonetic": "/rɪˈpʌlsɪv/",
+            "frequency": null,
+            "sourceText": "repulsive",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:44"
+          }
+        ],
+        [
+          "defect",
+          "缺点，缺陷，毛病",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0045",
+            "aliases": [
+              "defect"
+            ],
+            "pos": "n.",
+            "phonetic": "/dɪˈfekt/",
+            "frequency": null,
+            "sourceText": "defect",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:45"
+          }
+        ],
+        [
+          "hunched",
+          "弓身的，弓背的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0046",
+            "aliases": [
+              "hunched"
+            ],
+            "pos": "adj.",
+            "phonetic": "/hʌntʃt/",
+            "frequency": null,
+            "sourceText": "hunched",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:46"
+          }
+        ],
+        [
+          "comprehension",
+          "理解（力）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0047",
+            "aliases": [
+              "comprehension"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌkɒmprɪˈhenʃn/",
+            "frequency": null,
+            "sourceText": "comprehension",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:47"
+          }
+        ],
+        [
+          "melancholy",
+          "忧郁，无名的伤感",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0048",
+            "aliases": [
+              "melancholy"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈmelənkəli/",
+            "frequency": null,
+            "sourceText": "melancholy",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:48"
+          }
+        ],
+        [
+          "wretch",
+          "可怜的人",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0049",
+            "aliases": [
+              "wretch"
+            ],
+            "pos": "n.",
+            "phonetic": "/retʃ/",
+            "frequency": null,
+            "sourceText": "wretch",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:49"
+          }
+        ],
+        [
+          "exclaim",
+          "(因惊讶、愤怒或兴奋而)呼喊，惊叫",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0050",
+            "aliases": [
+              "exclaim"
+            ],
+            "pos": "v.",
+            "phonetic": "/ɪkˈskleɪm/",
+            "frequency": 1,
+            "sourceText": "exclaim",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:50"
+          }
+        ],
+        [
+          "heartfelt",
+          "衷心的，诚挚的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0051",
+            "aliases": [
+              "heartfelt"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈhɑːrtfelt/",
+            "frequency": null,
+            "sourceText": "heartfelt",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:51"
+          }
+        ],
+        [
+          "compassion",
+          "怜悯；同情",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0052",
+            "aliases": [
+              "compassion"
+            ],
+            "pos": "n.",
+            "phonetic": "/kəmˈpæʃn/",
+            "frequency": 2,
+            "sourceText": "compassion",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:52"
+          }
+        ],
+        [
+          "exquisite",
+          "精美的，精致的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0053",
+            "aliases": [
+              "exquisite"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ɪkˈskwɪzɪt/",
+            "frequency": null,
+            "sourceText": "exquisite",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:53"
+          }
+        ],
+        [
+          "accent",
+          "口音",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0054",
+            "aliases": [
+              "accent"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈæksent/",
+            "frequency": 2,
+            "sourceText": "accent",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:54"
+          }
+        ],
+        [
+          "utter",
+          "（尤指吃力地）发出（声音）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0055",
+            "aliases": [
+              "utter"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈʌtə(r)/",
+            "frequency": 1,
+            "sourceText": "utter",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:55"
+          }
+        ],
+        [
+          "syllable",
+          "音节",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0056",
+            "aliases": [
+              "syllable"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈsɪləbl/",
+            "frequency": 1,
+            "sourceText": "syllable",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:56"
+          }
+        ],
+        [
+          "immense",
+          "巨大的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0057",
+            "aliases": [
+              "immense"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ɪˈmens/",
+            "frequency": 1,
+            "sourceText": "immense",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:57"
+          }
+        ],
+        [
+          "monster",
+          "怪物",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0058",
+            "aliases": [
+              "monster"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈmɒnstə(r)/",
+            "frequency": 1,
+            "sourceText": "monster",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:58"
+          }
+        ],
+        [
+          "resemble",
+          "像; 与……类似，与……相似",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0059",
+            "aliases": [
+              "resemble"
+            ],
+            "pos": "v.",
+            "phonetic": "/rɪˈzembl/",
+            "frequency": 2,
+            "sourceText": "resemble",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:59"
+          }
+        ],
+        [
+          "savage",
+          "野蛮的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0060",
+            "aliases": [
+              "savage"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈsævɪdʒ/",
+            "frequency": null,
+            "sourceText": "savage",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:60"
+          }
+        ],
+        [
+          "dew",
+          "露水",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0061",
+            "aliases": [
+              "dew"
+            ],
+            "pos": "n.",
+            "phonetic": "/djuː/",
+            "frequency": null,
+            "sourceText": "dew",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:61"
+          }
+        ],
+        [
+          "whilst",
+          "而（用于强调两种情况、活动等之间的差别）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0062",
+            "aliases": [
+              "whilst"
+            ],
+            "pos": "conj.",
+            "phonetic": "/waɪlst/",
+            "frequency": 1,
+            "sourceText": "whilst",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:62"
+          }
+        ],
+        [
+          "coarse",
+          "粗俗的；下等的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0063",
+            "aliases": [
+              "coarse"
+            ],
+            "pos": "adj.",
+            "phonetic": "/kɔːs/",
+            "frequency": null,
+            "sourceText": "coarse",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:63"
+          }
+        ],
+        [
+          "downtrodden",
+          "被践踏的，受压迫的，遭蹂躏的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0064",
+            "aliases": [
+              "downtrodden"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈdaʊntrɑːdn/",
+            "frequency": null,
+            "sourceText": "downtrodden",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:64"
+          }
+        ],
+        [
+          "pebble",
+          "卵石，小圆石，砾石",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0065",
+            "aliases": [
+              "pebble"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈpebl/",
+            "frequency": null,
+            "sourceText": "pebble",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:65"
+          }
+        ],
+        [
+          "heartbreaking",
+          "令人悲伤的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0066",
+            "aliases": [
+              "heartbreaking"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈhɑːrtbreɪkɪŋ/",
+            "frequency": null,
+            "sourceText": "heartbreaking",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:66"
+          }
+        ],
+        [
+          "expression",
+          "表情;神色",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0067",
+            "aliases": [
+              "expression"
+            ],
+            "pos": "n.",
+            "phonetic": "/ɪkˈspreʃn/",
+            "frequency": 4,
+            "sourceText": "expression",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:67"
+          }
+        ],
+        [
+          "intently",
+          "专心地；一心一意地",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0068",
+            "aliases": [
+              "intently"
+            ],
+            "pos": "adv.",
+            "phonetic": "/ɪnˈtentli/",
+            "frequency": null,
+            "sourceText": "intently",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:68"
+          }
+        ],
+        [
+          "repay",
+          "报答",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0069",
+            "aliases": [
+              "repay"
+            ],
+            "pos": "v.",
+            "phonetic": "/rɪˈpeɪ/",
+            "frequency": 1,
+            "sourceText": "repay",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:69"
+          }
+        ],
+        [
+          "profound",
+          "（感情）强烈的，深切的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0070",
+            "aliases": [
+              "profound"
+            ],
+            "pos": "adj.",
+            "phonetic": "/prəˈfaʊnd/",
+            "frequency": 1,
+            "sourceText": "profound",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:70"
+          }
+        ],
+        [
+          "tenderness",
+          "柔情",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0071",
+            "aliases": [
+              "tenderness"
+            ],
+            "pos": "n.",
+            "phonetic": "/'tendənɪs/",
+            "frequency": null,
+            "sourceText": "tenderness",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:71"
+          }
+        ],
+        [
+          "motive",
+          "（尤指隐藏的）动机，原因，目的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_1:0072",
+            "aliases": [
+              "motive"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈməʊtɪv/",
+            "frequency": 1,
+            "sourceText": "motive",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:72"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 2",
+      "words": [
+        [
+          "lens",
+          "（照相机、摄像机的）镜头",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0001",
+            "aliases": [
+              "lens"
+            ],
+            "pos": "n.",
+            "phonetic": "/lenz/",
+            "frequency": null,
+            "sourceText": "lens",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:73"
+          }
+        ],
+        [
+          "pose",
+          "（使）摆好姿势",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0002",
+            "aliases": [
+              "pose"
+            ],
+            "pos": "v.",
+            "phonetic": "/pəʊz/",
+            "frequency": 1,
+            "sourceText": "pose",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:74"
+          }
+        ],
+        [
+          "grocery",
+          "食品杂货店",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0003",
+            "aliases": [
+              "grocery"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈɡrəʊsəri/",
+            "frequency": 3,
+            "sourceText": "grocery",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:75"
+          }
+        ],
+        [
+          "grocery store",
+          "超级市场",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0004",
+            "aliases": [
+              "grocery store"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "grocery store",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:76"
+          }
+        ],
+        [
+          "fascination",
+          "着迷，迷恋",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0005",
+            "aliases": [
+              "fascination"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌfæsɪˈneɪʃn/",
+            "frequency": 1,
+            "sourceText": "fascination",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:77"
+          }
+        ],
+        [
+          "fashion",
+          "时尚",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0006",
+            "aliases": [
+              "fashion"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈfæʃn/",
+            "frequency": 4,
+            "sourceText": "fashion",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:78"
+          }
+        ],
+        [
+          "uncomplicated",
+          "不复杂的，简单的；单纯的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0007",
+            "aliases": [
+              "uncomplicated"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ʌnˈkɒmplɪkeɪtɪd/",
+            "frequency": null,
+            "sourceText": "uncomplicated",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:79"
+          }
+        ],
+        [
+          "faraway",
+          "遥远的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0008",
+            "aliases": [
+              "faraway"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈfɑːrəweɪ/",
+            "frequency": null,
+            "sourceText": "faraway",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:80"
+          }
+        ],
+        [
+          "celebrity",
+          "名人，明星",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0009",
+            "aliases": [
+              "celebrity"
+            ],
+            "pos": "n.",
+            "phonetic": "/sɪˈlebrɪti/",
+            "frequency": 2,
+            "sourceText": "celebrity",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:81"
+          }
+        ],
+        [
+          "craft",
+          "（某一行业所需的）技能",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0010",
+            "aliases": [
+              "craft"
+            ],
+            "pos": "n.",
+            "phonetic": "/krɑːft/",
+            "frequency": 3,
+            "sourceText": "craft",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:82"
+          }
+        ],
+        [
+          "anthropologist",
+          "人类学家",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0011",
+            "aliases": [
+              "anthropologist"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌænθrəˈpɒlədʒɪst/",
+            "frequency": null,
+            "sourceText": "anthropologist",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:83"
+          }
+        ],
+        [
+          "trial",
+          "试验",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0012",
+            "aliases": [
+              "trial"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈtraɪəl/",
+            "frequency": 2,
+            "sourceText": "trial",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:84"
+          }
+        ],
+        [
+          "by trial and error",
+          "反复试验（以得出最佳结果）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0013",
+            "aliases": [
+              "by trial and error"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "by trial and error",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:85"
+          }
+        ],
+        [
+          "craftsmanship",
+          "手艺；工艺；技艺",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0014",
+            "aliases": [
+              "craftsmanship"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈkrɑːftsmənʃɪp/",
+            "frequency": 2,
+            "sourceText": "craftsmanship",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:86"
+          }
+        ],
+        [
+          "atomic",
+          "原子能的；核能的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0015",
+            "aliases": [
+              "atomic"
+            ],
+            "pos": "adj.",
+            "phonetic": "/əˈtɒmɪk/",
+            "frequency": null,
+            "sourceText": "atomic",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:87"
+          }
+        ],
+        [
+          "back down",
+          "退让；认输",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0016",
+            "aliases": [
+              "back down"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "back down",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:88"
+          }
+        ],
+        [
+          "the cutting edge (of sth.)",
+          "（某事物发展的）尖端，最前沿",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0017",
+            "aliases": [
+              "the cutting edge (of sth.)",
+              "the cutting edge",
+              "of sth."
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "the cutting edge (of sth.)",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:89"
+          }
+        ],
+        [
+          "think outside the box",
+          "不拘一格地思考，跳出框框思考",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0018",
+            "aliases": [
+              "think outside the box"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "think outside the box",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:90"
+          }
+        ],
+        [
+          "break new ground",
+          "开辟新的领域；有新发现",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0019",
+            "aliases": [
+              "break new ground"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "break new ground",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:91"
+          }
+        ],
+        [
+          "hydrogen",
+          "氢",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0020",
+            "aliases": [
+              "hydrogen"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈhaɪdrədʒən/",
+            "frequency": 1,
+            "sourceText": "hydrogen",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:92"
+          }
+        ],
+        [
+          "propulsion",
+          "（车辆等的）推进力",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0021",
+            "aliases": [
+              "propulsion"
+            ],
+            "pos": "n.",
+            "phonetic": "/prəˈpʌlʃn/",
+            "frequency": null,
+            "sourceText": "propulsion",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:93"
+          }
+        ],
+        [
+          "jet propulsion",
+          "喷气推进",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0022",
+            "aliases": [
+              "jet propulsion"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "jet propulsion",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:94"
+          }
+        ],
+        [
+          "acclaim",
+          "表扬，赞赏",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0023",
+            "aliases": [
+              "acclaim"
+            ],
+            "pos": "n.",
+            "phonetic": "/əˈkleɪm/",
+            "frequency": null,
+            "sourceText": "acclaim",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:95"
+          }
+        ],
+        [
+          "shun",
+          "（故意）避开，躲开",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0024",
+            "aliases": [
+              "shun"
+            ],
+            "pos": "v.",
+            "phonetic": "/ʃʌn/",
+            "frequency": null,
+            "sourceText": "shun",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:96"
+          }
+        ],
+        [
+          "spotlight",
+          "聚光灯；媒体的关注",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0025",
+            "aliases": [
+              "spotlight"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈspɒtlaɪt/",
+            "frequency": null,
+            "sourceText": "spotlight",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:97"
+          }
+        ],
+        [
+          "harsh",
+          "恶劣的，艰苦的，严峻的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0026",
+            "aliases": [
+              "harsh"
+            ],
+            "pos": "adj.",
+            "phonetic": "/hɑːʃ/",
+            "frequency": 1,
+            "sourceText": "harsh",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:98"
+          }
+        ],
+        [
+          "prosperous",
+          "富裕的，繁荣的，兴旺的，发达的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0027",
+            "aliases": [
+              "prosperous"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈprɒspərəs/",
+            "frequency": 1,
+            "sourceText": "prosperous",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:99"
+          }
+        ],
+        [
+          "courtyard",
+          "庭院，院子",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0028",
+            "aliases": [
+              "courtyard"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈkɔːtjɑːd/",
+            "frequency": 2,
+            "sourceText": "courtyard",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:100"
+          }
+        ],
+        [
+          "precious",
+          "珍稀的；贵重的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0029",
+            "aliases": [
+              "precious"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈpreʃəs/",
+            "frequency": 3,
+            "sourceText": "precious",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:101"
+          }
+        ],
+        [
+          "antique",
+          "古董，古玩，古物",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0030",
+            "aliases": [
+              "antique"
+            ],
+            "pos": "n.",
+            "phonetic": "/ænˈtiːk/",
+            "frequency": 3,
+            "sourceText": "antique",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:102"
+          }
+        ],
+        [
+          "restoration",
+          "（旧建筑或旧家具等的）修复，整修",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0031",
+            "aliases": [
+              "restoration"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌrestəˈreɪʃn/",
+            "frequency": null,
+            "sourceText": "restoration",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:103"
+          }
+        ],
+        [
+          "crimson",
+          "深红色的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0032",
+            "aliases": [
+              "crimson"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈkrɪmzn/",
+            "frequency": null,
+            "sourceText": "crimson",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:104"
+          }
+        ],
+        [
+          "workplace",
+          "工作场所",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0033",
+            "aliases": [
+              "workplace"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈwɜːrkpleɪs/",
+            "frequency": 3,
+            "sourceText": "workplace",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:105"
+          }
+        ],
+        [
+          "timepiece",
+          "计时器；钟；表",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0034",
+            "aliases": [
+              "timepiece"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈtaɪmpiːs/",
+            "frequency": null,
+            "sourceText": "timepiece",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:106"
+          }
+        ],
+        [
+          "envoy",
+          "使者，使节",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0035",
+            "aliases": [
+              "envoy"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈenvɔɪ/",
+            "frequency": null,
+            "sourceText": "envoy",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:107"
+          }
+        ],
+        [
+          "intricate",
+          "错综复杂的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0036",
+            "aliases": [
+              "intricate"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈɪntrɪkət/",
+            "frequency": null,
+            "sourceText": "intricate",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:108"
+          }
+        ],
+        [
+          "maximum",
+          "最大量，最大值",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0037",
+            "aliases": [
+              "maximum"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈmæksɪməm/",
+            "frequency": 2,
+            "sourceText": "maximum",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:109"
+          }
+        ],
+        [
+          "painstaking",
+          "小心的；费尽心思的；精心的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0038",
+            "aliases": [
+              "painstaking"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈpeɪnzteɪkɪŋ/",
+            "frequency": null,
+            "sourceText": "painstaking",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:110"
+          }
+        ],
+        [
+          "workshop",
+          "车间，工场",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0039",
+            "aliases": [
+              "workshop"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈwɜːkʃɒp/",
+            "frequency": 3,
+            "sourceText": "workshop",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:111"
+          }
+        ],
+        [
+          "melody",
+          "歌曲；曲调",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0040",
+            "aliases": [
+              "melody"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈmelədi/",
+            "frequency": 1,
+            "sourceText": "melody",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:112"
+          }
+        ],
+        [
+          "polish",
+          "擦亮，擦光",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0041",
+            "aliases": [
+              "polish"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈpɒlɪʃ/",
+            "frequency": 2,
+            "sourceText": "polish",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:113"
+          }
+        ],
+        [
+          "gigantic",
+          "巨大的，庞大的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0042",
+            "aliases": [
+              "gigantic"
+            ],
+            "pos": "adj.",
+            "phonetic": "/dʒaɪˈɡæntɪk/",
+            "frequency": null,
+            "sourceText": "gigantic",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:114"
+          }
+        ],
+        [
+          "bark",
+          "（狗）吠叫",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0043",
+            "aliases": [
+              "bark"
+            ],
+            "pos": "v.",
+            "phonetic": "/bɑːk/",
+            "frequency": 2,
+            "sourceText": "bark",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:115"
+          }
+        ],
+        [
+          "flap",
+          "振（翼），扑动（翅膀）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0044",
+            "aliases": [
+              "flap"
+            ],
+            "pos": "v.",
+            "phonetic": "/flæp/",
+            "frequency": null,
+            "sourceText": "flap",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:116"
+          }
+        ],
+        [
+          "spin",
+          "将（棉花、羊毛等）纺成（线），纺（线）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0045",
+            "aliases": [
+              "spin"
+            ],
+            "pos": "v.",
+            "phonetic": "/spɪn/",
+            "frequency": 1,
+            "sourceText": "spin",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:117"
+          }
+        ],
+        [
+          "exaggeration",
+          "夸大，夸张",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0046",
+            "aliases": [
+              "exaggeration"
+            ],
+            "pos": "n.",
+            "phonetic": "/ɪɡˌzædʒəˈreɪʃn/",
+            "frequency": null,
+            "sourceText": "exaggeration",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:118"
+          }
+        ],
+        [
+          "metaphor",
+          "隐喻，暗喻",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0047",
+            "aliases": [
+              "metaphor"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈmetəfə(r)/",
+            "frequency": 1,
+            "sourceText": "metaphor",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:119"
+          }
+        ],
+        [
+          "nonetheless",
+          "然而，但是；尽管如此，虽然如此",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0048",
+            "aliases": [
+              "nonetheless"
+            ],
+            "pos": "adv.",
+            "phonetic": "/ˌnʌnðəˈles/",
+            "frequency": null,
+            "sourceText": "nonetheless",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:120"
+          }
+        ],
+        [
+          "artisan",
+          "工匠，手艺人",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0049",
+            "aliases": [
+              "artisan"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌɑːtɪˈzæn/",
+            "frequency": null,
+            "sourceText": "artisan",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:121"
+          }
+        ],
+        [
+          "preserve",
+          "维护，保护；保存",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0050",
+            "aliases": [
+              "preserve"
+            ],
+            "pos": "v.",
+            "phonetic": "/prɪˈzɜːv/",
+            "frequency": 2,
+            "sourceText": "preserve",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:122"
+          }
+        ],
+        [
+          "apt",
+          "适当的，恰当的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0051",
+            "aliases": [
+              "apt"
+            ],
+            "pos": "adj.",
+            "phonetic": "/æpt/",
+            "frequency": null,
+            "sourceText": "apt",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:123"
+          }
+        ],
+        [
+          "timeless",
+          "永恒的，恒久的；永不过时的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0052",
+            "aliases": [
+              "timeless"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈtaɪmləs/",
+            "frequency": null,
+            "sourceText": "timeless",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:124"
+          }
+        ],
+        [
+          "sedately",
+          "安静地，慢悠悠地",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0053",
+            "aliases": [
+              "sedately"
+            ],
+            "pos": "adv.",
+            "phonetic": "/sɪ'deɪtlɪ/",
+            "frequency": null,
+            "sourceText": "sedately",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:125"
+          }
+        ],
+        [
+          "modest",
+          "谦虚的，谦逊的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0054",
+            "aliases": [
+              "modest"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈmɒdɪst/",
+            "frequency": 2,
+            "sourceText": "modest",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:126"
+          }
+        ],
+        [
+          "essay",
+          "短文，论说文",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0055",
+            "aliases": [
+              "essay"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈeseɪ/",
+            "frequency": 4,
+            "sourceText": "essay",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:127"
+          }
+        ],
+        [
+          "dominate",
+          "支配，控制，主宰",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0056",
+            "aliases": [
+              "dominate"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈdɒmɪneɪt/",
+            "frequency": 1,
+            "sourceText": "dominate",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:128"
+          }
+        ],
+        [
+          "architecture",
+          "建筑风格，建筑设计",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0057",
+            "aliases": [
+              "architecture"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈɑːkɪtektʃə(r)/",
+            "frequency": 1,
+            "sourceText": "architecture",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:129"
+          }
+        ],
+        [
+          "ambitious",
+          "宏大的，艰巨的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0058",
+            "aliases": [
+              "ambitious"
+            ],
+            "pos": "adj.",
+            "phonetic": "/æmˈbɪʃəs/",
+            "frequency": 2,
+            "sourceText": "ambitious",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:130"
+          }
+        ],
+        [
+          "associate",
+          "与…有关",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0059",
+            "aliases": [
+              "associate"
+            ],
+            "pos": "v.",
+            "phonetic": "/əˈsəʊʃieɪt/",
+            "frequency": 4,
+            "sourceText": "associate",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:131"
+          }
+        ],
+        [
+          "analysis",
+          "分析",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0060",
+            "aliases": [
+              "analysis"
+            ],
+            "pos": "n.",
+            "phonetic": "/əˈnæləsɪs/",
+            "frequency": 2,
+            "sourceText": "analysis",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:132"
+          }
+        ],
+        [
+          "comprise",
+          "包括，由…构成",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_2:0061",
+            "aliases": [
+              "comprise"
+            ],
+            "pos": "v.",
+            "phonetic": "/kəmˈpraɪz/",
+            "frequency": 1,
+            "sourceText": "comprise",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:133"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 3",
+      "words": [
+        [
+          "violent",
+          "狂暴的，凶暴的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0001",
+            "aliases": [
+              "violent"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈvaɪələnt/",
+            "frequency": 2,
+            "sourceText": "violent",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:134"
+          }
+        ],
+        [
+          "landing",
+          "（军队的）登陆",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0002",
+            "aliases": [
+              "landing"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈlændɪŋ/",
+            "frequency": null,
+            "sourceText": "landing",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:135"
+          }
+        ],
+        [
+          "allied",
+          "（第二次世界大战）同盟国的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0003",
+            "aliases": [
+              "allied"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈælaɪd/",
+            "frequency": null,
+            "sourceText": "allied",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:136"
+          }
+        ],
+        [
+          "troop",
+          "部队，军队",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0004",
+            "aliases": [
+              "troop"
+            ],
+            "pos": "n.",
+            "phonetic": "/truːp/",
+            "frequency": 1,
+            "sourceText": "troop",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:137"
+          }
+        ],
+        [
+          "code-name",
+          "起代号为",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0005",
+            "aliases": [
+              "code-name"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈkəʊdneɪm/",
+            "frequency": null,
+            "sourceText": "code-name",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:138"
+          }
+        ],
+        [
+          "tide",
+          "潮水",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0006",
+            "aliases": [
+              "tide"
+            ],
+            "pos": "n.",
+            "phonetic": "/taɪd/",
+            "frequency": 2,
+            "sourceText": "tide",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:139"
+          }
+        ],
+        [
+          "supreme",
+          "最高的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0007",
+            "aliases": [
+              "supreme"
+            ],
+            "pos": "adj.",
+            "phonetic": "/suːˈpriːm/",
+            "frequency": 1,
+            "sourceText": "supreme",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:140"
+          }
+        ],
+        [
+          "commander",
+          "指挥官，长官",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0008",
+            "aliases": [
+              "commander"
+            ],
+            "pos": "n.",
+            "phonetic": "/kəˈmɑːndə(r)/",
+            "frequency": 1,
+            "sourceText": "commander",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:141"
+          }
+        ],
+        [
+          "parachute",
+          "降落伞",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0009",
+            "aliases": [
+              "parachute"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈpærəʃuːt/",
+            "frequency": 1,
+            "sourceText": "parachute",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:142"
+          }
+        ],
+        [
+          "objective",
+          "目的，目标",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0010",
+            "aliases": [
+              "objective"
+            ],
+            "pos": "n.",
+            "phonetic": "/əbˈdʒektɪv/",
+            "frequency": 2,
+            "sourceText": "objective",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:143"
+          }
+        ],
+        [
+          "coastline",
+          "海岸线",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0011",
+            "aliases": [
+              "coastline"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈkəʊstlaɪn/",
+            "frequency": null,
+            "sourceText": "coastline",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:144"
+          }
+        ],
+        [
+          "violence",
+          "暴力",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0012",
+            "aliases": [
+              "violence"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈvaɪələns/",
+            "frequency": 3,
+            "sourceText": "violence",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:145"
+          }
+        ],
+        [
+          "horror",
+          "令人惊恐的事",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0013",
+            "aliases": [
+              "horror"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈhɒrə(r)/",
+            "frequency": 2,
+            "sourceText": "horror",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:146"
+          }
+        ],
+        [
+          "drown",
+          "(使)淹死",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0014",
+            "aliases": [
+              "drown"
+            ],
+            "pos": "v.",
+            "phonetic": "/draʊn/",
+            "frequency": 2,
+            "sourceText": "drown",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:147"
+          }
+        ],
+        [
+          "gunfire",
+          "炮火",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0015",
+            "aliases": [
+              "gunfire"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈɡʌnfaɪər/",
+            "frequency": null,
+            "sourceText": "gunfire",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:148"
+          }
+        ],
+        [
+          "amongst",
+          "在……当中（=among)",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0016",
+            "aliases": [
+              "amongst"
+            ],
+            "pos": "prep.",
+            "phonetic": "/əˈmʌŋst/",
+            "frequency": null,
+            "sourceText": "amongst",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:149"
+          }
+        ],
+        [
+          "tank",
+          "坦克",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0017",
+            "aliases": [
+              "tank"
+            ],
+            "pos": "n.",
+            "phonetic": "/tæŋk/",
+            "frequency": 2,
+            "sourceText": "tank",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:150"
+          }
+        ],
+        [
+          "recall",
+          "回想，回忆起",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0018",
+            "aliases": [
+              "recall"
+            ],
+            "pos": "v.",
+            "phonetic": "/rɪˈkɔːl/",
+            "frequency": 3,
+            "sourceText": "recall",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:151"
+          }
+        ],
+        [
+          "barely",
+          "勉强才能",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0019",
+            "aliases": [
+              "barely"
+            ],
+            "pos": "adv.",
+            "phonetic": "/ˈbeəli/",
+            "frequency": 1,
+            "sourceText": "barely",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:152"
+          }
+        ],
+        [
+          "liberate",
+          "解放（城市、国家等）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0020",
+            "aliases": [
+              "liberate"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈlɪbəreɪt/",
+            "frequency": null,
+            "sourceText": "liberate",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:153"
+          }
+        ],
+        [
+          "memorial",
+          "纪念的，追悼的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0021",
+            "aliases": [
+              "memorial"
+            ],
+            "pos": "adj.",
+            "phonetic": "/məˈmɔːriəl/",
+            "frequency": 2,
+            "sourceText": "memorial",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:154"
+          }
+        ],
+        [
+          "solemn",
+          "严肃的，庄重的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0022",
+            "aliases": [
+              "solemn"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈsɒləm/",
+            "frequency": null,
+            "sourceText": "solemn",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:155"
+          }
+        ],
+        [
+          "weary",
+          "（使）非常疲倦",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0023",
+            "aliases": [
+              "weary"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈwɪəri/",
+            "frequency": 1,
+            "sourceText": "weary",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:156"
+          }
+        ],
+        [
+          "condemn",
+          "迫使（某人）处于不幸的境地",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0024",
+            "aliases": [
+              "condemn"
+            ],
+            "pos": "v.",
+            "phonetic": "/kənˈdem/",
+            "frequency": 1,
+            "sourceText": "condemn",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:157"
+          }
+        ],
+        [
+          "outstanding",
+          "杰出的，优秀的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0025",
+            "aliases": [
+              "outstanding"
+            ],
+            "pos": "adj.",
+            "phonetic": "/aʊtˈstændɪŋ/",
+            "frequency": 3,
+            "sourceText": "outstanding",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:158"
+          }
+        ],
+        [
+          "uniform",
+          "制服",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0026",
+            "aliases": [
+              "uniform"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈjuːnɪfɔːrm/",
+            "frequency": 4,
+            "sourceText": "uniform",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:159"
+          }
+        ],
+        [
+          "peacekeeping",
+          "维持和平（的行动）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0027",
+            "aliases": [
+              "peacekeeping"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈpiːskiːpɪŋ/",
+            "frequency": null,
+            "sourceText": "peacekeeping",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:160"
+          }
+        ],
+        [
+          "peacekeeper",
+          "维和人员",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0028",
+            "aliases": [
+              "peacekeeper"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈpiːskiːpər/",
+            "frequency": 1,
+            "sourceText": "peacekeeper",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:161"
+          }
+        ],
+        [
+          "friction",
+          "冲突，摩擦",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0029",
+            "aliases": [
+              "friction"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈfrɪkʃn/",
+            "frequency": 1,
+            "sourceText": "friction",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:162"
+          }
+        ],
+        [
+          "disarm",
+          "解除武装",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0030",
+            "aliases": [
+              "disarm"
+            ],
+            "pos": "v.",
+            "phonetic": "/dɪsˈɑːrm/",
+            "frequency": null,
+            "sourceText": "disarm",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:163"
+          }
+        ],
+        [
+          "combatant",
+          "战斗人员",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0031",
+            "aliases": [
+              "combatant"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈkɒmbətənt/",
+            "frequency": null,
+            "sourceText": "combatant",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:164"
+          }
+        ],
+        [
+          "weapon",
+          "武器，兵器",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0032",
+            "aliases": [
+              "weapon"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈwepən/",
+            "frequency": 3,
+            "sourceText": "weapon",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:165"
+          }
+        ],
+        [
+          "ammunition",
+          "弹药",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0033",
+            "aliases": [
+              "ammunition"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌæmjuˈnɪʃn/",
+            "frequency": null,
+            "sourceText": "ammunition",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:166"
+          }
+        ],
+        [
+          "stability",
+          "稳固，稳定",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0034",
+            "aliases": [
+              "stability"
+            ],
+            "pos": "n.",
+            "phonetic": "/stəˈbɪlɪti/",
+            "frequency": 2,
+            "sourceText": "stability",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:167"
+          }
+        ],
+        [
+          "on standby",
+          "待命",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0035",
+            "aliases": [
+              "on standby"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "on standby",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:168"
+          }
+        ],
+        [
+          "professionalism",
+          "专业水准；专业素质；职业精神",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0036",
+            "aliases": [
+              "professionalism"
+            ],
+            "pos": "n.",
+            "phonetic": "/prəˈfeʃənəlɪzəm/",
+            "frequency": null,
+            "sourceText": "professionalism",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:169"
+          }
+        ],
+        [
+          "academic",
+          "学术的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0037",
+            "aliases": [
+              "academic"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˌækəˈdemɪk/",
+            "frequency": 4,
+            "sourceText": "academic",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:170"
+          }
+        ],
+        [
+          "aggression",
+          "侵略",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0038",
+            "aliases": [
+              "aggression"
+            ],
+            "pos": "n.",
+            "phonetic": "/əˈɡreʃn/",
+            "frequency": null,
+            "sourceText": "aggression",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:171"
+          }
+        ],
+        [
+          "bomb",
+          "轰炸",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0039",
+            "aliases": [
+              "bomb"
+            ],
+            "pos": "v.",
+            "phonetic": "/bɒm/",
+            "frequency": 3,
+            "sourceText": "bomb",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:172"
+          }
+        ],
+        [
+          "intellectual",
+          "智力的，脑力的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0040",
+            "aliases": [
+              "intellectual"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˌɪntəˈlektʃuəl/",
+            "frequency": 1,
+            "sourceText": "intellectual",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:173"
+          }
+        ],
+        [
+          "associated",
+          "联合的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0041",
+            "aliases": [
+              "associated"
+            ],
+            "pos": "adj.",
+            "phonetic": "/əˈsəʊsieɪtɪd/",
+            "frequency": null,
+            "sourceText": "associated",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:174"
+          }
+        ],
+        [
+          "rough",
+          "简单的；粗糙的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0042",
+            "aliases": [
+              "rough"
+            ],
+            "pos": "adj.",
+            "phonetic": "/rʌf/",
+            "frequency": 3,
+            "sourceText": "rough",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:175"
+          }
+        ],
+        [
+          "sardine",
+          "沙丁鱼",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0043",
+            "aliases": [
+              "sardine"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌsɑːˈdiːn/",
+            "frequency": null,
+            "sourceText": "sardine",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:176"
+          }
+        ],
+        [
+          "dire",
+          "极其严重的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0044",
+            "aliases": [
+              "dire"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈdaɪər/",
+            "frequency": null,
+            "sourceText": "dire",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:177"
+          }
+        ],
+        [
+          "disrupt",
+          "扰乱",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0045",
+            "aliases": [
+              "disrupt"
+            ],
+            "pos": "v.",
+            "phonetic": "/dɪsˈrʌpt/",
+            "frequency": null,
+            "sourceText": "disrupt",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:178"
+          }
+        ],
+        [
+          "daunting",
+          "吓人的，使人气馁的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0046",
+            "aliases": [
+              "daunting"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈdɔːntɪŋ/",
+            "frequency": null,
+            "sourceText": "daunting",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:179"
+          }
+        ],
+        [
+          "fortify",
+          "激励，加强",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0047",
+            "aliases": [
+              "fortify"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈfɔːtɪfaɪ/",
+            "frequency": null,
+            "sourceText": "fortify",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:180"
+          }
+        ],
+        [
+          "emerge",
+          "出现",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0048",
+            "aliases": [
+              "emerge"
+            ],
+            "pos": "v.",
+            "phonetic": "/iˈmɜːrdʒ/",
+            "frequency": 2,
+            "sourceText": "emerge",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:181"
+          }
+        ],
+        [
+          "shirk",
+          "逃避",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0049",
+            "aliases": [
+              "shirk"
+            ],
+            "pos": "v.",
+            "phonetic": "/ʃɜːrk/",
+            "frequency": null,
+            "sourceText": "shirk",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:182"
+          }
+        ],
+        [
+          "invader",
+          "侵略者，侵略军",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0050",
+            "aliases": [
+              "invader"
+            ],
+            "pos": "n.",
+            "phonetic": "/ɪnˈveɪdər/",
+            "frequency": 1,
+            "sourceText": "invader",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:183"
+          }
+        ],
+        [
+          "depict",
+          "描述，描写",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0051",
+            "aliases": [
+              "depict"
+            ],
+            "pos": "v.",
+            "phonetic": "/dɪˈpɪkt/",
+            "frequency": null,
+            "sourceText": "depict",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:184"
+          }
+        ],
+        [
+          "peer",
+          "同龄人；同辈",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0052",
+            "aliases": [
+              "peer"
+            ],
+            "pos": "n.",
+            "phonetic": "/pɪə(r)/",
+            "frequency": 4,
+            "sourceText": "peer",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:185"
+          }
+        ],
+        [
+          "misty",
+          "多雾的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0053",
+            "aliases": [
+              "misty"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈmɪsti/",
+            "frequency": 1,
+            "sourceText": "misty",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:186"
+          }
+        ],
+        [
+          "breeze",
+          "微风",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0054",
+            "aliases": [
+              "breeze"
+            ],
+            "pos": "n.",
+            "phonetic": "/briːz/",
+            "frequency": 1,
+            "sourceText": "breeze",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:187"
+          }
+        ],
+        [
+          "crowning",
+          "使圆满的，使完美的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0055",
+            "aliases": [
+              "crowning"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈkraʊnɪŋ/",
+            "frequency": null,
+            "sourceText": "crowning",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:188"
+          }
+        ],
+        [
+          "glory",
+          "辉煌的成就；荣耀的事",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0056",
+            "aliases": [
+              "glory"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈɡlɔːri/",
+            "frequency": 1,
+            "sourceText": "glory",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:189"
+          }
+        ],
+        [
+          "prominent",
+          "著名的，杰出的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0057",
+            "aliases": [
+              "prominent"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈprɒmɪnənt/",
+            "frequency": null,
+            "sourceText": "prominent",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:190"
+          }
+        ],
+        [
+          "dedication",
+          "奉献",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0058",
+            "aliases": [
+              "dedication"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌdedɪˈkeɪʃn/",
+            "frequency": 1,
+            "sourceText": "dedication",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:191"
+          }
+        ],
+        [
+          "representative",
+          "代表",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0059",
+            "aliases": [
+              "representative"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌreprɪˈzentətɪv/",
+            "frequency": 2,
+            "sourceText": "representative",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:192"
+          }
+        ],
+        [
+          "commemorate",
+          "庆祝，为…...举行纪念活动",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0060",
+            "aliases": [
+              "commemorate"
+            ],
+            "pos": "v.",
+            "phonetic": "/kəˈmeməreɪt/",
+            "frequency": null,
+            "sourceText": "commemorate",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:193"
+          }
+        ],
+        [
+          "anniversary",
+          "周年纪念日",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0061",
+            "aliases": [
+              "anniversary"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌænɪˈvɜːrsəri/",
+            "frequency": 2,
+            "sourceText": "anniversary",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:194"
+          }
+        ],
+        [
+          "reaffirm",
+          "重申，再次确定",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0062",
+            "aliases": [
+              "reaffirm"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˌriːəˈfɜːm/",
+            "frequency": null,
+            "sourceText": "reaffirm",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:195"
+          }
+        ],
+        [
+          "collective",
+          "集体的；共同的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0063",
+            "aliases": [
+              "collective"
+            ],
+            "pos": "adj.",
+            "phonetic": "/kəˈlektɪv/",
+            "frequency": 2,
+            "sourceText": "collective",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:196"
+          }
+        ],
+        [
+          "blueprint",
+          "蓝图",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0064",
+            "aliases": [
+              "blueprint"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈbluːprɪnt/",
+            "frequency": null,
+            "sourceText": "blueprint",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:197"
+          }
+        ],
+        [
+          "sum",
+          "金额，款项",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0065",
+            "aliases": [
+              "sum"
+            ],
+            "pos": "n.",
+            "phonetic": "/sʌm/",
+            "frequency": 3,
+            "sourceText": "sum",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:198"
+          }
+        ],
+        [
+          "grain",
+          "谷物，粮食",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0066",
+            "aliases": [
+              "grain"
+            ],
+            "pos": "n.",
+            "phonetic": "/ɡreɪn/",
+            "frequency": 2,
+            "sourceText": "grain",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:199"
+          }
+        ],
+        [
+          "relevant",
+          "有关的，切题的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_3:0067",
+            "aliases": [
+              "relevant"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈreləvənt/",
+            "frequency": 2,
+            "sourceText": "relevant",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:200"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 4",
+      "words": [
+        [
+          "artificial",
+          "人造的，人工的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0001",
+            "aliases": [
+              "artificial"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˌɑːtɪˈfɪʃl/",
+            "frequency": 2,
+            "sourceText": "artificial",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:201"
+          }
+        ],
+        [
+          "artificial intelligence",
+          "人工智能",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0002",
+            "aliases": [
+              "artificial intelligence"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "artificial intelligence",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:202"
+          }
+        ],
+        [
+          "humanity",
+          "人类",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0003",
+            "aliases": [
+              "humanity"
+            ],
+            "pos": "n.",
+            "phonetic": "/hjuːˈmænəti/",
+            "frequency": 2,
+            "sourceText": "humanity",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:203"
+          }
+        ],
+        [
+          "assistant",
+          "助手，助理",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0004",
+            "aliases": [
+              "assistant"
+            ],
+            "pos": "n.",
+            "phonetic": "/əˈsɪstənt/",
+            "frequency": 4,
+            "sourceText": "assistant",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:204"
+          }
+        ],
+        [
+          "susceptible",
+          "易受影响的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0005",
+            "aliases": [
+              "susceptible"
+            ],
+            "pos": "adj.",
+            "phonetic": "/səˈseptəbl/",
+            "frequency": null,
+            "sourceText": "susceptible",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:205"
+          }
+        ],
+        [
+          "victim",
+          "受害者",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0006",
+            "aliases": [
+              "victim"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈvɪktɪm/",
+            "frequency": 4,
+            "sourceText": "victim",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:206"
+          }
+        ],
+        [
+          "potentially",
+          "潜在地",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0007",
+            "aliases": [
+              "potentially"
+            ],
+            "pos": "adv.",
+            "phonetic": "/pə'tenʃəli/",
+            "frequency": null,
+            "sourceText": "potentially",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:207"
+          }
+        ],
+        [
+          "automation",
+          "自动化",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0008",
+            "aliases": [
+              "automation"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌɔːtəˈmeɪʃn/",
+            "frequency": null,
+            "sourceText": "automation",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:208"
+          }
+        ],
+        [
+          "capacity",
+          "能力，才能",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0009",
+            "aliases": [
+              "capacity"
+            ],
+            "pos": "n.",
+            "phonetic": "/kəˈpæsəti/",
+            "frequency": 1,
+            "sourceText": "capacity",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:209"
+          }
+        ],
+        [
+          "analyse",
+          "分析",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0010",
+            "aliases": [
+              "analyse"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈænəlaɪz/",
+            "frequency": 4,
+            "sourceText": "analyse",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:210"
+          }
+        ],
+        [
+          "leap",
+          "剧变",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0011",
+            "aliases": [
+              "leap"
+            ],
+            "pos": "n.",
+            "phonetic": "/liːp/",
+            "frequency": 2,
+            "sourceText": "leap",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:211"
+          }
+        ],
+        [
+          "regulate",
+          "控制，管理",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0012",
+            "aliases": [
+              "regulate"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈreɡjuleɪt/",
+            "frequency": 2,
+            "sourceText": "regulate",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:212"
+          }
+        ],
+        [
+          "illegal",
+          "非法的，违法的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0013",
+            "aliases": [
+              "illegal"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ɪˈliːɡl/",
+            "frequency": 3,
+            "sourceText": "illegal",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:213"
+          }
+        ],
+        [
+          "immoral",
+          "不道德的。道德败坏的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0014",
+            "aliases": [
+              "immoral"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ɪˈmɒrəl/",
+            "frequency": null,
+            "sourceText": "immoral",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:214"
+          }
+        ],
+        [
+          "client",
+          "客户，客人，顾客",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0015",
+            "aliases": [
+              "client"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈklaɪənt/",
+            "frequency": 1,
+            "sourceText": "client",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:215"
+          }
+        ],
+        [
+          "cite",
+          "引用，引述",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0016",
+            "aliases": [
+              "cite"
+            ],
+            "pos": "v.",
+            "phonetic": "/saɪt/",
+            "frequency": 1,
+            "sourceText": "cite",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:216"
+          }
+        ],
+        [
+          "assess",
+          "评价，评定",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0017",
+            "aliases": [
+              "assess"
+            ],
+            "pos": "v.",
+            "phonetic": "/əˈses/",
+            "frequency": 3,
+            "sourceText": "assess",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:217"
+          }
+        ],
+        [
+          "bank on",
+          "依靠，指望",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0018",
+            "aliases": [
+              "bank on"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "bank on",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:218"
+          }
+        ],
+        [
+          "horizon",
+          "地平线",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0019",
+            "aliases": [
+              "horizon"
+            ],
+            "pos": "n.",
+            "phonetic": "/həˈraɪzn/",
+            "frequency": 2,
+            "sourceText": "horizon",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:219"
+          }
+        ],
+        [
+          "on the horizon",
+          "将要发生",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0020",
+            "aliases": [
+              "on the horizon"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "on the horizon",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:220"
+          }
+        ],
+        [
+          "reckon",
+          "认为，以为",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0021",
+            "aliases": [
+              "reckon"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈrekən/",
+            "frequency": 1,
+            "sourceText": "reckon",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:221"
+          }
+        ],
+        [
+          "cell",
+          "细胞",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0022",
+            "aliases": [
+              "cell"
+            ],
+            "pos": "n.",
+            "phonetic": "/sel/",
+            "frequency": 4,
+            "sourceText": "cell",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:222"
+          }
+        ],
+        [
+          "bound",
+          "可能的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0023",
+            "aliases": [
+              "bound"
+            ],
+            "pos": "adj.",
+            "phonetic": "/baʊnd/",
+            "frequency": 2,
+            "sourceText": "bound",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:223"
+          }
+        ],
+        [
+          "be bound to",
+          "很有可能，肯定会",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0024",
+            "aliases": [
+              "be bound to"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "be bound to",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:224"
+          }
+        ],
+        [
+          "cycle",
+          "自行车",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0025",
+            "aliases": [
+              "cycle"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈsaɪkl/",
+            "frequency": 4,
+            "sourceText": "cycle",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:225"
+          }
+        ],
+        [
+          "demand",
+          "需要，需求",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0026",
+            "aliases": [
+              "demand"
+            ],
+            "pos": "n.",
+            "phonetic": "/dɪˈmɑːnd/",
+            "frequency": 4,
+            "sourceText": "demand",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:226"
+          }
+        ],
+        [
+          "crater",
+          "（物体坠落、炸弹爆炸等在地上造成的）坑",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0027",
+            "aliases": [
+              "crater"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈkreɪtə(r)/",
+            "frequency": 1,
+            "sourceText": "crater",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:227"
+          }
+        ],
+        [
+          "agile",
+          "敏捷的，灵活的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0028",
+            "aliases": [
+              "agile"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈædʒaɪl/",
+            "frequency": null,
+            "sourceText": "agile",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:228"
+          }
+        ],
+        [
+          "slope",
+          "倾斜，成斜坡",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0029",
+            "aliases": [
+              "slope"
+            ],
+            "pos": "n.",
+            "phonetic": "/sləʊp/",
+            "frequency": 2,
+            "sourceText": "slope",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:229"
+          }
+        ],
+        [
+          "hop",
+          "跳跃",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0030",
+            "aliases": [
+              "hop"
+            ],
+            "pos": "n.",
+            "phonetic": "/hɒp/",
+            "frequency": 1,
+            "sourceText": "hop",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:230"
+          }
+        ],
+        [
+          "squeak",
+          "发出吱吱声",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0031",
+            "aliases": [
+              "squeak"
+            ],
+            "pos": "v.",
+            "phonetic": "/skwiːk/",
+            "frequency": null,
+            "sourceText": "squeak",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:231"
+          }
+        ],
+        [
+          "tendon",
+          "腱",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0032",
+            "aliases": [
+              "tendon"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈtendən/",
+            "frequency": null,
+            "sourceText": "tendon",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:232"
+          }
+        ],
+        [
+          "wavelength",
+          "波长",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0033",
+            "aliases": [
+              "wavelength"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈweɪvleŋθ/",
+            "frequency": null,
+            "sourceText": "wavelength",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:233"
+          }
+        ],
+        [
+          "mechanical",
+          "机械的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0034",
+            "aliases": [
+              "mechanical"
+            ],
+            "pos": "adj.",
+            "phonetic": "/mɪˈkænɪkl/",
+            "frequency": 2,
+            "sourceText": "mechanical",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:234"
+          }
+        ],
+        [
+          "imitation",
+          "仿制品",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0035",
+            "aliases": [
+              "imitation"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌɪmɪˈteɪʃn/",
+            "frequency": 2,
+            "sourceText": "imitation",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:235"
+          }
+        ],
+        [
+          "mutt",
+          "杂种狗",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0036",
+            "aliases": [
+              "mutt"
+            ],
+            "pos": "n.",
+            "phonetic": "/mʌt/",
+            "frequency": null,
+            "sourceText": "mutt",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:236"
+          }
+        ],
+        [
+          "frown",
+          "皱眉",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0037",
+            "aliases": [
+              "frown"
+            ],
+            "pos": "v.",
+            "phonetic": "/fraʊn/",
+            "frequency": 1,
+            "sourceText": "frown",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:237"
+          }
+        ],
+        [
+          "positronic",
+          "正电子的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0038",
+            "aliases": [
+              "positronic"
+            ],
+            "pos": "adj.",
+            "phonetic": "/,pɔzi'trɔnik/",
+            "frequency": null,
+            "sourceText": "positronic",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:238"
+          }
+        ],
+        [
+          "tightly",
+          "紧紧地",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0039",
+            "aliases": [
+              "tightly"
+            ],
+            "pos": "adv.",
+            "phonetic": "/ˈtaɪtli/",
+            "frequency": 2,
+            "sourceText": "tightly",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:239"
+          }
+        ],
+        [
+          "desperate/in despair",
+          "拼命的，绝望的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0040",
+            "aliases": [
+              "desperate/in despair"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈdespərət/",
+            "frequency": 1,
+            "sourceText": "desperate/in despair",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:240"
+          }
+        ],
+        [
+          "clue",
+          "线索，提示",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0041",
+            "aliases": [
+              "clue"
+            ],
+            "pos": "n.",
+            "phonetic": "/kluː/",
+            "frequency": 3,
+            "sourceText": "clue",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:241"
+          }
+        ],
+        [
+          "faulty",
+          "有故障的，有缺陷的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0042",
+            "aliases": [
+              "faulty"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈfɔːlti/",
+            "frequency": null,
+            "sourceText": "faulty",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:242"
+          }
+        ],
+        [
+          "consistent",
+          "一贯的，一致的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_4:0043",
+            "aliases": [
+              "consistent"
+            ],
+            "pos": "adj.",
+            "phonetic": "/kənˈsɪstənt/",
+            "frequency": 1,
+            "sourceText": "consistent",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:243"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 5",
+      "words": [
+        [
+          "lotus",
+          "莲花，荷花",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0001",
+            "aliases": [
+              "lotus"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈləʊtəs/",
+            "frequency": null,
+            "sourceText": "lotus",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:244"
+          }
+        ],
+        [
+          "termite",
+          "白蚁",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0002",
+            "aliases": [
+              "termite"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈtɜːmaɪt/",
+            "frequency": null,
+            "sourceText": "termite",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:245"
+          }
+        ],
+        [
+          "mound",
+          "土堆，土丘",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0003",
+            "aliases": [
+              "mound"
+            ],
+            "pos": "n.",
+            "phonetic": "/maʊnd/",
+            "frequency": null,
+            "sourceText": "mound",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:246"
+          }
+        ],
+        [
+          "algae",
+          "藻类（植物）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0004",
+            "aliases": [
+              "algae"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈældʒiː/",
+            "frequency": 1,
+            "sourceText": "algae",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:247"
+          }
+        ],
+        [
+          "take……for granted",
+          "认为…理所当然",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0005",
+            "aliases": [
+              "take……for granted"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "take……for granted",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:248"
+          }
+        ],
+        [
+          "pine cone",
+          "松果，松球",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0006",
+            "aliases": [
+              "pine cone"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "pine cone",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:249"
+          }
+        ],
+        [
+          "tile",
+          "瓦片",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0007",
+            "aliases": [
+              "tile"
+            ],
+            "pos": "n.",
+            "phonetic": "/taɪl/",
+            "frequency": null,
+            "sourceText": "tile",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:250"
+          }
+        ],
+        [
+          "architect",
+          "建筑师",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0008",
+            "aliases": [
+              "architect"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈɑːkɪtekt/",
+            "frequency": 3,
+            "sourceText": "architect",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:251"
+          }
+        ],
+        [
+          "mimic",
+          "模仿",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0009",
+            "aliases": [
+              "mimic"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈmɪmɪk/",
+            "frequency": null,
+            "sourceText": "mimic",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:252"
+          }
+        ],
+        [
+          "waterfront",
+          "滨水地区",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0010",
+            "aliases": [
+              "waterfront"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈwɔːtərfrʌnt/",
+            "frequency": null,
+            "sourceText": "waterfront",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:253"
+          }
+        ],
+        [
+          "promenade",
+          "滨海步行道",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0011",
+            "aliases": [
+              "promenade"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌprɒməˈnɑːd/",
+            "frequency": null,
+            "sourceText": "promenade",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:254"
+          }
+        ],
+        [
+          "plumbing",
+          "管道系统",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0012",
+            "aliases": [
+              "plumbing"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈplʌmɪŋ/",
+            "frequency": null,
+            "sourceText": "plumbing",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:255"
+          }
+        ],
+        [
+          "superb",
+          "极好的，出色的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0013",
+            "aliases": [
+              "superb"
+            ],
+            "pos": "adj.",
+            "phonetic": "/suːˈpɜːb/",
+            "frequency": 1,
+            "sourceText": "superb",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:256"
+          }
+        ],
+        [
+          "biomimicry",
+          "仿生学",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0014",
+            "aliases": [
+              "biomimicry"
+            ],
+            "pos": "n.",
+            "phonetic": "/'bi:əʊˈmɪmɪkri/",
+            "frequency": null,
+            "sourceText": "biomimicry",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:257"
+          }
+        ],
+        [
+          "dioxide",
+          "二氧化物",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0015",
+            "aliases": [
+              "dioxide"
+            ],
+            "pos": "n.",
+            "phonetic": "/daɪˈɒksaɪd/",
+            "frequency": 3,
+            "sourceText": "dioxide",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:258"
+          }
+        ],
+        [
+          "convert",
+          "使转变；使转换",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0016",
+            "aliases": [
+              "convert"
+            ],
+            "pos": "v.",
+            "phonetic": "/kənˈvɜːt/",
+            "frequency": 1,
+            "sourceText": "convert",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:259"
+          }
+        ],
+        [
+          "frontier",
+          "知识、物理学等的前沿",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0017",
+            "aliases": [
+              "frontier"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈfrʌntɪə(r)/",
+            "frequency": 1,
+            "sourceText": "frontier",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:260"
+          }
+        ],
+        [
+          "pond",
+          "池塘",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0018",
+            "aliases": [
+              "pond"
+            ],
+            "pos": "n.",
+            "phonetic": "/pɒnd/",
+            "frequency": 3,
+            "sourceText": "pond",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:261"
+          }
+        ],
+        [
+          "sow",
+          "播（种）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0019",
+            "aliases": [
+              "sow"
+            ],
+            "pos": "v.",
+            "phonetic": "/səʊ/",
+            "frequency": 1,
+            "sourceText": "sow",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:262"
+          }
+        ],
+        [
+          "wisdom",
+          "智慧",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0020",
+            "aliases": [
+              "wisdom"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈwɪzdəm/",
+            "frequency": 3,
+            "sourceText": "wisdom",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:263"
+          }
+        ],
+        [
+          "seek solutions to",
+          "寻求解决方法",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0021",
+            "aliases": [
+              "seek solutions to"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "seek solutions to",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:264"
+          }
+        ],
+        [
+          "take inspiration from",
+          "从…中获取灵感",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0022",
+            "aliases": [
+              "take inspiration from"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "take inspiration from",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:265"
+          }
+        ],
+        [
+          "employ",
+          "使用，运用",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0023",
+            "aliases": [
+              "employ"
+            ],
+            "pos": "v.",
+            "phonetic": "/ɪmˈplɔɪ/",
+            "frequency": 4,
+            "sourceText": "employ",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:266"
+          }
+        ],
+        [
+          "bat",
+          "蝙蝠",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0024",
+            "aliases": [
+              "bat"
+            ],
+            "pos": "n.",
+            "phonetic": "/bæt/",
+            "frequency": 3,
+            "sourceText": "bat",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:267"
+          }
+        ],
+        [
+          "echo-location",
+          "回声定位",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0025",
+            "aliases": [
+              "echo-location"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈekəʊləʊˈkeɪʃn/",
+            "frequency": null,
+            "sourceText": "echo-location",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:268"
+          }
+        ],
+        [
+          "radar",
+          "雷达",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0026",
+            "aliases": [
+              "radar"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈreɪdɑː(r)/",
+            "frequency": null,
+            "sourceText": "radar",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:269"
+          }
+        ],
+        [
+          "swimsuit",
+          "游泳衣",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0027",
+            "aliases": [
+              "swimsuit"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈswɪmsuːt/",
+            "frequency": null,
+            "sourceText": "swimsuit",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:270"
+          }
+        ],
+        [
+          "dragonfly",
+          "蜻蜓",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0028",
+            "aliases": [
+              "dragonfly"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈdræɡənflaɪ/",
+            "frequency": null,
+            "sourceText": "dragonfly",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:271"
+          }
+        ],
+        [
+          "drone",
+          "无人驾驶飞机",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0029",
+            "aliases": [
+              "drone"
+            ],
+            "pos": "n.",
+            "phonetic": "/drəʊn/",
+            "frequency": null,
+            "sourceText": "drone",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:272"
+          }
+        ],
+        [
+          "spider",
+          "蜘蛛",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0030",
+            "aliases": [
+              "spider"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈspaɪdə(r)/",
+            "frequency": 1,
+            "sourceText": "spider",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:273"
+          }
+        ],
+        [
+          "physician",
+          "医生",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0031",
+            "aliases": [
+              "physician"
+            ],
+            "pos": "n.",
+            "phonetic": "/fɪˈzɪʃn/",
+            "frequency": 1,
+            "sourceText": "physician",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:274"
+          }
+        ],
+        [
+          "superficially",
+          "表面（上）的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0032",
+            "aliases": [
+              "superficially"
+            ],
+            "pos": "adv.",
+            "phonetic": "/ˌsu:pə'fɪʃəlɪ/",
+            "frequency": null,
+            "sourceText": "superficially",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:275"
+          }
+        ],
+        [
+          "bow",
+          "鞠躬",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0033",
+            "aliases": [
+              "bow"
+            ],
+            "pos": "v.",
+            "phonetic": "/baʊ/",
+            "frequency": 2,
+            "sourceText": "bow",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:276"
+          }
+        ],
+        [
+          "rural",
+          "农村的，乡村的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0034",
+            "aliases": [
+              "rural"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈrʊərəl/",
+            "frequency": 3,
+            "sourceText": "rural",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:277"
+          }
+        ],
+        [
+          "decent",
+          "可接受的，相当好的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0035",
+            "aliases": [
+              "decent"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈdiːsnt/",
+            "frequency": 1,
+            "sourceText": "decent",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:278"
+          }
+        ],
+        [
+          "cottage",
+          "乡村小屋",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0036",
+            "aliases": [
+              "cottage"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈkɒtɪdʒ/",
+            "frequency": 3,
+            "sourceText": "cottage",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:279"
+          }
+        ],
+        [
+          "deliberately",
+          "不慌不忙地，从容不迫地",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0037",
+            "aliases": [
+              "deliberately"
+            ],
+            "pos": "adv.",
+            "phonetic": "/dɪˈlɪbərətli/",
+            "frequency": 1,
+            "sourceText": "deliberately",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:280"
+          }
+        ],
+        [
+          "withdraw",
+          "退出",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0038",
+            "aliases": [
+              "withdraw"
+            ],
+            "pos": "v.",
+            "phonetic": "/wɪðˈdrɔː/",
+            "frequency": 3,
+            "sourceText": "withdraw",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:281"
+          }
+        ],
+        [
+          "domestic",
+          "驯养的；家养的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0039",
+            "aliases": [
+              "domestic"
+            ],
+            "pos": "adj.",
+            "phonetic": "/dəˈmestɪk/",
+            "frequency": 3,
+            "sourceText": "domestic",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:282"
+          }
+        ],
+        [
+          "depressive",
+          "抑郁的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0040",
+            "aliases": [
+              "depressive"
+            ],
+            "pos": "adj.",
+            "phonetic": "/dɪˈpresɪv/",
+            "frequency": null,
+            "sourceText": "depressive",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:283"
+          }
+        ],
+        [
+          "reluctant",
+          "不情愿的；勉强的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0041",
+            "aliases": [
+              "reluctant"
+            ],
+            "pos": "adj.",
+            "phonetic": "/rɪˈlʌktənt/",
+            "frequency": 1,
+            "sourceText": "reluctant",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:284"
+          }
+        ],
+        [
+          "depart",
+          "离开",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0042",
+            "aliases": [
+              "depart"
+            ],
+            "pos": "v.",
+            "phonetic": "/dɪˈpɑːt/",
+            "frequency": 2,
+            "sourceText": "depart",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:285"
+          }
+        ],
+        [
+          "lane",
+          "（乡间的）小路",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0043",
+            "aliases": [
+              "lane"
+            ],
+            "pos": "n.",
+            "phonetic": "/leɪn/",
+            "frequency": 2,
+            "sourceText": "lane",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:286"
+          }
+        ],
+        [
+          "atop",
+          "在…顶上",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0044",
+            "aliases": [
+              "atop"
+            ],
+            "pos": "prep.",
+            "phonetic": "/əˈtɒp/",
+            "frequency": null,
+            "sourceText": "atop",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:287"
+          }
+        ],
+        [
+          "mulberry",
+          "桑葚；桑树",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0045",
+            "aliases": [
+              "mulberry"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈmʌlbəri/",
+            "frequency": null,
+            "sourceText": "mulberry",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:288"
+          }
+        ],
+        [
+          "purity",
+          "纯洁；洁净",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0046",
+            "aliases": [
+              "purity"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈpjʊərɪti/",
+            "frequency": null,
+            "sourceText": "purity",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:289"
+          }
+        ],
+        [
+          "resign",
+          "使自己顺从于（做）某事；安于",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0047",
+            "aliases": [
+              "resign"
+            ],
+            "pos": "v.",
+            "phonetic": "/rɪˈzaɪn/",
+            "frequency": 1,
+            "sourceText": "resign",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:290"
+          }
+        ],
+        [
+          "botanical",
+          "植物（学）的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0048",
+            "aliases": [
+              "botanical"
+            ],
+            "pos": "adj.",
+            "phonetic": "/bəˈtænɪkl/",
+            "frequency": 1,
+            "sourceText": "botanical",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:291"
+          }
+        ],
+        [
+          "reject",
+          "冷落，嫌弃，厌弃",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0049",
+            "aliases": [
+              "reject"
+            ],
+            "pos": "v.",
+            "phonetic": "/rɪˈdʒekt/",
+            "frequency": 2,
+            "sourceText": "reject",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:292"
+          }
+        ],
+        [
+          "ease",
+          "舒适，悠闲",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0050",
+            "aliases": [
+              "ease"
+            ],
+            "pos": "n.",
+            "phonetic": "/iːz/",
+            "frequency": 3,
+            "sourceText": "ease",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:293"
+          }
+        ],
+        [
+          "at ease with",
+          "不拘束，放松",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0051",
+            "aliases": [
+              "at ease with"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "at ease with",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:294"
+          }
+        ],
+        [
+          "attain",
+          "获得，得到",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0052",
+            "aliases": [
+              "attain"
+            ],
+            "pos": "v.",
+            "phonetic": "/əˈteɪn/",
+            "frequency": 1,
+            "sourceText": "attain",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:295"
+          }
+        ],
+        [
+          "fulfilment",
+          "满足（感）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0053",
+            "aliases": [
+              "fulfilment"
+            ],
+            "pos": "n.",
+            "phonetic": "/fʊlˈfɪlmənt/",
+            "frequency": null,
+            "sourceText": "fulfilment",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:296"
+          }
+        ],
+        [
+          "evaluate",
+          "评估，评价",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_5:0054",
+            "aliases": [
+              "evaluate"
+            ],
+            "pos": "v.",
+            "phonetic": "/ɪˈvæljueɪt/",
+            "frequency": 1,
+            "sourceText": "evaluate",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:297"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Unit 6",
+      "words": [
+        [
+          "weekly",
+          "一周一次的，每周的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0001",
+            "aliases": [
+              "weekly"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈwiːkli/",
+            "frequency": 3,
+            "sourceText": "weekly",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:298"
+          }
+        ],
+        [
+          "inspector",
+          "检查员，巡视员",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0002",
+            "aliases": [
+              "inspector"
+            ],
+            "pos": "n.",
+            "phonetic": "/ɪnˈspektə(r)/",
+            "frequency": null,
+            "sourceText": "inspector",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:299"
+          }
+        ],
+        [
+          "insist",
+          "坚称，坚决认为",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0003",
+            "aliases": [
+              "insist"
+            ],
+            "pos": "v.",
+            "phonetic": "/ɪnˈsɪst/",
+            "frequency": 4,
+            "sourceText": "insist",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:300"
+          }
+        ],
+        [
+          "secrecy",
+          "保密，秘密状态",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0004",
+            "aliases": [
+              "secrecy"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈsiːkrəsi/",
+            "frequency": null,
+            "sourceText": "secrecy",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:301"
+          }
+        ],
+        [
+          "shaving",
+          "刮胡子",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0005",
+            "aliases": [
+              "shaving"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈʃeɪvɪŋ/",
+            "frequency": null,
+            "sourceText": "shaving",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:302"
+          }
+        ],
+        [
+          "flush",
+          "（使）发红",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0006",
+            "aliases": [
+              "flush"
+            ],
+            "pos": "v.",
+            "phonetic": "/flʌʃ/",
+            "frequency": null,
+            "sourceText": "flush",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:303"
+          }
+        ],
+        [
+          "plum",
+          "李子；梅子",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0007",
+            "aliases": [
+              "plum"
+            ],
+            "pos": "n.",
+            "phonetic": "/plʌm/",
+            "frequency": null,
+            "sourceText": "plum",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:304"
+          }
+        ],
+        [
+          "faintly",
+          "微弱地，模糊地",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0008",
+            "aliases": [
+              "faintly"
+            ],
+            "pos": "adv.",
+            "phonetic": "/'feɪntli/",
+            "frequency": null,
+            "sourceText": "faintly",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:305"
+          }
+        ],
+        [
+          "dispose",
+          "排列，布置",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0009",
+            "aliases": [
+              "dispose"
+            ],
+            "pos": "v.",
+            "phonetic": "/dɪˈspəʊz/",
+            "frequency": 2,
+            "sourceText": "dispose",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:306"
+          }
+        ],
+        [
+          "sparkle",
+          "闪耀，闪光",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0010",
+            "aliases": [
+              "sparkle"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈspɑːkl/",
+            "frequency": null,
+            "sourceText": "sparkle",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:307"
+          }
+        ],
+        [
+          "prospect",
+          "开阔的景观，景色",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0011",
+            "aliases": [
+              "prospect"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈprɒspek/",
+            "frequency": 1,
+            "sourceText": "prospect",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:308"
+          }
+        ],
+        [
+          "redden",
+          "（使）变红",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0012",
+            "aliases": [
+              "redden"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈredn/",
+            "frequency": null,
+            "sourceText": "redden",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:309"
+          }
+        ],
+        [
+          "glare",
+          "刺眼的强光",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0013",
+            "aliases": [
+              "glare"
+            ],
+            "pos": "n.",
+            "phonetic": "/ɡleə(r)/",
+            "frequency": 2,
+            "sourceText": "glare",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:310"
+          }
+        ],
+        [
+          "flake",
+          "小薄片",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0014",
+            "aliases": [
+              "flake"
+            ],
+            "pos": "n.",
+            "phonetic": "/fleɪk/",
+            "frequency": null,
+            "sourceText": "flake",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:311"
+          }
+        ],
+        [
+          "bend",
+          "变弯曲",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0015",
+            "aliases": [
+              "bend"
+            ],
+            "pos": "v.",
+            "phonetic": "/bend/",
+            "frequency": 4,
+            "sourceText": "bend",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:312"
+          }
+        ],
+        [
+          "weathercock",
+          "（公鸡形）风标",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0016",
+            "aliases": [
+              "weathercock"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈweðəkɒk/",
+            "frequency": null,
+            "sourceText": "weathercock",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:313"
+          }
+        ],
+        [
+          "church",
+          "教堂",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0017",
+            "aliases": [
+              "church"
+            ],
+            "pos": "n.",
+            "phonetic": "/tʃɜːrtʃ/",
+            "frequency": 4,
+            "sourceText": "church",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:314"
+          }
+        ],
+        [
+          "rhyme",
+          "儿歌，童谣",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0018",
+            "aliases": [
+              "rhyme"
+            ],
+            "pos": "n.",
+            "phonetic": "/raɪm/",
+            "frequency": 1,
+            "sourceText": "rhyme",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:315"
+          }
+        ],
+        [
+          "alabaster",
+          "雪花石膏",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0019",
+            "aliases": [
+              "alabaster"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈæləbɑːstə(r)/",
+            "frequency": null,
+            "sourceText": "alabaster",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:316"
+          }
+        ],
+        [
+          "goose",
+          "鹅",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0020",
+            "aliases": [
+              "goose"
+            ],
+            "pos": "n.",
+            "phonetic": "/ɡuːs/",
+            "frequency": 2,
+            "sourceText": "goose",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:317"
+          }
+        ],
+        [
+          "feather",
+          "羽毛",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0021",
+            "aliases": [
+              "feather"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈfeðər/",
+            "frequency": 2,
+            "sourceText": "feather",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:318"
+          }
+        ],
+        [
+          "innocent",
+          "天真无邪的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0022",
+            "aliases": [
+              "innocent"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈɪnəsnt/",
+            "frequency": 2,
+            "sourceText": "innocent",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:319"
+          }
+        ],
+        [
+          "enhance",
+          "改进；增强",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0023",
+            "aliases": [
+              "enhance"
+            ],
+            "pos": "v.",
+            "phonetic": "/ɪnˈhɑːns/",
+            "frequency": 2,
+            "sourceText": "enhance",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:320"
+          }
+        ],
+        [
+          "bloom",
+          "开花",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0024",
+            "aliases": [
+              "bloom"
+            ],
+            "pos": "v.",
+            "phonetic": "/bluːm/",
+            "frequency": 2,
+            "sourceText": "bloom",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:321"
+          }
+        ],
+        [
+          "charm",
+          "魅力，魔力",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0025",
+            "aliases": [
+              "charm"
+            ],
+            "pos": "n.",
+            "phonetic": "/tʃɑːm/",
+            "frequency": 2,
+            "sourceText": "charm",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:322"
+          }
+        ],
+        [
+          "bleak",
+          "阴冷的；阴郁的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0026",
+            "aliases": [
+              "bleak"
+            ],
+            "pos": "adj.",
+            "phonetic": "/bliːk/",
+            "frequency": null,
+            "sourceText": "bleak",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:323"
+          }
+        ],
+        [
+          "fade",
+          "逐渐消失；褪色",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0027",
+            "aliases": [
+              "fade"
+            ],
+            "pos": "v.",
+            "phonetic": "/feɪd/",
+            "frequency": 2,
+            "sourceText": "fade",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:324"
+          }
+        ],
+        [
+          "orchard",
+          "果园",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0028",
+            "aliases": [
+              "orchard"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈɔːrtʃəd/",
+            "frequency": null,
+            "sourceText": "orchard",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:325"
+          }
+        ],
+        [
+          "cluster",
+          "串，丛，簇",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0029",
+            "aliases": [
+              "cluster"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈklʌstə(r)/",
+            "frequency": null,
+            "sourceText": "cluster",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:326"
+          }
+        ],
+        [
+          "wheat",
+          "小麦",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0030",
+            "aliases": [
+              "wheat"
+            ],
+            "pos": "n.",
+            "phonetic": "/wiːt/",
+            "frequency": 2,
+            "sourceText": "wheat",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:327"
+          }
+        ],
+        [
+          "pile",
+          "堆放，摞起",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0031",
+            "aliases": [
+              "pile"
+            ],
+            "pos": "v.",
+            "phonetic": "/paɪl/",
+            "frequency": 4,
+            "sourceText": "pile",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:328"
+          }
+        ],
+        [
+          "gentle",
+          "轻柔的；温和的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0032",
+            "aliases": [
+              "gentle"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈdʒentl/",
+            "frequency": 3,
+            "sourceText": "gentle",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:329"
+          }
+        ],
+        [
+          "sweep",
+          "吹过，掠过",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0033",
+            "aliases": [
+              "sweep"
+            ],
+            "pos": "v.",
+            "phonetic": "/swiːp/",
+            "frequency": 3,
+            "sourceText": "sweep",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:330"
+          }
+        ],
+        [
+          "tinge",
+          "着淡色于…",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0034",
+            "aliases": [
+              "tinge"
+            ],
+            "pos": "v.",
+            "phonetic": "/tɪndʒ/",
+            "frequency": null,
+            "sourceText": "tinge",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:331"
+          }
+        ],
+        [
+          "wagon",
+          "四轮运货车",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0035",
+            "aliases": [
+              "wagon"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈwæɡən/",
+            "frequency": 2,
+            "sourceText": "wagon",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:332"
+          }
+        ],
+        [
+          "reap",
+          "收割；（庄稼）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0036",
+            "aliases": [
+              "reap"
+            ],
+            "pos": "v.",
+            "phonetic": "/riːp/",
+            "frequency": null,
+            "sourceText": "reap",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:333"
+          }
+        ],
+        [
+          "ban",
+          "禁止，取缔",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0037",
+            "aliases": [
+              "ban"
+            ],
+            "pos": "v.",
+            "phonetic": "/bæn/",
+            "frequency": 3,
+            "sourceText": "ban",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:334"
+          }
+        ],
+        [
+          "puzzled",
+          "困惑的，无法理解的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0038",
+            "aliases": [
+              "puzzled"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈpʌzld/",
+            "frequency": 3,
+            "sourceText": "puzzled",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:335"
+          }
+        ],
+        [
+          "backyard",
+          "后院",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0039",
+            "aliases": [
+              "backyard"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌbækˈjɑːd/",
+            "frequency": null,
+            "sourceText": "backyard",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:336"
+          }
+        ],
+        [
+          "moribund",
+          "垂死的，奄奄一息的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0040",
+            "aliases": [
+              "moribund"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈmɒrɪbʌnd/",
+            "frequency": null,
+            "sourceText": "moribund",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:337"
+          }
+        ],
+        [
+          "tremble",
+          "颤抖，发抖",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0041",
+            "aliases": [
+              "tremble"
+            ],
+            "pos": "v.",
+            "phonetic": "/ˈtrembl/",
+            "frequency": 2,
+            "sourceText": "tremble",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:338"
+          }
+        ],
+        [
+          "throb",
+          "生机勃勃；热闹",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0042",
+            "aliases": [
+              "throb"
+            ],
+            "pos": "v.",
+            "phonetic": "/θrɒb/",
+            "frequency": null,
+            "sourceText": "throb",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:339"
+          }
+        ],
+        [
+          "chorus",
+          "合唱曲",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0043",
+            "aliases": [
+              "chorus"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈkɔːrəs/",
+            "frequency": 2,
+            "sourceText": "chorus",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:340"
+          }
+        ],
+        [
+          "robin",
+          "知更鸟",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0044",
+            "aliases": [
+              "robin"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈrɒbɪn/",
+            "frequency": null,
+            "sourceText": "robin",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:341"
+          }
+        ],
+        [
+          "catbird",
+          "猫鹊",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0045",
+            "aliases": [
+              "catbird"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈkætbɜːd/",
+            "frequency": null,
+            "sourceText": "catbird",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:342"
+          }
+        ],
+        [
+          "dove",
+          "鸽子",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0046",
+            "aliases": [
+              "dove"
+            ],
+            "pos": "n.",
+            "phonetic": "/dʌv/",
+            "frequency": 1,
+            "sourceText": "dove",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:343"
+          }
+        ],
+        [
+          "jay",
+          "松鸭",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0047",
+            "aliases": [
+              "jay"
+            ],
+            "pos": "n.",
+            "phonetic": "/dʒeɪ/",
+            "frequency": null,
+            "sourceText": "jay",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:344"
+          }
+        ],
+        [
+          "wren",
+          "鹪鹩（一种褐色小鸟）",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0048",
+            "aliases": [
+              "wren"
+            ],
+            "pos": "n.",
+            "phonetic": "/ren/",
+            "frequency": null,
+            "sourceText": "wren",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:345"
+          }
+        ],
+        [
+          "marsh",
+          "沼泽，湿地",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0049",
+            "aliases": [
+              "marsh"
+            ],
+            "pos": "n.",
+            "phonetic": "/mɑːʃ/",
+            "frequency": null,
+            "sourceText": "marsh",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:346"
+          }
+        ],
+        [
+          "fable",
+          "寓言",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0050",
+            "aliases": [
+              "fable"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈfeɪbl/",
+            "frequency": null,
+            "sourceText": "fable",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:347"
+          }
+        ],
+        [
+          "alert",
+          "提醒，使（某人）意识到",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0051",
+            "aliases": [
+              "alert"
+            ],
+            "pos": "v.",
+            "phonetic": "/əˈlɜːt/",
+            "frequency": null,
+            "sourceText": "alert",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:348"
+          }
+        ],
+        [
+          "knowingly",
+          "故意地",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0052",
+            "aliases": [
+              "knowingly"
+            ],
+            "pos": "adv.",
+            "phonetic": "/ˈnəʊɪŋli/",
+            "frequency": null,
+            "sourceText": "knowingly",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:349"
+          }
+        ],
+        [
+          "gypsy moth",
+          "舞毒蛾",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0053",
+            "aliases": [
+              "gypsy moth"
+            ],
+            "pos": "",
+            "phonetic": "",
+            "frequency": null,
+            "sourceText": "gypsy moth",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:350"
+          }
+        ],
+        [
+          "dozen",
+          "一打；许多",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0054",
+            "aliases": [
+              "dozen"
+            ],
+            "pos": "number",
+            "phonetic": "/ˈdʌzn/",
+            "frequency": 4,
+            "sourceText": "dozen",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:351"
+          }
+        ],
+        [
+          "thorough",
+          "仔细的，缜密的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0055",
+            "aliases": [
+              "thorough"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈθʌrə/",
+            "frequency": 2,
+            "sourceText": "thorough",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:352"
+          }
+        ],
+        [
+          "precise",
+          "精确的；一丝不苟的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0056",
+            "aliases": [
+              "precise"
+            ],
+            "pos": "adj.",
+            "phonetic": "/prɪˈsaɪs/",
+            "frequency": 1,
+            "sourceText": "precise",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:353"
+          }
+        ],
+        [
+          "launch",
+          "推出，发起",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0057",
+            "aliases": [
+              "launch"
+            ],
+            "pos": "n.",
+            "phonetic": "/lɔːntʃ/",
+            "frequency": 3,
+            "sourceText": "launch",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:354"
+          }
+        ],
+        [
+          "posthumous",
+          "死后获得的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0058",
+            "aliases": [
+              "posthumous"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈpɒstjʊməs/",
+            "frequency": null,
+            "sourceText": "posthumous",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:355"
+          }
+        ],
+        [
+          "marine",
+          "海洋的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0059",
+            "aliases": [
+              "marine"
+            ],
+            "pos": "adj.",
+            "phonetic": "/məˈriːn/",
+            "frequency": null,
+            "sourceText": "marine",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:356"
+          }
+        ],
+        [
+          "reputation",
+          "名誉，名望",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0060",
+            "aliases": [
+              "reputation"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˌrepjuˈteɪʃn/",
+            "frequency": 3,
+            "sourceText": "reputation",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:357"
+          }
+        ],
+        [
+          "elegance",
+          "优美；简洁",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0061",
+            "aliases": [
+              "elegance"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈɛləgəns/",
+            "frequency": null,
+            "sourceText": "elegance",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:358"
+          }
+        ],
+        [
+          "passionate",
+          "具有强烈信念的",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0062",
+            "aliases": [
+              "passionate"
+            ],
+            "pos": "adj.",
+            "phonetic": "/ˈpæʃənət/",
+            "frequency": null,
+            "sourceText": "passionate",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:359"
+          }
+        ],
+        [
+          "diamond",
+          "钻石",
+          {
+            "wordId": "senior_selective_3:senior_selective_3_unit_6:0063",
+            "aliases": [
+              "diamond"
+            ],
+            "pos": "n.",
+            "phonetic": "/ˈdaɪəmənd/",
+            "frequency": 2,
+            "sourceText": "diamond",
+            "sourceRef": "高中英语外研版（2019）选择性必修第三册单词表（带词频）.xlsx!Sheet1:360"
+          }
+        ]
+      ]
+    }
+  ],
+  "book": "选择性必修第三册"
+}
